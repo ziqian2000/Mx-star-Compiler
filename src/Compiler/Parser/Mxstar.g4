@@ -87,7 +87,7 @@ expression
 	|   '(' expression')'                                           						#SubExpr
 	|   expression '.' Identifier                                   						#MemberAccessExpr
 	|   array=expression '[' index=expression ']'                   						#SubscriptExpr
-	|   expression '(' paraList ')'                            						#FunctionCallExpr
+	|   expression '(' paraList? ')'                            						    #FunctionCallExpr
 	|   'new' creator                                               						#NewExpr
 //  --------------- Unary Operation Expressions
 	|   expression op=('++' | '--')                                 						#PostfixOpExpr
