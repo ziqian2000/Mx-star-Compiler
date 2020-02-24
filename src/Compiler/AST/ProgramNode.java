@@ -6,11 +6,11 @@ import java.util.List;
 
 public class ProgramNode extends BaseNode {
 
-    private List<DeclNode> decls;
+    private List<DeclNode> declList;
 
     public ProgramNode(Position position, List<DeclNode> decls){
         super(position);
-        this.decls = decls;
+        this.declList = decls;
     }
 
     public void accept(ASTVisitor visitor) {

@@ -1,11 +1,11 @@
 package Compiler;
 
+import Compiler.AST.ASTBuilder;
 import Compiler.Parser.MxstarLexer;
 import Compiler.Parser.MxstarParser;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.Token;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.FileInputStream;
@@ -21,9 +21,12 @@ public class Main {
         MxstarParser mxstarParser = new MxstarParser(commonTokenStream);
         ParseTree parseTree = mxstarParser.program();
 
-        for(Token t: commonTokenStream.getTokens()){
-            System.out.println(t);
-        }
+        ASTBuilder astBuilder = new ASTBuilder();
+        astBuilder.visit(parseTree);
+
+//        for(Token t: commonTokenStream.getTokens()){
+//            System.out.println(t);
+//        }
 
     }
 }

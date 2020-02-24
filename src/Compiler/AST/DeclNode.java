@@ -1,5 +1,11 @@
 package Compiler.AST;
 
-public class DeclNode extends BaseNode{
-    // TODO: many things to do...
+import Compiler.utils.Position;
+
+public abstract class DeclNode extends BaseNode{
+
+    DeclNode(Position position){
+        super(position);
+    }
+
 }

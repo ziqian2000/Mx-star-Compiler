@@ -121,9 +121,9 @@ creator
 
 constant
 	:   IntegerConstant                                             						#IntegerConstant
-	|   StringConstant                                              						#IntegerConstant
-	|   NullConstant                                                						#IntegerConstant
-	|   BoolConstant                                                						#IntegerConstant
+	|   StringConstant                                              						#StringConstant
+	|   NullConstant                                                						#NullConstant
+	|   BoolConstant                                                						#BoolConstant
 	;
 
 //  --------------------------------------------------- Reserved Words

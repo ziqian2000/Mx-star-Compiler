@@ -14,6 +14,6 @@ public abstract class BaseNode {
         return position;
     }
 
-    public abstract void accept(ASTVisitor visitor);
+    public abstract void accept(ASTVisitor astVisitor);
 
 }
