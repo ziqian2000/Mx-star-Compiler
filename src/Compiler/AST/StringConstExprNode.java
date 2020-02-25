@@ -1,7 +1,7 @@
 package Compiler.AST;
 
 import Compiler.SemanticAnalysis.ASTVisitor;
-import Compiler.utils.Position;
+import Compiler.Utils.Position;
 
 public class StringConstExprNode extends ConstNode {
 

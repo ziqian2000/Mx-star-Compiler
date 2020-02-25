@@ -3,7 +3,7 @@ package Compiler.SemanticAnalysis;
 import Compiler.AST.*;
 
 public interface ASTVisitor {
-    
+
     void visit(ProgramNode node);
     void visit(IntTypeNode node);
     void visit(VoidTypeNode node);

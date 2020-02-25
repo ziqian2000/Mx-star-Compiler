@@ -3,7 +3,7 @@ package Compiler.SemanticAnalysis;
 import Compiler.AST.*;
 import Compiler.Parser.MxstarBaseVisitor;
 import Compiler.Parser.MxstarParser;
-import Compiler.utils.Position;
+import Compiler.Utils.Position;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayList;

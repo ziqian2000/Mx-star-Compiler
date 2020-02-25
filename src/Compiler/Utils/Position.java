@@ -1,4 +1,4 @@
-package Compiler.utils;
+package Compiler.Utils;
 
 import org.antlr.v4.runtime.Token;
 
