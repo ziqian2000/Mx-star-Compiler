@@ -1,36 +1,25 @@
-int main() {
-    if (vvvvvv()) { }
-    else {
-        int i = vvwvvv();
-        for ( ; !vvvvvv() && vvvvvv() || vvvvvv(); i < vvwvvv()) {
-            println("hahaha");
-        }
-        vvvvwv();
-    }
-    return (vwvvvv() + toString(vvwvvv())).parseInt();
+
+int n;
+int r;
+int c;
+int i;
+int j;
+int abs(int c){
+    if(c>0) return c;
+    return -c;
 }
 
-bool vvvvvv() {
-    if (vwvvvv() >= vwvvvv() && vwvvvv() <= vwvvvv()) {
-        return toString(vvwvvv()) == vwvvvv();
-    }
-    return vwvvvv() != vwvvvv();
-}
-
-void vvvvwv() {
-    int tmp = vvwvvv();
-    if ((vvwvvv() ^ vwvvvv().parseInt()) > -(++tmp) || (vvvvvv() == (vwvvvv() + vwvvvv() >= vwvvvv()))) {
-        for ( ; ; ) {
-            break;
-        }
-    }
-    return;
-}
-
-string vwvvvv() {
-    return getString();
-}
-
-int vvwvvv() {
-    return vwvvvv().parseInt() % vwvvvv().parseInt();
+int main()
+{
+	// int n,r,c,i,j;
+	for (i=0;i<5;i++)
+		for (j=0;j<5;j++)
+		{
+            n = getInt();
+		//scanf("%d", &n);
+		if (n==1)
+		{r=i;c=j;}}
+    printInt(abs(2-r) + abs(2-c));
+	// printf("%d",abs(2-r)+abs(2-c));
+	return 0;
 }

@@ -20,6 +20,10 @@ public class VarDeclNode extends DeclNode {
 		this.type = type;
 	}
 
+	public String getIdentifier(){
+		return identifier;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

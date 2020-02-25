@@ -18,6 +18,10 @@ public class ClassDeclNode extends DeclNode {
 		this.varDeclList = varDeclList;
 	}
 
+	public String getIdentifier(){
+		return identifier;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

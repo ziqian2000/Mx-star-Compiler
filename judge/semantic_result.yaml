@@ -1,4 +1,5 @@
-- {case: ./basic-package/basic-25.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-25.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-40.mx, stage: semantic, stderr: "line 2:4 mismatched\
     \ input 'void' expecting {'{', '}', '(', '++', '--', '+', '-', '!', '~', 'int',\
     \ 'bool', 'string', 'if', 'for', 'while', 'break', 'continue', 'return', 'new',\
@@ -18,35 +19,48 @@
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.Main.main(Main.java:25)\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-11.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-50.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-50.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-64.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-35.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-15.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-35.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-15.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-44.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-70.mx, stage: semantic, stderr: 'line 2:27 mismatched
     input '']'' expecting {''('', ''++'', ''--'', ''+'', ''-'', ''!'', ''~'', ''new'',
     ''this'', IntegerConstant, StringConstant, NullConstant, BoolConstant, Identifier}
 
-    ', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-21.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-31.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-21.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-31.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-60.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-54.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-14.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-54.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-14.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-45.mx, stage: semantic, stderr: 'line 2:8 mismatched
     input ''void'' expecting {''int'', ''bool'', ''string'', Identifier}
 
-    ', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-20.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-30.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-61.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-20.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-30.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-61.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-55.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-24.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-24.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-41.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-10.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-51.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-51.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-5.mx, stage: semantic, stderr: "line 3:1 extraneous\
     \ input 'void' expecting {'{', '}', '(', '++', '--', '+', '-', '!', '~', 'int',\
     \ 'bool', 'string', 'if', 'for', 'while', 'break', 'continue', 'return', 'new',\
@@ -72,14 +86,15 @@
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.Main.main(Main.java:25)\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-65.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-34.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-34.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-46.mx, stage: semantic, stderr: 'line 10:4 extraneous
     input ''void'' expecting {''{'', ''}'', ''('', ''++'', ''--'', ''+'', ''-'', ''!'',
     ''~'', ''int'', ''bool'', ''string'', ''if'', ''for'', ''while'', ''break'', ''continue'',
     ''return'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
     BoolConstant, Identifier}
 
-    ', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
 - {case: ./basic-package/basic-17.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-23.mx, stage: semantic, stderr: 'line 2:4 extraneous
     input ''void'' expecting {''{'', ''}'', ''('', ''++'', ''--'', ''+'', ''-'', ''!'',
@@ -87,23 +102,34 @@
     ''return'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
     BoolConstant, Identifier}
 
-    ', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
 - {case: ./basic-package/basic-62.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-33.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-33.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-56.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-27.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-13.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-42.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-52.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-27.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-13.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-42.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-52.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-71.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-37.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-37.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-66.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-26.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-12.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-43.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-26.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-12.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-43.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-53.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-36.mx, stage: semantic, stderr: 'line 19:227 mismatched
     input '']'' expecting {''('', ''++'', ''--'', ''+'', ''-'', ''!'', ''~'', ''new'',
@@ -117,13 +143,17 @@
     ''!'', ''~'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
     BoolConstant, Identifier}
 
-    ', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-67.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-67.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-47.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-16.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-22.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-16.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-22.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-63.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-32.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-32.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-57.mx, stage: semantic, stderr: 'line 2:4 missing ''{''
     at ''int''
@@ -140,17 +170,23 @@
 
     line 4:34 missing '';'' at ''right''
 
-    ', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-29.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-68.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-39.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-29.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-68.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-39.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-8.mx, stage: semantic, stderr: 'line 3:10 mismatched
     input ''this'' expecting Identifier
 
-    ', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-19.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-48.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-58.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-19.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-48.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./basic-package/basic-58.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./basic-package/basic-18.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-49.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-59.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -171,61 +207,70 @@
     \ Compiler.Parser.MxstarParser$ProgramContext.accept(MxstarParser.java:130)\n\t\
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.Main.main(Main.java:25)\n", stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-9.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-9.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./builtin-func-package/builtin-4.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Accepted}
+  verdict: Wrong Answer}
 - {case: ./builtin-func-package/builtin-1.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Accepted}
 - {case: ./builtin-func-package/builtin-2.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Accepted}
 - {case: ./builtin-func-package/builtin-3.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Accepted}
-- {case: ./if-package/if-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./if-package/if-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./if-package/if-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+  verdict: Wrong Answer}
+- {case: ./if-package/if-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./if-package/if-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./if-package/if-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./breakcontinue-package/breakcontinue-3.mx, stage: semantic, stderr: '',
   stdout: '', verdict: Accepted}
 - {case: ./breakcontinue-package/breakcontinue-2.mx, stage: semantic, stderr: '',
-  stdout: '', verdict: Accepted}
+  stdout: '', verdict: Wrong Answer}
 - {case: ./breakcontinue-package/breakcontinue-1.mx, stage: semantic, stderr: '',
-  stdout: '', verdict: Accepted}
+  stdout: '', verdict: Wrong Answer}
 - {case: ./breakcontinue-package/breakcontinue-5.mx, stage: semantic, stderr: '',
-  stdout: '', verdict: Accepted}
+  stdout: '', verdict: Wrong Answer}
 - {case: ./breakcontinue-package/breakcontinue-4.mx, stage: semantic, stderr: '',
-  stdout: '', verdict: Accepted}
+  stdout: '', verdict: Wrong Answer}
 - {case: ./expression-package/expression-5.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Accepted}
+  verdict: Wrong Answer}
 - {case: ./expression-package/expression-1.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Accepted}
+  verdict: Wrong Answer}
 - {case: ./expression-package/expression-4.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Accepted}
+  verdict: Wrong Answer}
 - {case: ./expression-package/expression-3.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Accepted}
 - {case: ./expression-package/expression-2.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Accepted}
 - {case: ./array-package/array-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./array-package/array-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./array-package/array-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./array-package/array-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./array-package/array-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./array-package/array-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./array-package/array-9.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./array-package/array-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./array-package/array-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./array-package/array-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./array-package/array-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./array-package/array-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./array-package/array-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./loop-package/loop-3.mx, stage: semantic, stderr: 'line 4:10 mismatched
     input '';'' expecting {''{'', ''('', ''++'', ''--'', ''+'', ''-'', ''!'', ''~'',
     ''int'', ''bool'', ''string'', ''if'', ''for'', ''while'', ''break'', ''continue'',
     ''return'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
     BoolConstant, Identifier}
 
-    ', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
 - {case: ./loop-package/loop-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./loop-package/loop-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./loop-package/loop-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./string-package/string-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./symbol-package/symbol-7.mx, stage: semantic, stderr: 'line 2:4 no viable
     alternative at input ''intthis''
 
-    ', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
 - {case: ./symbol-package/symbol-3.mx, stage: semantic, stderr: "line 3:8 mismatched\
     \ input '123' expecting {'[', Identifier}\nException in thread \"main\" java.lang.NullPointerException\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitSingleVariable(ASTBuilder.java:70)\n\
@@ -264,7 +309,7 @@
 - {case: ./symbol-package/symbol-2.mx, stage: semantic, stderr: 'line 3:8 token recognition
     error at: ''_''
 
-    ', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
 - {case: ./symbol-package/symbol-6.mx, stage: semantic, stderr: "line 3:9 mismatched\
     \ input 'this' expecting Identifier\nException in thread \"main\" java.lang.NullPointerException\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:49)\n\
@@ -321,23 +366,29 @@
     \ Compiler.Parser.MxstarParser$ProgramContext.accept(MxstarParser.java:130)\n\t\
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.Main.main(Main.java:25)\n", stdout: '', verdict: Accepted}
-- {case: ./symbol-package/symbol-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./symbol-package/symbol-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./function-package/function-3.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Accepted}
+  verdict: Wrong Answer}
 - {case: ./function-package/function-2.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Accepted}
+  verdict: Wrong Answer}
 - {case: ./function-package/function-1.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Accepted}
+  verdict: Wrong Answer}
 - {case: ./class-package/class-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./class-package/class-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./class-package/class-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./class-package/class-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./class-package/class-11.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./class-package/class-10.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./class-package/class-14.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./class-package/class-10.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./class-package/class-14.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./class-package/class-9.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./class-package/class-13.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./class-package/class-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./class-package/class-12.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./class-package/class-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./class-package/class-12.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./class-package/class-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./class-package/class-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./class-package/class-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -363,12 +414,14 @@
 - {case: ./misc-package/misc-22.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-16.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-32.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-32.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./misc-package/misc-11.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-25.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-35.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-21.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-15.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-15.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./misc-package/misc-31.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-20.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-14.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -462,12 +515,14 @@
 - {case: ./misc-package/misc-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./scope-package/scope-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./scope-package/scope-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./scope-package/scope-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./scope-package/scope-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./scope-package/scope-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./scope-package/scope-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-4.mx, stage: semantic, stderr: 'line 7:11 mismatched
     input '';'' expecting {''{'', ''('', ''++'', ''--'', ''+'', ''-'', ''!'', ''~'',
@@ -480,7 +535,7 @@
     ''break'', ''continue'', ''return'', ''new'', ''this'', IntegerConstant, StringConstant,
     NullConstant, BoolConstant, Identifier}
 
-    ', stdout: '', verdict: Accepted}
+    ', stdout: '', verdict: Wrong Answer}
 - {case: ./codeforces-package/1145A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./codeforces-package/399A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./codeforces-package/4A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}

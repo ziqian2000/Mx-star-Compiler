@@ -18,6 +18,10 @@ public class FuncDeclNode extends DeclNode {
 		this.bodyStmt = bodyStmt;
 	}
 
+	public String getIdentifier(){
+		return identifier;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}
