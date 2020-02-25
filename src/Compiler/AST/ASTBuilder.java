@@ -15,8 +15,8 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
         if(ctx.declaration() != null){
             for(ParserRuleContext decl : ctx.declaration()){
                 BaseNode declNode = visit(decl);
-                // TODO: check if it is a variable declaration containing multiple declarations in one line
-                declList.add((DeclNode)declNode);
+                if(declNode instanceof VarDeclListNode) declList.addAll(((VarDeclListNode)declNode).getVarList());
+                else declList.add((DeclNode)declNode);
             }
         }
         return new ProgramNode(new Position(ctx.getStart()), declList);
@@ -86,7 +86,7 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
     }
 
     @Override public BaseNode visitParaList(MxstarParser.ParaListContext ctx) {
-        // inaccessible
+        // inaccessible method
         return null;
     }
 
@@ -189,9 +189,10 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
     @Override public BaseNode visitFunctionCallExpr(MxstarParser.FunctionCallExprContext ctx) {
         ExprNode function = (ExprNode) visit(ctx.expression());
         List<ExprNode> paraList = new ArrayList<>();
-        for(ParserRuleContext expr : ctx.paraList().expression()){
-            paraList.add((ExprNode) visit(expr));
-        }
+        if(ctx.paraList() != null)
+            for(ParserRuleContext expr : ctx.paraList().expression()){
+                paraList.add((ExprNode) visit(expr));
+            }
         return new FuncCallExprNode(new Position(ctx.getStart()), function, paraList);
     }
 
@@ -236,7 +237,7 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
     }
 
     @Override public BaseNode visitPostfixOpExpr(MxstarParser.PostfixOpExprContext ctx) {
-        UnaryExprNode opr = (UnaryExprNode) visit(ctx.expression());
+        ExprNode opr = (ExprNode) visit(ctx.expression());
         UnaryExprNode.Op op;
         switch (ctx.op.getText()){
             case "++" : op = UnaryExprNode.Op.POS_INC; break;
