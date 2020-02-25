@@ -153,9 +153,9 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
 
     @Override public BaseNode visitForStmt(MxstarParser.ForStmtContext ctx) {
         return new ForStmtNode(new Position(ctx.getStart()),
-                                (ExprNode) visit(ctx.init),
-                                (ExprNode) visit(ctx.cond),
-                                (ExprNode) visit(ctx.step),
+                                ctx.init != null ? (ExprNode) visit(ctx.init) : null,
+                                ctx.cond != null ? (ExprNode) visit(ctx.cond) : null,
+                                ctx.step != null ? (ExprNode) visit(ctx.step) : null,
                                 (StmtNode) visit(ctx.statement()));
     }
 
@@ -249,7 +249,7 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
     }
 
     @Override public BaseNode visitUnaryOpExpr(MxstarParser.UnaryOpExprContext ctx) {
-        UnaryExprNode opr = (UnaryExprNode) visit(ctx.expression());
+        ExprNode opr = (ExprNode) visit(ctx.expression());
         UnaryExprNode.Op op;
         switch (ctx.op.getText()){
             case "++" : op = UnaryExprNode.Op.PRE_INC; break;
