@@ -1,0 +1,1 @@
+java -cp .:antlr-4.8-complete.jar Compiler.Main

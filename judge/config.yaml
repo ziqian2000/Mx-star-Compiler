@@ -1,0 +1,8 @@
+buildlimit: 5
+instlimit: 100000
+memlimit: 512
+path:
+  compiler: /mnt/c/Users/runzhe/IdeaProjects/Compiler/judge
+  dataset: /mnt/c/Users/runzhe/IdeaProjects/Compiler/judge/testcase
+stage: semantic
+timelimit: 15
