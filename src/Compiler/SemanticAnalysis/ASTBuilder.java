@@ -1,5 +1,6 @@
-package Compiler.AST;
+package Compiler.SemanticAnalysis;
 
+import Compiler.AST.*;
 import Compiler.Parser.MxstarBaseVisitor;
 import Compiler.Parser.MxstarParser;
 import Compiler.utils.Position;

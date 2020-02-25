@@ -1,6 +1,6 @@
 package Compiler;
 
-import Compiler.AST.ASTBuilder;
+import Compiler.SemanticAnalysis.ASTBuilder;
 import Compiler.Parser.MxstarLexer;
 import Compiler.Parser.MxstarParser;
 import org.antlr.v4.runtime.CharStream;

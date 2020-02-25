@@ -1,5 +1,6 @@
 package Compiler.AST;
 
+import Compiler.SemanticAnalysis.ASTVisitor;
 import Compiler.utils.Position;
 
 public class BoolTypeNode extends BasicTypeNode {

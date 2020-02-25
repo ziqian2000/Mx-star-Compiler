@@ -1,8 +1,7 @@
 package Compiler.AST;
 
+import Compiler.SemanticAnalysis.ASTVisitor;
 import Compiler.utils.Position;
-
-import java.util.List;
 
 public class FuncDeclNode extends DeclNode {
 
