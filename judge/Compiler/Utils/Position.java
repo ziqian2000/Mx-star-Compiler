@@ -18,4 +18,8 @@ public class Position {
         return this.column;
     }
 
+    public String toString(){
+        return line + ":" + column;
+    }
+
 }

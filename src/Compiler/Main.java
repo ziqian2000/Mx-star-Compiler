@@ -1,11 +1,10 @@
 package Compiler;
 
 import Compiler.AST.BaseNode;
-import Compiler.SemanticAnalysis.ASTBuilder;
+import Compiler.SemanticAnalysis.*;
 import Compiler.Parser.MxstarLexer;
 import Compiler.Parser.MxstarParser;
-import Compiler.SemanticAnalysis.ClassDeclVisitor;
-import Compiler.SemanticAnalysis.Scope;
+import Compiler.SymbolTable.Scope;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -30,6 +29,9 @@ public class Main {
 
             Scope topScope = new Scope(null);
             astRoot.accept(new ClassDeclVisitor(topScope));
+            astRoot.accept(new GlobalFuncDeclVisitor(topScope));
+            astRoot.accept(new ClassMemberVisitor(topScope));
+//            astRoot.accept(new SymbolTableVisitor(topScope));
 
         }
         catch (Exception e){

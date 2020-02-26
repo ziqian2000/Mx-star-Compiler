@@ -16,6 +16,14 @@ public class VarDeclNode extends DeclNode {
 		this.expr = expr;
 	}
 
+	public String getIdentifier(){
+		return identifier;
+	}
+
+	public TypeNode getType() {
+		return type;
+	}
+
 	public void setType(TypeNode type){
 		this.type = type;
 	}

@@ -13,6 +13,14 @@ public class ArrayIdxExprNode extends ExprNode {
 		this.idx = idx;
 	}
 
+	public ExprNode getArray() {
+		return array;
+	}
+
+	public ExprNode getIdx() {
+		return idx;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

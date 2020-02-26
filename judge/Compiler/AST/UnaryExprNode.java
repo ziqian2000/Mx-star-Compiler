@@ -21,6 +21,14 @@ public class UnaryExprNode extends ExprNode {
 		this.opr = opr;
 	}
 
+	public ExprNode getOpr() {
+		return opr;
+	}
+
+	public Op getOp() {
+		return op;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

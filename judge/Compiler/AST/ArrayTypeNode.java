@@ -12,6 +12,10 @@ public class ArrayTypeNode extends TypeNode {
 		this.type = typeNode;
 	}
 
+	public TypeNode getType() {
+		return type;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

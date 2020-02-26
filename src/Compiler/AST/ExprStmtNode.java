@@ -12,6 +12,10 @@ public class ExprStmtNode extends StmtNode{
 		this.expr = expr;
 	}
 
+	public ExprNode getExpr() {
+		return expr;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

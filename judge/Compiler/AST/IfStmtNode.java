@@ -15,6 +15,18 @@ public class IfStmtNode extends StmtNode {
 		this.elseStmt = elseStmt;
 	}
 
+	public ExprNode getCond() {
+		return cond;
+	}
+
+	public StmtNode getThenStmt() {
+		return thenStmt;
+	}
+
+	public StmtNode getElseStmt() {
+		return elseStmt;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

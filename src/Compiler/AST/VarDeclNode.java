@@ -16,12 +16,16 @@ public class VarDeclNode extends DeclNode {
 		this.expr = expr;
 	}
 
-	public void setType(TypeNode type){
-		this.type = type;
-	}
-
 	public String getIdentifier(){
 		return identifier;
+	}
+
+	public TypeNode getType() {
+		return type;
+	}
+
+	public void setType(TypeNode type){
+		this.type = type;
 	}
 
 	public void accept(ASTVisitor astVisitor){

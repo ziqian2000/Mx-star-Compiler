@@ -18,6 +18,22 @@ public class FuncDeclNode extends DeclNode {
 		this.bodyStmt = bodyStmt;
 	}
 
+	public String getIdentifier(){
+		return identifier;
+	}
+
+	public TypeNode getType() {
+		return type;
+	}
+
+	public VarDeclListNode getParaDeclList() {
+		return paraDeclList;
+	}
+
+	public StmtNode getBodyStmt() {
+		return bodyStmt;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

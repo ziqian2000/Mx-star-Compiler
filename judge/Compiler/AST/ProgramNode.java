@@ -14,6 +14,10 @@ public class ProgramNode extends BaseNode {
         this.declList = decls;
     }
 
+    public List<DeclNode> getDeclList(){
+        return declList;
+    }
+
     public void accept(ASTVisitor visitor) {
         visitor.visit(this);
     }

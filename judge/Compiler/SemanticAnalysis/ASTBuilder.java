@@ -16,7 +16,7 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
         if(ctx.declaration() != null){
             for(ParserRuleContext decl : ctx.declaration()){
                 BaseNode declNode = visit(decl);
-                if(declNode instanceof VarDeclListNode) declList.addAll(((VarDeclListNode)declNode).getVarList());
+                if(declNode instanceof VarDeclListNode) declList.addAll(((VarDeclListNode)declNode).getVarDeclNodeList());
                 else declList.add((DeclNode)declNode);
             }
         }
@@ -38,17 +38,19 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
             funcDeclList.add((FuncDeclNode)visit(decl));
         }
         for(ParserRuleContext decl : ctx.variableDecl()){
-            varDeclList.addAll(((VarDeclListNode)visit(decl)).getVarList());
+            varDeclList.addAll(((VarDeclListNode)visit(decl)).getVarDeclNodeList());
         }
         return new ClassDeclNode(new Position(ctx.getStart()), identifier, funcDeclList, varDeclList);
     }
 
     @Override public BaseNode visitFunctionDecl(MxstarParser.FunctionDeclContext ctx) {
+        CompStmtNode compStmtNode = (CompStmtNode) visit(ctx.compoundStmt());
+        compStmtNode.setFunctionBody(true);
         return new FuncDeclNode(new Position(ctx.getStart()),
                                 ctx.functionType() != null ? (TypeNode) visit(ctx.functionType()) : null,
                                 ctx.Identifier().getText(),
                                 ctx.paraDeclList() != null ? (VarDeclListNode) visit(ctx.paraDeclList()) : null,
-                                (StmtNode) visit(ctx.compoundStmt()));
+                                compStmtNode);
     }
 
     @Override public BaseNode visitVariableDecl(MxstarParser.VariableDeclContext ctx) {

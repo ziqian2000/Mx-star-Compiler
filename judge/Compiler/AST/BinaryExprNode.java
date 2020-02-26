@@ -23,6 +23,18 @@ public class BinaryExprNode extends ExprNode {
 		this.rhs = rhs;
 	}
 
+	public ExprNode getLhs() {
+		return lhs;
+	}
+
+	public ExprNode getRhs() {
+		return rhs;
+	}
+
+	public Op getOp() {
+		return op;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

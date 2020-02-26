@@ -8,6 +8,7 @@ import java.util.List;
 
 public class VarDeclListNode extends DeclNode {
 
+	TypeNode type;
 	List<VarDeclNode> varDeclNodeList;
 
 	public VarDeclListNode(Position position){
@@ -20,12 +21,17 @@ public class VarDeclListNode extends DeclNode {
 	}
 
 	public void setType(TypeNode type){
+		this.type = type;
 		for(VarDeclNode varDeclNode : varDeclNodeList){
 			varDeclNode.setType(type);
 		}
 	}
 
-	public List<VarDeclNode> getVarList(){
+	public TypeNode getType() {
+		return type;
+	}
+
+	public List<VarDeclNode> getVarDeclNodeList() {
 		return varDeclNodeList;
 	}
 

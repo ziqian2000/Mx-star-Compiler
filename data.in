@@ -1,13 +1,6 @@
-/*
-Test Package: Sema_Local_Preview
-Test Target: Basic
-Author: 16' Yuxi Liu
-Time: 2019-11-11
-Verdict: Success
-Origin Package: Semantic Pretest
-*/
+int vvvvvv(){}
 int main() {
-    for ( ; !vvvvvv() && vvvvvv() || vvvvvv(); i < vvwvvv()) {
+    for ( ; !vvvvvv() && vvvvvv() || vvvvvv(); i < vvvvvv()) {
         println("hahaha");
     }
 }
