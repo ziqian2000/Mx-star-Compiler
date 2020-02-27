@@ -6,10 +6,7 @@ import Compiler.SymbolTable.Symbol.ClassSymbol;
 import Compiler.SymbolTable.Symbol.FuncSymbol;
 import Compiler.SymbolTable.Symbol.Symbol;
 import Compiler.SymbolTable.Symbol.VarSymbol;
-import Compiler.SymbolTable.Type.ArrayType;
-import Compiler.SymbolTable.Type.ClassType;
-import Compiler.SymbolTable.Type.StringType;
-import Compiler.SymbolTable.Type.Type;
+import Compiler.SymbolTable.Type.*;
 import Compiler.Utils.SemanticException;
 
 public class SymbolTableVisitor implements ASTVisitor{
@@ -253,11 +250,118 @@ public class SymbolTableVisitor implements ASTVisitor{
 	public void visit(BinaryExprNode node){
 		node.getLhs().accept(this);
 		node.getRhs().accept(this);
+		Type lhsType = node.getLhs().getType();
+		Type rhsType = node.getRhs().getType();
+		switch (node.getOp()){
+			case ADD :
+				if(lhsType instanceof StringType
+						&& rhsType instanceof StringType)
+					node.setType(SymbolTableAssistant.stringType);
+				else
+				if(lhsType instanceof IntType
+						&& rhsType instanceof IntType)
+					node.setType(SymbolTableAssistant.intType);
+				else
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+				break;
+
+			case LT	 :
+			case LE :
+			case GT :
+			case GE :
+				if(lhsType instanceof StringType
+						&& rhsType instanceof StringType)
+					node.setType(SymbolTableAssistant.boolType);
+				else
+				if(lhsType instanceof IntType
+						&& rhsType instanceof IntType)
+					node.setType(SymbolTableAssistant.boolType);
+				else
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+				break;
+
+			case EQ :
+			case NEQ :
+				if(lhsType instanceof StringType
+						&& rhsType instanceof StringType)
+					node.setType(SymbolTableAssistant.boolType);
+				else
+				if(lhsType instanceof IntType
+						&& rhsType instanceof IntType)
+					node.setType(SymbolTableAssistant.boolType);
+				else
+				if(lhsType instanceof BoolType
+						&& rhsType instanceof BoolType)
+					node.setType(SymbolTableAssistant.boolType);
+				else
+				if(lhsType instanceof ArrayType
+						&& rhsType == SymbolTableAssistant.voidType)
+					node.setType(SymbolTableAssistant.boolType);
+				else
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+				break;
+
+			case SUB :
+			case MUL :
+			case DIV :
+			case MOD :
+			case SHL :
+			case SHR :
+			case AND :
+			case OR :
+			case XOR :
+				if(lhsType instanceof IntType
+						&& rhsType instanceof IntType)
+					node.setType(SymbolTableAssistant.intType);
+				else
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+				break;
+
+			case ASS :
+				if(lhsType instanceof ArrayType && rhsType instanceof VoidType)
+					node.setType(SymbolTableAssistant.voidType);
+				else
+				if(lhsType == rhsType && !(lhsType instanceof VoidType))
+					node.setType(lhsType);
+				else
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+				break;
+
+			case LAND :
+			case LOR :
+				if(lhsType instanceof BoolType
+						&& rhsType instanceof BoolType)
+					node.setType(SymbolTableAssistant.boolType);
+				else
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+				break;
+		}
 	}
 
 	public void visit(UnaryExprNode node){
 		node.getOpr().accept(this);
-	}
+		Type type = node.getOpr().getType();
+		switch (node.getOp()){
+			case POS_INC :
+			case POS_SUB :
+			case PRE_INC :
+			case PRE_SUB :
+			case PLU :
+			case NEG :
+			case COM :
+				if(type instanceof IntType)
+					node.setType(SymbolTableAssistant.intType);
+				else
+					throw new SemanticException(node.getPosition(), "wrong type argument '" + type.getIdentifier() + "' to '" + node.getOp() + "'");
+				break;
 
+			case NOT :
+				if(type instanceof BoolType)
+					node.setType(SymbolTableAssistant.boolType);
+				else
+					throw new SemanticException(node.getPosition(), "wrong type argument '" + type.getIdentifier() + "' to '" + node.getOp() + "'");
+				break;
+		}
+	}
 
 }

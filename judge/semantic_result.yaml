@@ -21,12 +21,12 @@
     \tat Compiler.Main.main(Main.java:27)\nnull\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-11.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-50.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [13:10][SemanticException]illegal access of class member : A\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:166)\n\
-    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:181)\n\
-    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ [13:10][SemanticException]illegal access of class member : A\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:163)\n\
+    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:178)\n\
+    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [13:10][SemanticException]illegal access of class member : A\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
@@ -39,16 +39,33 @@
     \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.GlobalFuncDeclVisitor.visit(GlobalFuncDeclVisitor.java:18)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:32)\n\
     [4:0][SemanticException]redefinition of function :main\n", stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-15.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-15.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [2:4][SemanticException]invalid operands of types 'void' and 'int' to some binary\
+    \ operator ASS\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:327)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [2:4][SemanticException]invalid operands of types 'void' and 'int' to some binary\
+    \ operator ASS\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-44.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-70.mx, stage: semantic, stderr: 'line 2:27 mismatched
     input '']'' expecting {''('', ''++'', ''--'', ''+'', ''-'', ''!'', ''~'', ''new'',
     ''this'', IntegerConstant, StringConstant, NullConstant, BoolConstant, Identifier}
 
     ', stdout: '', verdict: Wrong Answer}
-- {case: ./basic-package/basic-21.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-21.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [9:8][SemanticException]invalid operands of types 'A' and 'A' to some binary\
+    \ operator ADD\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:265)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:252)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [9:8][SemanticException]invalid operands of types 'A' and 'A' to some binary operator\
+    \ ADD\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-31.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-60.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -56,29 +73,37 @@
     Answer}
 - {case: ./basic-package/basic-14.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
     \ [2:4][SemanticException]undefined class : A\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.typeNode2VarType(SymbolTableAssistant.java:25)\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:39)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:33)\n\
-    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:246)\n\
-    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:36)\n\
+    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:30)\n\
+    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:243)\n\
+    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [2:4][SemanticException]undefined class : A\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-45.mx, stage: semantic, stderr: "line 2:8 mismatched\
     \ input 'void' expecting {'int', 'bool', 'string', Identifier}\njava.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     null\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-20.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [5:4][SemanticException]redeclaration of variable : c\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:41)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ [5:4][SemanticException]redeclaration of variable : c\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:38)\n\
+    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [5:4][SemanticException]redeclaration of variable : c\n", stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-30.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-30.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [14:4][SemanticException]invalid operands of types 'int' and 'A' to some binary\
+    \ operator ASS\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:327)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [14:4][SemanticException]invalid operands of types 'int' and 'A' to some binary\
+    \ operator ASS\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-61.mx, stage: semantic, stderr: 'line 2:0 missing '';''
     at ''int''
 
@@ -117,12 +142,12 @@
     \tat Compiler.Main.main(Main.java:27)\nnull\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-65.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-34.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [2:11][SemanticException]redeclaration of variable : x\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:41)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:33)\n\
-    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:246)\n\
-    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ [2:11][SemanticException]redeclaration of variable : x\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:38)\n\
+    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:30)\n\
+    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:243)\n\
+    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [2:11][SemanticException]redeclaration of variable : x\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-46.mx, stage: semantic, stderr: "line 10:4 extraneous\
@@ -130,12 +155,12 @@
     \ 'int', 'bool', 'string', 'if', 'for', 'while', 'break', 'continue', 'return',\
     \ 'new', 'this', IntegerConstant, StringConstant, NullConstant, BoolConstant,\
     \ Identifier}\nCompiler.Utils.SemanticException: [10:9][SemanticException]undeclared\
-    \ symbol : s\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:97)\n\
-    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:254)\n\
-    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ symbol : s\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:94)\n\
+    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:251)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [10:9][SemanticException]undeclared symbol : s\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-17.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -144,11 +169,11 @@
     \ 'int', 'bool', 'string', 'if', 'for', 'while', 'break', 'continue', 'return',\
     \ 'new', 'this', IntegerConstant, StringConstant, NullConstant, BoolConstant,\
     \ Identifier}\nCompiler.Utils.SemanticException: [2:9][SemanticException]undeclared\
-    \ symbol : a\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:97)\n\
-    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ symbol : a\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:94)\n\
+    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [2:9][SemanticException]undeclared symbol : a\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-62.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -168,13 +193,39 @@
     \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.GlobalFuncDeclVisitor.visit(GlobalFuncDeclVisitor.java:18)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:32)\n\
     [9:0][SemanticException]redefinition of function :x\n", stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
-- {case: ./basic-package/basic-52.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-6.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [7:2][SemanticException]invalid operands of types 'string' and 'int' to some\
+    \ binary operator ASS\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:327)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [7:2][SemanticException]invalid operands of types 'string' and 'int' to some binary\
+    \ operator ASS\n", stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-52.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [8:2][SemanticException]invalid operands of types 'bool' and 'int' to some binary\
+    \ operator ASS\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:327)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:46)\n\
+    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [8:2][SemanticException]invalid operands of types 'bool' and 'int' to some binary\
+    \ operator ASS\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-71.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-37.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-37.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [7:4][SemanticException]invalid operands of types 'int' and 'void' to some binary\
+    \ operator ASS\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:327)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [7:4][SemanticException]invalid operands of types 'int' and 'void' to some binary\
+    \ operator ASS\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-66.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-26.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
@@ -185,19 +236,25 @@
 - {case: ./basic-package/basic-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-53.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-36.mx, stage: semantic, stderr: 'line 19:227 mismatched
-    input '']'' expecting {''('', ''++'', ''--'', ''+'', ''-'', ''!'', ''~'', ''new'',
-    ''this'', IntegerConstant, StringConstant, NullConstant, BoolConstant, Identifier}
-
-    line 19:229 mismatched input '']'' expecting {''('', ''++'', ''--'', ''+'', ''-'',
-    ''!'', ''~'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
-    BoolConstant, Identifier}
-
-    line 19:231 mismatched input '']'' expecting {''('', ''++'', ''--'', ''+'', ''-'',
-    ''!'', ''~'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
-    BoolConstant, Identifier}
-
-    ', stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-36.mx, stage: semantic, stderr: "line 19:227 mismatched\
+    \ input ']' expecting {'(', '++', '--', '+', '-', '!', '~', 'new', 'this', IntegerConstant,\
+    \ StringConstant, NullConstant, BoolConstant, Identifier}\nline 19:229 mismatched\
+    \ input ']' expecting {'(', '++', '--', '+', '-', '!', '~', 'new', 'this', IntegerConstant,\
+    \ StringConstant, NullConstant, BoolConstant, Identifier}\nline 19:231 mismatched\
+    \ input ']' expecting {'(', '++', '--', '+', '-', '!', '~', 'new', 'this', IntegerConstant,\
+    \ StringConstant, NullConstant, BoolConstant, Identifier}\nCompiler.Utils.SemanticException:\
+    \ [15:16][SemanticException]invalid operands of types 'string' and 'string' to\
+    \ some binary operator SUB\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:317)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:251)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:194)\n\
+    \tat Compiler.AST.IfStmtNode.accept(IfStmtNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [15:16][SemanticException]invalid operands of types 'string' and 'string' to some\
+    \ binary operator SUB\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-67.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-47.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -210,8 +267,16 @@
 - {case: ./basic-package/basic-22.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-63.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-32.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-32.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [2:8][SemanticException]invalid operands of types 'string' and 'string' to some\
+    \ binary operator LAND\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:336)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:194)\n\
+    \tat Compiler.AST.IfStmtNode.accept(IfStmtNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [2:8][SemanticException]invalid operands of types 'string' and 'string' to some\
+    \ binary operator LAND\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-57.mx, stage: semantic, stderr: "line 2:4 missing '{'\
     \ at 'int'\nline 3:4 missing ';' at '\"I think I forget some thing...;\\n    print(\"\
@@ -219,16 +284,24 @@
     \ missing ';' at 'be'\nline 4:39 token recognition error at: '\")\\n}'\nline 4:34\
     \ missing ';' at 'right'\nCompiler.Utils.SemanticException: [4:11][SemanticException]undefined\
     \ class : but\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.typeNode2VarType(SymbolTableAssistant.java:25)\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:39)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:33)\n\
-    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:246)\n\
-    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:36)\n\
+    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:30)\n\
+    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:243)\n\
+    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [4:11][SemanticException]undefined class : but\n", stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-29.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-29.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [10:4][SemanticException]invalid operands of types 'int' and 'A' to some binary\
+    \ operator ASS\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:327)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [10:4][SemanticException]invalid operands of types 'int' and 'A' to some binary\
+    \ operator ASS\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-68.mx, stage: semantic, stderr: 'line 18:12 extraneous
     input ''('' expecting Identifier
 
@@ -248,12 +321,12 @@
 
     ', stdout: '', verdict: Wrong Answer}
 - {case: ./basic-package/basic-39.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [7:0][SemanticException]undeclared symbol : i\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:97)\n\
-    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:254)\n\
-    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ [7:0][SemanticException]undeclared symbol : i\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:94)\n\
+    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:251)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [7:0][SemanticException]undeclared symbol : i\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-8.mx, stage: semantic, stderr: "line 3:10 mismatched\
@@ -273,7 +346,16 @@
     Answer}
 - {case: ./basic-package/basic-18.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-49.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-59.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-59.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [5:8][SemanticException]invalid operands of types 'void' and 'void' to some\
+    \ binary operator EQ\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:301)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:194)\n\
+    \tat Compiler.AST.IfStmtNode.accept(IfStmtNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [5:8][SemanticException]invalid operands of types 'void' and 'void' to some binary\
+    \ operator EQ\n", stdout: '', verdict: Wrong Answer}
 - {case: ./basic-package/basic-28.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-69.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-38.mx, stage: semantic, stderr: "line 1:6 mismatched\
@@ -291,21 +373,21 @@
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.Main.main(Main.java:27)\nnull\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-9.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [3:1][SemanticException]undeclared symbol : a\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:97)\n\
-    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:254)\n\
-    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ [3:1][SemanticException]undeclared symbol : a\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:94)\n\
+    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:251)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [3:1][SemanticException]undeclared symbol : a\n", stdout: '', verdict: Accepted}
 - {case: ./builtin-func-package/builtin-4.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [7:4][SemanticException]undeclared symbol : size\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:136)\n\
-    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:179)\n\
-    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ [7:4][SemanticException]undeclared symbol : size\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:133)\n\
+    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:176)\n\
+    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [7:4][SemanticException]undeclared symbol : size\n", stdout: '', verdict: Accepted}
 - {case: ./builtin-func-package/builtin-1.mx, stage: semantic, stderr: '', stdout: '',
@@ -313,12 +395,12 @@
 - {case: ./builtin-func-package/builtin-2.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Accepted}
 - {case: ./builtin-func-package/builtin-3.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [7:4][SemanticException]undeclared symbol : size\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:136)\n\
-    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:179)\n\
-    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ [7:4][SemanticException]undeclared symbol : size\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:133)\n\
+    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:176)\n\
+    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [7:4][SemanticException]undeclared symbol : size\n", stdout: '', verdict: Accepted}
 - {case: ./if-package/if-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
@@ -337,8 +419,15 @@
   stdout: '', verdict: Wrong Answer}
 - {case: ./breakcontinue-package/breakcontinue-4.mx, stage: semantic, stderr: '',
   stdout: '', verdict: Wrong Answer}
-- {case: ./expression-package/expression-5.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Wrong Answer}
+- {case: ./expression-package/expression-5.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [3:4][SemanticException]wrong type argument 'string' to 'POS_INC'\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:355)\n\
+    \tat Compiler.AST.UnaryExprNode.accept(UnaryExprNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [3:4][SemanticException]wrong type argument 'string' to 'POS_INC'\n", stdout: '',
+  verdict: Accepted}
 - {case: ./expression-package/expression-1.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Wrong Answer}
 - {case: ./expression-package/expression-4.mx, stage: semantic, stderr: '', stdout: '',
@@ -350,19 +439,27 @@
 - {case: ./array-package/array-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./array-package/array-3.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
     \ [10:3][SemanticException]not array type : int\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.arrayTypeDimDecrease(SymbolTableAssistant.java:55)\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:172)\n\
-    \tat Compiler.AST.ArrayIdxExprNode.accept(ArrayIdxExprNode.java:25)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:254)\n\
-    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:213)\n\
-    \tat Compiler.AST.ForStmtNode.accept(ForStmtNode.java:36)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:213)\n\
-    \tat Compiler.AST.ForStmtNode.accept(ForStmtNode.java:36)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:169)\n\
+    \tat Compiler.AST.ArrayIdxExprNode.accept(ArrayIdxExprNode.java:25)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:251)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:210)\n\
+    \tat Compiler.AST.ForStmtNode.accept(ForStmtNode.java:36)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:210)\n\
+    \tat Compiler.AST.ForStmtNode.accept(ForStmtNode.java:36)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [10:3][SemanticException]not array type : int\n", stdout: '', verdict: Accepted}
 - {case: ./array-package/array-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./array-package/array-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./array-package/array-6.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [5:4][SemanticException]invalid operands of types 'int[3]' and 'int[2]' to some\
+    \ binary operator ASS\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:327)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [5:4][SemanticException]invalid operands of types 'int[3]' and 'int[2]' to some\
+    \ binary operator ASS\n", stdout: '', verdict: Accepted}
 - {case: ./array-package/array-9.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./array-package/array-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
@@ -477,22 +574,22 @@
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.Main.main(Main.java:27)\nnull\n", stdout: '', verdict: Accepted}
 - {case: ./symbol-package/symbol-4.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [4:8][SemanticException]redeclaration of variable : a\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:41)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:33)\n\
-    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:246)\n\
-    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ [4:8][SemanticException]redeclaration of variable : a\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:38)\n\
+    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:30)\n\
+    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:243)\n\
+    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [4:8][SemanticException]redeclaration of variable : a\n", stdout: '', verdict: Accepted}
 - {case: ./function-package/function-3.mx, stage: semantic, stderr: "java.lang.ClassCastException:\
     \ class Compiler.SymbolTable.Symbol.VarSymbol cannot be cast to class Compiler.SymbolTable.Symbol.FuncSymbol\
     \ (Compiler.SymbolTable.Symbol.VarSymbol and Compiler.SymbolTable.Symbol.FuncSymbol\
-    \ are in unnamed module of loader 'app')\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:184)\n\
-    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ are in unnamed module of loader 'app')\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:181)\n\
+    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     class Compiler.SymbolTable.Symbol.VarSymbol cannot be cast to class Compiler.SymbolTable.Symbol.FuncSymbol\
     \ (Compiler.SymbolTable.Symbol.VarSymbol and Compiler.SymbolTable.Symbol.FuncSymbol\
@@ -507,10 +604,17 @@
   verdict: Wrong Answer}
 - {case: ./class-package/class-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./class-package/class-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./class-package/class-4.mx, stage: semantic, stderr: 'line 11:0 missing '';''
-    at ''int''
-
-    ', stdout: '', verdict: Wrong Answer}
+- {case: ./class-package/class-4.mx, stage: semantic, stderr: "line 11:0 missing ';'\
+    \ at 'int'\nCompiler.Utils.SemanticException: [6:8][SemanticException]invalid\
+    \ operands of types 'A' and 'void' to some binary operator ASS\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:327)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:46)\n\
+    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [6:8][SemanticException]invalid operands of types 'A' and 'void' to some binary\
+    \ operator ASS\n", stdout: '', verdict: Accepted}
 - {case: ./class-package/class-11.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./class-package/class-10.mx, stage: semantic, stderr: "java.lang.NumberFormatException:\
     \ For input string: \"2147483648\"\n\tat java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)\n\
@@ -569,26 +673,24 @@
 - {case: ./misc-package/misc-29.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-19.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-6.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [74:6][SemanticException]invalid operands of types 'vector' and 'void' to some\
+    \ binary operator EQ\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:301)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:194)\n\
+    \tat Compiler.AST.IfStmtNode.accept(IfStmtNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:46)\n\
+    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [74:6][SemanticException]invalid operands of types 'vector' and 'void' to some\
+    \ binary operator EQ\n", stdout: '', verdict: Wrong Answer}
 - {case: ./misc-package/misc-18.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-28.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-23.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-17.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-9.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-33.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [29:17][SemanticException]illegal access of class member : substring\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:166)\n\
-    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:179)\n\
-    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:128)\n\
-    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:179)\n\
-    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:255)\n\
-    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:211)\n\
-    \tat Compiler.AST.ForStmtNode.accept(ForStmtNode.java:36)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
-    [29:17][SemanticException]illegal access of class member : substring\n", stdout: '',
-  verdict: Wrong Answer}
+- {case: ./misc-package/misc-33.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-13.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-27.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-37.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -601,21 +703,30 @@
 - {case: ./misc-package/misc-32.mx, stage: semantic, stderr: "line 52:24 extraneous\
     \ input '>' expecting {'(', '++', '--', '+', '-', '!', '~', 'new', 'this', IntegerConstant,\
     \ StringConstant, NullConstant, BoolConstant, Identifier}\nCompiler.Utils.SemanticException:\
-    \ [52:24][SemanticException]undeclared symbol : mint\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:97)\n\
-    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:255)\n\
-    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:254)\n\
-    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
-    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
-    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \ [52:24][SemanticException]undeclared symbol : mint\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:94)\n\
+    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:252)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:251)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
     [52:24][SemanticException]undeclared symbol : mint\n", stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-11.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-25.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-35.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-21.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-15.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./misc-package/misc-15.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [45:5][SemanticException]invalid operands of types 'int' and 'int[1]' to some\
+    \ binary operator ASS\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:327)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:210)\n\
+    \tat Compiler.AST.ForStmtNode.accept(ForStmtNode.java:36)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [45:5][SemanticException]invalid operands of types 'int' and 'int[1]' to some\
+    \ binary operator ASS\n", stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-31.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-20.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-14.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -632,8 +743,18 @@
 - {case: ./scope-package/scope-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./scope-package/scope-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./scope-package/scope-5.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [12:0][SemanticException]invalid operands of types 'int' and 'string' to some\
+    \ binary operator ASS\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:327)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:247)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:196)\n\
+    \tat Compiler.AST.IfStmtNode.accept(IfStmtNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:237)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:62)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:24)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [12:0][SemanticException]invalid operands of types 'int' and 'string' to some\
+    \ binary operator ASS\n", stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
