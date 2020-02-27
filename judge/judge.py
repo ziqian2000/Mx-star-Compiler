@@ -85,6 +85,7 @@ def runSemantic():
                 acceptedNum = acceptedNum + 1
                 judgeCaseResult['verdict'] = 'Accepted'
             elif process.returncode != 0 and (not expectedResult):
+            # elif not expectedResult:
                 print('{} == 2 ==[ ]==[√]== Accepted:{}.{}'.format(color_green, case, color_none))
                 acceptedNum = acceptedNum + 1
                 judgeCaseResult['verdict'] = 'Accepted'

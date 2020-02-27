@@ -24,6 +24,6 @@ public class GlobalFuncDeclVisitor extends ASTBaseVisitor {
 		if(scope.findSymbol(identifier) != null)
 			throw new SemanticException(node.getPosition(), "redefinition of function :" + identifier);
 		else
-			scope.addSymbol(identifier, new FuncSymbol(identifier, SymbolTableAssistant.TypeNode2VarType(scope, node.getType())));
+			scope.addSymbol(identifier, new FuncSymbol(identifier, SymbolTableAssistant.typeNode2VarType(scope, node.getType())));
 	}
 }

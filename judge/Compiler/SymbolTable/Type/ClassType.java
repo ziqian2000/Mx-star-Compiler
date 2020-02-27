@@ -13,4 +13,8 @@ public class ClassType extends Type {
 	public void setSelfSymbol(ClassSymbol classSymbol) {
 		this.selfSymbol = classSymbol;
 	}
+
+	public ClassSymbol getSelfSymbol() {
+		return selfSymbol;
+	}
 }

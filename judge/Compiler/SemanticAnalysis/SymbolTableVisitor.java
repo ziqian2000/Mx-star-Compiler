@@ -7,12 +7,12 @@ import Compiler.SymbolTable.Symbol.FuncSymbol;
 import Compiler.SymbolTable.Symbol.Symbol;
 import Compiler.SymbolTable.Symbol.VarSymbol;
 import Compiler.SymbolTable.Type.ArrayType;
+import Compiler.SymbolTable.Type.ClassType;
+import Compiler.SymbolTable.Type.StringType;
 import Compiler.SymbolTable.Type.Type;
 import Compiler.Utils.SemanticException;
 
-import java.util.List;
-
-public class SymbolTableVisitor extends ASTBaseVisitor{
+public class SymbolTableVisitor implements ASTVisitor{
 
 	private Scope scope;
 
@@ -36,8 +36,8 @@ public class SymbolTableVisitor extends ASTBaseVisitor{
 
 	public void visit(VarDeclNode node){
 		String identifier = node.getIdentifier();
-		Type type = SymbolTableAssistant.TypeNode2VarType(scope, node.getType());
-		if(scope.findSymbol(identifier) != null)
+		Type type = SymbolTableAssistant.typeNode2VarType(scope, node.getType());
+		if(scope.findLocalSymbol(identifier) != null)
 			throw new SemanticException(node.getPosition(), "redeclaration of variable : " + identifier);
 		else scope.addSymbol(identifier, new VarSymbol(identifier, type));
 	}
@@ -53,9 +53,10 @@ public class SymbolTableVisitor extends ASTBaseVisitor{
 	public void visit(FuncDeclNode node){
 		FuncSymbol funcSymbol = (FuncSymbol) scope.findSymbol(node.getIdentifier());
 		if(node.getType() != null) {
-			Type type = SymbolTableAssistant.TypeNode2VarType(scope, node.getType());
+			Type type = SymbolTableAssistant.typeNode2VarType(scope, node.getType());
 			funcSymbol.setRetType(type);
 		}
+		else funcSymbol.setRetType(null);
 		scope = new Scope(scope);
 		funcSymbol.setBodyScope(scope);
 		if(node.getParaDeclList() != null)
@@ -85,17 +86,26 @@ public class SymbolTableVisitor extends ASTBaseVisitor{
 		// inaccessible method
 	}
 
+	public void visit(ClassTypeNode node){
+		// nothing to do
+	}
+
 	public void visit(IdExprNode node){
 		String identifier = node.getIdentifier();
 		Symbol symbol = scope.findSymbol(identifier);
 		if(symbol == null || symbol instanceof ClassSymbol)
 			throw new SemanticException(node.getPosition(), "undeclared symbol : " + identifier);
 		else node.setSymbol(symbol);
+
+		if(symbol instanceof FuncSymbol) node.setType((((FuncSymbol)symbol).getRetType()));
+		else node.setType(((VarSymbol)symbol).getVarType());
 	}
 
 	public void visit(ThisExprNode node){
-		// nothing to do
-		// TODO: type?
+		ClassType currentClassType = scope.getCurrentClassType();
+		if(currentClassType == null)
+			throw new SemanticException(node.getPosition(), "'this' should be inside class");
+		else node.setType(currentClassType);
 	}
 
 	public void visit(IntConstExprNode node){
@@ -116,13 +126,53 @@ public class SymbolTableVisitor extends ASTBaseVisitor{
 
 	public void visit(MemberExprNode node){
 		node.getExpr().accept(this);
-		// TODO: identifier? type?
+		Type type = node.getExpr().getType();
+		String identifier = node.getIdentifier();
+		if(type instanceof ClassType){
+			ClassSymbol classSymbol = ((ClassType)type).getSelfSymbol();
+			Scope classScope = classSymbol.getBodyScope();
+			Symbol symbol = classScope.findClassLocalSymbol(identifier);
+			if(symbol == null)
+				throw new SemanticException(node.getPosition(), "undeclared symbol : " + identifier);
+			else{
+				node.setSymbol(symbol);
+				if(symbol instanceof VarSymbol) node.setType(((VarSymbol)symbol).getVarType());
+				else if(symbol instanceof FuncSymbol) node.setType(((FuncSymbol)symbol).getRetType());
+				else throw new SemanticException(node.getPosition(), "unrecognized identifier : " + identifier);
+			}
+		}
+		else if(type instanceof ArrayType){
+			Symbol symbol = SymbolTableAssistant.findArrayBuiltinFuncSymbol(identifier);
+			if(symbol == null)
+				throw new SemanticException(node.getPosition(), "undeclared symbol : " + identifier);
+			else{
+				node.setSymbol(symbol);
+				if(symbol instanceof VarSymbol) node.setType(((VarSymbol)symbol).getVarType());
+				else if(symbol instanceof FuncSymbol) node.setType(((FuncSymbol)symbol).getRetType());
+				else throw new SemanticException(node.getPosition(), "unrecognized identifier : " + identifier);
+			}
+		}
+		else if(type instanceof StringType){
+			Symbol symbol = SymbolTableAssistant.findStringBuiltinFuncSymbol(identifier);
+			if(symbol == null)
+				throw new SemanticException(node.getPosition(), "undeclared symbol : " + identifier);
+			else{
+				node.setSymbol(symbol);
+				if(symbol instanceof VarSymbol) node.setType(((VarSymbol)symbol).getVarType());
+				else if(symbol instanceof FuncSymbol) node.setType(((FuncSymbol)symbol).getRetType());
+				else throw new SemanticException(node.getPosition(), "unrecognized identifier : " + identifier);
+			}
+		}
+		else throw new SemanticException(node.getPosition(), "illegal access of class member : " + identifier);
 	}
 
 	public void visit(ArrayIdxExprNode node){
 		node.getArray().accept(this);
 		node.getIdx().accept(this);
-//		node.setType(SymbolTableAssistant.ArrayTypeDimDecrease(scope, node.getArray().getType(), 1, node));
+		node.setType(SymbolTableAssistant.arrayTypeDimDecrease(scope, node.getArray().getType(), 1, node));
+		if(!(node.getArray().getType() instanceof ArrayType)) {
+			throw new SemanticException(node.getPosition(), "illegal access of non-array type : " + node.getArray().getType().getIdentifier());
+		}
 	}
 
 	public void visit(FuncCallExprNode node){
@@ -135,15 +185,12 @@ public class SymbolTableVisitor extends ASTBaseVisitor{
 	}
 
 	public void visit(NewExprNode node){
-		Type type = SymbolTableAssistant.TypeNode2VarType(scope, node.getBaseType());
-		node.setType(type); // TODO: array type ?
-		for(ExprNode expr : node.getExprList()){
-			expr.accept(this);
-		}
-	}
-
-	public void visit(ClassTypeNode node){
-		// nothing to do
+		Type type = SymbolTableAssistant.typeNode2VarType(scope, node.getBaseType());
+		node.setType(SymbolTableAssistant.arrayTypeDimIncrease(scope, type, node.getDim(), node));
+		if(node.getExprList() != null)
+			for(ExprNode expr : node.getExprList()){
+				expr.accept(this);
+			}
 	}
 
 	public void visit(IfStmtNode node){
@@ -187,11 +234,12 @@ public class SymbolTableVisitor extends ASTBaseVisitor{
 	}
 
 	public void visit(CompStmtNode node){
-		if(!node.getFunctionBody()) scope = new Scope(scope);
-		for(StmtNode stmtNode : node.getStmtList()){
-			stmtNode.accept(this);
-		}
-		if(!node.getFunctionBody()) scope = scope.getUpperScope();
+		if(!node.getIsFunctionBody()) scope = new Scope(scope);
+		if(node.getStmtList() != null)
+			for(StmtNode stmtNode : node.getStmtList()){
+				stmtNode.accept(this);
+			}
+		if(!node.getIsFunctionBody()) scope = scope.getUpperScope();
 	}
 
 	public void visit(VarDeclStmtNode node){

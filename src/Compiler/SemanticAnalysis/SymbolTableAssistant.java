@@ -2,7 +2,7 @@ package Compiler.SemanticAnalysis;
 
 import Compiler.AST.*;
 import Compiler.SymbolTable.Scope;
-import Compiler.SymbolTable.Symbol.ClassSymbol;
+import Compiler.SymbolTable.Symbol.FuncSymbol;
 import Compiler.SymbolTable.Symbol.Symbol;
 import Compiler.SymbolTable.Type.*;
 import Compiler.Utils.SemanticException;
@@ -14,12 +14,15 @@ public class SymbolTableAssistant {
 	public static StringType stringType = new StringType();
 	public static VoidType voidType = new VoidType();
 
-	public static Type TypeNode2VarType(Scope scope, TypeNode node){
+	public static Scope stringBuiltinFuncScope = new Scope(null);
+	public static Scope arrayBuiltinFuncScope = new Scope(null);
+
+	public static Type typeNode2VarType(Scope scope, TypeNode node){
 		if(node instanceof ClassTypeNode){
 			String identifier = node.getIdentifier();
 			Type type = scope.findType(identifier);
 			if(type == null)
-				throw new SemanticException(node.getPosition(), "undefined class :" + identifier);
+				throw new SemanticException(node.getPosition(), "undefined class : " + identifier);
 			return type;
 		}
 		else if(node instanceof ArrayTypeNode){
@@ -28,10 +31,10 @@ public class SymbolTableAssistant {
 				dim++;
 				node = ((ArrayTypeNode) node).getType();
 			}
-			Type type = TypeNode2VarType(scope, node);
+			Type type = typeNode2VarType(scope, node);
 			String arrayIdentifier = type.toArrayString(dim);
 			ArrayType arrayType = (ArrayType)scope.findType(arrayIdentifier);
-			if(arrayIdentifier == null){
+			if(arrayType == null){
 				arrayType = new ArrayType(type, dim);
 				scope.addType(arrayIdentifier, arrayType);
 			}
@@ -46,7 +49,8 @@ public class SymbolTableAssistant {
 		}
 	}
 
-	public static Type ArrayTypeDimDecrease(Scope scope, Type preArrayType, int dimDecrease, ExprNode node){
+	public static Type arrayTypeDimDecrease(Scope scope, Type preArrayType, int dimDecrease, ExprNode node){
+		if(dimDecrease == 0) return preArrayType;
 		if(!(preArrayType instanceof ArrayType))
 			throw new SemanticException(node.getPosition(), "not array type : " + preArrayType.getIdentifier());
 		ArrayType arrayType = (ArrayType) preArrayType;
@@ -66,6 +70,55 @@ public class SymbolTableAssistant {
 			}
 			else return retArrayType;
 		}
+	}
+
+	public static Type arrayTypeDimIncrease(Scope scope, Type preType, int dimIncrease, ExprNode node){
+		if(dimIncrease == 0) return preType;
+		if(preType instanceof ArrayType){
+			ArrayType tmp = new ArrayType(((ArrayType)preType).getType(), ((ArrayType)preType).getDim() + dimIncrease);
+			ArrayType retArrayType = (ArrayType)scope.findType(tmp.getIdentifier());
+			if(retArrayType == null){
+				scope.addType(tmp.getIdentifier(), tmp);
+				return tmp;
+			}
+			else return retArrayType;
+		}
+		else{
+			ArrayType tmp = new ArrayType(preType, dimIncrease);
+			ArrayType retArrayType = (ArrayType)scope.findType(tmp.getIdentifier());
+			if(retArrayType == null){
+				scope.addType(tmp.getIdentifier(), tmp);
+				return tmp;
+			}
+			else return retArrayType;
+		}
+	}
+
+	public static void addBuiltinFunction(Scope scope){
+		scope.addSymbol("print", new FuncSymbol("print", voidType));
+		scope.addSymbol("println", new FuncSymbol("println", voidType));
+		scope.addSymbol("printInt", new FuncSymbol("printInt", voidType));
+		scope.addSymbol("printlnInt", new FuncSymbol("printlnInt", voidType));
+		scope.addSymbol("getString", new FuncSymbol("getString", stringType));
+		scope.addSymbol("getInt", new FuncSymbol("getInt", intType));
+		scope.addSymbol("toString", new FuncSymbol("toString", stringType));
+
+		// string
+		stringBuiltinFuncScope.addSymbol("length", new FuncSymbol("length", intType));
+		stringBuiltinFuncScope.addSymbol("substring", new FuncSymbol("substring", stringType));
+		stringBuiltinFuncScope.addSymbol("parseInt", new FuncSymbol("parseInt", intType));
+		stringBuiltinFuncScope.addSymbol("ord", new FuncSymbol("ord", intType));
+
+		// array
+		arrayBuiltinFuncScope.addSymbol("size", new FuncSymbol("size", intType));
+	}
+
+	public static Symbol findStringBuiltinFuncSymbol(String identifier){
+		return stringBuiltinFuncScope.findSymbol(identifier);
+	}
+
+	public static Symbol findArrayBuiltinFuncSymbol(String identifier){
+		return arrayBuiltinFuncScope.findSymbol(identifier);
 	}
 
 }

@@ -4,6 +4,7 @@ import Compiler.SymbolTable.Symbol.ClassSymbol;
 import Compiler.SymbolTable.Symbol.FuncSymbol;
 import Compiler.SymbolTable.Symbol.Symbol;
 import Compiler.SymbolTable.Symbol.VarSymbol;
+import Compiler.SymbolTable.Type.ClassType;
 import Compiler.SymbolTable.Type.StringType;
 import Compiler.SymbolTable.Type.Type;
 
@@ -13,8 +14,11 @@ import java.util.Map;
 public class Scope {
 
 	private Scope upperScope;
+
 	private Map<String, Symbol> symbolTable;
 	private Map<String, Type> typeTable;
+
+	private ClassType currentClassType;
 
 	public Scope(Scope upperScope){
 		this.upperScope = upperScope;
@@ -43,6 +47,11 @@ public class Scope {
 		return symbolTable.getOrDefault(identifier, null);
 	}
 
+	public Symbol findClassLocalSymbol(String identifier){ // search in class member variables and functions
+		if(upperScope.getCurrentClassType() != null) return upperScope.findClassLocalSymbol(identifier);
+		else return symbolTable.getOrDefault(identifier, null);
+	}
+
 	public Type findType(String identifier){
 		return typeTable.getOrDefault(identifier, null);
 	}
@@ -55,4 +64,13 @@ public class Scope {
 		typeTable.put(identifier, type);
 	}
 
+	public void setCurrentClassType(ClassType currentClassType) {
+		this.currentClassType = currentClassType;
+	}
+
+	public ClassType getCurrentClassType() {
+		if(currentClassType != null) return currentClassType;
+		else if(upperScope != null) return upperScope.getCurrentClassType();
+		else return null;
+	}
 }

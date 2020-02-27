@@ -147,6 +147,13 @@ public interface MxstarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitControlStmt(MxstarParser.ControlStmtContext ctx);
 	/**
+	 * Visit a parse tree produced by the {@code EmptyStmt}
+	 * labeled alternative in {@link MxstarParser#statement}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitEmptyStmt(MxstarParser.EmptyStmtContext ctx);
+	/**
 	 * Visit a parse tree produced by {@link MxstarParser#compoundStmt}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -279,19 +286,19 @@ public interface MxstarVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitArrayCreator(MxstarParser.ArrayCreatorContext ctx);
 	/**
-	 * Visit a parse tree produced by the {@code NArrayCreator}
-	 * labeled alternative in {@link MxstarParser#creator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitNArrayCreator(MxstarParser.NArrayCreatorContext ctx);
-	/**
 	 * Visit a parse tree produced by the {@code ClassCreator}
 	 * labeled alternative in {@link MxstarParser#creator}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
 	T visitClassCreator(MxstarParser.ClassCreatorContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code NArrayCreator}
+	 * labeled alternative in {@link MxstarParser#creator}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitNArrayCreator(MxstarParser.NArrayCreatorContext ctx);
 	/**
 	 * Visit a parse tree produced by the {@code IntegerConstant}
 	 * labeled alternative in {@link MxstarParser#constant}.

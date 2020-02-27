@@ -18,6 +18,10 @@ public class MemberExprNode extends ExprNode {
 		return expr;
 	}
 
+	public String getIdentifier() {
+		return identifier;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

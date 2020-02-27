@@ -11,4 +11,7 @@ public class VarSymbol extends Symbol {
 		this.varType = varType;
 	}
 
+	public Type getVarType() {
+		return varType;
+	}
 }

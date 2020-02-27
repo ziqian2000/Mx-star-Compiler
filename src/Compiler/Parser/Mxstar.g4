@@ -11,7 +11,7 @@ declaration
 	;
 
 classDecl
-	:   Class Identifier '{' (functionDecl | variableDecl)* '}'
+	:   Class Identifier '{' (functionDecl | variableDecl)* '}' ';'
 	;
 
 functionDecl
@@ -64,6 +64,7 @@ statement
 	|   variableDecl                                                                        #VarDeclStmt
 	|   expression ';'                                                                      #ExprStmt
 	|   controlStatement                                                                    #ControlStmt
+	|   ';'                                                                                 #EmptyStmt
 	;
 
 compoundStmt
@@ -115,8 +116,8 @@ expression
 
 creator
 	:   nonArrayType ('[' expression ']')+ ('[' ']')*               						#ArrayCreator
-	|   nonArrayType                                                						#NArrayCreator
 	|   nonArrayType '('  ')'                                       						#ClassCreator
+	|   nonArrayType                                                						#NArrayCreator
 	;
 
 constant
@@ -151,8 +152,10 @@ IntegerConstant
 	;
 
 StringConstant
-	:   '"' ('\\"' | .)*? '"'
+	:   '"' (Esc | .)*? '"'
 	;
+
+Esc : '\\"' | '\\\\';
 
 NullConstant
 	:   Null

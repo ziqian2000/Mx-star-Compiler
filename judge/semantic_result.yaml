@@ -1,14 +1,14 @@
 - {case: ./basic-package/basic-25.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-40.mx, stage: semantic, stderr: "line 2:4 mismatched\
-    \ input 'void' expecting {'{', '}', '(', '++', '--', '+', '-', '!', '~', 'int',\
-    \ 'bool', 'string', 'if', 'for', 'while', 'break', 'continue', 'return', 'new',\
-    \ 'this', IntegerConstant, StringConstant, NullConstant, BoolConstant, Identifier}\n\
-    line 2:8 mismatched input '[' expecting Identifier\njava.lang.NullPointerException\n\
+    \ input 'void' expecting {'{', '}', ';', '(', '++', '--', '+', '-', '!', '~',\
+    \ 'int', 'bool', 'string', 'if', 'for', 'while', 'break', 'continue', 'return',\
+    \ 'new', 'this', IntegerConstant, StringConstant, NullConstant, BoolConstant,\
+    \ Identifier}\nline 2:8 mismatched input '[' expecting Identifier\njava.lang.NullPointerException\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:47)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:328)\n\
+    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:330)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitDeclaration(ASTBuilder.java:28)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitDeclaration(ASTBuilder.java:12)\n\
@@ -18,15 +18,27 @@
     at Compiler.SemanticAnalysis.ASTBuilder.visitProgram(ASTBuilder.java:12)\n\tat\
     \ Compiler.Parser.MxstarParser$ProgramContext.accept(MxstarParser.java:130)\n\t\
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
-    \tat Compiler.Main.main(Main.java:28)\nnull\n", stdout: '', verdict: Accepted}
+    \tat Compiler.Main.main(Main.java:27)\nnull\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-11.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-50.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-50.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [13:10][SemanticException]illegal access of class member : A\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:166)\n\
+    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:181)\n\
+    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [13:10][SemanticException]illegal access of class member : A\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-64.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-35.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-35.mx, stage: semantic, stderr: "line 5:21 mismatched\
+    \ input ']' expecting {'(', '++', '--', '+', '-', '!', '~', 'new', 'this', IntegerConstant,\
+    \ StringConstant, NullConstant, BoolConstant, Identifier}\nCompiler.Utils.SemanticException:\
+    \ [4:0][SemanticException]redefinition of function :main\n\tat Compiler.SemanticAnalysis.GlobalFuncDeclVisitor.visit(GlobalFuncDeclVisitor.java:25)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.GlobalFuncDeclVisitor.visit(GlobalFuncDeclVisitor.java:18)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:32)\n\
+    [4:0][SemanticException]redefinition of function :main\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-15.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-44.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -39,27 +51,38 @@
     Answer}
 - {case: ./basic-package/basic-31.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
-- {case: ./basic-package/basic-60.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [11:1][SemanticException]undefined class :B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [11:1][SemanticException]undefined class :B\n", stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-60.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-54.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
-- {case: ./basic-package/basic-14.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
-- {case: ./basic-package/basic-45.mx, stage: semantic, stderr: 'line 2:8 mismatched
-    input ''void'' expecting {''int'', ''bool'', ''string'', Identifier}
-
-    ', stdout: '', verdict: Wrong Answer}
-- {case: ./basic-package/basic-20.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-14.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [2:4][SemanticException]undefined class : A\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.typeNode2VarType(SymbolTableAssistant.java:25)\n\
+    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:39)\n\
+    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:33)\n\
+    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:246)\n\
+    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [2:4][SemanticException]undefined class : A\n", stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-45.mx, stage: semantic, stderr: "line 2:8 mismatched\
+    \ input 'void' expecting {'int', 'bool', 'string', Identifier}\njava.lang.NullPointerException\n\
+    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    null\n", stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-20.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [5:4][SemanticException]redeclaration of variable : c\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:41)\n\
+    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [5:4][SemanticException]redeclaration of variable : c\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-30.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
-- {case: ./basic-package/basic-61.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-61.mx, stage: semantic, stderr: 'line 2:0 missing '';''
+    at ''int''
+
+    ', stdout: '', verdict: Wrong Answer}
 - {case: ./basic-package/basic-55.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-24.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
@@ -69,18 +92,19 @@
 - {case: ./basic-package/basic-51.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-5.mx, stage: semantic, stderr: "line 3:1 extraneous\
-    \ input 'void' expecting {'{', '}', '(', '++', '--', '+', '-', '!', '~', 'int',\
-    \ 'bool', 'string', 'if', 'for', 'while', 'break', 'continue', 'return', 'new',\
-    \ 'this', IntegerConstant, StringConstant, NullConstant, BoolConstant, Identifier}\n\
-    line 4:1 extraneous input 'void' expecting {'{', '}', '(', '++', '--', '+', '-',\
-    \ '!', '~', 'int', 'bool', 'string', 'if', 'for', 'while', 'break', 'continue',\
-    \ 'return', 'new', 'this', IntegerConstant, StringConstant, NullConstant, BoolConstant,\
-    \ Identifier}\nline 4:7 mismatched input ';' expecting {'(', ';', '=', '[', '.',\
-    \ '++', '--', '+', '-', '*', '/', '%', '<<', '>>', '<', '>', '<=', '>=', '==',\
-    \ '!=', '&', '^', '|', '&&', '||'}\njava.lang.NullPointerException\n\tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \ input 'void' expecting {'{', '}', ';', '(', '++', '--', '+', '-', '!', '~',\
+    \ 'int', 'bool', 'string', 'if', 'for', 'while', 'break', 'continue', 'return',\
+    \ 'new', 'this', IntegerConstant, StringConstant, NullConstant, BoolConstant,\
+    \ Identifier}\nline 4:1 extraneous input 'void' expecting {'{', '}', ';', '(',\
+    \ '++', '--', '+', '-', '!', '~', 'int', 'bool', 'string', 'if', 'for', 'while',\
+    \ 'break', 'continue', 'return', 'new', 'this', IntegerConstant, StringConstant,\
+    \ NullConstant, BoolConstant, Identifier}\nline 4:7 mismatched input ';' expecting\
+    \ {';', '(', '=', '[', '.', '++', '--', '+', '-', '*', '/', '%', '<<', '>>', '<',\
+    \ '>', '<=', '>=', '==', '!=', '&', '^', '|', '&&', '||'}\njava.lang.NullPointerException\n\
+    \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:47)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:328)\n\
+    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:330)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitDeclaration(ASTBuilder.java:28)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitDeclaration(ASTBuilder.java:12)\n\
@@ -90,40 +114,60 @@
     at Compiler.SemanticAnalysis.ASTBuilder.visitProgram(ASTBuilder.java:12)\n\tat\
     \ Compiler.Parser.MxstarParser$ProgramContext.accept(MxstarParser.java:130)\n\t\
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
-    \tat Compiler.Main.main(Main.java:28)\nnull\n", stdout: '', verdict: Accepted}
+    \tat Compiler.Main.main(Main.java:27)\nnull\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-65.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-34.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
-- {case: ./basic-package/basic-46.mx, stage: semantic, stderr: 'line 10:4 extraneous
-    input ''void'' expecting {''{'', ''}'', ''('', ''++'', ''--'', ''+'', ''-'', ''!'',
-    ''~'', ''int'', ''bool'', ''string'', ''if'', ''for'', ''while'', ''break'', ''continue'',
-    ''return'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
-    BoolConstant, Identifier}
-
-    ', stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-34.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [2:11][SemanticException]redeclaration of variable : x\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:41)\n\
+    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:33)\n\
+    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:246)\n\
+    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [2:11][SemanticException]redeclaration of variable : x\n", stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-46.mx, stage: semantic, stderr: "line 10:4 extraneous\
+    \ input 'void' expecting {'{', '}', ';', '(', '++', '--', '+', '-', '!', '~',\
+    \ 'int', 'bool', 'string', 'if', 'for', 'while', 'break', 'continue', 'return',\
+    \ 'new', 'this', IntegerConstant, StringConstant, NullConstant, BoolConstant,\
+    \ Identifier}\nCompiler.Utils.SemanticException: [10:9][SemanticException]undeclared\
+    \ symbol : s\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:97)\n\
+    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:254)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [10:9][SemanticException]undeclared symbol : s\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-17.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-23.mx, stage: semantic, stderr: 'line 2:4 extraneous
-    input ''void'' expecting {''{'', ''}'', ''('', ''++'', ''--'', ''+'', ''-'', ''!'',
-    ''~'', ''int'', ''bool'', ''string'', ''if'', ''for'', ''while'', ''break'', ''continue'',
-    ''return'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
-    BoolConstant, Identifier}
-
-    ', stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-23.mx, stage: semantic, stderr: "line 2:4 extraneous\
+    \ input 'void' expecting {'{', '}', ';', '(', '++', '--', '+', '-', '!', '~',\
+    \ 'int', 'bool', 'string', 'if', 'for', 'while', 'break', 'continue', 'return',\
+    \ 'new', 'this', IntegerConstant, StringConstant, NullConstant, BoolConstant,\
+    \ Identifier}\nCompiler.Utils.SemanticException: [2:9][SemanticException]undeclared\
+    \ symbol : a\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:97)\n\
+    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [2:9][SemanticException]undeclared symbol : a\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-62.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-33.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-56.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-27.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-27.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [5:0][SemanticException]redefinition of class : A\n\tat Compiler.SemanticAnalysis.ClassDeclVisitor.visit(ClassDeclVisitor.java:28)\n\
+    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassDeclVisitor.visit(ClassDeclVisitor.java:21)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:31)\n\
+    [5:0][SemanticException]redefinition of class : A\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-13.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-42.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [3:8][SemanticException]redeclaration of variable : x\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:42)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [3:8][SemanticException]redeclaration of variable : x\n", stdout: '', verdict: Accepted}
+    \ [9:0][SemanticException]redefinition of function :x\n\tat Compiler.SemanticAnalysis.GlobalFuncDeclVisitor.visit(GlobalFuncDeclVisitor.java:25)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.GlobalFuncDeclVisitor.visit(GlobalFuncDeclVisitor.java:18)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:32)\n\
+    [9:0][SemanticException]redefinition of function :x\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-52.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
@@ -131,13 +175,7 @@
 - {case: ./basic-package/basic-71.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-37.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
-- {case: ./basic-package/basic-66.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [4:4][SemanticException]undefined class :B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [4:4][SemanticException]undefined class :B\n", stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-66.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-26.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-12.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
@@ -166,7 +204,7 @@
 - {case: ./basic-package/basic-16.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
     \ [3:9][SemanticException]redeclaration of variable : f\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:42)\n\
     \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
+    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:22)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
     [3:9][SemanticException]redeclaration of variable : f\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-22.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
@@ -175,44 +213,62 @@
 - {case: ./basic-package/basic-32.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-57.mx, stage: semantic, stderr: 'line 2:4 missing ''{''
-    at ''int''
-
-    line 3:4 missing '';'' at ''"I think I forget some thing...;\n    print("''
-
-    line 4:11 missing '';'' at ''but''
-
-    line 4:18 missing '';'' at ''seems''
-
-    line 4:27 missing '';'' at ''be''
-
-    line 4:39 token recognition error at: ''")\n}''
-
-    line 4:34 missing '';'' at ''right''
-
-    ', stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-57.mx, stage: semantic, stderr: "line 2:4 missing '{'\
+    \ at 'int'\nline 3:4 missing ';' at '\"I think I forget some thing...;\\n    print(\"\
+    '\nline 4:11 missing ';' at 'but'\nline 4:18 missing ';' at 'seems'\nline 4:27\
+    \ missing ';' at 'be'\nline 4:39 token recognition error at: '\")\\n}'\nline 4:34\
+    \ missing ';' at 'right'\nCompiler.Utils.SemanticException: [4:11][SemanticException]undefined\
+    \ class : but\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.typeNode2VarType(SymbolTableAssistant.java:25)\n\
+    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:39)\n\
+    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:33)\n\
+    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:246)\n\
+    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [4:11][SemanticException]undefined class : but\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-29.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
-- {case: ./basic-package/basic-68.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [4:4][SemanticException]undefined class :B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [4:4][SemanticException]undefined class :B\n", stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-39.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-68.mx, stage: semantic, stderr: 'line 18:12 extraneous
+    input ''('' expecting Identifier
+
+    line 18:16 mismatched input '')'' expecting {'';'', ''('', ''='', ''['', ''.'',
+    ''++'', ''--'', ''+'', ''-'', ''*'', ''/'', ''%'', ''<<'', ''>>'', ''<'', ''>'',
+    ''<='', ''>='', ''=='', ''!='', ''&'', ''^'', ''|'', ''&&'', ''||''}
+
+    line 21:8 extraneous input ''('' expecting Identifier
+
+    line 21:16 extraneous input '')'' expecting '';''
+
+    line 22:12 extraneous input ''('' expecting Identifier
+
+    line 22:16 extraneous input '')'' expecting '';''
+
+    line 37:1 missing '';'' at ''<EOF>''
+
+    ', stdout: '', verdict: Wrong Answer}
+- {case: ./basic-package/basic-39.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [7:0][SemanticException]undeclared symbol : i\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:97)\n\
+    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:254)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [7:0][SemanticException]undeclared symbol : i\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-8.mx, stage: semantic, stderr: "line 3:10 mismatched\
     \ input 'this' expecting Identifier\nCompiler.Utils.SemanticException: [1:0][SemanticException]undefined\
-    \ class :A\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
+    \ class : A\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.typeNode2VarType(SymbolTableAssistant.java:25)\n\
     \tat Compiler.SemanticAnalysis.GlobalFuncDeclVisitor.visit(GlobalFuncDeclVisitor.java:27)\n\
     \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.GlobalFuncDeclVisitor.visit(GlobalFuncDeclVisitor.java:18)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:32)\n\
-    [1:0][SemanticException]undefined class :A\n", stdout: '', verdict: Accepted}
+    [1:0][SemanticException]undefined class : A\n", stdout: '', verdict: Accepted}
 - {case: ./basic-package/basic-19.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
-- {case: ./basic-package/basic-48.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./basic-package/basic-48.mx, stage: semantic, stderr: 'line 7:1 missing '';''
+    at ''<EOF>''
+
+    ', stdout: '', verdict: Wrong Answer}
 - {case: ./basic-package/basic-58.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./basic-package/basic-18.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -233,17 +289,38 @@
     at Compiler.SemanticAnalysis.ASTBuilder.visitProgram(ASTBuilder.java:12)\n\tat\
     \ Compiler.Parser.MxstarParser$ProgramContext.accept(MxstarParser.java:130)\n\t\
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
-    \tat Compiler.Main.main(Main.java:28)\nnull\n", stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-9.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
-- {case: ./builtin-func-package/builtin-4.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Wrong Answer}
+    \tat Compiler.Main.main(Main.java:27)\nnull\n", stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-9.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [3:1][SemanticException]undeclared symbol : a\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:97)\n\
+    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:254)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [3:1][SemanticException]undeclared symbol : a\n", stdout: '', verdict: Accepted}
+- {case: ./builtin-func-package/builtin-4.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [7:4][SemanticException]undeclared symbol : size\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:136)\n\
+    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:179)\n\
+    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [7:4][SemanticException]undeclared symbol : size\n", stdout: '', verdict: Accepted}
 - {case: ./builtin-func-package/builtin-1.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Accepted}
 - {case: ./builtin-func-package/builtin-2.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Accepted}
-- {case: ./builtin-func-package/builtin-3.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Wrong Answer}
+- {case: ./builtin-func-package/builtin-3.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [7:4][SemanticException]undeclared symbol : size\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:136)\n\
+    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:179)\n\
+    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [7:4][SemanticException]undeclared symbol : size\n", stdout: '', verdict: Accepted}
 - {case: ./if-package/if-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./if-package/if-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
@@ -264,20 +341,25 @@
   verdict: Wrong Answer}
 - {case: ./expression-package/expression-1.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Wrong Answer}
-- {case: ./expression-package/expression-4.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Accepted}
+- {case: ./expression-package/expression-4.mx, stage: semantic, stderr: '', stdout: '',
+  verdict: Wrong Answer}
 - {case: ./expression-package/expression-3.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Accepted}
 - {case: ./expression-package/expression-2.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Accepted}
 - {case: ./array-package/array-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./array-package/array-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./array-package/array-3.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [10:3][SemanticException]not array type : int\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.arrayTypeDimDecrease(SymbolTableAssistant.java:55)\n\
+    \tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:172)\n\
+    \tat Compiler.AST.ArrayIdxExprNode.accept(ArrayIdxExprNode.java:25)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:254)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:213)\n\
+    \tat Compiler.AST.ForStmtNode.accept(ForStmtNode.java:36)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:213)\n\
+    \tat Compiler.AST.ForStmtNode.accept(ForStmtNode.java:36)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [10:3][SemanticException]not array type : int\n", stdout: '', verdict: Accepted}
 - {case: ./array-package/array-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./array-package/array-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
@@ -288,13 +370,8 @@
 - {case: ./array-package/array-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./array-package/array-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
-- {case: ./loop-package/loop-3.mx, stage: semantic, stderr: 'line 4:10 mismatched
-    input '';'' expecting {''{'', ''('', ''++'', ''--'', ''+'', ''-'', ''!'', ''~'',
-    ''int'', ''bool'', ''string'', ''if'', ''for'', ''while'', ''break'', ''continue'',
-    ''return'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
-    BoolConstant, Identifier}
-
-    ', stdout: '', verdict: Wrong Answer}
+- {case: ./loop-package/loop-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./loop-package/loop-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./loop-package/loop-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
@@ -307,27 +384,27 @@
     \ input '123' expecting {'[', Identifier}\njava.lang.NullPointerException\n\t\
     at Compiler.SemanticAnalysis.ASTBuilder.visitSingleVariable(ASTBuilder.java:72)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitSingleVariable(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$SingleVariableContext.accept(MxstarParser.java:491)\n\
+    \tat Compiler.Parser.MxstarParser$SingleVariableContext.accept(MxstarParser.java:493)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVariableList(ASTBuilder.java:66)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVariableList(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$VariableListContext.accept(MxstarParser.java:437)\n\
+    \tat Compiler.Parser.MxstarParser$VariableListContext.accept(MxstarParser.java:439)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVariableDecl(ASTBuilder.java:58)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVariableDecl(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$VariableDeclContext.accept(MxstarParser.java:394)\n\
+    \tat Compiler.Parser.MxstarParser$VariableDeclContext.accept(MxstarParser.java:396)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVarDeclStmt(ASTBuilder.java:130)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVarDeclStmt(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$VarDeclStmtContext.accept(MxstarParser.java:962)\n\
+    \tat Compiler.Parser.MxstarParser$VarDeclStmtContext.accept(MxstarParser.java:964)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
-    \tat Compiler.SemanticAnalysis.ASTBuilder.visitCompoundStmt(ASTBuilder.java:144)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitCompoundStmt(ASTBuilder.java:148)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitCompoundStmt(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$CompoundStmtContext.accept(MxstarParser.java:1056)\n\
+    \tat Compiler.Parser.MxstarParser$CompoundStmtContext.accept(MxstarParser.java:1074)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:47)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:328)\n\
+    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:330)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitDeclaration(ASTBuilder.java:28)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitDeclaration(ASTBuilder.java:12)\n\
@@ -337,16 +414,17 @@
     at Compiler.SemanticAnalysis.ASTBuilder.visitProgram(ASTBuilder.java:12)\n\tat\
     \ Compiler.Parser.MxstarParser$ProgramContext.accept(MxstarParser.java:130)\n\t\
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
-    \tat Compiler.Main.main(Main.java:28)\nnull\n", stdout: '', verdict: Accepted}
+    \tat Compiler.Main.main(Main.java:27)\nnull\n", stdout: '', verdict: Accepted}
 - {case: ./symbol-package/symbol-2.mx, stage: semantic, stderr: 'line 3:8 token recognition
     error at: ''_''
 
     ', stdout: '', verdict: Wrong Answer}
 - {case: ./symbol-package/symbol-6.mx, stage: semantic, stderr: "line 3:9 mismatched\
-    \ input 'this' expecting Identifier\njava.lang.NullPointerException\n\tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \ input 'this' expecting Identifier\nline 6:0 extraneous input '}' expecting ';'\n\
+    java.lang.NullPointerException\n\tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:47)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:328)\n\
+    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:330)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitClassDecl(ASTBuilder.java:38)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitClassDecl(ASTBuilder.java:12)\n\
@@ -360,40 +438,34 @@
     at Compiler.SemanticAnalysis.ASTBuilder.visitProgram(ASTBuilder.java:12)\n\tat\
     \ Compiler.Parser.MxstarParser$ProgramContext.accept(MxstarParser.java:130)\n\t\
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
-    \tat Compiler.Main.main(Main.java:28)\nnull\n", stdout: '', verdict: Accepted}
-- {case: ./symbol-package/symbol-1.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [3:1][SemanticException]undefined class :B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [3:1][SemanticException]undefined class :B\n", stdout: '', verdict: Wrong Answer}
+    \tat Compiler.Main.main(Main.java:27)\nnull\n", stdout: '', verdict: Accepted}
+- {case: ./symbol-package/symbol-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./symbol-package/symbol-5.mx, stage: semantic, stderr: "line 3:8 mismatched\
     \ input 'int' expecting {'[', Identifier}\nline 4:8 mismatched input 'bool' expecting\
     \ {'[', Identifier}\nline 5:9 mismatched input 'class' expecting {'[', Identifier}\n\
     java.lang.NullPointerException\n\tat Compiler.SemanticAnalysis.ASTBuilder.visitSingleVariable(ASTBuilder.java:72)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitSingleVariable(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$SingleVariableContext.accept(MxstarParser.java:491)\n\
+    \tat Compiler.Parser.MxstarParser$SingleVariableContext.accept(MxstarParser.java:493)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVariableList(ASTBuilder.java:66)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVariableList(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$VariableListContext.accept(MxstarParser.java:437)\n\
+    \tat Compiler.Parser.MxstarParser$VariableListContext.accept(MxstarParser.java:439)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVariableDecl(ASTBuilder.java:58)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVariableDecl(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$VariableDeclContext.accept(MxstarParser.java:394)\n\
+    \tat Compiler.Parser.MxstarParser$VariableDeclContext.accept(MxstarParser.java:396)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVarDeclStmt(ASTBuilder.java:130)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitVarDeclStmt(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$VarDeclStmtContext.accept(MxstarParser.java:962)\n\
+    \tat Compiler.Parser.MxstarParser$VarDeclStmtContext.accept(MxstarParser.java:964)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
-    \tat Compiler.SemanticAnalysis.ASTBuilder.visitCompoundStmt(ASTBuilder.java:144)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitCompoundStmt(ASTBuilder.java:148)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitCompoundStmt(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$CompoundStmtContext.accept(MxstarParser.java:1056)\n\
+    \tat Compiler.Parser.MxstarParser$CompoundStmtContext.accept(MxstarParser.java:1074)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:47)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:12)\n\
-    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:328)\n\
+    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:330)\n\
     \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitDeclaration(ASTBuilder.java:28)\n\
     \tat Compiler.SemanticAnalysis.ASTBuilder.visitDeclaration(ASTBuilder.java:12)\n\
@@ -403,276 +475,168 @@
     at Compiler.SemanticAnalysis.ASTBuilder.visitProgram(ASTBuilder.java:12)\n\tat\
     \ Compiler.Parser.MxstarParser$ProgramContext.accept(MxstarParser.java:130)\n\t\
     at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
-    \tat Compiler.Main.main(Main.java:28)\nnull\n", stdout: '', verdict: Accepted}
-- {case: ./symbol-package/symbol-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
-- {case: ./function-package/function-3.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Wrong Answer}
-- {case: ./function-package/function-2.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Wrong Answer}
+    \tat Compiler.Main.main(Main.java:27)\nnull\n", stdout: '', verdict: Accepted}
+- {case: ./symbol-package/symbol-4.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [4:8][SemanticException]redeclaration of variable : a\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:41)\n\
+    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:33)\n\
+    \tat Compiler.AST.VarDeclListNode.accept(VarDeclListNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:246)\n\
+    \tat Compiler.AST.VarDeclStmtNode.accept(VarDeclStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [4:8][SemanticException]redeclaration of variable : a\n", stdout: '', verdict: Accepted}
+- {case: ./function-package/function-3.mx, stage: semantic, stderr: "java.lang.ClassCastException:\
+    \ class Compiler.SymbolTable.Symbol.VarSymbol cannot be cast to class Compiler.SymbolTable.Symbol.FuncSymbol\
+    \ (Compiler.SymbolTable.Symbol.VarSymbol and Compiler.SymbolTable.Symbol.FuncSymbol\
+    \ are in unnamed module of loader 'app')\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:184)\n\
+    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    class Compiler.SymbolTable.Symbol.VarSymbol cannot be cast to class Compiler.SymbolTable.Symbol.FuncSymbol\
+    \ (Compiler.SymbolTable.Symbol.VarSymbol and Compiler.SymbolTable.Symbol.FuncSymbol\
+    \ are in unnamed module of loader 'app')\n", stdout: '', verdict: Accepted}
+- {case: ./function-package/function-2.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [8:0][SemanticException]undefined class : B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.typeNode2VarType(SymbolTableAssistant.java:25)\n\
+    \tat Compiler.SemanticAnalysis.GlobalFuncDeclVisitor.visit(GlobalFuncDeclVisitor.java:27)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.GlobalFuncDeclVisitor.visit(GlobalFuncDeclVisitor.java:18)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:32)\n\
+    [8:0][SemanticException]undefined class : B\n", stdout: '', verdict: Accepted}
 - {case: ./function-package/function-1.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Wrong Answer}
 - {case: ./class-package/class-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./class-package/class-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./class-package/class-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
-    Answer}
+- {case: ./class-package/class-4.mx, stage: semantic, stderr: 'line 11:0 missing '';''
+    at ''int''
+
+    ', stdout: '', verdict: Wrong Answer}
 - {case: ./class-package/class-11.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./class-package/class-10.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+- {case: ./class-package/class-10.mx, stage: semantic, stderr: "java.lang.NumberFormatException:\
+    \ For input string: \"2147483648\"\n\tat java.base/java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)\n\
+    \tat java.base/java.lang.Integer.parseInt(Integer.java:656)\n\tat java.base/java.lang.Integer.parseInt(Integer.java:770)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitIntegerConstant(ASTBuilder.java:299)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitIntegerConstant(ASTBuilder.java:12)\n\
+    \tat Compiler.Parser.MxstarParser$IntegerConstantContext.accept(MxstarParser.java:2153)\n\
+    \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitConstExpr(ASTBuilder.java:187)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitConstExpr(ASTBuilder.java:12)\n\
+    \tat Compiler.Parser.MxstarParser$ConstExprContext.accept(MxstarParser.java:1389)\n\
+    \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitUnaryOpExpr(ASTBuilder.java:258)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitUnaryOpExpr(ASTBuilder.java:12)\n\
+    \tat Compiler.Parser.MxstarParser$UnaryOpExprContext.accept(MxstarParser.java:1492)\n\
+    \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitBinaryExpr(ASTBuilder.java:215)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitBinaryExpr(ASTBuilder.java:12)\n\
+    \tat Compiler.Parser.MxstarParser$BinaryExprContext.accept(MxstarParser.java:1456)\n\
+    \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitExprStmt(ASTBuilder.java:134)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitExprStmt(ASTBuilder.java:12)\n\t\
+    at Compiler.Parser.MxstarParser$ExprStmtContext.accept(MxstarParser.java:953)\n\
+    \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitCompoundStmt(ASTBuilder.java:148)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitCompoundStmt(ASTBuilder.java:12)\n\
+    \tat Compiler.Parser.MxstarParser$CompoundStmtContext.accept(MxstarParser.java:1074)\n\
+    \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:47)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitFunctionDecl(ASTBuilder.java:12)\n\
+    \tat Compiler.Parser.MxstarParser$FunctionDeclContext.accept(MxstarParser.java:330)\n\
+    \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitDeclaration(ASTBuilder.java:28)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitDeclaration(ASTBuilder.java:12)\n\
+    \tat Compiler.Parser.MxstarParser$DeclarationContext.accept(MxstarParser.java:185)\n\
+    \tat org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \tat Compiler.SemanticAnalysis.ASTBuilder.visitProgram(ASTBuilder.java:18)\n\t\
+    at Compiler.SemanticAnalysis.ASTBuilder.visitProgram(ASTBuilder.java:12)\n\tat\
+    \ Compiler.Parser.MxstarParser$ProgramContext.accept(MxstarParser.java:130)\n\t\
+    at org.antlr.v4.runtime.tree.AbstractParseTreeVisitor.visit(AbstractParseTreeVisitor.java:18)\n\
+    \tat Compiler.Main.main(Main.java:27)\nFor input string: \"2147483648\"\n", stdout: '',
+  verdict: Accepted}
+- {case: ./class-package/class-14.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
-- {case: ./class-package/class-14.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [4:4][SemanticException]redeclaration of function : b\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:50)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [4:4][SemanticException]redeclaration of function : b\n", stdout: '', verdict: Accepted}
-- {case: ./class-package/class-9.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [13:4][SemanticException]undefined class :B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [13:4][SemanticException]undefined class :B\n", stdout: '', verdict: Wrong Answer}
-- {case: ./class-package/class-13.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [2:2][SemanticException]undefined class :B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [2:2][SemanticException]undefined class :B\n", stdout: '', verdict: Wrong Answer}
-- {case: ./class-package/class-8.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Accepted}
-- {case: ./class-package/class-12.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Accepted}
-- {case: ./class-package/class-3.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./class-package/class-9.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./class-package/class-13.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./class-package/class-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./class-package/class-12.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
+- {case: ./class-package/class-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./class-package/class-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./class-package/class-6.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [3:1][SemanticException]undefined class :C\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [3:1][SemanticException]undefined class :C\n", stdout: '', verdict: Wrong Answer}
-- {case: ./class-package/class-2.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [4:4][SemanticException]undefined class :interesting\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:31)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [4:4][SemanticException]undefined class :interesting\n", stdout: '', verdict: Wrong
-    Answer}
-- {case: ./misc-package/misc-3.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [9:1][SemanticException]undefined class :B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [9:1][SemanticException]undefined class :B\n", stdout: '', verdict: Wrong Answer}
+- {case: ./class-package/class-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./class-package/class-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-29.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-19.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-6.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-18.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-2.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-28.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-23.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-17.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-9.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-33.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-33.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
+    \ [29:17][SemanticException]illegal access of class member : substring\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:166)\n\
+    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:179)\n\
+    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:128)\n\
+    \tat Compiler.AST.MemberExprNode.accept(MemberExprNode.java:26)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:179)\n\
+    \tat Compiler.AST.FuncCallExprNode.accept(FuncCallExprNode.java:31)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:255)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:211)\n\
+    \tat Compiler.AST.ForStmtNode.accept(ForStmtNode.java:36)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [29:17][SemanticException]illegal access of class member : substring\n", stdout: '',
+  verdict: Wrong Answer}
 - {case: ./misc-package/misc-13.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-27.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-37.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-12.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [11:1][SemanticException]undefined class :B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [11:1][SemanticException]undefined class :B\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-12.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-26.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-36.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-36.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-22.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-16.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-8.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
-- {case: ./misc-package/misc-32.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-11.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-32.mx, stage: semantic, stderr: "line 52:24 extraneous\
+    \ input '>' expecting {'(', '++', '--', '+', '-', '!', '~', 'new', 'this', IntegerConstant,\
+    \ StringConstant, NullConstant, BoolConstant, Identifier}\nCompiler.Utils.SemanticException:\
+    \ [52:24][SemanticException]undeclared symbol : mint\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:97)\n\
+    \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:255)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:254)\n\
+    \tat Compiler.AST.BinaryExprNode.accept(BinaryExprNode.java:39)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:250)\n\
+    \tat Compiler.AST.ExprStmtNode.accept(ExprStmtNode.java:20)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:240)\n\
+    \tat Compiler.AST.CompStmtNode.accept(CompStmtNode.java:33)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:65)\n\
+    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.SymbolTableVisitor.visit(SymbolTableVisitor.java:27)\n\
+    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:34)\n\
+    [52:24][SemanticException]undeclared symbol : mint\n", stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-11.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-25.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-35.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
-    \ [6:1][SemanticException]undefined class :B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:22)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:40)\n\
-    \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:32)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:32)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    [6:1][SemanticException]undefined class :B\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-35.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-21.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-15.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
-- {case: ./misc-package/misc-31.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-31.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-20.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-14.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-30.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-10.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-24.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-34.mx, stage: semantic, stderr: "line 28:7 mismatched\
-    \ input '\";\\nc[1]=\"' expecting {'(', ';', ',', '=', '[', '.', '++', '--', '+',\
-    \ '-', '*', '/', '%', '<<', '>>', '<', '>', '<=', '>=', '==', '!=', '&', '^',\
-    \ '|', '&&', '||'}\nline 30:6 token recognition error at: '#'\nline 31:6 token\
-    \ recognition error at: '$'\nline 34:6 token recognition error at: '''\nline 53:7\
-    \ token recognition error at: ':'\nline 58:7 token recognition error at: '?'\n\
-    line 59:7 token recognition error at: '@'\nline 89:7 token recognition error at:\
-    \ '_'\nline 90:7 token recognition error at: '`'\nline 122:6 missing ';' at 'println'\n\
-    line 123:6 missing ';' at 'println'\nline 124:6 missing ';' at 'println'\nline\
-    \ 125:6 missing ';' at 'println'\nline 126:6 missing ';' at 'println'\nline 127:6\
-    \ missing ';' at 'println'\nline 128:6 missing ';' at 'println'\nline 129:6 missing\
-    \ ';' at 'println'\nline 130:6 missing ';' at 'println'\nline 131:7 missing ';'\
-    \ at 'println'\nline 132:7 missing ';' at 'println'\nline 133:7 missing ';' at\
-    \ 'println'\nline 134:7 missing ';' at 'println'\nline 135:7 missing ';' at 'println'\n\
-    line 136:7 missing ';' at 'println'\nline 137:7 missing ';' at 'println'\nline\
-    \ 138:7 missing ';' at 'println'\nline 139:7 missing ';' at 'println'\nline 140:7\
-    \ missing ';' at 'println'\nline 141:7 missing ';' at 'println'\nline 142:7 missing\
-    \ ';' at 'println'\nline 143:7 missing ';' at 'println'\nline 144:7 missing ';'\
-    \ at 'println'\nline 145:7 missing ';' at 'println'\nline 146:7 missing ';' at\
-    \ 'println'\nline 147:7 missing ';' at 'println'\nline 148:7 missing ';' at 'for'\n\
-    line 149:7 missing ';' at 'for'\nline 150:7 missing ';' at 'for'\nline 151:8 token\
-    \ recognition error at: '\";\\nprintln(c[81]+c[82]+c[80]+c[71]+c[76]+c[69]+c[0]+c[66]+c[71]+c[69]+c[82]+c[7]+c[71]+c[76]+c[82]+c[0]+c[86]+c[8]+c[89]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[86]+c[28]+c[28]+c[15]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[15]+a2q+c[26]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[86]+c[28]+c[28]+c[16]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[16]+a2q+c[26]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[86]+c[28]+c[28]+c[17]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[17]+a2q+c[26]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[86]+c[28]+c[28]+c[18]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[18]+a2q+c[26]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[86]+c[28]+c[28]+c[19]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[19]+a2q+c[26]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[86]+c[28]+c[28]+c[20]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[20]+a2q+c[26]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[86]+c[28]+c[28]+c[21]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[21]+a2q+c[26]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[86]+c[28]+c[28]+c[22]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[22]+a2q+c[26]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[86]+c[28]+c[28]+c[23]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[23]+a2q+c[26]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[86]+c[28]+c[28]+c[24]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[24]+a2q+c[26]);\\\
-    nprintln(c[91]);\\nprintln(c[81]+c[82]+c[80]+c[71]+c[76]+c[69]+c[58]+c[59]+c[0]+c[81]+c[28]+c[76]+c[67]+c[85]+c[0]+c[81]+c[82]+c[80]+c[71]+c[76]+c[69]+c[58]+c[17]+c[20]+c[21]+c[59]+c[26]);\\\
-    nprintln(c[81]+c[82]+c[80]+c[71]+c[76]+c[69]+c[58]+c[59]+c[0]+c[65]+c[28]+c[76]+c[67]+c[85]+c[0]+c[81]+c[82]+c[80]+c[71]+c[76]+c[69]+c[58]+c[17]+c[20]+c[21]+c[59]+c[26]);\\\
-    nprintln(c[81]+c[82]+c[80]+c[71]+c[76]+c[69]+c[0]+c[81]+c[17]+c[7]+c[71]+c[76]+c[82]+c[0]+c[81]+c[81]+c[8]+c[89]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[81]+c[81]+c[27]+c[28]+c[24]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[81]+c[58]+a2q+c[10]+c[66]+c[71]+c[69]+c[82]+c[7]+c[81]+c[81]+c[8]+c[10]+a2q+c[59]+c[28]+a2q+c[26]);\\\
-    nprintln(c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[81]+c[58]+a2q+c[10]+c[66]+c[71]+c[69]+c[82]+c[7]+c[81]+c[81]+c[14]+c[16]+c[15]+c[8]+c[10]+c[66]+c[71]+c[69]+c[82]+c[7]+c[81]+c[81]+c[4]+c[16]+c[15]+c[8]+c[10]+a2q+c[59]+c[28]+a2q+c[26]);\\\
-    nprintln(c[91]);\\nprintln(c[81]+c[82]+c[80]+c[71]+c[76]+c[69]+c[0]+c[65]+c[17]+c[7]+c[71]+c[76]+c[82]+c[0]+c[65]+c[65]+c[8]+c[89]);\\\
-    nprintln(c[71]+c[68]+c[7]+c[65]+c[65]+c[27]+c[28]+c[24]+c[8]+c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[65]+c[58]+a2q+c[10]+c[66]+c[71]+c[69]+c[82]+c[7]+c[65]+c[65]+c[8]+c[10]+a2q+c[59]+c[28]+a2q+c[26]);\\\
-    nprintln(c[80]+c[67]+c[82]+c[83]+c[80]+c[76]+c[0]+a2q+c[65]+c[58]+a2q+c[10]+c[66]+c[71]+c[69]+c[82]+c[7]+c[65]+c[65]+c[14]+c[16]+c[15]+c[8]+c[10]+c[66]+c[71]+c[69]+c[82]+c[7]+c[65]+c[65]+c[4]+c[16]+c[15]+c[8]+c[10]+a2q+c[59]+c[28]+a2q+c[26]);\\\
-    nprintln(c[91]);\\nprintln(c[81]+c[82]+c[80]+c[71]+c[76]+c[69]+c[0]+c[65]+c[77]+c[28]+a2q+c[26]+a2q+c[26]);\\\
-    nprintln(c[81]+c[82]+c[80]+c[71]+c[76]+c[69]+c[0]+c[63]+c[17]+c[79]+c[28]+a2q+a2b+a2q+a2q+c[26]);\\\
-    nprintln(c[81]+c[82]+c[80]+c[71]+c[76]+c[69]+c[0]+c[63]+c[17]+c[64]+c[28]+a2q+a2b+a2b+a2q+c[26]);\\\
-    nprintln(s[0]);\\nfor(i=0;i<93;i++)println(c2(i)+a2q+c[i]+a2q+co);\\nfor(i=0;i<31;i++)println(s2(i)+a2q+s[i]+a2q+co);\\\
-    nfor(i=1;i<31;i++)println(s[i]);\\n}'\nline 151:7 missing ';' at '}'\njava.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.ClassDeclVisitor.visit(ClassDeclVisitor.java:21)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:31)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-34.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-1.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
-- {case: ./misc-package/misc-4.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
 - {case: ./scope-package/scope-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./scope-package/scope-6.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./scope-package/scope-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./scope-package/scope-5.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
     Answer}
-- {case: ./scope-package/scope-1.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
-    \tat Compiler.SemanticAnalysis.SymbolTableAssistant.TypeNode2VarType(SymbolTableAssistant.java:45)\n\
-    \tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:48)\n\
-    \tat Compiler.AST.FuncDeclNode.accept(FuncDeclNode.java:38)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:34)\n\
-    \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:34)\n\tat Compiler.SemanticAnalysis.ClassMemberVisitor.visit(ClassMemberVisitor.java:23)\n\
-    \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:33)\n\
-    null\n", stdout: '', verdict: Wrong Answer}
-- {case: ./scope-package/scope-4.mx, stage: semantic, stderr: 'line 7:11 mismatched
-    input '';'' expecting {''{'', ''('', ''++'', ''--'', ''+'', ''-'', ''!'', ''~'',
-    ''int'', ''bool'', ''string'', ''if'', ''for'', ''while'', ''break'', ''continue'',
-    ''return'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
-    BoolConstant, Identifier}
-
-    line 13:11 mismatched input '';'' expecting {''{'', ''('', ''++'', ''--'', ''+'',
-    ''-'', ''!'', ''~'', ''int'', ''bool'', ''string'', ''if'', ''for'', ''while'',
-    ''break'', ''continue'', ''return'', ''new'', ''this'', IntegerConstant, StringConstant,
-    NullConstant, BoolConstant, Identifier}
-
-    ', stdout: '', verdict: Wrong Answer}
+- {case: ./scope-package/scope-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./scope-package/scope-4.mx, stage: semantic, stderr: '', stdout: '', verdict: Wrong
+    Answer}
 - {case: ./codeforces-package/1145A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./codeforces-package/399A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./codeforces-package/4A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -680,12 +644,6 @@
 - {case: ./codeforces-package/69A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./codeforces-package/71A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./codeforces-package/122A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./codeforces-package/158A.mx, stage: semantic, stderr: 'line 14:40 extraneous
-    input '';'' expecting {''{'', ''('', ''++'', ''--'', ''+'', ''-'', ''!'', ''~'',
-    ''int'', ''bool'', ''string'', ''if'', ''for'', ''while'', ''break'', ''continue'',
-    ''return'', ''new'', ''this'', IntegerConstant, StringConstant, NullConstant,
-    BoolConstant, Identifier}
-
-    ', stdout: '', verdict: Accepted}
+- {case: ./codeforces-package/158A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./codeforces-package/231A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./codeforces-package/263A.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}

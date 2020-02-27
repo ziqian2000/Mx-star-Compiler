@@ -8,7 +8,6 @@ import Compiler.Utils.Position;
 public class IdExprNode extends ExprNode {
 
 	private String identifier;
-	private Symbol symbol;
 
 	public IdExprNode(Position position, String identifier){
 		super(position);
@@ -17,10 +16,6 @@ public class IdExprNode extends ExprNode {
 
 	public String getIdentifier() {
 		return identifier;
-	}
-
-	public void setSymbol(Symbol symbol){
-		this.symbol = symbol;
 	}
 
 	public void accept(ASTVisitor astVisitor){

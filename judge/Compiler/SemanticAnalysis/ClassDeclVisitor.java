@@ -24,8 +24,9 @@ public class ClassDeclVisitor extends ASTBaseVisitor {
 
 	public void visit(ClassDeclNode node){
 		String identifier = node.getIdentifier();
-		if(scope.findSymbol(identifier) != null)
+		if(scope.findSymbol(identifier) != null) {
 			throw new SemanticException(node.getPosition(), "redefinition of class : " + identifier);
+		}
 		else{
 			ClassSymbol classSymbol = new ClassSymbol(identifier, new ClassType(identifier));
 			ClassType classType = new ClassType(identifier);

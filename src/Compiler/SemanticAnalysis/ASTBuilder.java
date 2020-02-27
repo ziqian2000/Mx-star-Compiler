@@ -45,7 +45,7 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
 
     @Override public BaseNode visitFunctionDecl(MxstarParser.FunctionDeclContext ctx) {
         CompStmtNode compStmtNode = (CompStmtNode) visit(ctx.compoundStmt());
-        compStmtNode.setFunctionBody(true);
+        compStmtNode.setIsFunctionBody(true);
         return new FuncDeclNode(new Position(ctx.getStart()),
                                 ctx.functionType() != null ? (TypeNode) visit(ctx.functionType()) : null,
                                 ctx.Identifier().getText(),
@@ -136,6 +136,10 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
 
     @Override public BaseNode visitControlStmt(MxstarParser.ControlStmtContext ctx) {
         return visit(ctx.controlStatement());
+    }
+
+    @Override public BaseNode visitEmptyStmt(MxstarParser.EmptyStmtContext ctx) {
+        return new CompStmtNode(new Position(ctx.getStart()), null);
     }
 
     @Override public BaseNode visitCompoundStmt(MxstarParser.CompoundStmtContext ctx) {

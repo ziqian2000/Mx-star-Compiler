@@ -9,20 +9,20 @@ public class CompStmtNode extends StmtNode {
 
 	private List<StmtNode> stmtList;
 
-	private boolean functionBody;
+	private boolean isFunctionBody;
 
 	public CompStmtNode(Position position, List<StmtNode> stmtList){
 		super(position);
 		this.stmtList = stmtList;
-		this.functionBody = false;
+		this.isFunctionBody = false;
 	}
 
-	public void setFunctionBody(boolean functionBody) {
-		this.functionBody = functionBody;
+	public void setIsFunctionBody(boolean functionBody) {
+		this.isFunctionBody = functionBody;
 	}
 
-	public boolean getFunctionBody(){
-		return functionBody;
+	public boolean getIsFunctionBody(){
+		return isFunctionBody;
 	}
 
 	public List<StmtNode> getStmtList() {

@@ -22,16 +22,18 @@ public class Main {
             MxstarLexer mxstarLexer = new MxstarLexer(charStream);
             CommonTokenStream commonTokenStream = new CommonTokenStream(mxstarLexer);
             MxstarParser mxstarParser = new MxstarParser(commonTokenStream);
-            ParseTree parseTree = mxstarParser.program();
+            ParseTree parseTree = mxstarParser.program();           // construct a parse tree
 
-            ASTBuilder astBuilder = new ASTBuilder();
-            BaseNode astRoot = astBuilder.visit(parseTree);
+            BaseNode astRoot = new ASTBuilder().visit(parseTree);   // construct an AST
 
-            Scope topScope = new Scope(null);
-            astRoot.accept(new ClassDeclVisitor(topScope));
-            astRoot.accept(new GlobalFuncDeclVisitor(topScope));
-            astRoot.accept(new ClassMemberVisitor(topScope));
-//            astRoot.accept(new SymbolTableVisitor(topScope));
+            Scope topScope = new Scope(null);           // the global scope
+            SymbolTableAssistant.addBuiltinFunction(topScope);      // add some builtin functions into symbol table
+            astRoot.accept(new ClassDeclVisitor(topScope));         // add all classes into symbol table
+            astRoot.accept(new GlobalFuncDeclVisitor(topScope));    // add all global functions into symbol table
+            astRoot.accept(new ClassMemberVisitor(topScope));       // add all class members into symbol table
+            astRoot.accept(new SymbolTableVisitor(topScope));       // build symbol table and assign symbol
+            // assign type
+            // check type
 
         }
         catch (Exception e){
