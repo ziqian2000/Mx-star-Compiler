@@ -166,7 +166,9 @@ public class SymbolTableVisitor implements ASTVisitor{
 	public void visit(ArrayIdxExprNode node){
 		node.getArray().accept(this);
 		node.getIdx().accept(this);
-		node.setType(SymbolTableAssistant.arrayTypeDimDecrease(scope, node.getArray().getType(), 1, node));
+		Type type = SymbolTableAssistant.arrayTypeDimDecrease(scope, node.getArray().getType(), 1, node);
+		node.setType(type);
+		node.setValueCategory(ExprNode.category.LVALUE);
 		if(!(node.getArray().getType() instanceof ArrayType)) {
 			throw new SemanticException(node.getPosition(), "illegal access of non-array type : " + node.getArray().getType().getIdentifier());
 		}
@@ -262,7 +264,7 @@ public class SymbolTableVisitor implements ASTVisitor{
 						&& rhsType instanceof IntType)
 					node.setType(SymbolTableAssistant.intType);
 				else
-					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to binary operator " + node.getOp());
 				break;
 
 			case LT	 :
@@ -277,7 +279,7 @@ public class SymbolTableVisitor implements ASTVisitor{
 						&& rhsType instanceof IntType)
 					node.setType(SymbolTableAssistant.boolType);
 				else
-					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to binary operator " + node.getOp());
 				break;
 
 			case EQ :
@@ -294,11 +296,23 @@ public class SymbolTableVisitor implements ASTVisitor{
 						&& rhsType instanceof BoolType)
 					node.setType(SymbolTableAssistant.boolType);
 				else
-				if(lhsType instanceof ArrayType
-						&& rhsType == SymbolTableAssistant.voidType)
+				if((lhsType instanceof ArrayType
+						&& rhsType instanceof VoidType)
+						|| (lhsType instanceof VoidType
+						&& rhsType instanceof ArrayType))
 					node.setType(SymbolTableAssistant.boolType);
 				else
-					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+				if((lhsType instanceof ClassType
+						&& rhsType instanceof VoidType)
+						|| (lhsType instanceof VoidType
+						&& rhsType instanceof ClassType))
+					node.setType(SymbolTableAssistant.boolType);
+				else
+				if(lhsType instanceof VoidType
+						&& rhsType instanceof VoidType)
+					node.setType(SymbolTableAssistant.boolType);
+				else
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to binary operator " + node.getOp());
 				break;
 
 			case SUB :
@@ -314,17 +328,19 @@ public class SymbolTableVisitor implements ASTVisitor{
 						&& rhsType instanceof IntType)
 					node.setType(SymbolTableAssistant.intType);
 				else
-					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to binary operator " + node.getOp());
 				break;
 
 			case ASS :
+				if(node.getLhs().getValueCategory() != ExprNode.category.LVALUE)
+					throw new SemanticException(node.getPosition(), "lvalue required as left operand of " + node.getOp());
 				if(lhsType instanceof ArrayType && rhsType instanceof VoidType)
 					node.setType(SymbolTableAssistant.voidType);
 				else
 				if(lhsType == rhsType && !(lhsType instanceof VoidType))
 					node.setType(lhsType);
 				else
-					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to binary operator " + node.getOp());
 				break;
 
 			case LAND :
@@ -333,7 +349,7 @@ public class SymbolTableVisitor implements ASTVisitor{
 						&& rhsType instanceof BoolType)
 					node.setType(SymbolTableAssistant.boolType);
 				else
-					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to some binary operator " + node.getOp());
+					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to binary operator " + node.getOp());
 				break;
 		}
 	}
@@ -344,8 +360,25 @@ public class SymbolTableVisitor implements ASTVisitor{
 		switch (node.getOp()){
 			case POS_INC :
 			case POS_SUB :
+				if(node.getOpr().getValueCategory() != ExprNode.category.LVALUE)
+					throw new SemanticException(node.getPosition(), "lvalue required as left operand of " + node.getOp());
+				if(type instanceof IntType)
+					node.setType(SymbolTableAssistant.intType);
+				else
+					throw new SemanticException(node.getPosition(), "wrong type argument '" + type.getIdentifier() + "' to '" + node.getOp() + "'");
+				break;
+
 			case PRE_INC :
 			case PRE_SUB :
+				node.setValueCategory(ExprNode.category.LVALUE);
+				if(node.getOpr().getValueCategory() != ExprNode.category.LVALUE)
+					throw new SemanticException(node.getPosition(), "lvalue required as left operand of " + node.getOp());
+				if(type instanceof IntType)
+					node.setType(SymbolTableAssistant.intType);
+				else
+					throw new SemanticException(node.getPosition(), "wrong type argument '" + type.getIdentifier() + "' to '" + node.getOp() + "'");
+				break;
+
 			case PLU :
 			case NEG :
 			case COM :
