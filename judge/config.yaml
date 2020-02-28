@@ -1,8 +1,11 @@
 buildlimit: 5
-instlimit: 100000
+instlimit: -1
 memlimit: 512
 path:
   compiler: /mnt/c/Users/runzhe/IdeaProjects/Compiler/judge
   dataset: /mnt/c/Users/runzhe/IdeaProjects/Compiler/judge/testcase
+  simulator: /Users/peterzheng/ravel/build/bin
+  simulator-executable: /Users/peterzheng/ravel/build/bin/ravel
+  built-in: /Users/peterzheng/Documents/Projects/OldProject/Compiler/localJudge/built-in.s
 stage: semantic
 timelimit: 15

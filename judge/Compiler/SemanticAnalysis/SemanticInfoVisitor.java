@@ -166,6 +166,8 @@ public class SemanticInfoVisitor implements ASTVisitor {
 		if(node.getExprList() != null)
 			for(ExprNode expr : node.getExprList()){
 				expr.accept(this);
+				if(expr.getType() != SymbolTableAssistant.intType)
+					throw new SemanticException(expr.getPosition(), "the size of array should be of 'int' type");
 			}
 	}
 

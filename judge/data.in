@@ -1,25 +1,20 @@
-
-int n;
-int r;
-int c;
-int i;
-int j;
-int abs(int c){
-    if(c>0) return c;
-    return -c;
+int h(){
+	if (true) int c = 1;
+	return c;
 }
 
-int main()
-{
-	// int n,r,c,i,j;
-	for (i=0;i<5;i++)
-		for (j=0;j<5;j++)
-		{
-            n = getInt();
-		//scanf("%d", &n);
-		if (n==1)
-		{r=i;c=j;}}
-    printInt(abs(2-r) + abs(2-c));
-	// printf("%d",abs(2-r)+abs(2-c));
+int k(){
+	if (true) ;
+	else int d = 1;
+	return d;
+}
+
+int l(){
+	if (true) ;
+	else if (true) int e = 1;
+	return e;
+}
+
+int main(){
 	return 0;
 }
