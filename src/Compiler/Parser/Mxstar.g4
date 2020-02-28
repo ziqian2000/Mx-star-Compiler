@@ -115,7 +115,7 @@ expression
 	;
 
 creator
-	:   nonArrayType ('[' expression ']')+ ('[' ']')*               						#ArrayCreator
+	:   nonArrayType ('[' expression? ']')+                             					#ArrayCreator
 	|   nonArrayType '('  ')'                                       						#ClassCreator
 	|   nonArrayType                                                						#NArrayCreator
 	;

@@ -1,6 +1,7 @@
 package Compiler.AST;
 
 import Compiler.SemanticAnalysis.ASTVisitor;
+import Compiler.SymbolTable.Symbol.Symbol;
 import Compiler.Utils.Position;
 
 public class VarDeclNode extends DeclNode {
@@ -8,6 +9,7 @@ public class VarDeclNode extends DeclNode {
 	private TypeNode type;
 	private String identifier;
 	private ExprNode expr;
+	private Symbol symbol;
 
 	public VarDeclNode(Position position, TypeNode type, String identifier, ExprNode expr){
 		super(position);
@@ -26,6 +28,18 @@ public class VarDeclNode extends DeclNode {
 
 	public void setType(TypeNode type){
 		this.type = type;
+	}
+
+	public ExprNode getExpr() {
+		return expr;
+	}
+
+	public void setSymbol(Symbol symbol) {
+		this.symbol = symbol;
+	}
+
+	public Symbol getSymbol() {
+		return symbol;
 	}
 
 	public void accept(ASTVisitor astVisitor){

@@ -10,6 +10,11 @@ public class Position {
         this.column = token.getCharPositionInLine();
     }
 
+    public Position(int line, int column){
+        this.line = line;
+        this.column = column;
+    }
+
     public int getLine(){
         return this.line;
     }

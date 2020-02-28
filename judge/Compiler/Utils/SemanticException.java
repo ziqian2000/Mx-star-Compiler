@@ -14,6 +14,6 @@ public class SemanticException extends RuntimeException{
 
 	@Override
 	public String getMessage() {
-		return "[" + position.toString() + "][SemanticException]" + message;
+		return "[" + position.toString() + "][SemanticException] " + message;
 	}
 }

@@ -4,6 +4,7 @@ import Compiler.AST.*;
 import Compiler.Parser.MxstarBaseVisitor;
 import Compiler.Parser.MxstarParser;
 import Compiler.Utils.Position;
+import Compiler.Utils.SyntaxException;
 import org.antlr.v4.runtime.ParserRuleContext;
 
 import java.util.ArrayList;
@@ -172,7 +173,8 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
     }
 
     @Override public BaseNode visitReturnStmt(MxstarParser.ReturnStmtContext ctx) {
-        return new ReturnStmtNode(new Position(ctx.getStart()));
+        return new ReturnStmtNode(new Position(ctx.getStart()),
+                                ctx.expression() == null ? null : (ExprNode)visit(ctx.expression()));
     }
 
     @Override public BaseNode visitContinueStmt(MxstarParser.ContinueStmtContext ctx) {
@@ -279,7 +281,12 @@ public class ASTBuilder extends MxstarBaseVisitor<BaseNode> {
     }
 
     @Override public BaseNode visitArrayCreator(MxstarParser.ArrayCreatorContext ctx) {
-        int dim = (ctx.getChildCount() - ctx.expression().size() - 1) >> 1;
+        int exprNum = ctx.expression().size();
+        int dim = (ctx.getChildCount() - exprNum - 1) >> 1;
+        for(int i = 0; i < exprNum; i++){
+            if(!(ctx.getChild(2 + i * 3) instanceof MxstarParser.ExpressionContext))
+                throw new SyntaxException(new Position(ctx.getStart()), "the shape of multidimensional array must be specified from left to right");
+        }
         List<ExprNode> exprList = new ArrayList<>();
         for(ParserRuleContext expr : ctx.expression()){
             exprList.add((ExprNode) visit(expr));

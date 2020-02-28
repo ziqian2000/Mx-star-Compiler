@@ -9,6 +9,9 @@ import Compiler.SymbolTable.Symbol.VarSymbol;
 import Compiler.SymbolTable.Type.*;
 import Compiler.Utils.SemanticException;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class SymbolTableVisitor implements ASTVisitor{
 
 	private Scope scope;
@@ -34,13 +37,23 @@ public class SymbolTableVisitor implements ASTVisitor{
 	public void visit(VarDeclNode node){
 		String identifier = node.getIdentifier();
 		Type type = SymbolTableAssistant.typeNode2VarType(scope, node.getType());
+		if(node.getExpr() != null){
+			node.getExpr().accept(this);
+			if(node.getExpr().getType() != SymbolTableAssistant.nullType && node.getExpr().getType() != type)
+				throw new SemanticException(node.getPosition(), "mismatched type : '" + type.getIdentifier() + "' and '" + node.getExpr().getType().getIdentifier() + "'");
+		}
 		if(scope.findLocalSymbol(identifier) != null)
 			throw new SemanticException(node.getPosition(), "redeclaration of variable : " + identifier);
-		else scope.addSymbol(identifier, new VarSymbol(identifier, type));
+		else{
+			VarSymbol varSymbol = new VarSymbol(identifier, type);
+			scope.addSymbol(identifier, varSymbol);
+			node.setSymbol(varSymbol);
+		}
 	}
 
 	public void visit(ClassDeclNode node){
 		ClassSymbol classSymbol = (ClassSymbol) scope.findSymbol(node.getIdentifier());
+		node.setClassSymbol(classSymbol);
 		scope = classSymbol.getBodyScope();
 		for(FuncDeclNode funcDecl : node.getFuncDeclList())
 			funcDecl.accept(this);
@@ -49,17 +62,28 @@ public class SymbolTableVisitor implements ASTVisitor{
 
 	public void visit(FuncDeclNode node){
 		FuncSymbol funcSymbol = (FuncSymbol) scope.findSymbol(node.getIdentifier());
+		node.setFuncSymbol(funcSymbol);
+
 		if(node.getType() != null) {
 			Type type = SymbolTableAssistant.typeNode2VarType(scope, node.getType());
 			funcSymbol.setRetType(type);
 		}
-		else funcSymbol.setRetType(null);
+		else funcSymbol.setRetType(SymbolTableAssistant.nullType);
+
 		scope = new Scope(scope);
 		funcSymbol.setBodyScope(scope);
+		scope.setCurrentFuncSymbol(funcSymbol);
+
+		List<VarSymbol> paraSymbolList = new ArrayList<>();
 		if(node.getParaDeclList() != null)
-			for(VarDeclNode decl : node.getParaDeclList().getVarDeclNodeList())
+			for(VarDeclNode decl : node.getParaDeclList().getVarDeclNodeList()) {
 				decl.accept(this);
+				paraSymbolList.add((VarSymbol)decl.getSymbol());
+			}
+		funcSymbol.setParaSymbolList(paraSymbolList);
+
 		node.getBodyStmt().accept(this);
+
 		scope = scope.getUpperScope();
 	}
 
@@ -84,7 +108,7 @@ public class SymbolTableVisitor implements ASTVisitor{
 	}
 
 	public void visit(ClassTypeNode node){
-		// nothing to do
+		// inaccessible method
 	}
 
 	public void visit(IdExprNode node){
@@ -118,7 +142,7 @@ public class SymbolTableVisitor implements ASTVisitor{
 	}
 
 	public void visit(NullConstExprNode node){
-		node.setType(SymbolTableAssistant.voidType);
+		node.setType(SymbolTableAssistant.nullType);
 	}
 
 	public void visit(MemberExprNode node){
@@ -195,11 +219,13 @@ public class SymbolTableVisitor implements ASTVisitor{
 	public void visit(IfStmtNode node){
 		node.getCond().accept(this);
 		scope = new Scope(scope);
+		node.getThenStmt().setBodyScope(scope);
 		node.getThenStmt().accept(this);
 		scope = scope.getUpperScope();
 		if(node.getElseStmt() != null) {
 			scope = new Scope(scope);
-			node.getThenStmt().accept(this);
+			node.getElseStmt().setBodyScope(scope);
+			node.getElseStmt().accept(this);
 			scope = scope.getUpperScope();
 		}
 	}
@@ -221,7 +247,8 @@ public class SymbolTableVisitor implements ASTVisitor{
 	}
 
 	public void visit(ReturnStmtNode node){
-		// nothing to do
+		if(node.getExpr() != null)
+			node.getExpr().accept(this);
 	}
 
 	public void visit(BreakStmtNode node){
@@ -234,6 +261,7 @@ public class SymbolTableVisitor implements ASTVisitor{
 
 	public void visit(CompStmtNode node){
 		if(!node.getIsFunctionBody()) scope = new Scope(scope);
+		node.setBodyScope(scope);
 		if(node.getStmtList() != null)
 			for(StmtNode stmtNode : node.getStmtList()){
 				stmtNode.accept(this);
@@ -297,19 +325,19 @@ public class SymbolTableVisitor implements ASTVisitor{
 					node.setType(SymbolTableAssistant.boolType);
 				else
 				if((lhsType instanceof ArrayType
-						&& rhsType instanceof VoidType)
-						|| (lhsType instanceof VoidType
+						&& rhsType instanceof NullType)
+						|| (lhsType instanceof NullType
 						&& rhsType instanceof ArrayType))
 					node.setType(SymbolTableAssistant.boolType);
 				else
 				if((lhsType instanceof ClassType
-						&& rhsType instanceof VoidType)
-						|| (lhsType instanceof VoidType
+						&& rhsType instanceof NullType)
+						|| (lhsType instanceof NullType
 						&& rhsType instanceof ClassType))
 					node.setType(SymbolTableAssistant.boolType);
 				else
-				if(lhsType instanceof VoidType
-						&& rhsType instanceof VoidType)
+				if(lhsType instanceof NullType
+						&& rhsType instanceof NullType)
 					node.setType(SymbolTableAssistant.boolType);
 				else
 					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to binary operator " + node.getOp());
@@ -334,10 +362,13 @@ public class SymbolTableVisitor implements ASTVisitor{
 			case ASS :
 				if(node.getLhs().getValueCategory() != ExprNode.category.LVALUE)
 					throw new SemanticException(node.getPosition(), "lvalue required as left operand of " + node.getOp());
-				if(lhsType instanceof ArrayType && rhsType instanceof VoidType)
-					node.setType(SymbolTableAssistant.voidType);
+				if(lhsType instanceof ArrayType && rhsType instanceof NullType)
+					node.setType(SymbolTableAssistant.nullType);
 				else
-				if(lhsType == rhsType && !(lhsType instanceof VoidType))
+				if(lhsType instanceof ClassType && rhsType instanceof NullType)
+					node.setType(SymbolTableAssistant.nullType);
+				else
+				if(lhsType == rhsType && !(lhsType instanceof NullType))
 					node.setType(lhsType);
 				else
 					throw new SemanticException(node.getPosition(), "invalid operands of types '" + lhsType.getIdentifier() + "' and '" + rhsType.getIdentifier() + "' to binary operator " + node.getOp());

@@ -5,8 +5,15 @@ import Compiler.Utils.Position;
 
 public class ReturnStmtNode extends StmtNode {
 
-	public ReturnStmtNode(Position position){
+	private ExprNode expr;
+
+	public ReturnStmtNode(Position position, ExprNode expr){
 		super(position);
+		this.expr = expr;
+	}
+
+	public ExprNode getExpr() {
+		return expr;
 	}
 
 	public void accept(ASTVisitor astVisitor){

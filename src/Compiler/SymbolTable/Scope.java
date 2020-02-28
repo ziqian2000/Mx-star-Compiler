@@ -19,6 +19,7 @@ public class Scope {
 	private Map<String, Type> typeTable;
 
 	private ClassType currentClassType;
+	private FuncSymbol currentFuncSymbol;
 
 	public Scope(Scope upperScope){
 		this.upperScope = upperScope;
@@ -71,6 +72,16 @@ public class Scope {
 	public ClassType getCurrentClassType() {
 		if(currentClassType != null) return currentClassType;
 		else if(upperScope != null) return upperScope.getCurrentClassType();
+		else return null;
+	}
+
+	public void setCurrentFuncSymbol(FuncSymbol currentFuncSymbol) {
+		this.currentFuncSymbol = currentFuncSymbol;
+	}
+
+	public FuncSymbol getCurrentFuncSymbol() {
+		if(currentFuncSymbol != null) return currentFuncSymbol;
+		else if(upperScope != null) return upperScope.getCurrentFuncSymbol();
 		else return null;
 	}
 }

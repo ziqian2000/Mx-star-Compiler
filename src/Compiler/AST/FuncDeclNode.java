@@ -1,6 +1,7 @@
 package Compiler.AST;
 
 import Compiler.SemanticAnalysis.ASTVisitor;
+import Compiler.SymbolTable.Symbol.FuncSymbol;
 import Compiler.Utils.Position;
 
 public class FuncDeclNode extends DeclNode {
@@ -9,6 +10,7 @@ public class FuncDeclNode extends DeclNode {
 	private String identifier;
 	private VarDeclListNode paraDeclList;
 	private StmtNode bodyStmt;
+	private FuncSymbol funcSymbol;
 
 	public FuncDeclNode(Position position, TypeNode type, String identifier, VarDeclListNode paraDeclList, StmtNode bodyStmt){
 		super(position);
@@ -32,6 +34,14 @@ public class FuncDeclNode extends DeclNode {
 
 	public StmtNode getBodyStmt() {
 		return bodyStmt;
+	}
+
+	public FuncSymbol getFuncSymbol() {
+		return funcSymbol;
+	}
+
+	public void setFuncSymbol(FuncSymbol funcSymbol) {
+		this.funcSymbol = funcSymbol;
 	}
 
 	public void accept(ASTVisitor astVisitor){

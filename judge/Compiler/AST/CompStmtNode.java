@@ -1,6 +1,7 @@
 package Compiler.AST;
 
 import Compiler.SemanticAnalysis.ASTVisitor;
+import Compiler.SymbolTable.Scope;
 import Compiler.Utils.Position;
 
 import java.util.List;

@@ -1,6 +1,7 @@
 package Compiler;
 
 import Compiler.AST.BaseNode;
+import Compiler.Parser.MxstarErrorListener;
 import Compiler.SemanticAnalysis.*;
 import Compiler.Parser.MxstarLexer;
 import Compiler.Parser.MxstarParser;
@@ -20,8 +21,12 @@ public class Main {
             InputStream inputStream = new FileInputStream("data.in");
             CharStream charStream = CharStreams.fromStream(inputStream);
             MxstarLexer mxstarLexer = new MxstarLexer(charStream);
+            mxstarLexer.removeErrorListeners();
+            mxstarLexer.addErrorListener(new MxstarErrorListener());
             CommonTokenStream commonTokenStream = new CommonTokenStream(mxstarLexer);
             MxstarParser mxstarParser = new MxstarParser(commonTokenStream);
+            mxstarParser.removeErrorListeners();
+            mxstarParser.addErrorListener(new MxstarErrorListener());
             ParseTree parseTree = mxstarParser.program();           // construct a parse tree
 
             BaseNode astRoot = new ASTBuilder().visit(parseTree);   // construct an AST
@@ -32,7 +37,7 @@ public class Main {
             astRoot.accept(new GlobalFuncDeclVisitor(topScope));    // add all global functions into symbol table
             astRoot.accept(new ClassMemberVisitor(topScope));       // add all class members into symbol table
             astRoot.accept(new SymbolTableVisitor(topScope));       // build symbol table, assign symbol, calculate type and determine value category
-            // some other semantic exceptions
+            astRoot.accept(new SemanticInfoVisitor(topScope));      // some other semantic exceptions
 
         }
         catch (Exception e){
