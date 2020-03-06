@@ -12,6 +12,10 @@ public class BoolConstExprNode extends ConstNode {
 		this.value = value;
 	}
 
+	public boolean getValue(){
+		return value;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

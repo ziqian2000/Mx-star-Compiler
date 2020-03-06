@@ -1,5 +1,6 @@
 package Compiler.SymbolTable.Symbol;
 
+import Compiler.IR.Function;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Type.Type;
 
@@ -11,6 +12,9 @@ public class FuncSymbol extends Symbol {
 	private Type retType;
 	private List<VarSymbol> paraSymbolList;
 	private Scope bodyScope;
+
+	// IR
+	private Function function;
 
 	public FuncSymbol(String identifier, Type retType){
 		super(identifier);
@@ -41,6 +45,14 @@ public class FuncSymbol extends Symbol {
 
 	public Scope getBodyScope() {
 		return bodyScope;
+	}
+
+	public void setFunction(Function function) {
+		this.function = function;
+	}
+
+	public Function getFunction() {
+		return function;
 	}
 
 	public List<VarSymbol> getParaSymbolList() {

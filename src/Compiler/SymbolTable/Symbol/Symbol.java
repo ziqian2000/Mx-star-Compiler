@@ -8,4 +8,7 @@ public abstract class Symbol {
 		this.identifier = identifier;
 	}
 
+	public String getIdentifier() {
+		return identifier;
+	}
 }

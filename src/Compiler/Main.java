@@ -36,7 +36,7 @@ public class Main {
             astRoot.accept(new ClassDeclVisitor(topScope));         // add all classes into symbol table
             astRoot.accept(new GlobalFuncDeclVisitor(topScope));    // add all global functions into symbol table
             astRoot.accept(new ClassMemberVisitor(topScope));       // add all class members into symbol table
-            astRoot.accept(new SymbolTableVisitor(topScope));       // build symbol table, assign symbol, calculate type and determine value category
+            astRoot.accept(new SymbolTableBuilder(topScope));       // build symbol table, assign symbol, calculate type and determine value category
             astRoot.accept(new SemanticInfoVisitor(topScope));      // some other semantic exceptions
 
         }

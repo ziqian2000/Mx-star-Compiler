@@ -12,11 +12,11 @@ import Compiler.Utils.SemanticException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SymbolTableVisitor implements ASTVisitor{
+public class SymbolTableBuilder implements ASTVisitor{
 
 	private Scope scope;
 
-	public SymbolTableVisitor(Scope scope){
+	public SymbolTableBuilder(Scope scope){
 		this.scope = scope;
 	}
 

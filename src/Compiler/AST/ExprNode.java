@@ -1,5 +1,6 @@
 package Compiler.AST;
 
+import Compiler.IR.Operand.Operand;
 import Compiler.SymbolTable.Symbol.Symbol;
 import Compiler.SymbolTable.Symbol.VarSymbol;
 import Compiler.SymbolTable.Type.Type;

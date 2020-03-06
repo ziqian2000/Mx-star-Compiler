@@ -12,6 +12,10 @@ public class StringConstExprNode extends ConstNode {
 		this.value = value;
 	}
 
+	public String getValue(){
+		return value;
+	}
+
 	public void accept(ASTVisitor astVisitor){
 		astVisitor.visit(this);
 	}

@@ -1,5 +1,7 @@
 package Compiler.SymbolTable.Type;
 
+import Compiler.Utils.Config;
+
 public class ArrayType extends Type {
 
 	private Type type;
@@ -17,5 +19,10 @@ public class ArrayType extends Type {
 
 	public Type getType() {
 		return type;
+	}
+
+	@Override
+	public int getSize() {
+		return Config.POINTER_SIZE;
 	}
 }
