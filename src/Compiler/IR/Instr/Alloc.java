@@ -3,20 +3,20 @@ package Compiler.IR.Instr;
 import Compiler.IR.Operand.Operand;
 import Compiler.IRVisitor.IRVisitor;
 
-public class Load extends IRIns {
+public class Alloc extends IRIns {
 
-	// to load from [ptr] and store in register [dst]
+	// to allocate [size] memory to pointer [ptr]
 
-	private Operand dst;
+	private Operand size;
 	private Operand ptr;
 
-	public Load(Operand dst, Operand ptr){
-		this.dst = dst;
+	public Alloc(Operand size, Operand ptr){
+		this.size = size;
 		this.ptr = ptr;
 	}
 
-	public Operand getDst() {
-		return dst;
+	public Operand getSize() {
+		return size;
 	}
 
 	public Operand getPtr() {
@@ -26,4 +26,5 @@ public class Load extends IRIns {
 	public void accept(IRVisitor irVisitor){
 		irVisitor.visit(this);
 	}
+
 }

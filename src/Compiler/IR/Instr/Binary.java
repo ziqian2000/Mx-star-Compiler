@@ -1,8 +1,9 @@
 package Compiler.IR.Instr;
 
 import Compiler.IR.Operand.Operand;
+import Compiler.IRVisitor.IRVisitor;
 
-public class Binary extends IR{
+public class Binary extends IRIns {
 
 	public enum Op{
 		ADD, SUB, MUL, DIV, MOD,
@@ -21,6 +22,26 @@ public class Binary extends IR{
 		this.lhs = lhs;
 		this.rhs = rhs;
 		this.dst = dst;
+	}
+
+	public Op getOp() {
+		return op;
+	}
+
+	public Operand getLhs() {
+		return lhs;
+	}
+
+	public Operand getRhs() {
+		return rhs;
+	}
+
+	public Operand getDst() {
+		return dst;
+	}
+
+	public void accept(IRVisitor irVisitor){
+		irVisitor.visit(this);
 	}
 
 }

@@ -9,6 +9,5 @@ Origin Package: Semantic Pretest
 */
 int main()
 {
-    int[] a = new int[false];
     return 0;
 }

@@ -1,8 +1,9 @@
 package Compiler.IR.Instr;
 
 import Compiler.IR.Operand.Operand;
+import Compiler.IRVisitor.IRVisitor;
 
-public class Return extends IR{
+public class Return extends IRIns {
 
 	// to return a value
 
@@ -12,4 +13,11 @@ public class Return extends IR{
 		this.retValue = retValue;
 	}
 
+	public void accept(IRVisitor irVisitor){
+		irVisitor.visit(this);
+	}
+
+	public Operand getRetValue() {
+		return retValue;
+	}
 }

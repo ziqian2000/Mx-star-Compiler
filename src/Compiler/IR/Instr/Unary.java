@@ -1,8 +1,9 @@
 package Compiler.IR.Instr;
 
 import Compiler.IR.Operand.Operand;
+import Compiler.IRVisitor.IRVisitor;
 
-public class Unary extends IR{
+public class Unary extends IRIns {
 
 	public enum Op{
 		POS_INC, POS_SUB,
@@ -22,4 +23,19 @@ public class Unary extends IR{
 		this.dst = dst;
 	}
 
+	public Op getOp() {
+		return op;
+	}
+
+	public Operand getOpr() {
+		return opr;
+	}
+
+	public Operand getDst() {
+		return dst;
+	}
+
+	public void accept(IRVisitor irVisitor){
+		irVisitor.visit(this);
+	}
 }

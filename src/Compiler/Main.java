@@ -1,6 +1,10 @@
 package Compiler;
 
 import Compiler.AST.BaseNode;
+import Compiler.IR.IR;
+import Compiler.IRVisitor.IRGenerator;
+import Compiler.IRVisitor.IRPrinter;
+import Compiler.IRVisitor.MemberOffsetCalculator;
 import Compiler.Parser.MxstarErrorListener;
 import Compiler.SemanticAnalysis.*;
 import Compiler.Parser.MxstarLexer;
@@ -38,6 +42,14 @@ public class Main {
             astRoot.accept(new ClassMemberVisitor(topScope));       // add all class members into symbol table
             astRoot.accept(new SymbolTableBuilder(topScope));       // build symbol table, assign symbol, calculate type and determine value category
             astRoot.accept(new SemanticInfoVisitor(topScope));      // some other semantic exceptions
+
+            astRoot.accept(new MemberOffsetCalculator());
+            IRGenerator irGenerator = new IRGenerator(topScope);
+            astRoot.accept(irGenerator);              // generate IR
+            // ASSIGN may have to be performed between POINTER and VALUE
+            // to deal with static string const
+            IR ir = irGenerator.getIR();
+            new IRPrinter().run(ir);
 
         }
         catch (Exception e){

@@ -10,4 +10,8 @@ public abstract class Operand {
 		this.identifier = identifier;
 	}
 
+	public String getIdentifier() {
+		return identifier;
+	}
+
 }
