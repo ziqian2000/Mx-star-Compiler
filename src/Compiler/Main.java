@@ -2,9 +2,7 @@ package Compiler;
 
 import Compiler.AST.BaseNode;
 import Compiler.IR.IR;
-import Compiler.IRVisitor.IRGenerator;
-import Compiler.IRVisitor.IRPrinter;
-import Compiler.IRVisitor.MemberOffsetCalculator;
+import Compiler.IRVisitor.*;
 import Compiler.Parser.MxstarErrorListener;
 import Compiler.SemanticAnalysis.*;
 import Compiler.Parser.MxstarLexer;
@@ -15,8 +13,7 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.io.FileInputStream;
-import java.io.InputStream;
+import java.io.*;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -34,7 +31,6 @@ public class Main {
             ParseTree parseTree = mxstarParser.program();           // construct a parse tree
 
             BaseNode astRoot = new ASTBuilder().visit(parseTree);   // construct an AST
-
             Scope topScope = new Scope(null);           // the global scope
             SymbolTableAssistant.addBuiltinFunction(topScope);      // add some builtin functions into symbol table
             astRoot.accept(new ClassDeclVisitor(topScope));         // add all classes into symbol table
@@ -43,13 +39,15 @@ public class Main {
             astRoot.accept(new SymbolTableBuilder(topScope));       // build symbol table, assign symbol, calculate type and determine value category
             astRoot.accept(new SemanticInfoVisitor(topScope));      // some other semantic exceptions
 
-            astRoot.accept(new MemberOffsetCalculator());
+            astRoot.accept(new FunctionVisitor());                  // declare function
+            astRoot.accept(new MemberOffsetCalculator());           // calculate offset & class size
             IRGenerator irGenerator = new IRGenerator(topScope);
-            astRoot.accept(irGenerator);              // generate IR
-            // ASSIGN may have to be performed between POINTER and VALUE
+            IRAssistant.addBuiltinFunction(irGenerator.getIR(), topScope, SymbolTableAssistant.stringBuiltinFuncScope, SymbolTableAssistant.arrayBuiltinFuncScope);
+            // add builtin function
+            astRoot.accept(irGenerator);                            // generate IR
             // to deal with static string const
             IR ir = irGenerator.getIR();
-            new IRPrinter().run(ir);
+            new IRPrinter().run(ir, new PrintStream("data.out"));
 
         }
         catch (Exception e){

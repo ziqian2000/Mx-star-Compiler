@@ -1,4 +1,4 @@
-buildlimit: 5
+buildlimit: 10
 instlimit: -1
 memlimit: 512
 path:

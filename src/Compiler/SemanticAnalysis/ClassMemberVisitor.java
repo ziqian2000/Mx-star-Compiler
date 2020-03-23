@@ -40,7 +40,11 @@ public class ClassMemberVisitor extends ASTBaseVisitor {
 		Type type = SymbolTableAssistant.typeNode2VarType(scope, node.getType());
 		if(scope.findLocalSymbol(identifier) != null)
 			throw new SemanticException(node.getPosition(), "redeclaration of variable : " + identifier);
-		else scope.addSymbol(identifier, new VarSymbol(identifier, type));
+		else {
+			VarSymbol varSymbol = new VarSymbol(identifier, type);
+			node.setSymbol(varSymbol);
+			scope.mutuallyAddSymbol(identifier, varSymbol);
+		}
 	}
 
 	public void visit(FuncDeclNode node){
@@ -50,7 +54,7 @@ public class ClassMemberVisitor extends ASTBaseVisitor {
 			type = SymbolTableAssistant.typeNode2VarType(scope, node.getType());
 		if(scope.findLocalSymbol(identifier) != null)
 			throw new SemanticException(node.getPosition(), "redeclaration of function : " + identifier);
-		else scope.addSymbol(identifier, new FuncSymbol(identifier, type));
+		else scope.mutuallyAddSymbol(identifier, new FuncSymbol(identifier, type));
 	}
 
 }

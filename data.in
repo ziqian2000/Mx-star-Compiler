@@ -1,11 +1,3 @@
-/*
-Test Package: Sema_Local_Preview
-Test Target: Misc
-Author: 16' Kaiyi Zhang
-Time: 2019-11-11
-Verdict: Success
-Origin Package: Semantic Pretest
-*/
 string digt(int x){
 if(x==0)return "0";
 if(x==1)return "1";

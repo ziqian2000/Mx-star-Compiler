@@ -12,11 +12,11 @@ import Compiler.Utils.SemanticException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SymbolTableVisitor implements ASTVisitor{
+public class SymbolTableBuilder implements ASTVisitor{
 
 	private Scope scope;
 
-	public SymbolTableVisitor(Scope scope){
+	public SymbolTableBuilder(Scope scope){
 		this.scope = scope;
 	}
 
@@ -46,7 +46,7 @@ public class SymbolTableVisitor implements ASTVisitor{
 			throw new SemanticException(node.getPosition(), "redeclaration of variable : " + identifier);
 		else{
 			VarSymbol varSymbol = new VarSymbol(identifier, type);
-			scope.addSymbol(identifier, varSymbol);
+			scope.mutuallyAddSymbol(identifier, varSymbol);
 			node.setSymbol(varSymbol);
 		}
 	}
@@ -219,6 +219,7 @@ public class SymbolTableVisitor implements ASTVisitor{
 	public void visit(IfStmtNode node){
 		node.getCond().accept(this);
 		scope = new Scope(scope);
+		node.setBodyScope(scope);
 		node.getThenStmt().setBodyScope(scope);
 		node.getThenStmt().accept(this);
 		scope = scope.getUpperScope();
@@ -232,6 +233,7 @@ public class SymbolTableVisitor implements ASTVisitor{
 
 	public void visit(ForStmtNode node){
 		scope = new Scope(scope);
+		node.setBodyScope(scope);
 		if(node.getInit() != null) node.getInit().accept(this);
 		if(node.getCond() != null) node.getCond().accept(this);
 		if(node.getStep() != null) node.getStep().accept(this);
@@ -242,6 +244,7 @@ public class SymbolTableVisitor implements ASTVisitor{
 	public void visit(WhileStmtNode node){
 		node.getCond().accept(this);
 		scope = new Scope(scope);
+		node.setBodyScope(scope);
 		node.getBodyStmt().accept(this);
 		scope = scope.getUpperScope();
 	}

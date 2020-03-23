@@ -6,6 +6,7 @@ import Compiler.Utils.FuckingException;
 public class ClassType extends Type {
 
 	private ClassSymbol selfSymbol;
+	private int size;
 
 	public ClassType(String identifier){
 		super(identifier);
@@ -19,8 +20,12 @@ public class ClassType extends Type {
 		return selfSymbol;
 	}
 
+	public void setSize(int siz) {
+		this.size = siz;
+	}
+
 	@Override
 	public int getSize() {
-		throw new FuckingException("get size of a class type");
+		return size;
 	}
 }

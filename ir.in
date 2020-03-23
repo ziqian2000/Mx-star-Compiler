@@ -1,0 +1,17 @@
+@0 = "啊"
+func array.size {
+1:
+	%2 = load  %3
+	ret %2
+}
+
+func haha {
+4:
+	ret
+}
+
+func main {
+5:
+	call println @0
+	ret @0
+}

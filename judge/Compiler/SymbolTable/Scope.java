@@ -39,6 +39,8 @@ public class Scope {
 		return upperScope == null;
 	}
 
+	public boolean isClassScope() {return currentClassType != null;}
+
 	public Symbol findSymbol(String identifier){
 		if(symbolTable.containsKey(identifier)) return symbolTable.get(identifier);
 		else if(upperScope != null) return upperScope.findSymbol(identifier);
@@ -57,8 +59,9 @@ public class Scope {
 		return typeTable.getOrDefault(identifier, null);
 	}
 
-	public void addSymbol(String identifier, Symbol symbol){
+	public void mutuallyAddSymbol(String identifier, Symbol symbol){
 		symbolTable.put(identifier, symbol);
+		symbol.setScope(this);
 	}
 
 	public void addType(String identifier, Type type) {

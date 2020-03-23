@@ -15,4 +15,6 @@ public abstract class Type {
 	public String toArrayString(int dim){
 		return identifier + "[" + dim + "]";
 	}
+
+	public abstract int getSize();
 }

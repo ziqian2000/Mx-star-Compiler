@@ -32,7 +32,7 @@ public class ClassDeclVisitor extends ASTBaseVisitor {
 			ClassType classType = new ClassType(identifier);
 			classType.setSelfSymbol(classSymbol);
 			classSymbol.setSelfType(classType);
-			scope.addSymbol(identifier, classSymbol);
+			scope.mutuallyAddSymbol(identifier, classSymbol);
 			scope.addType(identifier, classType);
 		}
 	}

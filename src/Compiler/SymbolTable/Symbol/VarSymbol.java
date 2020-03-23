@@ -1,6 +1,7 @@
 package Compiler.SymbolTable.Symbol;
 
 import Compiler.IR.Operand.Operand;
+import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Type.Type;
 
 public class VarSymbol extends Symbol {
