@@ -62,14 +62,8 @@ def runSemantic():
         dataArea = '\n'.join(caseData[metaIdx[1] + 1:])
         process = subprocess.Popen(["sh", semanticPath], cwd=configuration['path']['compiler'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         try:
-            '''---------------------------------------'''
-            # process.stdin.write(dataArea.encode('utf-8'))
-            # process.stdin.close()
-            f = open("data.in", "w")
-            f.write(dataArea)
-            f.close()
-            '''---------------------------------------'''
-            
+            process.stdin.write(dataArea.encode('utf-8'))
+            process.stdin.close()
             process.wait(configuration['timelimit'])
 
             stdout_result = process.stdout.readlines()
@@ -134,7 +128,7 @@ def runCodegen():
         caseData = [i.strip('\n') for i in caseData]
         metaIdx = (caseData.index('/*'), caseData.index('*/'))
         metaArea = caseData[metaIdx[0] + 1: metaIdx[1]]
-        metaConfigArea = [i for i in metaArea if '===' not in i and 'output' not in i and 'Input' not in i and 'Output' not in i]
+        metaConfigArea = [i for i in metaArea if '===' not in i and 'output' not in i and 'Input' not in i and 'Output' not in i and ': ' in i]
         metaConfigArea = [i.split(': ') for i in metaConfigArea]
         metaDict = {i[0]:i[1] for i in metaConfigArea}
 
@@ -152,6 +146,7 @@ def runCodegen():
             process.wait(configuration['timelimit'])
 
             stdout_result = process.stdout.readlines()
+            print(stdout_result)
             stderr_result = process.stderr.readlines()
             stdout_result_str = ''.join([i.decode() for i in stdout_result])
             stderr_result_str = ''.join([i.decode() for i in stderr_result])
@@ -159,48 +154,57 @@ def runCodegen():
             judgeCaseResult['Compiler-Stderr'] = stderr_result_str
             judgeCaseResult['Compiler-ExitCode'] = process.returncode
 
-            path2ravel = configuration['path']['simulator']
-            path2ravelExecutable = configuration['path']['simulator-executable']
-            open(os.path.join(path2ravel, 'test.s'), 'w').write(stdout_result_str)
-            open(os.path.join(path2ravel, 'test.in'), 'w').write(inputDataStr)
-            open(os.path.join(path2ravel, 'builtin.s'), 'w').write(''.join(open(configuration['path']['built-in'], 'r').readlines()))
-            process_sim = subprocess.Popen([path2ravelExecutable, "--oj-mode"], cwd=configuration['path']['simulator'], stdout=subprocess.PIPE, shell=False)
-            process_sim.wait(90)
-            report_list = [i.decode() for i in process_sim.stdout.readlines()]
-            key_list = [i.split(':') for i in report_list[:3]]
-            report_dict = {key_list[0]: int(key_list[1]) for i in key_list}
+            # path2ravel = configuration['path']['simulator']
+            # path2ravelExecutable = configuration['path']['simulator-executable']
+            # open(os.path.join(path2ravel, 'test.s'), 'w').write(stdout_result_str)
+            # open(os.path.join(path2ravel, 'test.in'), 'w').write(inputDataStr)
+            # open(os.path.join(path2ravel, 'builtin.s'), 'w').write(''.join(open(configuration['path']['built-in'], 'r').readlines()))
+            # process_sim = subprocess.Popen([path2ravelExecutable, "--oj-mode"], cwd=configuration['path']['simulator'], stdout=subprocess.PIPE, shell=False)
+            # process_sim.wait(90)
+            # report_list = [i.decode() for i in process_sim.stdout.readlines()]
+            # key_list = [i.split(':') for i in report_list[:3]]
+            # report_dict = {key_list[0]: int(key_list[1]) for i in key_list}
 
-            simulatorOutput = open(os.path.join(path2ravel, 'test.out'), 'r').readlines()
+            # simulatorOutput = open(os.path.join(path2ravel, 'test.out'), 'r').readlines()
+            simulatorOutput = stdout_result
 
             outputMatch = simulatorOutput == outputDataStr
-            exitcodeMatch = report_dict['exit code'] == expectedExitCode 
-            timeScriptMatch = instLimit == -1 or report_dict['time'] < instLimit
+            # exitcodeMatch = report_dict['exit code'] == expectedExitCode 
+            # timeScriptMatch = instLimit == -1 or report_dict['time'] < instLimit
             compileExitcode = process.returncode == 0
-            judgeCaseResult['Target-Output'] = simulatorOutput
-            judgeCaseResult['Target-Inst'] = report_dict['time']
-            judgeCaseResult['Target-ExitCode'] = report_dict['exit code']
+            # judgeCaseResult['Target-Output'] = simulatorOutput
+            # judgeCaseResult['Target-Inst'] = report_dict['time']
+            # judgeCaseResult['Target-ExitCode'] = report_dict['exit code']
 
-
-            if compileExitcode and exitcodeMatch and timeScriptMatch and outputMatch:
+            if outputMatch:
                 print('{} == 3 ==[ ]==[√]== Accepted:{}.{}'.format(color_green, case, color_none))
                 acceptedNum = acceptedNum + 1
                 judgeCaseResult['verdict'] = 'Accepted'
-            elif compileExitcode and exitcodeMatch and (not timeScriptMatch) and outputMatch:
-                print('{} == 3 ==[ ]==[T]== Time Limit Exceeded:{}.{}'.format(color_yellow, case, color_none))
-                wrongNum = wrongNum + 1
-                judgeCaseResult['verdict'] = 'Time Limit Exceeded'
-            elif compileExitcode and (not exitcodeMatch) and timeScriptMatch and outputMatch:
-                print('{} == 3 ==[ ]==[x]== Failed: Exitcode Mismatch:{}.{}'.format(color_red, case, color_none))
-                wrongNum = wrongNum + 1
-                judgeCaseResult['verdict'] = 'Failed: Exitcode Mismatch'
-            elif compileExitcode and exitcodeMatch and timeScriptMatch and (not outputMatch):
+            else:
                 print('{} == 3 ==[ ]==[x]== Failed: Compiled Output Mismatch:{}.{}'.format(color_red, case, color_none))
                 wrongNum = wrongNum + 1
                 judgeCaseResult['verdict'] = 'Failed: Compiled Output Mismatch'
-            else:
-                print('{} == 3 ==[ ]==[x]== Failed:{}.{}'.format(color_red, case, color_none))
-                wrongNum = wrongNum + 1
-                judgeCaseResult['verdict'] = 'Failed:'
+
+            # if compileExitcode and exitcodeMatch and timeScriptMatch and outputMatch:
+            #     print('{} == 3 ==[ ]==[√]== Accepted:{}.{}'.format(color_green, case, color_none))
+            #     acceptedNum = acceptedNum + 1
+            #     judgeCaseResult['verdict'] = 'Accepted'
+            # elif compileExitcode and exitcodeMatch and (not timeScriptMatch) and outputMatch:
+            #     print('{} == 3 ==[ ]==[T]== Time Limit Exceeded:{}.{}'.format(color_yellow, case, color_none))
+            #     wrongNum = wrongNum + 1
+            #     judgeCaseResult['verdict'] = 'Time Limit Exceeded'
+            # elif compileExitcode and (not exitcodeMatch) and timeScriptMatch and outputMatch:
+            #     print('{} == 3 ==[ ]==[x]== Failed: Exitcode Mismatch:{}.{}'.format(color_red, case, color_none))
+            #     wrongNum = wrongNum + 1
+            #     judgeCaseResult['verdict'] = 'Failed: Exitcode Mismatch'
+            # elif compileExitcode and exitcodeMatch and timeScriptMatch and (not outputMatch):
+            #     print('{} == 3 ==[ ]==[x]== Failed: Compiled Output Mismatch:{}.{}'.format(color_red, case, color_none))
+            #     wrongNum = wrongNum + 1
+            #     judgeCaseResult['verdict'] = 'Failed: Compiled Output Mismatch'
+            # else:
+            #     print('{} == 3 ==[ ]==[x]== Failed:{}.{}'.format(color_red, case, color_none))
+            #     wrongNum = wrongNum + 1
+            #     judgeCaseResult['verdict'] = 'Failed:'
             pass
         except subprocess.TimeoutExpired:
             print('{} == 3 ==[ ]==[T]== Compile Time Limit Exceeded:{}.{}'.format(color_yellow, case, color_none))
@@ -246,5 +250,3 @@ if __name__ == '__main__':
     print(' == Judge Finished')
     
     
-
-

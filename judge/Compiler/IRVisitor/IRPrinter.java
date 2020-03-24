@@ -38,7 +38,7 @@ public class IRPrinter implements IRVisitor{
 	}
 
 	public void println(String str){
-		output.print(str);
+		output.print(str + "\n");
 	}
 
 	public String opr2Str(Operand opr){

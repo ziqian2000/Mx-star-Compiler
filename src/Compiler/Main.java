@@ -2,6 +2,7 @@ package Compiler;
 
 import Compiler.AST.BaseNode;
 import Compiler.IR.IR;
+import Compiler.IRInterpreter.IRInterpreter;
 import Compiler.IRVisitor.*;
 import Compiler.Parser.MxstarErrorListener;
 import Compiler.SemanticAnalysis.*;
@@ -19,7 +20,11 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         try {
-            InputStream inputStream = new FileInputStream("data.in");
+
+//            System.out.println("FUCK");
+//            int x = 1; while(x==1){}
+
+            InputStream inputStream = new FileInputStream("code.txt");
             CharStream charStream = CharStreams.fromStream(inputStream);
             MxstarLexer mxstarLexer = new MxstarLexer(charStream);
             mxstarLexer.removeErrorListeners();
@@ -47,8 +52,8 @@ public class Main {
             astRoot.accept(irGenerator);                            // generate IR
             // to deal with static string const
             IR ir = irGenerator.getIR();
-            new IRPrinter().run(ir, new PrintStream("data.out"));
-
+            new IRPrinter().run(ir, new PrintStream("ir.txt"));
+            IRInterpreter.main("ir.txt", System.out, false);
         }
         catch (Exception e){
             e.printStackTrace();

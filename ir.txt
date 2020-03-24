@@ -1,0 +1,81 @@
+func array.size %0 {
+1:
+	%2 = load  %0
+	ret %2
+}
+
+func __init {
+3:
+	call main
+	ret
+}
+
+func abs %c {
+4:
+	%5 = gt %c 0
+	br %5 6 7
+8:
+	ret %c
+9:
+	%10 = neg %c
+	ret %10
+}
+
+func main {
+11:
+	%12 = load  %i
+	store 0 %i
+	%13 = load  %i
+	%14 = lt %13 5
+	jump 15
+16:
+	br %14 17 18
+19:
+	%20 = load  %j
+	store 0 %j
+	%21 = load  %j
+	%22 = lt %21 5
+	jump 23
+24:
+	br %22 25 26
+27:
+	%28 = call getInt
+	%29 = load  %n
+	store %28 %n
+	%30 = load  %n
+	%31 = eq %30 1
+	br %31 32 33
+34:
+	%35 = load  %r
+	%36 = load  %i
+	store %36 %r
+	%37 = load  %c
+	%38 = load  %j
+	store %38 %c
+	jump 39
+40:
+	jump 41
+42:
+	%43 = load  %j
+	%44 = move %43
+	%43 = add %43 1
+	jump 45
+46:
+	jump 47
+48:
+	%49 = load  %i
+	%50 = move %49
+	%49 = add %49 1
+	jump 51
+52:
+	%53 = load  %r
+	%54 = sub 2 %53
+	%55 = call abs %54
+	%56 = load  %c
+	%57 = sub 2 %56
+	%58 = call abs %57
+	%59 = add %55 %58
+	call printInt %59
+	ret 0
+}
+

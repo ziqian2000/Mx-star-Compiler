@@ -92,10 +92,8 @@ public class IRInterpreter {
 		}
 	}
 
-	public static void main(String[] args) throws IOException {
-		boolean ssa = args.length > 0 && args[0].trim().equals("+ssa");
-		InputStream in = new FileInputStream("ir.in");
-		IRInterpreter vm = new IRInterpreter(in, ssa, new DataInputStream(System.in), new PrintStream(System.out));
+	public static void main(String inFile, PrintStream output, boolean ssa) throws IOException {
+		IRInterpreter vm = new IRInterpreter(new FileInputStream(inFile), ssa, new DataInputStream(System.in), output);
 		//if (ssa)
 		//    System.out.println("running with SSA mode");
 		//else
