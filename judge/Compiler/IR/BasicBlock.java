@@ -44,6 +44,10 @@ public class BasicBlock {
 		return identifier;
 	}
 
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
 	public List<IRIns> getInstList() {
 		return InstList;
 	}

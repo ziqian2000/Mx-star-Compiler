@@ -22,8 +22,8 @@ public class IRInterpreter {
 	// instructions that have destination
 	static private final Set<String> opnames2 = new HashSet<>(Arrays.asList(
 			"load", "move", "alloc", "phi",
-			"add", "sub", "mul", "div", "mod", "shl", "shr", "and", "or", "xor", "neg", "not",
-			"slt", "sgt", "sle", "sge", "seq", "sne", "call"
+			"add", "sub", "mul", "div", "mod", "shl", "shr", "and", "or", "xor", "neg", "com",
+			"lt", "gt", "le", "ge", "eq", "neq", "call"
 	));
 	// instructions that have exactly 1 operand
 	static private final Set<String> opnum1 = new HashSet<>(Arrays.asList(
@@ -331,19 +331,19 @@ public class IRInterpreter {
 		switch (curInst.operator) {
 			case "load":
 				long addr = readSrc(curInst.op1); //+ curInst.offset;
-				curInst.size = 8;
+				curInst.size = 4;
 				long res = 0;
-				for (int i = 0; i < curInst.size; ++i) res = (res << 8) | memoryRead(addr + i);
+				for (int i = 0; i < curInst.size; ++i) res = (res << 4) | memoryRead(addr + i);
 				registerWrite(curInst.dest, res);
 				return;
 
 			case "store":
 				long address = readSrc(curInst.op1); // + curInst.offset;
 				long data = readSrc(curInst.op2);
-				curInst.size = 8;
+				curInst.size = 4;
 				for (long i = curInst.size - 1; i >= 0; --i) {
 					memoryWrite(address + i, (byte) (data & 0xFF));
-					data >>= 8;
+					data >>= 4;
 				}
 				return;
 
@@ -458,6 +458,15 @@ public class IRInterpreter {
 						data_out.print('\n');
 						return;
 					}
+					case "printInt": {
+						data_out.print(readSrc(curInst.args.get(0)));
+						return;
+					}
+					case "printlnInt": {
+						data_out.print(readSrc(curInst.args.get(0)));
+						data_out.print('\n');
+						return;
+					}
 					case "getString": {
 						String resStr = scanner.next();
 						registerWrite(curInst.dest, staticStringCnt);
@@ -530,7 +539,7 @@ public class IRInterpreter {
 			case "neg":
 				registerWrite(curInst.dest, -readSrc(curInst.op1));
 				return;
-			case "not":
+			case "com":
 				registerWrite(curInst.dest, ~readSrc(curInst.op1));
 				return;
 			case "add":
@@ -557,22 +566,22 @@ public class IRInterpreter {
 			case "xor":
 				registerWrite(curInst.dest, readSrc(curInst.op1) ^ readSrc(curInst.op2));
 				return;
-			case "slt":
+			case "lt":
 				registerWrite(curInst.dest, readSrc(curInst.op1) < readSrc(curInst.op2) ? 1 : 0);
 				return;
-			case "sgt":
+			case "gt":
 				registerWrite(curInst.dest, readSrc(curInst.op1) > readSrc(curInst.op2) ? 1 : 0);
 				return;
-			case "sle":
+			case "le":
 				registerWrite(curInst.dest, readSrc(curInst.op1) <= readSrc(curInst.op2) ? 1 : 0);
 				return;
-			case "sge":
+			case "ge":
 				registerWrite(curInst.dest, readSrc(curInst.op1) >= readSrc(curInst.op2) ? 1 : 0);
 				return;
-			case "seq":
+			case "eq":
 				registerWrite(curInst.dest, readSrc(curInst.op1) == readSrc(curInst.op2) ? 1 : 0);
 				return;
-			case "sne":
+			case "neq":
 				registerWrite(curInst.dest, readSrc(curInst.op1) != readSrc(curInst.op2) ? 1 : 0);
 				return;
 

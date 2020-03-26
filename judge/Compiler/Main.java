@@ -21,7 +21,7 @@ public class Main {
 
         try {
 
-            System.out.println("FUCK");
+//            System.out.println("FUCK");
 //            int x = 1; while(x==1){}
 
             InputStream inputStream = new FileInputStream("code.txt");

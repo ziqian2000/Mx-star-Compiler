@@ -37,6 +37,7 @@ public class SymbolTableBuilder implements ASTVisitor{
 	public void visit(VarDeclNode node){
 		String identifier = node.getIdentifier();
 		Type type = SymbolTableAssistant.typeNode2VarType(scope, node.getType());
+		node.getType().setTypeInfo(type);
 		if(node.getExpr() != null){
 			node.getExpr().accept(this);
 			if(node.getExpr().getType() != SymbolTableAssistant.nullType && node.getExpr().getType() != type)

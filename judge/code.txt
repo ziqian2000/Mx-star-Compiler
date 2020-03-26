@@ -1,26 +1,19 @@
-int p;
-int q;
-int r;
-int x = 0;
-int y = 0;
-int z = 0;
-int n;
-int i;
-int main()
-{	//int p,q,r,x=0,y=0,z=0,n,i;
-	n = getInt();
-    //scanf("%d", &n);
-	for(i=0;i<n;i++)
-	{	p = getInt();
-        q = getInt();
-        r = getInt();
-        //scanf("%d %d %d", &p,&q,&r);
-		x = x + p; 
-        y = y + q;
-        z = z + r;
-	}
-if(x==0 && y==0&& z==0)
-print("YES");
-else print("NO");
+int qpow(int a,int p,int mod) {
+    int t = 1;
+    int y = a;
+    while(p>0){
+        if((p&1) == 1)t=t*y % mod;
+        y=y*y % mod;
+        p=p / 2;
+    }
+    return t;
 }
- 
+
+
+
+
+
+int main() {
+    println(toString(qpow(2,10,10000)));
+    return 0;
+}

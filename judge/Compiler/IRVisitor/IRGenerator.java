@@ -55,10 +55,12 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 				VarDeclNode varDeclNode = (VarDeclNode)decl;
 
 				I32Pointer ptr = new I32Pointer(varDeclNode.getIdentifier());
+				ptr.setGlobal(true);
+				curBB.addInst(new Alloc(new Immediate(IRAssistant.isReferenceType(((VarDeclNode) decl).getType().getTypeInfo()) ? Config.POINTER_SIZE : Config.BASIC_TYPE_SIZE), ptr));
 				((VarSymbol)varDeclNode.getSymbol()).setStorage(ptr);
 				if(varDeclNode.getExpr() != null){
 					varDeclNode.getExpr().accept(this);
-					initBB.addInst(new Store(varDeclNode.getExpr().getResultOpr(), ptr));
+					curBB.addInst(new Store(varDeclNode.getExpr().getResultOpr(), ptr));
 				}
 
 				ir.addGlobalVar(ptr);
@@ -178,8 +180,6 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		scope = node.getBodyScope();
 
 		if(node.getInit() != null) node.getInit().accept(this);
-		if(node.getCond() != null) node.getCond().accept(this);
-		Operand resultOpr = node.getCond() != null ? node.getCond().getResultOpr() : new Immediate(1); // always be true
 
 		BasicBlock condBB = new BasicBlock();
 		BasicBlock loopBB = new BasicBlock();
@@ -190,15 +190,24 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		loopBreakStack.push(exitBB);
 
 		curBB.addLastInst(new Jump(condBB));
-		condBB.addLastInst(new Branch(resultOpr, loopBB, exitBB));
 
+		// cond
+		curBB = condBB;
+		if(node.getCond() != null) node.getCond().accept(this);
+		Operand resultOpr = node.getCond() != null ? node.getCond().getResultOpr() : new Immediate(1); // always be true
+		curBB.addLastInst(new Branch(resultOpr, loopBB, exitBB));
+
+		// step
 		curBB = stepBB;
 		if(node.getStep() != null) node.getStep().accept(this);
-		stepBB.addLastInst(new Jump(condBB));
+		curBB.addLastInst(new Jump(condBB));
 
+		// loop body
 		curBB = loopBB;
 		node.getBodyStmt().accept(this);
 		curBB.addLastInst(new Jump(stepBB));
+
+		// exit
 		curBB = exitBB;
 
 		loopContStack.pop();
@@ -217,30 +226,63 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 	public void visit(UnaryExprNode node){
 		node.getOpr().accept(this);
-		Operand src = convertPtr2Val(node.getOpr().getResultOpr());
+		Operand src = node.getOpr().getResultOpr();
+		Operand srcVal = convertPtr2Val(node.getOpr().getResultOpr());
 		switch (node.getOp()){
 			case POS_INC : { // i++
 				Operand tmp = new I32Value();
 				node.setResultOpr(tmp);
-				curBB.addInst(new Move(src, tmp));
-				curBB.addInst(new Binary(Binary.Op.ADD, src, new Immediate(1), src));
+				if(src instanceof I32Pointer){
+					curBB.addInst(new Load(tmp, src));
+					I32Value tmp2 = new I32Value();
+					curBB.addInst(new Binary(Binary.Op.ADD, tmp, new Immediate(1), tmp2));
+					curBB.addInst(new Store(tmp2, src));
+				}
+				else{
+					curBB.addInst(new Move(src, tmp));
+					curBB.addInst(new Binary(Binary.Op.ADD, src, new Immediate(1), src));
+				}
 				break;
 			}
 			case POS_SUB : { // i--
 				Operand tmp = new I32Value();
 				node.setResultOpr(tmp);
-				curBB.addInst(new Move(src, tmp));
-				curBB.addInst(new Binary(Binary.Op.SUB, src, new Immediate(1), src));
+				if(src instanceof I32Pointer){
+					curBB.addInst(new Load(tmp, src));
+					I32Value tmp2 = new I32Value();
+					curBB.addInst(new Binary(Binary.Op.SUB, tmp, new Immediate(1), tmp2));
+					curBB.addInst(new Store(tmp2, src));
+				}
+				else{
+					curBB.addInst(new Move(src, tmp));
+					curBB.addInst(new Binary(Binary.Op.SUB, src, new Immediate(1), src));
+				}
 				break;
 			}
 			case PRE_INC : { // ++i
 				node.setResultOpr(src);
-				curBB.addInst(new Binary(Binary.Op.ADD, src, new Immediate(1), src));
+				if(src instanceof I32Pointer){
+					I32Value tmp = new I32Value();
+					curBB.addInst(new Load(tmp, src));
+					curBB.addInst(new Binary(Binary.Op.ADD, tmp, new Immediate(1), tmp));
+					curBB.addInst(new Store(tmp, src));
+				}
+				else{
+					curBB.addInst(new Binary(Binary.Op.ADD, src, new Immediate(1), src));
+				}
 				break;
 			}
 			case PRE_SUB : { // --i
 				node.setResultOpr(src);
-				curBB.addInst(new Binary(Binary.Op.SUB, src, new Immediate(1), src));
+				if(src instanceof I32Pointer){
+					I32Value tmp = new I32Value();
+					curBB.addInst(new Load(tmp, src));
+					curBB.addInst(new Binary(Binary.Op.SUB, tmp, new Immediate(1), tmp));
+					curBB.addInst(new Store(tmp, src));
+				}
+				else{
+					curBB.addInst(new Binary(Binary.Op.SUB, src, new Immediate(1), src));
+				}
 				break;
 			}
 			case PLU : { // +
@@ -411,7 +453,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 		I32Value base_addr = (I32Value) convertPtr2Val(node.getArray().getResultOpr());
 
-		Operand index = node.getIdx().getResultOpr();
+		Operand index = convertPtr2Val(node.getIdx().getResultOpr());
 		Operand index_plus1 = new I32Value();
 
 		I32Value offset = new I32Value();
@@ -464,24 +506,26 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 		Function function = funcSymbol.getFunction();
 
-
 		// add parameter
 		List<Operand> paraList = new ArrayList<>();
 		for(ExprNode paraExpr : node.getParaList()){
 			paraExpr.accept(this);
-			paraList.add(paraExpr.getResultOpr());
+			paraList.add(convertPtr2Val(paraExpr.getResultOpr()));
 		}
 
+		// save return value
 		Operand dst;
 		if(node.getType() instanceof VoidType) dst = null;
 		else dst = new I32Value();
 		node.setResultOpr(dst);
 
+		// member function, set obj
 		Register obj = null;
 		if(function.getIsMemberFunc()){
 			if(node.getFunction() instanceof MemberExprNode) obj = (Register)((MemberExprNode)node.getFunction()).getExpr().getResultOpr();
 			else obj = (Register) curFunction.getObj();
 		}
+
 		curBB.addInst(new Call(function,
 				obj,
 				paraList,

@@ -46,14 +46,15 @@ public class IRPrinter implements IRVisitor{
 
 		if(opr.getIdentifier() == null) opr.setIdentifier(String.valueOf(unnamedCnt++));
 		if(opr instanceof Register){
-			return "%" + opr.getIdentifier();
+			if(((Register)opr).getGlobal()) return "@" + opr.getIdentifier();
+			else return "%" + opr.getIdentifier();
 		}
 		else return "@" + opr.getIdentifier(); // string
 	}
 
 	public String BB2Str(BasicBlock BB){
-		String str = BB.getIdentifier();
-		return (str == null ? String.valueOf(unnamedCnt++) : str);
+		if(BB.getIdentifier() == null) BB.setIdentifier(String.valueOf(unnamedCnt++));
+		return BB.getIdentifier();
 	}
 
 	// visit staticString, function & basic block
@@ -124,7 +125,7 @@ public class IRPrinter implements IRVisitor{
 	}
 
 	public void visit(Load ins){
-		println(opr2Str(ins.getDst()) + " = load " + " " + opr2Str(ins.getPtr()));
+		println(opr2Str(ins.getDst()) + " = load " + opr2Str(ins.getPtr()));
 	}
 
 	public void visit(Move ins){
