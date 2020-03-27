@@ -8,4 +8,4 @@ path:
   simulator-executable: /Users/peterzheng/ravel/build/bin/ravel
   built-in: /Users/peterzheng/Documents/Projects/OldProject/Compiler/localJudge/built-in.s
 stage: codegen
-timelimit: 15
+timelimit: 100

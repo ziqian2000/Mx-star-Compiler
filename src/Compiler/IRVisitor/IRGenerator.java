@@ -172,7 +172,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		curBB = condBB;
 		node.getCond().accept(this);
 		Operand resultOpr = convertPtr2Val(node.getCond().getResultOpr());
-		condBB.addLastInst(new Branch(resultOpr, loopBB, exitBB));
+		curBB.addLastInst(new Branch(resultOpr, loopBB, exitBB));
 
 		// loop body
 		curBB = loopBB;
@@ -239,7 +239,6 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 	public void visit(UnaryExprNode node){
 		node.getOpr().accept(this);
 		Operand src = node.getOpr().getResultOpr();
-		Operand srcVal = convertPtr2Val(node.getOpr().getResultOpr());
 		switch (node.getOp()){
 			case POS_INC : { // i++
 				Operand tmp = new I32Value();
@@ -332,10 +331,6 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 	}
 
 	public void visit(BinaryExprNode node){
-		node.getLhs().accept(this);
-		node.getRhs().accept(this);
-		Operand lhs = node.getLhs().getResultOpr(), rhs = node.getRhs().getResultOpr();
-		Operand lhsVar = convertPtr2Val(lhs), rhsVar = convertPtr2Val(rhs);
 		switch (node.getOp()){
 			case SUB :
 			case MUL :
@@ -346,6 +341,11 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 			case AND :
 			case OR :
 			case XOR : {
+				node.getLhs().accept(this);
+				node.getRhs().accept(this);
+				Operand lhs = node.getLhs().getResultOpr(), rhs = node.getRhs().getResultOpr();
+				Operand lhsVar = convertPtr2Val(lhs), rhsVar = convertPtr2Val(rhs);
+
 				Operand dst = new I32Value();
 				node.setResultOpr(dst);
 				curBB.addInst(new Binary(Binary.Op.valueOf(String.valueOf(node.getOp())), lhsVar, rhsVar, dst));
@@ -353,6 +353,11 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 			}
 
 			case ADD : {
+				node.getLhs().accept(this);
+				node.getRhs().accept(this);
+				Operand lhs = node.getLhs().getResultOpr(), rhs = node.getRhs().getResultOpr();
+				Operand lhsVar = convertPtr2Val(lhs), rhsVar = convertPtr2Val(rhs);
+
 				Operand dst = new I32Value();
 				node.setResultOpr(dst);
 				if(node.getLhs().getType() == SymbolTableAssistant.stringType){
@@ -370,6 +375,11 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 			case LE :
 			case GT :
 			case GE : {
+				node.getLhs().accept(this);
+				node.getRhs().accept(this);
+				Operand lhs = node.getLhs().getResultOpr(), rhs = node.getRhs().getResultOpr();
+				Operand lhsVar = convertPtr2Val(lhs), rhsVar = convertPtr2Val(rhs);
+
 				Operand dst = new I32Value();
 				node.setResultOpr(dst);
 				if(node.getLhs().getType() == SymbolTableAssistant.stringType){
@@ -391,6 +401,11 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 			case EQ :
 			case NEQ : {
+				node.getLhs().accept(this);
+				node.getRhs().accept(this);
+				Operand lhs = node.getLhs().getResultOpr(), rhs = node.getRhs().getResultOpr();
+				Operand lhsVar = convertPtr2Val(lhs), rhsVar = convertPtr2Val(rhs);
+
 				Operand dst = new I32Value();
 				node.setResultOpr(dst);
 				if(node.getLhs().getType() == SymbolTableAssistant.stringType){
@@ -414,11 +429,24 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 				BasicBlock trueBB = new BasicBlock();
 				BasicBlock falseBB = new BasicBlock();
 				BasicBlock exitBB = new BasicBlock();
+
+				// init, lhs
+				node.getLhs().accept(this);
+				Operand lhsVar = convertPtr2Val(node.getLhs().getResultOpr());
 				curBB.addLastInst(new Branch(lhsVar, trueBB, falseBB));
-				trueBB.addInst(new Move(rhsVar, dst));
+
+				// falseBB
 				falseBB.addInst(new Move(new Immediate(0), dst));
-				trueBB.addLastInst(new Jump(exitBB));
 				falseBB.addLastInst(new Jump(exitBB));
+
+				// trueBB
+				curBB = trueBB;
+				node.getRhs().accept(this);
+				Operand rhsVar = convertPtr2Val(node.getRhs().getResultOpr());
+				curBB.addInst(new Move(rhsVar, dst));
+				curBB.addLastInst(new Jump(exitBB));
+
+				// exit
 				curBB = exitBB;
 				break;
 			}
@@ -428,16 +456,34 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 				BasicBlock trueBB = new BasicBlock();
 				BasicBlock falseBB = new BasicBlock();
 				BasicBlock exitBB = new BasicBlock();
+
+				// init, lhs
+				node.getLhs().accept(this);
+				Operand lhsVar = convertPtr2Val(node.getLhs().getResultOpr());
 				curBB.addLastInst(new Branch(lhsVar, trueBB, falseBB));
+
+				// trueBB
 				trueBB.addInst(new Move(new Immediate(1), dst));
-				falseBB.addInst(new Move(rhsVar, dst));
 				trueBB.addLastInst(new Jump(exitBB));
-				falseBB.addLastInst(new Jump(exitBB));
+
+				// falseBB
+				curBB = falseBB;
+				node.getRhs().accept(this);
+				Operand rhsVar = convertPtr2Val(node.getRhs().getResultOpr());
+				curBB.addInst(new Move(rhsVar, dst));
+				curBB.addLastInst(new Jump(exitBB));
+
+				// exit
 				curBB = exitBB;
 				break;
 			}
 
 			case ASS : {
+				node.getLhs().accept(this);
+				node.getRhs().accept(this);
+				Operand lhs = node.getLhs().getResultOpr(), rhs = node.getRhs().getResultOpr();
+				Operand lhsVar = convertPtr2Val(lhs), rhsVar = convertPtr2Val(rhs);
+
 				assign(rhs, (Register)lhs);
 				break;
 			}

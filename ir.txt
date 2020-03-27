@@ -1,308 +1,66 @@
-func array.size %0 {
+func array.size %t_0 {
 1:
-	%2 = load %0
-	ret %2
+	%t_2 = load %t_0
+	ret %t_2
 }
 
 func __init {
 3:
-	@a = alloc 4
-	%4 = mul 4 4
-	%5 = add %4 4
-	%6 = alloc %5
-	store 4 %6
-	store %6 @a
-	@i = alloc 4
-	@j = alloc 4
-	@b = alloc 4
-	%7 = mul 5 8
-	%8 = add %7 4
-	%9 = alloc %8
-	store 5 %9
-	store %9 @b
+	@MAXN_4 = alloc 4
+	store 10005 @MAXN_4
+	@MAXM_5 = alloc 4
+	store 10005 @MAXM_5
 	call main
 	ret
 }
 
-func printNum %num {
-10:
-	%11 = call toString %num
-	call println %11
-	ret
-}
-
 func main {
-12:
-	%13 = load @i
-	store 0 @i
-	jump 14
-14:
-	%15 = load @i
-	%16 = lt %15 4
-	br %16 17 18
-17:
-	%19 = load @a
-	%20 = load @i
-	%21 = add %20 1
-	%22 = mul %21 4
-	%23 = add %19 %22
-	%24 = mul 11 4
-	%25 = add %24 4
-	%26 = alloc %25
-	store 11 %26
-	%27 = load %23
-	store %26 %23
-	jump 28
-28:
-	%29 = load @i
-	%30 = load @i
-	%31 = add %30 1
-	store %31 @i
-	jump 14
-18:
-	%32 = load @i
-	store 0 @i
-	jump 33
-33:
-	%34 = load @i
-	%35 = lt %34 4
-	br %35 36 37
-36:
-	%38 = load @j
-	store 0 @j
-	jump 39
-39:
-	%40 = load @j
-	%41 = lt %40 10
-	br %41 42 43
-42:
-	%44 = load @a
-	%45 = load @i
-	%46 = add %45 1
-	%47 = mul %46 4
-	%48 = add %44 %47
-	%49 = load %48
-	%50 = load @j
-	%51 = add %50 1
-	%52 = mul %51 4
-	%53 = add %49 %52
-	%54 = load %53
-	store 888 %53
-	jump 55
-55:
-	%56 = load @j
-	%57 = load @j
-	%58 = add %57 1
-	store %58 @j
-	jump 39
-43:
-	jump 59
-59:
-	%60 = load @i
-	%61 = load @i
-	%62 = add %61 1
-	store %62 @i
-	jump 33
-37:
-	%63 = load @i
-	store 0 @i
-	jump 64
-64:
-	%65 = load @i
-	%66 = lt %65 5
-	br %66 67 68
-67:
-	%69 = load @b
-	%70 = load @i
-	%71 = add %70 1
-	%72 = mul %71 8
-	%73 = add %69 %72
-	%74 = alloc 8
-	%75 = load %73
-	store %74 %73
-	%76 = load @b
-	%77 = load @i
-	%78 = add %77 1
-	%79 = mul %78 8
-	%80 = add %76 %79
-	%81 = load %80
-	%82 = add %81 0
-	%83 = neg 1
-	%84 = load %82
-	store %83 %82
-	jump 85
-85:
-	%86 = load @i
-	%87 = load @i
-	%88 = add %87 1
-	store %88 @i
-	jump 64
-68:
-	%89 = load @a
-	%90 = add 3 1
-	%91 = mul %90 4
-	%92 = add %89 %91
-	%93 = load %92
-	%94 = add 9 1
-	%95 = mul %94 4
-	%96 = add %93 %95
-	%97 = load %96
-	%98 = call printNum %97
-	%99 = load @i
-	store 0 @i
-	jump 100
-100:
-	%101 = load @i
-	%102 = le %101 3
-	br %102 103 104
-103:
-	%105 = load @j
-	store 0 @j
-	jump 106
-106:
-	%107 = load @j
-	%108 = le %107 9
-	br %108 109 110
-109:
-	%111 = load @a
-	%112 = load @i
-	%113 = add %112 1
-	%114 = mul %113 4
-	%115 = add %111 %114
-	%116 = load %115
-	%117 = load @j
-	%118 = add %117 1
-	%119 = mul %118 4
-	%120 = add %116 %119
-	%121 = load @i
-	%122 = mul %121 10
-	%123 = load @j
-	%124 = add %122 %123
-	%125 = load %120
-	store %124 %120
-	jump 126
-126:
-	%127 = load @j
-	%128 = load @j
-	%129 = add %128 1
-	store %129 @j
-	jump 106
-110:
-	jump 130
-130:
-	%131 = load @i
-	%132 = load @i
-	%133 = add %132 1
-	store %133 @i
-	jump 100
-104:
-	%134 = load @i
-	store 0 @i
-	jump 135
-135:
-	%136 = load @i
-	%137 = le %136 3
-	br %137 138 139
-138:
-	%140 = load @j
-	store 0 @j
-	jump 141
-141:
-	%142 = load @j
-	%143 = le %142 9
-	br %143 144 145
-144:
-	%146 = load @a
-	%147 = load @i
-	%148 = add %147 1
-	%149 = mul %148 4
-	%150 = add %146 %149
-	%151 = load %150
-	%152 = load @j
-	%153 = add %152 1
-	%154 = mul %153 4
-	%155 = add %151 %154
-	%156 = load %155
-	%157 = call printNum %156
-	jump 158
-158:
-	%159 = load @j
-	%160 = load @j
-	%161 = add %160 1
-	store %161 @j
-	jump 141
-145:
-	jump 162
-162:
-	%163 = load @i
-	%164 = load @i
-	%165 = add %164 1
-	store %165 @i
-	jump 135
-139:
-	%166 = load @a
-	%167 = add 2 1
-	%168 = mul %167 4
-	%169 = add %166 %168
-	%170 = load %169
-	%171 = add 10 1
-	%172 = mul %171 4
-	%173 = add %170 %172
-	%174 = load %173
-	store 0 %173
-	%175 = load @a
-	%176 = add 2 1
-	%177 = mul %176 4
-	%178 = add %175 %177
-	%179 = load %178
-	%180 = add 10 1
-	%181 = mul %180 4
-	%182 = add %179 %181
-	%183 = load %182
-	%184 = call printNum %183
-	%185 = load @b
-	%186 = add 0 1
-	%187 = mul %186 8
-	%188 = add %185 %187
-	%189 = load %188
-	%190 = add %189 0
-	%191 = neg 2
-	%192 = load %190
-	store %191 %190
-	%193 = load @a
-	%194 = add 2 1
-	%195 = mul %194 4
-	%196 = add %193 %195
-	%197 = load %196
-	%198 = add 10 1
-	%199 = mul %198 4
-	%200 = add %197 %199
-	%201 = load @b
-	%202 = load %200
-	%203 = add %202 1
-	%204 = mul %203 8
-	%205 = add %201 %204
-	%206 = load %205
-	%207 = add %206 0
-	%208 = neg 10
-	%209 = load %207
-	store %208 %207
-	%210 = load @b
-	%211 = add 0 1
-	%212 = mul %211 8
-	%213 = add %210 %212
-	%214 = load %213
-	%215 = add %214 0
-	%216 = load %215
-	%217 = call printNum %216
-	%218 = load @b
-	%219 = add 1 1
-	%220 = mul %219 8
-	%221 = add %218 %220
-	%222 = load %221
-	%223 = add %222 0
-	%224 = load %223
-	%225 = call printNum %224
+6:
+	%t_7 = call getInt
+	%M_8 = move %t_7
+	%t_9 = call getInt
+	%N_10 = move %t_9
+	%t_11 = load @MAXN_4
+	%t_12 = mul %t_11 4
+	%t_13 = add %t_12 4
+	%t_14 = alloc %t_13
+	store %t_11 %t_14
+	%w_15 = move %t_14
+	%t_16 = load @MAXN_4
+	%t_17 = mul %t_16 4
+	%t_18 = add %t_17 4
+	%t_19 = alloc %t_18
+	store %t_16 %t_19
+	%t_20 = move %t_19
+	%t_21 = load @MAXN_4
+	%t_22 = mul %t_21 4
+	%t_23 = add %t_22 4
+	%t_24 = alloc %t_23
+	store %t_21 %t_24
+	%DP_25 = move %t_24
+	%i_26 = move 0
+	jump 27
+27:
+	%t_28 = lt %i_26 %N_10
+	br %t_28 29 30
+29:
+	%t_31 = add %i_26 1
+	%t_32 = mul %t_31 4
+	%t_33 = add %w_15 %t_32
+	%t_34 = call getInt
+	%t_35 = load %t_33
+	store %t_34 %t_33
+	%t_36 = add %i_26 1
+	%t_37 = mul %t_36 4
+	%t_38 = add %t_20 %t_37
+	%t_39 = call getInt
+	%t_40 = load %t_38
+	store %t_39 %t_38
+	jump 41
+41:
+	%i_26 = add %i_26 1
+	jump 27
+30:
 	ret 0
 }
 

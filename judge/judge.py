@@ -142,6 +142,7 @@ def runCodegen():
         inputDataStr = '\n'.join(metaArea[metaArea.index('=== input ===') + 1 : metaArea.index('=== end ===')])
         outputDataStr = '\n'.join(newMetaArea[newMetaArea.index('=== output ===') + 1 : newMetaArea.index('=== end ===')])
         outputDataStr2 = outputDataStr + '\n'
+        outputDataStr3 = outputDataStr2 + '\n'
         expectedExitCode = int(metaDict['ExitCode'])
         instLimit = int(metaDict['InstLimit'])
         print(' == 3 ==[ ]==[ ]== Judge:{}.'.format(case), end='\r')
@@ -182,7 +183,7 @@ def runCodegen():
 
             # while(True): pass
             # print("{", stdout_result_str, "}\n{", outputDataStr, "}")
-            outputMatch = stdout_result_str == outputDataStr or stdout_result_str == outputDataStr2
+            outputMatch = stdout_result_str == outputDataStr or stdout_result_str == outputDataStr2 or stdout_result_str == outputDataStr3
             # outputMatch = simulatorOutput == outputDataStr
             # exitcodeMatch = report_dict['exit code'] == expectedExitCode 
             # timeScriptMatch = instLimit == -1 or report_dict['time'] < instLimit

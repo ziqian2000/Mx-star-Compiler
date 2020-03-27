@@ -4,10 +4,7 @@ import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IR;
 import Compiler.IR.Instr.*;
-import Compiler.IR.Operand.Immediate;
-import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
-import Compiler.IR.Operand.StaticStrConst;
+import Compiler.IR.Operand.*;
 import Compiler.Utils.FuckingException;
 
 import java.io.PrintStream;
@@ -42,14 +39,22 @@ public class IRPrinter implements IRVisitor{
 	}
 
 	public String opr2Str(Operand opr){
+		// immediate
 		if(opr instanceof Immediate) return opr.getIdentifier();
 
-		if(opr.getIdentifier() == null) opr.setIdentifier(String.valueOf(unnamedCnt++));
-		if(opr instanceof Register){
-			if(((Register)opr).getGlobal()) return "@" + opr.getIdentifier();
-			else return "%" + opr.getIdentifier();
+		// not immediate, must be in storage : string, value, pointer
+		if(!(opr instanceof Storage)) throw new FuckingException("how can opr be not of Storage type");
+		Storage o = (Storage) opr;
+
+		// if no name, assign one
+		if(o.getName() == null) o.setName((o.getIdentifier() == null ? "t" : o.getIdentifier()) + "_" + unnamedCnt++);
+
+		// return the name
+		if(o instanceof Register){
+			if(((Register) o).getGlobal()) return "@" + o.getName();
+			else return "%" + o.getName();
 		}
-		else return "@" + opr.getIdentifier(); // string
+		else return "@" + o.getName(); // string
 	}
 
 	public String BB2Str(BasicBlock BB){
@@ -78,6 +83,7 @@ public class IRPrinter implements IRVisitor{
 	}
 
 	public void visit(BasicBlock basicBlock){
+
 		if(BBVisit.contains(basicBlock)) return;
 
 		List<IRIns> irInsList = basicBlock.getInstList();
