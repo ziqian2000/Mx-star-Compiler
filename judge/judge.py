@@ -128,21 +128,27 @@ def runCodegen():
         caseData = [i.strip('\n') for i in caseData]
         metaIdx = (caseData.index('/*'), caseData.index('*/'))
         metaArea = caseData[metaIdx[0] + 1: metaIdx[1]]
-        metaConfigArea = [i for i in metaArea if '===' not in i and 'output' not in i and 'Input' not in i and 'Output' not in i and ': ' in i]
+        metaConfigArea = []
+        inputOrOutput = False
+        for i in metaArea:
+            if '===' in i: inputOrOutput = not inputOrOutput
+            if inputOrOutput: continue
+            if '===' in i or 'output' in i or 'Input' in i or 'Output' in i or ':' not in i: continue
+            metaConfigArea.append(i)
         metaConfigArea = [i.split(': ') for i in metaConfigArea]
         metaDict = {i[0]:i[1] for i in metaConfigArea}
 
         newMetaArea = metaArea[metaArea.index('=== end ===') + 1:]
         inputDataStr = '\n'.join(metaArea[metaArea.index('=== input ===') + 1 : metaArea.index('=== end ===')])
-        outputDataStr = ' '.join(newMetaArea[newMetaArea.index('=== output ===') + 1 : newMetaArea.index('=== end ===')])
+        outputDataStr = '\n'.join(newMetaArea[newMetaArea.index('=== output ===') + 1 : newMetaArea.index('=== end ===')])
+        outputDataStr2 = outputDataStr + '\n'
         expectedExitCode = int(metaDict['ExitCode'])
         instLimit = int(metaDict['InstLimit'])
         print(' == 3 ==[ ]==[ ]== Judge:{}.'.format(case), end='\r')
         dataArea = '\n'.join(caseData[metaIdx[1] + 1:])
         process = subprocess.Popen(["sh", codegenScriptPath], cwd=configuration['path']['compiler'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         try:
-            # if(case != './e1.mx'): 
-            #     continue
+            # if(case != './t55.mx'): continue
 
             f = open('in.txt', 'w')
             f.write(inputDataStr)
@@ -175,8 +181,8 @@ def runCodegen():
             # simulatorOutput = stdout_result
 
             # while(True): pass
-            # print("{", stdout_result_str, "}{", outputDataStr, "}")
-            outputMatch = stdout_result_str == outputDataStr
+            # print("{", stdout_result_str, "}\n{", outputDataStr, "}")
+            outputMatch = stdout_result_str == outputDataStr or stdout_result_str == outputDataStr2
             # outputMatch = simulatorOutput == outputDataStr
             # exitcodeMatch = report_dict['exit code'] == expectedExitCode 
             # timeScriptMatch = instLimit == -1 or report_dict['time'] < instLimit
