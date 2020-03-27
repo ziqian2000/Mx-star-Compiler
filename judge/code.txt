@@ -1,12 +1,20 @@
-int gcd(int x, int y) {
-  if (x%y == 0) return y;
-  else return gcd(y, x%y);
+int h(){
+	if (true) int c = 1;
+	return c;
 }
 
-int main() {
-    println(toString(gcd(10,1)));
-    println(toString(gcd(34986,3087)));
-    println(toString(gcd(2907,1539)));
+int k(){
+	if (true) ;
+	else int d = 1;
+	return d;
+}
 
-    return 0;
+int l(){
+	if (true) ;
+	else if (true) int e = 1;
+	return e;
+}
+
+int main(){
+	return 0;
 }

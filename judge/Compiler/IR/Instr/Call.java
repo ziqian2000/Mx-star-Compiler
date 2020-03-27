@@ -15,11 +15,11 @@ public class Call extends IRIns {
 	// if [function] is a class member function, then [objPtr] will be the object itself
 
 	private Function function;
-	private Register obj;
+	private Operand obj;
 	private List<Operand> paraList;
 	private Operand dst;
 
-	public Call(Function function, Register obj, List<Operand> paraList, Operand dst){
+	public Call(Function function, Operand obj, List<Operand> paraList, Operand dst){
 		this.function = function;
 		this.obj = obj;
 		this.paraList = paraList;
@@ -30,7 +30,7 @@ public class Call extends IRIns {
 		return function;
 	}
 
-	public Register getObj() {
+	public Operand getObj() {
 		return obj;
 	}
 

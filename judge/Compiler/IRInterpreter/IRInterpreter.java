@@ -418,7 +418,7 @@ public class IRInterpreter {
 						registerWrite(curInst.dest, str1.compareTo(str2) < 0 ? 1 : 0);
 						return;
 					}
-					case "string.leq": {
+					case "string.le": {
 						String str1 = stringObjects.get(readSrc(curInst.args.get(0)));
 						String str2 = stringObjects.get(readSrc(curInst.args.get(1)));
 						registerWrite(curInst.dest, str1.compareTo(str2) <= 0 ? 1 : 0);
@@ -430,7 +430,7 @@ public class IRInterpreter {
 						registerWrite(curInst.dest, str1.compareTo(str2) == 0 ? 1 : 0);
 						return;
 					}
-					case "string.geq": {
+					case "string.ge": {
 						String str1 = stringObjects.get(readSrc(curInst.args.get(0)));
 						String str2 = stringObjects.get(readSrc(curInst.args.get(1)));
 						registerWrite(curInst.dest, str1.compareTo(str2) >= 0 ? 1 : 0);

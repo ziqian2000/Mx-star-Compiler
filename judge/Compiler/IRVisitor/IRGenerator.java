@@ -578,10 +578,10 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		node.setResultOpr(dst);
 
 		// member function, set obj
-		Register obj = null;
+		Operand obj = null;
 		if(function.getIsMemberFunc()){
 			// call outside class
-			if(node.getFunction() instanceof MemberExprNode) obj = (Register)convertPtr2Val(((MemberExprNode)node.getFunction()).getExpr().getResultOpr());
+			if(node.getFunction() instanceof MemberExprNode) obj = convertPtr2Val(((MemberExprNode)node.getFunction()).getExpr().getResultOpr());
 			// call inside class
 			else obj = curFunction.getObj();
 		}
