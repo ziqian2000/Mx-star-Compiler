@@ -1,5 +1,5 @@
 cat > code.txt
-java -cp .:antlr-4.8-complete.jar:commons-text-1.6.jar Compiler.Main
+java -cp .:antlr-4.8-complete.jar:commons-text-1.6.jar:commons-lang3-3.8.1.jar Compiler.Main
 
 # this script is called when the judge wants our compiler to compile a source file.
 # print the compiled source, i.e. asm code, directly to stdout.

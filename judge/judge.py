@@ -133,20 +133,26 @@ def runCodegen():
         metaDict = {i[0]:i[1] for i in metaConfigArea}
 
         newMetaArea = metaArea[metaArea.index('=== end ===') + 1:]
-        inputDataStr = ''.join(metaArea[metaArea.index('=== input ===') + 1 : metaArea.index('=== end ===')])
-        outputDataStr = ''.join(newMetaArea[newMetaArea.index('=== output ===') + 1 : newMetaArea.index('=== end ===')])
+        inputDataStr = '\n'.join(metaArea[metaArea.index('=== input ===') + 1 : metaArea.index('=== end ===')])
+        outputDataStr = ' '.join(newMetaArea[newMetaArea.index('=== output ===') + 1 : newMetaArea.index('=== end ===')])
         expectedExitCode = int(metaDict['ExitCode'])
         instLimit = int(metaDict['InstLimit'])
         print(' == 3 ==[ ]==[ ]== Judge:{}.'.format(case), end='\r')
         dataArea = '\n'.join(caseData[metaIdx[1] + 1:])
         process = subprocess.Popen(["sh", codegenScriptPath], cwd=configuration['path']['compiler'], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
         try:
+            # if(case != './e1.mx'): 
+            #     continue
+
+            f = open('in.txt', 'w')
+            f.write(inputDataStr)
+            f.close()
+
             process.stdin.write(dataArea.encode('utf-8'))
             process.stdin.close()
             process.wait(configuration['timelimit'])
 
             stdout_result = process.stdout.readlines()
-            print(stdout_result)
             stderr_result = process.stderr.readlines()
             stdout_result_str = ''.join([i.decode() for i in stdout_result])
             stderr_result_str = ''.join([i.decode() for i in stderr_result])
@@ -166,9 +172,12 @@ def runCodegen():
             # report_dict = {key_list[0]: int(key_list[1]) for i in key_list}
 
             # simulatorOutput = open(os.path.join(path2ravel, 'test.out'), 'r').readlines()
-            simulatorOutput = stdout_result
+            # simulatorOutput = stdout_result
 
-            outputMatch = simulatorOutput == outputDataStr
+            # while(True): pass
+            # print("{", stdout_result_str, "}{", outputDataStr, "}")
+            outputMatch = stdout_result_str == outputDataStr
+            # outputMatch = simulatorOutput == outputDataStr
             # exitcodeMatch = report_dict['exit code'] == expectedExitCode 
             # timeScriptMatch = instLimit == -1 or report_dict['time'] < instLimit
             compileExitcode = process.returncode == 0

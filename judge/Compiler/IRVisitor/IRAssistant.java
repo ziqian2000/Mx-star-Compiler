@@ -44,6 +44,7 @@ public class IRAssistant {
 
 	public static Function newBuiltinFunction(IR ir, Scope scope, String identifier, String prefix){
 		Function function = new Function(prefix + identifier);
+		function.setIsMemberFunc(!prefix.isEmpty());
 		FuncSymbol funcSymbol = (FuncSymbol)scope.findSymbol(identifier);
 		// funcSymbol == null means this function won't be called by program but only compiler
 		if(funcSymbol != null) funcSymbol.setFunction(function);
@@ -76,10 +77,10 @@ public class IRAssistant {
 
 		// array
 		builtinArraySize = newBuiltinFunction(ir, arrayBuiltinFuncScope,"size", "array.");
-		I32Value para = new I32Value(), ret = new I32Value();
-		builtinArraySize.setObj(para);
+		I32Value obj = new I32Value(), ret = new I32Value();
+		builtinArraySize.setObj(obj);
 		BasicBlock BB = new BasicBlock();
-		BB.addInst(new Load(ret, para));
+		BB.addInst(new Load(ret, obj));
 		BB.addLastInst(new Return(ret));
 		builtinArraySize.setEntryBB(BB);
 		builtinArraySize.setIsMemberFunc(true);

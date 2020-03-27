@@ -15,6 +15,7 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.*;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -22,7 +23,7 @@ public class Main {
         try {
 
 //            System.out.println("FUCK");
-//            int x = 1; while(x==1){}
+//            int x = 1; while(x==1){return;}
 
             InputStream inputStream = new FileInputStream("code.txt");
             CharStream charStream = CharStreams.fromStream(inputStream);
@@ -53,7 +54,9 @@ public class Main {
             // to deal with static string const
             IR ir = irGenerator.getIR();
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
-            IRInterpreter.main("ir.txt", System.out, false);
+            IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
+//            IRInterpreter.main("ir.txt", System.out, System.in, false);
+
         }
         catch (Exception e){
             e.printStackTrace();

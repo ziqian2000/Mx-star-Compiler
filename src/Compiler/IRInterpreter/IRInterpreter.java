@@ -92,8 +92,8 @@ public class IRInterpreter {
 		}
 	}
 
-	public static void main(String inFile, PrintStream output, boolean ssa) throws IOException {
-		IRInterpreter vm = new IRInterpreter(new FileInputStream(inFile), ssa, new DataInputStream(System.in), output);
+	public static void main(String inFile, PrintStream output, InputStream input, boolean ssa) throws IOException {
+		IRInterpreter vm = new IRInterpreter(new FileInputStream(inFile), ssa, new DataInputStream(input), output);
 		//if (ssa)
 		//    System.out.println("running with SSA mode");
 		//else
@@ -230,8 +230,8 @@ public class IRInterpreter {
 			String name = words[0].trim();
 			words[1] = words[1].trim();
 			String tmp = words[1].substring(1, words[1].length() - 1);
-//			String val = StringEscapeUtils.unescapeJava(tmp);
-			String val = tmp;
+			String val = StringEscapeUtils.unescapeJava(tmp);
+//			String val = tmp;
 			Register reg = new Register();
 			reg.value = staticStringCnt;
 			reg.timestamp = 0;
@@ -265,8 +265,9 @@ public class IRInterpreter {
 	}
 
 	private int memoryRead(long addr) throws RuntimeError {
+//		System.err.println(addr);
 		Byte data = memory.get(addr);
-		if (data == null) throw new RuntimeError("memory read violation");
+		if (data == null) throw new RuntimeError("memory read violation, addr = " + addr);
 		return data & 0xFF;
 	}
 
@@ -333,7 +334,7 @@ public class IRInterpreter {
 				long addr = readSrc(curInst.op1); //+ curInst.offset;
 				curInst.size = 4;
 				long res = 0;
-				for (int i = 0; i < curInst.size; ++i) res = (res << 4) | memoryRead(addr + i);
+				for (int i = 0; i < curInst.size; ++i) res = (res << 8) | memoryRead(addr + i);
 				registerWrite(curInst.dest, res);
 				return;
 
@@ -343,7 +344,7 @@ public class IRInterpreter {
 				curInst.size = 4;
 				for (long i = curInst.size - 1; i >= 0; --i) {
 					memoryWrite(address + i, (byte) (data & 0xFF));
-					data >>= 4;
+					data >>= 8;
 				}
 				return;
 
@@ -351,6 +352,7 @@ public class IRInterpreter {
 				long size = readSrc(curInst.op1);
 				registerWrite(curInst.dest, heapTop);
 				for (int i = 0; i < size; ++i) memory.put(heapTop + i, (byte) (0));
+				System.err.println(heapTop + " " + (heapTop * 10));
 				heapTop += size;
 				heapTop += (int) (Math.random() * 4096);
 				return;

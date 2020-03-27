@@ -1,46 +1,207 @@
-func array.size %0 {
-1:
-	%2 = load %0
-	ret %2
+@0 = " "
+func array.size %1 {
+2:
+	%3 = load %1
+	ret %3
 }
 
 func __init {
-3:
-	@a = alloc 4
-	%4 = mul 20 4
-	%5 = add %4 4
-	%6 = alloc %5
-	store %6 @a
-	@i = alloc 4
+4:
+	@hashsize = alloc 4
+	store 100 @hashsize
+	@table = alloc 4
 	call main
 	ret
 }
 
-func main {
-7:
-	%8 = load @i
-	store 0 @i
-	jump 9
+func getHash %n {
+5:
+	%6 = mul %n 237
+	%7 = load @hashsize
+	%8 = mod %6 %7
+	ret %8
+}
+
+func put %key %data {
 9:
-	%10 = load @i
-	%11 = lt %10 5
-	br %11 12 13
-12:
-	%14 = load @a
-	%15 = load @i
-	%16 = add %15 1
-	%17 = mul %16 4
-	%18 = add %14 %17
-	%19 = load %18
-	store 1 %18
-	jump 20
-20:
-	%21 = load @i
-	%22 = load @i
-	%23 = add %22 1
-	store %23 @i
-	jump 9
-13:
+	%ptr = move 0
+	%10 = call getHash %key
+	%p = move %10
+	%11 = load @table
+	%12 = add %p 1
+	%13 = mul %12 12
+	%14 = add %11 %13
+	%15 = load %14
+	%16 = eq %15 0
+	br %16 17 18
+17:
+	%19 = load @table
+	%20 = add %p 1
+	%21 = mul %20 12
+	%22 = add %19 %21
+	%23 = alloc 12
+	%24 = load %22
+	store %23 %22
+	%25 = load @table
+	%26 = add %p 1
+	%27 = mul %26 12
+	%28 = add %25 %27
+	%29 = load %28
+	%30 = add %29 0
+	%31 = load %30
+	store %key %30
+	%32 = load @table
+	%33 = add %p 1
+	%34 = mul %33 12
+	%35 = add %32 %34
+	%36 = load %35
+	%37 = add %36 4
+	%38 = load %37
+	store %data %37
+	%39 = load @table
+	%40 = add %p 1
+	%41 = mul %40 12
+	%42 = add %39 %41
+	%43 = load %42
+	%44 = add %43 8
+	%45 = load %44
+	store 0 %44
+	ret
+18:
+	%46 = load @table
+	%47 = add %p 1
+	%48 = mul %47 12
+	%49 = add %46 %48
+	%50 = load %49
+	%51 = load %49
+	%ptr = move %51
+	jump 52
+52:
+	%53 = add %ptr 0
+	%54 = load %53
+	%55 = neq %54 %key
+	br %55 56 57
+56:
+	%58 = add %ptr 8
+	%59 = load %58
+	%60 = eq %59 0
+	br %60 61 62
+61:
+	%63 = add %ptr 8
+	%64 = alloc 12
+	%65 = load %63
+	store %64 %63
+	%66 = add %ptr 8
+	%67 = load %66
+	%68 = add %67 0
+	%69 = load %68
+	store %key %68
+	%70 = add %ptr 8
+	%71 = load %70
+	%72 = add %71 8
+	%73 = load %72
+	store 0 %72
+	jump 62
+62:
+	%74 = add %ptr 8
+	%75 = load %74
+	%76 = load %74
+	%ptr = move %76
+	jump 52
+57:
+	%77 = add %ptr 4
+	%78 = load %77
+	store %data %77
+	ret
+}
+
+func get %key {
+79:
+	%ptr = move 0
+	%80 = call getHash %key
+	%81 = load @table
+	%82 = add %80 1
+	%83 = mul %82 12
+	%84 = add %81 %83
+	%85 = load %84
+	%86 = load %84
+	%ptr = move %86
+	jump 87
+87:
+	%88 = add %ptr 0
+	%89 = load %88
+	%90 = neq %89 %key
+	br %90 91 92
+91:
+	%93 = add %ptr 8
+	%94 = load %93
+	%95 = load %93
+	%ptr = move %95
+	jump 87
+92:
+	%96 = add %ptr 4
+	%97 = load %96
+	ret %97
+}
+
+func main {
+98:
+	%99 = mul 100 12
+	%100 = add %99 4
+	%101 = alloc %100
+	store 100 %101
+	%102 = load @table
+	store %101 @table
+	%i = move 0
+	jump 103
+103:
+	%104 = load @hashsize
+	%105 = lt %i %104
+	br %105 106 107
+106:
+	%108 = load @table
+	%109 = add %i 1
+	%110 = mul %109 12
+	%111 = add %108 %110
+	%112 = load %111
+	store 0 %111
+	jump 113
+113:
+	%114 = move %i
+	%i = add %i 1
+	jump 103
+107:
+	%i = move 0
+	jump 115
+115:
+	%116 = lt %i 1000
+	br %116 117 118
+117:
+	call put %i %i
+	jump 119
+119:
+	%120 = move %i
+	%i = add %i 1
+	jump 115
+118:
+	%i = move 0
+	jump 121
+121:
+	%122 = lt %i 1000
+	br %122 123 124
+123:
+	%125 = call toString %i
+	%126 = call string.add %125 @0
+	%127 = call get %i
+	%128 = call toString %127
+	%129 = call string.add %126 %128
+	call println %129
+	jump 130
+130:
+	%131 = move %i
+	%i = add %i 1
+	jump 121
+124:
 	ret 0
 }
 
