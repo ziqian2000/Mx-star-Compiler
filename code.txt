@@ -1,44 +1,14 @@
-/*
-Test Package: Codegen
-Author: 14' Rongyu You
-Time: 2020-02-03
-Input:
-=== input ===
-asdasdsad
-=== end ===
-Output:
-=== output ===
-11670000
-=== end ===
-ExitCode: 0
-InstLimit: -1
-Origin Package: Codegen Pretest-872
+class f{
+	int a;
 
-Integer.parseInt(scanner.next) takes 01:04.79
+	f(){
+		print("WELCOME");
+		this.a = 233;
+	}
+};
 
-*/
-// USACO 3.1.2 inflate
-int MAXN = 10005;
-int MAXM = 10005;
-
-int main(){
-	int M;
-	int N;
-	M = getInt();
-	N = getInt();
-	int[] w = new int[MAXN];
-	int[] t = new int[MAXN];
-	int[] DP = new int[MAXN];
-	int i;
-	int j;
-    for (i = 0; i < N; ++i) {
-    	w[i] = getInt();
-    	t[i] = getInt();
-    }
-    for (i = 0 ; i < N; ++i)
-        for (j = t[i]; j <= M; ++j)
-        	if (DP[j] <= DP[j - t[i]] + w[i])
-        		DP[j] =  DP[j - t[i]] + w[i];
-    print(toString(DP[M]));
-    return 0;
+int main()
+{
+	f tmp = new f();
+	printInt(tmp.a);
 }

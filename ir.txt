@@ -1,66 +1,33 @@
-func array.size %t_0 {
-1:
-	%t_2 = load %t_0
-	ret %t_2
+@t_0 = "WELCOME"
+func array.size %t_1 {
+2:
+	%t_3 = load %t_1
+	ret %t_3
 }
 
 func __init {
-3:
-	@MAXN_4 = alloc 4
-	store 10005 @MAXN_4
-	@MAXM_5 = alloc 4
-	store 10005 @MAXM_5
+4:
 	call main
 	ret
 }
 
-func main {
+func f.f %this_5 {
 6:
-	%t_7 = call getInt
-	%M_8 = move %t_7
-	%t_9 = call getInt
-	%N_10 = move %t_9
-	%t_11 = load @MAXN_4
-	%t_12 = mul %t_11 4
-	%t_13 = add %t_12 4
-	%t_14 = alloc %t_13
-	store %t_11 %t_14
-	%w_15 = move %t_14
-	%t_16 = load @MAXN_4
-	%t_17 = mul %t_16 4
-	%t_18 = add %t_17 4
-	%t_19 = alloc %t_18
-	store %t_16 %t_19
-	%t_20 = move %t_19
-	%t_21 = load @MAXN_4
-	%t_22 = mul %t_21 4
-	%t_23 = add %t_22 4
-	%t_24 = alloc %t_23
-	store %t_21 %t_24
-	%DP_25 = move %t_24
-	%i_26 = move 0
-	jump 27
-27:
-	%t_28 = lt %i_26 %N_10
-	br %t_28 29 30
-29:
-	%t_31 = add %i_26 1
-	%t_32 = mul %t_31 4
-	%t_33 = add %w_15 %t_32
-	%t_34 = call getInt
-	%t_35 = load %t_33
-	store %t_34 %t_33
-	%t_36 = add %i_26 1
-	%t_37 = mul %t_36 4
-	%t_38 = add %t_20 %t_37
-	%t_39 = call getInt
-	%t_40 = load %t_38
-	store %t_39 %t_38
-	jump 41
-41:
-	%i_26 = add %i_26 1
-	jump 27
-30:
-	ret 0
+	call print @t_0
+	%t_7 = add %this_5 0
+	%t_8 = load %t_7
+	store 233 %t_7
+	ret
+}
+
+func main {
+9:
+	%t_10 = alloc 4
+	call f.f %t_10
+	%tmp_11 = move %t_10
+	%t_12 = add %tmp_11 0
+	%t_13 = load %t_12
+	call printInt %t_13
+	ret
 }
 

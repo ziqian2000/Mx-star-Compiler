@@ -630,8 +630,11 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 			newArray(node.getExprList(), node.getDim(), 0, ((ArrayType) node.getType()).getType(), result);
 		}
 		else{ // ClassType
-			curBB.addInst(new Alloc(new Immediate(((ClassType)node.getType()).getSize()), result));
-			// todo: call constructor !!!
+			curBB.addInst(new Alloc(new Immediate((node.getType()).getSize()), result));
+
+			Function constructor = ((ClassType)node.getType()).getSelfSymbol().getConstructor();
+			if(constructor != null)
+				curBB.addInst(new Call(constructor, result, new ArrayList<>(), null));
 		}
 	}
 

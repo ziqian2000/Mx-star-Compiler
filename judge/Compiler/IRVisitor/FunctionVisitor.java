@@ -3,6 +3,7 @@ package Compiler.IRVisitor;
 import Compiler.AST.*;
 import Compiler.IR.Function;
 import Compiler.SemanticAnalysis.ASTBaseVisitor;
+import Compiler.SemanticAnalysis.SymbolTableAssistant;
 import Compiler.SymbolTable.Scope;
 import Compiler.SymbolTable.Symbol.FuncSymbol;
 import Compiler.SymbolTable.Symbol.VarSymbol;
@@ -29,6 +30,8 @@ public class FunctionVisitor extends ASTBaseVisitor{
 	public void visit(ClassDeclNode node){
 		for(FuncDeclNode funcDeclNode : node.getFuncDeclList()){
 			funcDeclNode.accept(this);
+			if(funcDeclNode.getFuncSymbol().getRetType() == SymbolTableAssistant.nullType)
+				node.getClassSymbol().setConstructor(funcDeclNode.getFuncSymbol().getFunction());
 		}
 	}
 
