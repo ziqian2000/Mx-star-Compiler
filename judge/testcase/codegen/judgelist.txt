@@ -66,12 +66,12 @@
 ./t39.mx
 ./t68.mx
 ./t29.mx
-./t58.mx
 ./t48.mx
 ./t19.mx
-./t59.mx
 ./t49.mx
 ./t18.mx
 ./e10.mx
 ./t38.mx
 ./t28.mx
+./t58.mx
+./t59.mx

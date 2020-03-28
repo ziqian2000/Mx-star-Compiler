@@ -8,24 +8,23 @@ import Compiler.IR.Operand.*;
 import Compiler.Utils.FuckingException;
 
 import java.io.PrintStream;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class IRPrinter implements IRVisitor{
 
-	Set<BasicBlock> BBVisit = new HashSet<>();
-
-	int unnamedCnt = 0;
-
 	PrintStream output;
+	Set<BasicBlock> BBVisitMap = new HashSet<>();
+	Map<Operand, String> nameMap = new HashMap<>();
+	int nameCnt = 0;
 
 	public void run(IR ir, PrintStream printStream){
 		output = printStream;
-		for(StaticStrConst str : ir.getStaticStrConstList())
-			visit(str);
-		for(Function function : ir.getFunctionList())
-			visit(function);
+		BBVisitMap.clear();
+		nameMap.clear();
+		nameCnt = 0;
+
+		for(StaticStrConst str : ir.getStaticStrConstList()) visit(str);
+		for(Function function : ir.getFunctionList()) visit(function);
 	}
 
 	// utility method
@@ -44,21 +43,20 @@ public class IRPrinter implements IRVisitor{
 
 		// not immediate, must be in storage : string, value, pointer
 		if(!(opr instanceof Storage)) throw new FuckingException("how can opr be not of Storage type");
-		Storage o = (Storage) opr;
 
 		// if no name, assign one
-		if(o.getName() == null) o.setName((o.getIdentifier() == null ? "t" : o.getIdentifier()) + "_" + unnamedCnt++);
+		if(nameMap.get(opr) == null) nameMap.put(opr, (opr.getIdentifier() == null ? "t" : opr.getIdentifier()) + "_" + nameCnt++);
 
 		// return the name
-		if(o instanceof Register){
-			if(((Register) o).getGlobal()) return "@" + o.getName();
-			else return "%" + o.getName();
+		if(opr instanceof Register){
+			if(((Register) opr).getGlobal()) return "@" + nameMap.get(opr);
+			else return "%" + nameMap.get(opr);
 		}
-		else return "@" + o.getName(); // string
+		else return "@" + nameMap.get(opr); // string
 	}
 
 	public String BB2Str(BasicBlock BB){
-		if(BB.getIdentifier() == null) BB.setIdentifier(String.valueOf(unnamedCnt++));
+		if(BB.getIdentifier() == null) BB.setIdentifier(String.valueOf(nameCnt++));
 		return BB.getIdentifier();
 	}
 
@@ -84,19 +82,20 @@ public class IRPrinter implements IRVisitor{
 
 	public void visit(BasicBlock basicBlock){
 
-		if(BBVisit.contains(basicBlock)) return;
+		if(BBVisitMap.contains(basicBlock)) return;
 
-		List<IRIns> irInsList = basicBlock.getInstList();
 		println(BB2Str(basicBlock) + ":");
-		for(IRIns irIns : irInsList){
-			print("\t");
-			irIns.accept(this);
-		}
+		if(!basicBlock.isEmpty())
+			for(IRIns irIns = basicBlock.getHeadIns(); irIns != null; irIns = irIns.getNextIns()){
+				print("\t");
+				irIns.accept(this);
+			}
 
-		BBVisit.add(basicBlock);
+		BBVisitMap.add(basicBlock);
 
-		if(!irInsList.isEmpty()){
-			IRIns irIns = irInsList.get(irInsList.size() - 1);
+		// visit successor basic block
+		if(!basicBlock.isEmpty()){
+			IRIns irIns = basicBlock.getTailIns();
 			if(irIns instanceof Jump) visit(((Jump) irIns).getBB());
 			else if(irIns instanceof Branch) {visit(((Branch) irIns).getThenBB()); visit(((Branch) irIns).getElseBB());}
 			else if(!(irIns instanceof Return)) throw new FuckingException("what fucking instruction at the end of the basic block");

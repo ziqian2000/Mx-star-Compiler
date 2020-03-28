@@ -6,10 +6,26 @@ import Compiler.IRVisitor.IRVisitor;
 public abstract class IRIns {
 
 	private BasicBlock belongBB;
-	private IRIns prevIRIns, nextIRIns;
+	private IRIns prevIns, nextIns;
 
 	public void setBelongBB(BasicBlock belongBB) {
 		this.belongBB = belongBB;
+	}
+
+	public void setPrevIns(IRIns prevIns) {
+		this.prevIns = prevIns;
+	}
+
+	public void setNextIns(IRIns nextIns) {
+		this.nextIns = nextIns;
+	}
+
+	public IRIns getPrevIns() {
+		return prevIns;
+	}
+
+	public IRIns getNextIns() {
+		return nextIns;
 	}
 
 	public abstract void accept(IRVisitor irVisitor);

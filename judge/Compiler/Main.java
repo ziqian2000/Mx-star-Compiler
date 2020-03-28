@@ -54,8 +54,7 @@ public class Main {
             // to deal with static string const
             IR ir = irGenerator.getIR();
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
-//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
-//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
+            IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
 
         }
         catch (Exception e){

@@ -2,27 +2,30 @@ package Compiler.IR;
 
 import Compiler.IR.Instr.IRIns;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class BasicBlock {
 
 	String identifier;
-
-	private List<IRIns> InstList;
+	private IRIns headIns, tailIns;
 	private boolean terminated;
 
 	public BasicBlock(){
-		InstList = new ArrayList<>();
 	}
 	public BasicBlock(String identifier){
-		InstList = new ArrayList<>();
 		this.identifier = identifier;
 	}
 
 	public void addInst(IRIns inst){
 		if(!terminated){
-			InstList.add(inst);
+			if(isEmpty()){
+				headIns = tailIns = inst;
+			}
+			else {
+				tailIns.setNextIns(inst);
+				inst.setPrevIns(tailIns);
+				tailIns = inst;
+			}
 			inst.setBelongBB(this);
 		}
 	}
@@ -48,7 +51,13 @@ public class BasicBlock {
 		this.identifier = identifier;
 	}
 
-	public List<IRIns> getInstList() {
-		return InstList;
+	public IRIns getHeadIns() {
+		return headIns;
 	}
+
+	public IRIns getTailIns() {
+		return tailIns;
+	}
+
+	public boolean isEmpty(){ return headIns == null; }
 }
