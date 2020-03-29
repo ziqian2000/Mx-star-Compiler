@@ -1,7 +1,12 @@
 package Compiler.IR.Instr;
 
+import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
 import Compiler.IRVisitor.IRVisitor;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Binary extends IRIns {
 
@@ -38,6 +43,21 @@ public class Binary extends IRIns {
 
 	public Operand getDst() {
 		return dst;
+	}
+
+	@Override
+	public List<Operand> fetchOpr() {
+		return Arrays.asList(lhs, rhs, dst);
+	}
+
+	@Override
+	public List<BasicBlock> fetchBB() {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public IRIns copySelf(List<Operand> opr, List<BasicBlock> BB) {
+		return new Binary(op, opr.get(0), opr.get(1), opr.get(2));
 	}
 
 	public void accept(IRVisitor irVisitor){

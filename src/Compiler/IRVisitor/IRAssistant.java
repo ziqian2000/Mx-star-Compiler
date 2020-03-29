@@ -43,47 +43,49 @@ public class IRAssistant {
 		return type instanceof ArrayType || type instanceof ClassType || type instanceof StringType;
 	}
 
-	public static Function newBuiltinFunction(IR ir, Scope scope, String identifier, String prefix){
+	public static Function newBuiltinFunction(IR ir, Scope scope, String identifier, String prefix, boolean isBuiltin){
 		Function function = new Function(prefix + identifier);
 		function.setIsMemberFunc(!prefix.isEmpty());
 		FuncSymbol funcSymbol = (FuncSymbol)scope.findSymbol(identifier);
 		// funcSymbol == null means this function won't be called by program but only compiler
 		if(funcSymbol != null) funcSymbol.setFunction(function);
 		ir.addFunction(function);
+		function.setIsBuiltin(isBuiltin);
 		return function;
 	}
 
 	public static void addBuiltinFunction(IR ir, Scope scope, Scope stringBuiltinFuncScope, Scope arrayBuiltinFuncScope){
 
-		builtinPrint = newBuiltinFunction(ir, scope,"print", "");
-		builtinPrintln = newBuiltinFunction(ir, scope,"println", "");
-		builtinPrintInt = newBuiltinFunction(ir, scope,"printInt", "");
-		builtinPrintlnInt = newBuiltinFunction(ir, scope,"printlnInt", "");
-		builtinGetString = newBuiltinFunction(ir, scope,"getString", "");
-		builtinGetInt = newBuiltinFunction(ir, scope,"getInt", "");
-		builtinToString = newBuiltinFunction(ir, scope,"toString", "");
+		builtinPrint = newBuiltinFunction(ir, scope,"print", "", true);
+		builtinPrintln = newBuiltinFunction(ir, scope,"println", "", true);
+		builtinPrintInt = newBuiltinFunction(ir, scope,"printInt", "", true);
+		builtinPrintlnInt = newBuiltinFunction(ir, scope,"printlnInt", "", true);
+		builtinGetString = newBuiltinFunction(ir, scope,"getString", "", true);
+		builtinGetInt = newBuiltinFunction(ir, scope,"getInt", "", true);
+		builtinToString = newBuiltinFunction(ir, scope,"toString", "", true);
 
 		// string
-		builtinStrLength = newBuiltinFunction(ir, stringBuiltinFuncScope,"length", "string.");
-		builtinStrSubstring = newBuiltinFunction(ir, stringBuiltinFuncScope,"substring", "string.");
-		builtinStrParseInt = newBuiltinFunction(ir, stringBuiltinFuncScope,"parseInt", "string.");
-		builtinStrOrd = newBuiltinFunction(ir, stringBuiltinFuncScope,"ord", "string.");
-		builtinStrAdd = newBuiltinFunction(ir, stringBuiltinFuncScope, "add", "string.");
-		builtinStrEq = newBuiltinFunction(ir, stringBuiltinFuncScope, "eq", "string.");
-		builtinStrNeq = newBuiltinFunction(ir, stringBuiltinFuncScope, "neq", "string.");
-		builtinStrLt = newBuiltinFunction(ir, stringBuiltinFuncScope, "lt", "string.");
-		builtinStrLe = newBuiltinFunction(ir, stringBuiltinFuncScope, "le", "string.");
-		builtinStrGt = newBuiltinFunction(ir, stringBuiltinFuncScope, "gt", "string.");
-		builtinStrGe = newBuiltinFunction(ir, stringBuiltinFuncScope, "ge", "string.");
+		builtinStrLength = newBuiltinFunction(ir, stringBuiltinFuncScope,"length", "string.", true);
+		builtinStrSubstring = newBuiltinFunction(ir, stringBuiltinFuncScope,"substring", "string.", true);
+		builtinStrParseInt = newBuiltinFunction(ir, stringBuiltinFuncScope,"parseInt", "string.", true);
+		builtinStrOrd = newBuiltinFunction(ir, stringBuiltinFuncScope,"ord", "string.", true);
+		builtinStrAdd = newBuiltinFunction(ir, stringBuiltinFuncScope, "add", "string.", true);
+		builtinStrEq = newBuiltinFunction(ir, stringBuiltinFuncScope, "eq", "string.", true);
+		builtinStrNeq = newBuiltinFunction(ir, stringBuiltinFuncScope, "neq", "string.", true);
+		builtinStrLt = newBuiltinFunction(ir, stringBuiltinFuncScope, "lt", "string.", true);
+		builtinStrLe = newBuiltinFunction(ir, stringBuiltinFuncScope, "le", "string.", true);
+		builtinStrGt = newBuiltinFunction(ir, stringBuiltinFuncScope, "gt", "string.", true);
+		builtinStrGe = newBuiltinFunction(ir, stringBuiltinFuncScope, "ge", "string.", true);
 
 		// array
-		builtinArraySize = newBuiltinFunction(ir, arrayBuiltinFuncScope,"size", "array.");
+		builtinArraySize = newBuiltinFunction(ir, arrayBuiltinFuncScope,"size", "array.", false);
 		I32Value obj = new I32Value(), ret = new I32Value();
 		builtinArraySize.setObj(obj);
 		BasicBlock BB = new BasicBlock();
 		BB.addInst(new Load(ret, obj));
 		BB.addLastInst(new Return(ret));
 		builtinArraySize.setEntryBB(BB);
+		builtinArraySize.setExitBB(BB);
 		builtinArraySize.setIsMemberFunc(true);
 
 	}

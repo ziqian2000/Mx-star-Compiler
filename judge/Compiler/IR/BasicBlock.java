@@ -37,10 +37,13 @@ public class BasicBlock {
 	public void sudoAddInst(IRIns inst){
 		if(isEmpty()){
 			headIns = tailIns = inst;
+			inst.setPrevIns(null);
+			inst.setNextIns(null);
 		}
 		else {
 			tailIns.setNextIns(inst);
 			inst.setPrevIns(tailIns);
+			inst.setNextIns(null);
 			tailIns = inst;
 		}
 		inst.setBelongBB(this);
@@ -82,7 +85,7 @@ public class BasicBlock {
 
 	public void makeSucBBList(){
 		sucBBList = new ArrayList<>();
-		if(tailIns instanceof Branch) sucBBList.addAll(Arrays.asList(((Branch)tailIns).getElseBB(), ((Branch) tailIns).getElseBB()));
+		if(tailIns instanceof Branch) sucBBList.addAll(Arrays.asList(((Branch)tailIns).getThenBB(), ((Branch) tailIns).getElseBB()));
 		else if(tailIns instanceof Jump) sucBBList.add(((Jump) tailIns).getBB());
 		else if(!(tailIns instanceof Return)) throw new FuckingException("basic block terminated by something strange");
 	}

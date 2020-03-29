@@ -12,6 +12,7 @@ public class Function {
 	private BasicBlock entryBB;
 	private BasicBlock exitBB;
 	private boolean isMemberFunc;
+	private boolean isBuiltin = false;
 	private Register obj;
 
 	private List<BasicBlock> BBList; // in pre-order DFS
@@ -49,6 +50,10 @@ public class Function {
 		this.isMemberFunc = isMemberFunc;
 	}
 
+	public void setIsBuiltin(Boolean isBuiltin){ this.isBuiltin = isBuiltin;}
+
+	public boolean getIsBuiltin(){return isBuiltin;}
+
 	public void setObj(Register obj) {
 		this.obj = obj;
 	}
@@ -70,15 +75,16 @@ public class Function {
 	}
 
 	public void makeBBList(){
-		BBList.clear();
+		BBList = new ArrayList<>();
 		dfsBB(entryBB, new HashSet<>());
 	}
 
 	public void dfsBB(BasicBlock basicBlock, Set<BasicBlock> visited){
-		if(visited.contains(basicBlock)) return;
-		BBList.add(basicBlock);
+		if(basicBlock == null || visited.contains(basicBlock)) return;
 		visited.add(basicBlock);
-		basicBlock.getSucBBList().forEach(BB -> dfsBB(BB,visited));
+		BBList.add(basicBlock);
+		basicBlock.makeSucBBList();
+		basicBlock.getSucBBList().forEach(BB -> dfsBB(BB, visited));
 	}
 
 }

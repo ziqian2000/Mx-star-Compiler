@@ -1,7 +1,10 @@
 package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
+import Compiler.IR.Operand.Operand;
 import Compiler.IRVisitor.IRVisitor;
+
+import java.util.List;
 
 public abstract class IRIns {
 
@@ -32,8 +35,6 @@ public abstract class IRIns {
 		return nextIns;
 	}
 
-
-
 	public void removeFromList(){
 		if(getPrevIns() == null) {
 			if(getNextIns() == null){
@@ -58,6 +59,12 @@ public abstract class IRIns {
 			getPrevIns().setNextIns(getNextIns());
 		}
 	}
+
+	public abstract List<Operand> fetchOpr();
+
+	public abstract List<BasicBlock> fetchBB();
+
+	public abstract IRIns copySelf(List<Operand> opr, List<BasicBlock> BB);
 
 	public abstract void accept(IRVisitor irVisitor);
 }

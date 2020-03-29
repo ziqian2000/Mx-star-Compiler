@@ -53,7 +53,7 @@ public class Main {
             IR ir = irGenerator.getIR();
 
             // Optimization on IR
-//            new FunctionInlining(ir).run();
+            new FunctionInlining(ir).run();
 
             // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));

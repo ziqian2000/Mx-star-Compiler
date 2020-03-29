@@ -1,8 +1,13 @@
 package Compiler.IR.Instr;
 
+import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
 import Compiler.IRVisitor.IRVisitor;
 import Compiler.SemanticAnalysis.ASTVisitor;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Move extends IRIns {
 
@@ -22,6 +27,21 @@ public class Move extends IRIns {
 
 	public Operand getDst() {
 		return dst;
+	}
+
+	@Override
+	public List<Operand> fetchOpr() {
+		return Arrays.asList(src, dst);
+	}
+
+	@Override
+	public List<BasicBlock> fetchBB() {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public IRIns copySelf(List<Operand> opr, List<BasicBlock> BB) {
+		return new Move(opr.get(0), opr.get(1));
 	}
 
 	public void accept(IRVisitor irVisitor){

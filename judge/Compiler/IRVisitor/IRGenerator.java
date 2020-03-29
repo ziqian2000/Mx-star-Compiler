@@ -99,7 +99,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		}
 
 		// traverse
-		BasicBlock entryBB = new BasicBlock();
+		BasicBlock entryBB = new BasicBlock("entry");
 		function.setEntryBB(entryBB);
 		curBB = entryBB;
 		node.getBodyStmt().accept(this);
@@ -119,6 +119,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		else if(curFuncRetIns.size() == 1) function.setExitBB(curFuncRetIns.get(0).getBelongBB());
 		else{
 			BasicBlock exitBlock = new BasicBlock("func_exit");
+			function.setExitBB(exitBlock);
 			I32Value tmpRetValue = hasRetValue ? new I32Value() : null;
 			for(Return ret : curFuncRetIns){
 				ret.removeFromList();

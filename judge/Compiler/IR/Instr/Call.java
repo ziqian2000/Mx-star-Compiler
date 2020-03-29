@@ -1,5 +1,6 @@
 package Compiler.IR.Instr;
 
+import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.Operand.I32Pointer;
 import Compiler.IR.Operand.I32Value;
@@ -7,6 +8,9 @@ import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.Register;
 import Compiler.IRVisitor.IRVisitor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class Call extends IRIns {
@@ -16,8 +20,8 @@ public class Call extends IRIns {
 
 	private Function function;
 	private Operand obj;
-	private List<Operand> paraList;
 	private Operand dst;
+	private List<Operand> paraList;
 
 	public Call(Function function, Operand obj, List<Operand> paraList, Operand dst){
 		this.function = function;
@@ -40,6 +44,23 @@ public class Call extends IRIns {
 
 	public Operand getDst() {
 		return dst;
+	}
+
+	@Override
+	public List<Operand> fetchOpr() {
+		List<Operand> oprList = new ArrayList<>(Arrays.asList(obj, dst));
+		oprList.addAll(paraList);
+		return oprList;
+	}
+
+	@Override
+	public List<BasicBlock> fetchBB() {
+		return Collections.emptyList();
+	}
+
+	@Override
+	public IRIns copySelf(List<Operand> opr, List<BasicBlock> BB) {
+		return new Call(function, opr.get(0), paraList.isEmpty() ? Collections.emptyList() : opr.subList(2, opr.size()), opr.get(1));
 	}
 
 	public void accept(IRVisitor irVisitor){
