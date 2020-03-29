@@ -2,7 +2,7 @@ package Compiler;
 
 import Compiler.AST.BaseNode;
 import Compiler.IR.IR;
-import Compiler.IRInterpreter.IRInterpreter;
+//import Compiler.IRInterpreter.IRInterpreter;
 import Compiler.IRVisitor.*;
 import Compiler.Parser.MxstarErrorListener;
 import Compiler.SemanticAnalysis.*;
@@ -57,7 +57,7 @@ public class Main {
 
             // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
-            IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
+//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
 
         }
         catch (Exception e){
