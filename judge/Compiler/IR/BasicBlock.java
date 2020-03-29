@@ -26,23 +26,24 @@ public class BasicBlock {
 	}
 
 	public void addInst(IRIns inst){
-		if(!terminated){
-			if(isEmpty()){
-				headIns = tailIns = inst;
-			}
-			else {
-				tailIns.setNextIns(inst);
-				inst.setPrevIns(tailIns);
-				tailIns = inst;
-			}
-			inst.setBelongBB(this);
-		}
+		if(!terminated)	sudoAddInst(inst);
 	}
 
 	public void addLastInst(IRIns inst){
 		addInst(inst);
 		setTerminated(true);
-		makeSucBBList();
+	}
+
+	public void sudoAddInst(IRIns inst){
+		if(isEmpty()){
+			headIns = tailIns = inst;
+		}
+		else {
+			tailIns.setNextIns(inst);
+			inst.setPrevIns(tailIns);
+			tailIns = inst;
+		}
+		inst.setBelongBB(this);
 	}
 
 	public void setTerminated(boolean terminated) {

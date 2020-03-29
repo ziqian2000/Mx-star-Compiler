@@ -105,16 +105,27 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		node.getBodyStmt().accept(this);
 
 		// no return
-		if(!curBB.isTerminated()){
-			curBB.addInst(new Return(null));
+		boolean hasRetValue = funcSymbol.getRetType() != SymbolTableAssistant.nullType
+				&& funcSymbol.getRetType() != SymbolTableAssistant.voidType;
+		if(!(curBB.getTailIns() instanceof Return)){
+			if(hasRetValue) curBB.addLastInst(new Return(new Immediate(0)));
+			else curBB.addLastInst(new Return(null));
+			curFuncRetIns.add((Return) curBB.getTailIns());
 		}
 
+		// all basic block has been terminated, so use sudoAddInst
 		// merge all returns into exit block
 		if(curFuncRetIns.size() == 0) throw new FuckingException("no return found when merging returns");
 		else if(curFuncRetIns.size() == 1) function.setExitBB(curFuncRetIns.get(0).getBelongBB());
 		else{
-			BasicBlock exitBlock = new BasicBlock();
-			
+			BasicBlock exitBlock = new BasicBlock("func_exit");
+			I32Value tmpRetValue = hasRetValue ? new I32Value() : null;
+			for(Return ret : curFuncRetIns){
+				ret.removeFromList();
+				if(hasRetValue) ret.getBelongBB().sudoAddInst(new Move(ret.getRetValue(), tmpRetValue));
+				ret.getBelongBB().sudoAddInst(new Jump(exitBlock));
+			}
+			exitBlock.addLastInst(new Return(tmpRetValue));
 		}
 
 		scope = scope.getUpperScope();
@@ -134,8 +145,8 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		node.getCond().accept(this);
 		Operand resultOpr = convertPtr2Val(node.getCond().getResultOpr());
 		if(node.getElseStmt() == null) {
-			BasicBlock thenBB = new BasicBlock();
-			BasicBlock exitBB = new BasicBlock();
+			BasicBlock thenBB = new BasicBlock("if_then");
+			BasicBlock exitBB = new BasicBlock("if_exit");
 			curBB.addLastInst(new Branch(resultOpr, thenBB, exitBB));
 
 			// then
@@ -147,9 +158,9 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 			curBB = exitBB;
 		}
 		else{
-			BasicBlock thenBB = new BasicBlock();
-			BasicBlock elseBB = new BasicBlock();
-			BasicBlock exitBB = new BasicBlock();
+			BasicBlock thenBB = new BasicBlock("if_then");
+			BasicBlock elseBB = new BasicBlock("if_else");
+			BasicBlock exitBB = new BasicBlock("if_exit");
 			curBB.addLastInst(new Branch(resultOpr, thenBB, elseBB));
 
 			// then
@@ -620,11 +631,11 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 	public void visit(ReturnStmtNode node){
 		if(node.getExpr() == null)
-			curBB.addInst(new Return(null));
+			curBB.addLastInst(new Return(null));
 		else{
 			node.getExpr().accept(this);
 			Operand val = convertPtr2Val(node.getExpr().getResultOpr());
-			curBB.addInst(new Return(val));
+			curBB.addLastInst(new Return(val));
 		}
 		curFuncRetIns.add((Return)curBB.getTailIns());
 	}

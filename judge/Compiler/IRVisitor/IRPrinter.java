@@ -14,13 +14,14 @@ public class IRPrinter implements IRVisitor{
 
 	PrintStream output;
 	Set<BasicBlock> BBVisitMap = new HashSet<>();
-	Map<Operand, String> nameMap = new HashMap<>();
+	Map<Operand, String> oprNameMap = new HashMap<>();
+	Map<BasicBlock, String> BBNameMap = new HashMap<>();
 	int nameCnt = 0;
 
 	public void run(IR ir, PrintStream printStream){
 		output = printStream;
 		BBVisitMap.clear();
-		nameMap.clear();
+		oprNameMap.clear();
 		nameCnt = 0;
 
 		for(StaticStrConst str : ir.getStaticStrConstList()) visit(str);
@@ -45,19 +46,19 @@ public class IRPrinter implements IRVisitor{
 		if(!(opr instanceof Storage)) throw new FuckingException("how can opr be not of Storage type");
 
 		// if no name, assign one
-		if(nameMap.get(opr) == null) nameMap.put(opr, (opr.getIdentifier() == null ? "t" : opr.getIdentifier()) + "_" + nameCnt++);
+		if(oprNameMap.get(opr) == null) oprNameMap.put(opr, (opr.getIdentifier() == null ? "t" : opr.getIdentifier()) + "_" + nameCnt++);
 
 		// return the name
 		if(opr instanceof Register){
-			if(((Register) opr).getGlobal()) return "@" + nameMap.get(opr);
-			else return "%" + nameMap.get(opr);
+			if(((Register) opr).getGlobal()) return "@" + oprNameMap.get(opr);
+			else return "%" + oprNameMap.get(opr);
 		}
-		else return "@" + nameMap.get(opr); // string
+		else return "@" + oprNameMap.get(opr); // string
 	}
 
 	public String BB2Str(BasicBlock BB){
-		if(BB.getIdentifier() == null) BB.setIdentifier(String.valueOf(nameCnt++));
-		return BB.getIdentifier();
+		if(BBNameMap.get(BB) == null) BBNameMap.put(BB, (BB.getIdentifier() == null ? "b" : BB.getIdentifier()) + "_" + nameCnt++);
+		return BBNameMap.get(BB);
 	}
 
 	// visit staticString, function & basic block
