@@ -13,6 +13,7 @@ import Compiler.SymbolTable.Symbol.FuncSymbol;
 import Compiler.SymbolTable.Symbol.VarSymbol;
 import Compiler.SymbolTable.Type.*;
 import Compiler.Utils.Config;
+import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -25,6 +26,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 	private IR ir;
 	private BasicBlock curBB;
 	private Function curFunction;
+	private List<Return> curFuncRetIns = new ArrayList<>();
 	private Stack<BasicBlock> loopContStack = new Stack<>();
 	private Stack<BasicBlock> loopBreakStack = new Stack<>();
 
@@ -84,6 +86,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		Function function = funcSymbol.getFunction();
 		ir.addFunction(function);
 		curFunction = function;
+		curFuncRetIns.clear();
 
 		// add parameters
 		if(function.getIsMemberFunc())
@@ -95,6 +98,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 			function.addParameter(i32Value);
 		}
 
+		// traverse
 		BasicBlock entryBB = new BasicBlock();
 		function.setEntryBB(entryBB);
 		curBB = entryBB;
@@ -103,6 +107,13 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		// no return
 		if(!curBB.isTerminated()){
 			curBB.addInst(new Return(null));
+		}
+
+		// merge all returns into exit block
+		if(curFuncRetIns.size() == 0) throw new FuckingException("no return found when merging returns");
+		else if(curFuncRetIns.size() == 1) function.setExitBB(curFuncRetIns.get(0).getBelongBB());
+		else{
+
 		}
 
 		scope = scope.getUpperScope();
@@ -608,12 +619,13 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 	public void visit(ReturnStmtNode node){
 		if(node.getExpr() == null)
-			curBB.addLastInst(new Return(null));
+			curBB.addInst(new Return(null));
 		else{
 			node.getExpr().accept(this);
 			Operand val = convertPtr2Val(node.getExpr().getResultOpr());
-			curBB.addLastInst(new Return(val));
+			curBB.addInst(new Return(val));
 		}
+		curFuncRetIns.add((Return)curBB.getTailIns());
 	}
 
 	public void visit(ThisExprNode node){

@@ -12,6 +12,10 @@ public abstract class IRIns {
 		this.belongBB = belongBB;
 	}
 
+	public BasicBlock getBelongBB() {
+		return belongBB;
+	}
+
 	public void setPrevIns(IRIns prevIns) {
 		this.prevIns = prevIns;
 	}

@@ -3,6 +3,7 @@ package Compiler.IRVisitor;
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IR;
+import Compiler.IR.Instr.IRIns;
 import Compiler.IR.Instr.Load;
 import Compiler.IR.Instr.Return;
 import Compiler.IR.Operand.I32Value;
@@ -52,6 +53,29 @@ public class IRAssistant {
 		return function;
 	}
 
+	private void removeInsFromList(IRIns ins){
+		if(ins.getPrevIns() == null) {
+			if(ins.getNextIns() == null){
+				// the only one
+				ins.getBelongBB().setHeadIns(null);
+				ins.getBelongBB().setTailIns(null);
+			}
+			// the head
+			ins.getBelongBB().setHeadIns(ins.getNextIns());
+			ins.getNextIns().setPrevIns(null);
+		}
+		else if(ins.getNextIns() == null){
+			// the tail
+			ins.getBelongBB().setTailIns(ins.getPrevIns());
+			ins.getPrevIns().setNextIns(null);
+		}
+		else{
+			// general case
+			ins.getNextIns().setPrevIns(ins.getPrevIns());
+			ins.getPrevIns().setNextIns(ins.getNextIns());
+		}
+	}
+
 	public static void addBuiltinFunction(IR ir, Scope scope, Scope stringBuiltinFuncScope, Scope arrayBuiltinFuncScope){
 
 		builtinPrint = newBuiltinFunction(ir, scope,"print", "");
@@ -84,7 +108,6 @@ public class IRAssistant {
 		BB.addLastInst(new Return(ret));
 		builtinArraySize.setEntryBB(BB);
 		builtinArraySize.setIsMemberFunc(true);
-		builtinArraySize.setHasReturnValue(true);
 
 	}
 

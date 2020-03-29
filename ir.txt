@@ -1,69 +1,31 @@
-@t_0 = "123.456"
-func array.size %t_1 {
-2:
-	%t_3 = load %t_1
-	ret %t_3
+func array.size %t_0 {
+1:
+	%t_2 = load %t_0
+	ret %t_2
 }
 
 func __init {
-4:
+3:
 	call main
 	ret
 }
 
-func main {
-5:
-	%t_6 = alloc 4
-	%a_7 = move %t_6
-	%t_8 = alloc 4
-	%b_9 = move %t_8
-	%t_10 = alloc 8
-	%c_11 = move %t_10
-	%t_12 = add %a_7 0
-	%t_13 = load %t_12
-	store %c_11 %t_12
-	%t_14 = add %b_9 0
-	%t_15 = load %t_14
-	store %c_11 %t_14
-	%t_16 = add %c_11 0
-	%t_17 = load %t_16
-	store 0 %t_16
-	%t_18 = add %c_11 4
-	%t_19 = call getString
-	%t_20 = load %t_18
-	store %t_19 %t_18
-	%t_21 = add %a_7 0
-	%t_22 = load %t_21
-	%t_23 = add %t_22 4
-	%t_24 = add %b_9 0
-	%t_25 = load %t_24
-	%t_26 = add %t_25 4
-	%t_27 = load %t_23
-	%t_28 = load %t_26
-	%t_29 = call string.add %t_27 %t_28
-	%t_30 = add %c_11 4
-	%t_31 = add %c_11 4
-	%t_32 = load %t_30
-	%t_33 = load %t_31
-	%t_34 = call string.add %t_32 %t_33
-	%t_35 = call string.eq %t_29 %t_34
-	br %t_35 36 37
-36:
-	%t_38 = add %c_11 4
-	%t_39 = add %c_11 4
-	%t_40 = add %c_11 4
-	%t_41 = load %t_39
-	%t_42 = load %t_40
-	%t_43 = call string.add %t_41 %t_42
-	%t_44 = load %t_38
-	store %t_43 %t_38
-	jump 37
-37:
-	%t_45 = add %c_11 4
-	%t_46 = call string.parseInt @t_0
-	%t_47 = call toString %t_46
-	%t_48 = load %t_45
-	store %t_47 %t_45
+func f {
+4:
+	%t_5 = eq 1 1
+	br %t_5 6 7
+6:
 	ret 0
+	jump 7
+7:
+	ret 1
+	ret
+}
+
+func main {
+8:
+	%t_9 = call f
+	ret 0
+	ret
 }
 

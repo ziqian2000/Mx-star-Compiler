@@ -3,17 +3,18 @@ package Compiler.IR;
 import Compiler.IR.Operand.I32Value;
 import Compiler.IR.Operand.Register;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class Function {
 
 	private String identifier;
 	private List<Register> paraList;
 	private BasicBlock entryBB;
+	private BasicBlock exitBB;
 	private boolean isMemberFunc;
 	private Register obj;
-	private boolean hasReturnValue;
+
+	private List<BasicBlock> BBList; // in pre-order DFS
 
 	public Function(String identifier){
 		this.identifier = identifier;
@@ -30,6 +31,14 @@ public class Function {
 
 	public BasicBlock getEntryBB() {
 		return entryBB;
+	}
+
+	public void setExitBB(BasicBlock exitBB) {
+		this.exitBB = exitBB;
+	}
+
+	public BasicBlock getExitBB() {
+		return exitBB;
 	}
 
 	public List<Register> getParaList() {
@@ -56,11 +65,20 @@ public class Function {
 		return identifier;
 	}
 
-	public void setHasReturnValue(boolean hasReturnValue) {
-		this.hasReturnValue = hasReturnValue;
+	public List<BasicBlock> getBBList() {
+		return BBList;
 	}
 
-	public boolean getHasReturnValue() {
-		return hasReturnValue;
+	public void makeBBList(){
+		BBList.clear();
+		dfsBB(entryBB, new HashSet<>());
 	}
+
+	public void dfsBB(BasicBlock basicBlock, Set<BasicBlock> visited){
+		if(visited.contains(basicBlock)) return;
+		BBList.add(basicBlock);
+		visited.add(basicBlock);
+		basicBlock.getSucBBList().forEach(BB -> dfsBB(BB,visited));
+	}
+
 }

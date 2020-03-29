@@ -1,16 +1,25 @@
 package Compiler.IR;
 
+import Compiler.IR.Instr.Branch;
 import Compiler.IR.Instr.IRIns;
+import Compiler.IR.Instr.Jump;
+import Compiler.IR.Instr.Return;
+import Compiler.Utils.FuckingException;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class BasicBlock {
 
-	String identifier;
+	private String identifier;
 	private IRIns headIns, tailIns;
 	private boolean terminated;
 
+	private List<BasicBlock> sucBBList;
+
 	public BasicBlock(){
+
 	}
 	public BasicBlock(String identifier){
 		this.identifier = identifier;
@@ -33,6 +42,7 @@ public class BasicBlock {
 	public void addLastInst(IRIns inst){
 		addInst(inst);
 		setTerminated(true);
+		makeSucBBList();
 	}
 
 	public void setTerminated(boolean terminated) {
@@ -55,9 +65,28 @@ public class BasicBlock {
 		return headIns;
 	}
 
+	public void setHeadIns(IRIns headIns) {
+		this.headIns = headIns;
+	}
+
 	public IRIns getTailIns() {
 		return tailIns;
 	}
 
+	public void setTailIns(IRIns tailIns) {
+		this.tailIns = tailIns;
+	}
+
 	public boolean isEmpty(){ return headIns == null; }
+
+	public void makeSucBBList(){
+		sucBBList = new ArrayList<>();
+		if(tailIns instanceof Branch) sucBBList.addAll(Arrays.asList(((Branch)tailIns).getElseBB(), ((Branch) tailIns).getElseBB()));
+		else if(tailIns instanceof Jump) sucBBList.add(((Jump) tailIns).getBB());
+		else if(!(tailIns instanceof Return)) throw new FuckingException("basic block terminated by something strange");
+	}
+
+	public List<BasicBlock> getSucBBList() {
+		return sucBBList;
+	}
 }

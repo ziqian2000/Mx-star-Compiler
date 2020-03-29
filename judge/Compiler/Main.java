@@ -15,16 +15,13 @@ import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
 import java.io.*;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws Exception {
 
         try {
 
-//            System.out.println("FUCK");
-//            int x = 1; while(x==1){return;}
-
+            // parse
             InputStream inputStream = new FileInputStream("code.txt");
             CharStream charStream = CharStreams.fromStream(inputStream);
             MxstarLexer mxstarLexer = new MxstarLexer(charStream);
@@ -36,6 +33,7 @@ public class Main {
             mxstarParser.addErrorListener(new MxstarErrorListener());
             ParseTree parseTree = mxstarParser.program();           // construct a parse tree
 
+            // AST generation, semantic analysis
             BaseNode astRoot = new ASTBuilder().visit(parseTree);   // construct an AST
             Scope topScope = new Scope(null);           // the global scope
             SymbolTableAssistant.addBuiltinFunction(topScope);      // add some builtin functions into symbol table
@@ -45,14 +43,19 @@ public class Main {
             astRoot.accept(new SymbolTableBuilder(topScope));       // build symbol table, assign symbol, calculate type and determine value category
             astRoot.accept(new SemanticInfoVisitor(topScope));      // some other semantic exceptions
 
+            // IR generation
             astRoot.accept(new FunctionVisitor());                  // declare function
             astRoot.accept(new MemberOffsetCalculator());           // calculate offset & class size
             IRGenerator irGenerator = new IRGenerator(topScope);
             IRAssistant.addBuiltinFunction(irGenerator.getIR(), topScope, SymbolTableAssistant.stringBuiltinFuncScope, SymbolTableAssistant.arrayBuiltinFuncScope);
-            // add builtin function
+                                                                    // add builtin-function
             astRoot.accept(irGenerator);                            // generate IR
-            // to deal with static string const
             IR ir = irGenerator.getIR();
+
+            // Optimization on IR
+//            new FunctionInlining(ir).run();
+
+            // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
             IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
 
@@ -65,4 +68,5 @@ public class Main {
 
 
     }
+
 }
