@@ -113,7 +113,8 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		if(curFuncRetIns.size() == 0) throw new FuckingException("no return found when merging returns");
 		else if(curFuncRetIns.size() == 1) function.setExitBB(curFuncRetIns.get(0).getBelongBB());
 		else{
-
+			BasicBlock exitBlock = new BasicBlock();
+			
 		}
 
 		scope = scope.getUpperScope();
