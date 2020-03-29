@@ -200,8 +200,8 @@ public class FunctionInlining {
 		if(!tempStorageMap.containsKey(opr)){
 			if(opr instanceof Register){
 				if(((Register) opr).getGlobal()) tempStorageMap.put(opr, opr); // global shouldn't be copied
-				else if(opr instanceof I32Value) tempStorageMap.put(opr, new I32Value("c_" + opr.getIdentifier())); // todo: rename back
-				else if(opr instanceof I32Pointer) tempStorageMap.put(opr, new I32Pointer("c_" + opr.getIdentifier()));
+				else if(opr instanceof I32Value) tempStorageMap.put(opr, new I32Value(opr.getIdentifier()));
+				else if(opr instanceof I32Pointer) tempStorageMap.put(opr, new I32Pointer(opr.getIdentifier()));
 				else throw new FuckingException("impossible type of opr! fuck you!");
 			}
 			else tempStorageMap.put(opr, opr); // immediate, static string

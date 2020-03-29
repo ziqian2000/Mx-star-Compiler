@@ -638,7 +638,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 			Operand val = convertPtr2Val(node.getExpr().getResultOpr());
 			curBB.addLastInst(new Return(val));
 		}
-		curFuncRetIns.add((Return)curBB.getTailIns());
+		if(curBB.getTailIns() instanceof Return) curFuncRetIns.add((Return)curBB.getTailIns());
 	}
 
 	public void visit(ThisExprNode node){
