@@ -2,7 +2,7 @@ package Compiler;
 
 import Compiler.AST.BaseNode;
 import Compiler.IR.IR;
-//import Compiler.IRInterpreter.IRInterpreter;
+import Compiler.IRInterpreter.IRInterpreter;
 import Compiler.IRVisitor.*;
 import Compiler.Parser.MxstarErrorListener;
 import Compiler.SemanticAnalysis.*;
