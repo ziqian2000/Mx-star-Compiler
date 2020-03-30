@@ -29,7 +29,7 @@ public class FunctionInlining {
 		changedFunc.addAll(irFuncExceptBuiltin);
 
 		removeUselessFunc();
-		NonRecursiveFuncInlining();
+		NonRecursiveFuncInlining(); // todo : consider to add a limitation on the length of function to avoid huge code
 		RecursiveFuncInlining();
 	}
 
@@ -87,7 +87,7 @@ public class FunctionInlining {
 	}
 
 	private	void RecursiveFuncInlining(){
-		// todo, consider to incline each function 5 times
+		// todo, consider to inline each function 5 times
 	}
 
 	private void inline(Call ins, Function caller){

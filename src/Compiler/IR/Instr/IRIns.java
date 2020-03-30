@@ -35,6 +35,22 @@ public abstract class IRIns {
 		return nextIns;
 	}
 
+	public void prependIns(IRIns ins){
+		if(prevIns != null) prevIns.setNextIns(ins);
+		ins.setPrevIns(prevIns);
+		prevIns = ins;
+		ins.setNextIns(this);
+		if(getBelongBB().getHeadIns() == this) getBelongBB().setHeadIns(ins);
+	}
+
+	public void appendIns(IRIns ins){
+		if(nextIns != null) nextIns.setPrevIns(ins);
+		ins.setNextIns(nextIns);
+		nextIns = ins;
+		ins.setPrevIns(this);
+		if(getBelongBB().getTailIns() == this) getBelongBB().setTailIns(ins);
+	}
+
 	public void removeFromList(){
 		if(getPrevIns() == null) {
 			if(getNextIns() == null){

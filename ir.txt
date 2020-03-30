@@ -1,46 +1,79 @@
-@t_0 = "aha"
-@t_1 = "what's this?"
-@t_2 = "x is: "
-@t_3 = "\"\"\"\n"
-@t_4 = "false"
-@t_5 = "asd"
-@t_6 = "sad"
-@t_7 = "fads"
-@t_8 = "wow"
-func array.size %t_9 {
-b_10:
-	%t_11 = load %t_9
-	ret %t_11
+func array.size %t_0 {
+b_1:
+	%t_2 = load %t_0
+	ret %t_2
 }
 
 func __init {
-b_12:
-	jump entry_13
-entry_13:
-	%a_14 = move 1
-	br 1 if_then_15 if_exit_16
-if_then_15:
-	%t_17 = call toString %a_14
-	%t_18 = call string.parseInt %a_19
-	jump if_exit_16
-if_exit_16:
-	jump second_half_20
-second_half_20:
+b_3:
+	@a_4 = alloc 4
+	store 0 @a_4
+	call main
 	ret
 }
 
-func E.E %this_21 {
-entry_22:
-	%t_23 = add %this_21 0
-	%t_24 = neg 7
-	%t_25 = neg %t_24
-	%t_26 = load %t_23
-	store %t_25 %t_23
+func f {
+entry_5:
+	%a_tmp_6 = load @a_4
+	store %a_tmp_6 @a_4
+	call printlnInt %a_tmp_6
+	%a_tmp_6 = load @a_4
+	store %a_tmp_6 @a_4
 	ret
 }
 
-func E.getSelf %this_27 {
-entry_28:
-	ret %this_27
+func main {
+entry_7:
+	%a_tmp_6 = load @a_4
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	%a_tmp_6 = add %a_tmp_6 1
+	store %a_tmp_6 @a_4
+	call f
+	%a_tmp_6 = load @a_4
+	store %a_tmp_6 @a_4
+	call printlnInt %a_tmp_6
+	%a_tmp_6 = load @a_4
+	store %a_tmp_6 @a_4
+	ret 0
 }
 

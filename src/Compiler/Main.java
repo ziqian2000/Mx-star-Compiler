@@ -52,12 +52,15 @@ public class Main {
             astRoot.accept(irGenerator);                            // generate IR
             IR ir = irGenerator.getIR();
 
+            // Global variable
+            new GlobalVariableResolving(ir).run();
+
             // Optimization on IR
             new FunctionInlining(ir).run();
 
             // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
-//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
+            IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
 
         }
         catch (Exception e){

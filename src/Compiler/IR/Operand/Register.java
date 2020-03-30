@@ -3,6 +3,7 @@ package Compiler.IR.Operand;
 public class Register extends Storage {
 
 	private boolean global = false;
+	private Register assocGlobal;
 
 	public Register(){}
 
@@ -18,4 +19,11 @@ public class Register extends Storage {
 		return global;
 	}
 
+	public void setAssocGlobal(Register assocGlobal) {
+		this.assocGlobal = assocGlobal;
+	}
+
+	public Register getAssocGlobal() {
+		return assocGlobal;
+	}
 }

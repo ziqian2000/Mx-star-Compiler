@@ -56,22 +56,28 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 				VarDeclNode varDeclNode = (VarDeclNode)decl;
 
+				// load when entering/CALL, store when exiting/return from CALL; next step in globalVariableResolving
+
 				I32Pointer ptr = new I32Pointer(varDeclNode.getIdentifier());
 				ptr.setGlobal(true);
 				curBB.addInst(new Alloc(new Immediate(IRAssistant.isReferenceType(((VarDeclNode) decl).getType().getTypeInfo()) ? Config.POINTER_SIZE : Config.BASIC_TYPE_SIZE), ptr));
-				((VarSymbol)varDeclNode.getSymbol()).setStorage(ptr);
 				if(varDeclNode.getExpr() != null){
 					varDeclNode.getExpr().accept(this);
 					curBB.addInst(new Store(convertPtr2Val(varDeclNode.getExpr().getResultOpr()), ptr));
 				}
-
 				ir.addGlobalVar(ptr);
+
+				I32Value tmp = new I32Value(ptr.getIdentifier() + "_tmp");
+				((VarSymbol)varDeclNode.getSymbol()).setStorage(tmp);
+				tmp.setAssocGlobal(ptr);
+
 			}
 		}
 
 		// __init func ends here
 		curBB.addInst(new Call(((FuncSymbol)scope.findSymbol("main")).getFunction(), null, new ArrayList<>(), null));
 		curBB.addLastInst(new Return(null));
+		initFunc.setExitBB(curBB);
 
 		// function & class
 		for(DeclNode decl : node.getDeclList()) {
