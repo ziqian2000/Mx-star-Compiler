@@ -9,6 +9,7 @@ import Compiler.SemanticAnalysis.*;
 import Compiler.Parser.MxstarLexer;
 import Compiler.Parser.MxstarParser;
 import Compiler.SymbolTable.Scope;
+import Compiler.Utils.FuckingException;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -20,6 +21,16 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         try {
+
+            // arguments
+            boolean ifInterpret = true;
+            for(String arg : args){
+                switch (arg){
+                    case "-semantic": ifInterpret = false; break;
+                    case "-codegen" : break;
+                    default: throw new FuckingException("unrecognizable argument : " + arg);
+                }
+            }
 
             // parse
             InputStream inputStream = new FileInputStream("code.txt");
@@ -52,15 +63,13 @@ public class Main {
             astRoot.accept(irGenerator);                            // generate IR
             IR ir = irGenerator.getIR();
 
-            // Global variable
-            new GlobalVariableResolving(ir).run();
-
             // Optimization on IR
-            new FunctionInlining(ir).run();
+            new FunctionInlining(ir).run();                         // a must-do, otherwise change irGenerator
+            new GlobalVariableResolving(ir).run();
 
             // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
-            IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
+            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
 
         }
         catch (Exception e){

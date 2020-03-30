@@ -1,79 +1,53 @@
-func array.size %t_0 {
-b_1:
-	%t_2 = load %t_0
-	ret %t_2
-}
-
 func __init {
-b_3:
-	@a_4 = alloc 4
-	store 0 @a_4
+b_0:
+	@n_1 = alloc 4
 	call main
 	ret
 }
 
-func f {
-entry_5:
-	%a_tmp_6 = load @a_4
-	store %a_tmp_6 @a_4
-	call printlnInt %a_tmp_6
-	%a_tmp_6 = load @a_4
-	store %a_tmp_6 @a_4
+func b {
+entry_2:
+	%n_tmp_3 = load @n_1
+	%n_tmp_3 = add %n_tmp_3 1
+	store %n_tmp_3 @n_1
+	call b
+	%n_tmp_3 = load @n_1
+	store %n_tmp_3 @n_1
+	ret
+}
+
+func b2 {
+entry_4:
+	%n_tmp_5 = load @n_1
+	%n_tmp_5 = add %n_tmp_5 1
+	store %n_tmp_5 @n_1
+	call b2
+	%n_tmp_5 = load @n_1
+	store %n_tmp_5 @n_1
 	ret
 }
 
 func main {
-entry_7:
-	%a_tmp_6 = load @a_4
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	%a_tmp_6 = add %a_tmp_6 1
-	store %a_tmp_6 @a_4
-	call f
-	%a_tmp_6 = load @a_4
-	store %a_tmp_6 @a_4
-	call printlnInt %a_tmp_6
-	%a_tmp_6 = load @a_4
-	store %a_tmp_6 @a_4
+entry_6:
+	%n_tmp_7 = load @n_1
+	%n_tmp_7 = add %n_tmp_7 1
+	jump entry_8
+entry_8:
+	%n_tmp_7 = add %n_tmp_7 1
+	store %n_tmp_7 @n_1
+	call b
+	%n_tmp_7 = load @n_1
+	jump second_half_9
+second_half_9:
+	jump entry_10
+entry_10:
+	%n_tmp_7 = add %n_tmp_7 1
+	store %n_tmp_7 @n_1
+	call b2
+	%n_tmp_7 = load @n_1
+	jump second_half_11
+second_half_11:
+	store %n_tmp_7 @n_1
 	ret 0
 }
 

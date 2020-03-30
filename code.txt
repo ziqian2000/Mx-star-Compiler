@@ -1,10 +1,11 @@
-int a = 0;
-void f(){
-	printlnInt(a);
-}
-int main()
-{
-	++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++a;
-	f();
-	printlnInt(a);
+int n;
+void b(){++n;b();}
+void a(){++n;b();}
+void b2(){++n;b2();}
+void a2(){++n;b2();}
+int main(){
+	++n;
+	a();
+	a2();
+	return 0;
 }

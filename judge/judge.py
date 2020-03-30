@@ -2,6 +2,7 @@ import yaml
 import os
 import json
 import subprocess
+import sys
 
 configuration = {}
 color_none = "\033[0m"
@@ -256,6 +257,9 @@ if __name__ == '__main__':
     assert 'memlimit' in configuration.keys()
     assert 'instlimit' in configuration.keys()
     assert 'buildlimit' in configuration.keys()
+
+    configuration['stage'] = sys.argv[1]
+
     buildCompiler()
     if configuration['stage'] == 'semantic':
         runSemantic()

@@ -40,6 +40,7 @@ public abstract class IRIns {
 		ins.setPrevIns(prevIns);
 		prevIns = ins;
 		ins.setNextIns(this);
+		ins.setBelongBB(getBelongBB());
 		if(getBelongBB().getHeadIns() == this) getBelongBB().setHeadIns(ins);
 	}
 
@@ -48,6 +49,7 @@ public abstract class IRIns {
 		ins.setNextIns(nextIns);
 		nextIns = ins;
 		ins.setPrevIns(this);
+		ins.setBelongBB(getBelongBB());
 		if(getBelongBB().getTailIns() == this) getBelongBB().setTailIns(ins);
 	}
 

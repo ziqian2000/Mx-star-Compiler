@@ -31,6 +31,8 @@ public class FunctionInlining {
 		removeUselessFunc();
 		NonRecursiveFuncInlining(); // todo : consider to add a limitation on the length of function to avoid huge code
 		RecursiveFuncInlining();
+
+
 	}
 
 	private void removeUselessFunc(){
@@ -69,7 +71,7 @@ public class FunctionInlining {
 					Function callee = callInst.getFunction();
 					if(callee.getIsBuiltin()) continue;
 
-					if(isNonRecursive(callee)) {
+					if(isNonRecursive(callee) && !function.getIdentifier().equals("__init")) {
 						inline(callInst, function);
 						inlined = true;
 						changedFunc.add(function);
@@ -199,7 +201,8 @@ public class FunctionInlining {
 	private void makeTmpOprCopy(Map<Operand, Operand> tempStorageMap, Operand opr){
 		if(!tempStorageMap.containsKey(opr)){
 			if(opr instanceof Register){
-				if(((Register) opr).getGlobal()) tempStorageMap.put(opr, opr); // global shouldn't be copied
+				if(((Register) opr).getGlobal() || ((Register) opr).getAssocGlobal() != null)
+					tempStorageMap.put(opr, opr); // global shouldn't be copied
 				else if(opr instanceof I32Value) tempStorageMap.put(opr, new I32Value(opr.getIdentifier()));
 				else if(opr instanceof I32Pointer) tempStorageMap.put(opr, new I32Pointer(opr.getIdentifier()));
 				else throw new FuckingException("impossible type of opr! fuck you!");

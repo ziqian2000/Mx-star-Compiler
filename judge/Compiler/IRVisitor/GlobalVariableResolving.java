@@ -28,8 +28,9 @@ public class GlobalVariableResolving {
 
 	public void run(){
 		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) irFuncExceptBuiltin.add(func);
-
+		copyGlobalTmpVar();
 		scanningFunc();
+
 		loadBeforeEntering();
 		storeAfterExiting();
 		loadAndStoreWhenCalling();
@@ -44,7 +45,7 @@ public class GlobalVariableResolving {
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 					List<Operand> oprList = ins.fetchOpr();
 					for(Operand opr : oprList)
-						if(opr instanceof I32Value) if(((I32Value) opr).getAssocGlobal() != null){
+						if(opr instanceof I32Value && ((I32Value) opr).getAssocGlobal() != null){
 							if(!globalVarList.contains(opr)) globalVarList.add((I32Value)opr);
 						}
 				}
@@ -82,8 +83,38 @@ public class GlobalVariableResolving {
 						for(I32Value globalVar : globalVarList){
 							ins.prependIns(new Store(globalVar, globalVar.getAssocGlobal()));
 							ins.appendIns(new Load(globalVar, globalVar.getAssocGlobal()));
+							// todo: maybe just store/load needed global variable? but how to deal with recursive reference?
 						}
 					}
+				}
+			}
+		}
+	}
+
+	// different functions use the same temporal local variable for some global variable, which may cause potential problems
+	// so make a new copy for each temporal local variable
+	public void copyGlobalTmpVar(){
+		for(Function function : irFuncExceptBuiltin){
+			Map<Operand, Operand> tempGlobalVarMap = new HashMap<>();
+			for(BasicBlock BB : function.getBBList()){
+				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+					List<Operand> oprList = ins.fetchOpr();
+					List<Operand> newOprList = new ArrayList<>();
+					for(Operand opr : oprList){
+						if(opr instanceof Register && ((Register) opr).getAssocGlobal() != null) {
+							if(tempGlobalVarMap.containsKey(opr)) newOprList.add(tempGlobalVarMap.get(opr));
+							else{
+								I32Value newOpr = new I32Value(opr.getIdentifier());
+								newOpr.setAssocGlobal(((Register) opr).getAssocGlobal());
+								newOprList.add(newOpr);
+								tempGlobalVarMap.put(opr,newOpr);
+							}
+						}
+						else newOprList.add(opr);
+					}
+					IRIns newIns = ins.copySelf(newOprList, ins.fetchBB());
+					ins.prependIns(newIns);
+					ins.removeFromList();
 				}
 			}
 		}
