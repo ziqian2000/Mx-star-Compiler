@@ -64,8 +64,8 @@ public class Main {
             IR ir = irGenerator.getIR();
 
             // Optimization on IR
-            new FunctionInlining(ir).run();                         // a must-do, otherwise change irGenerator
-            new GlobalVariableResolving(ir).run();
+            new FunctionInlining(ir).run();
+            new GlobalVariableResolving(ir).run();                  // a must-do, otherwise modify irGenerator
 
             // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
