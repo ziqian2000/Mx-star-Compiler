@@ -63,9 +63,13 @@ public class Main {
             astRoot.accept(irGenerator);                            // generate IR
             IR ir = irGenerator.getIR();
 
-            // Optimization on IR
+            // Naive optimization on IR
             new FunctionInlining(ir).run();
             new GlobalVariableResolving(ir).run();                  // a must-do, otherwise modify irGenerator
+
+
+            // Basic Optimization on IR
+            new SSAConstructor(ir).run();
 
             // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));

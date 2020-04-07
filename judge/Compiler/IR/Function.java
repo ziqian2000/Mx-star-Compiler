@@ -70,21 +70,29 @@ public class Function {
 		return identifier;
 	}
 
+	// BB list
+
 	public List<BasicBlock> getBBList() {
 		return BBList;
 	}
 
 	public void makeBBList(){
 		BBList = new ArrayList<>();
-		dfsBB(entryBB, new HashSet<>());
+		dfsBB(entryBB, null, new HashSet<>());
 	}
 
-	public void dfsBB(BasicBlock basicBlock, Set<BasicBlock> visited){
-		if(basicBlock == null || visited.contains(basicBlock)) return;
+	public void dfsBB(BasicBlock basicBlock, BasicBlock parBB, Set<BasicBlock> visited){
+		if(basicBlock == null || visited.contains(basicBlock)) {
+			if(basicBlock != null)
+				basicBlock.getPreBBList().add(parBB);
+			return;
+		}
+		basicBlock.setPreBBList(new ArrayList<>(Collections.singleton(parBB)));
+		basicBlock.setParent(parBB);
 		visited.add(basicBlock);
 		BBList.add(basicBlock);
 		basicBlock.makeSucBBList();
-		basicBlock.getSucBBList().forEach(BB -> dfsBB(BB, visited));
+		basicBlock.getSucBBList().forEach(BB -> dfsBB(BB, basicBlock, visited));
 	}
 
 }

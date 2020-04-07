@@ -16,7 +16,10 @@ public class BasicBlock {
 	private IRIns headIns, tailIns;
 	private boolean terminated;
 
-	private List<BasicBlock> sucBBList;
+	// DFS
+	private BasicBlock parent;
+	private List<BasicBlock> preBBList; // implemented in function
+	private List<BasicBlock> sucBBList; // implemented in basic block (here)
 
 	public BasicBlock(){
 
@@ -82,6 +85,25 @@ public class BasicBlock {
 	}
 
 	public boolean isEmpty(){ return headIns == null; }
+
+	public void setParent(BasicBlock parent) {
+		this.parent = parent;
+	}
+
+	public BasicBlock getParent() {
+		return parent;
+	}
+
+	// pre & suc BB list
+	// compute in order : suc BB -> dfs -> pre BB
+
+	public List<BasicBlock> getPreBBList() {
+		return preBBList;
+	}
+
+	public void setPreBBList(List<BasicBlock> preBBList) {
+		this.preBBList = preBBList;
+	}
 
 	public void makeSucBBList(){
 		sucBBList = new ArrayList<>();
