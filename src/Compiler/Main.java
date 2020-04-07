@@ -67,7 +67,6 @@ public class Main {
             new FunctionInlining(ir).run();
             new GlobalVariableResolving(ir).run();                  // a must-do, otherwise modify irGenerator
 
-
             // Basic Optimization on IR
             new SSAConstructor(ir).run();
 

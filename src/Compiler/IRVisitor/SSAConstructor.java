@@ -17,13 +17,30 @@ public class SSAConstructor {
 	public void run(){
 		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
 			makeDominatorTree(func);
+			makeDominanceFrontier(func);
+		}
+	}
+
+	// dominance frontier computation
+	Map<BasicBlock, Set<BasicBlock>> domFront = new HashMap<>();
+	// todo : can be optimized, it take log time to calculate, store them in BB class
+	public void makeDominanceFrontier(Function func){
+		List<BasicBlock> BBList = func.getBBList();
+		BBList.forEach(BB -> domFront.put(BB, new HashSet<>()));
+		for(BasicBlock BB : BBList){
+			// todo : why to check predecessor >= 2?
+			for(BasicBlock predecessor : BB.getPreBBList()){
+				BasicBlock x = predecessor;
+				while(x != iDom.get(BB)){
+					domFront.get(x).add(BB);
+					x = iDom.get(x);
+				}
+			}
 		}
 	}
 
 	// dominator tree construction
-
 	// todo : can be optimized, it take log time to calculate, store them in BB class
-
 	Map<BasicBlock, Integer> 	dfn = new HashMap<>();
 	Map<Integer, BasicBlock>	vertex = new HashMap<>();
 	Map<BasicBlock, List<BasicBlock>> bucket = new HashMap<>();
