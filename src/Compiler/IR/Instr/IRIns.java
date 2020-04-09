@@ -2,6 +2,7 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
+import Compiler.IR.Operand.Register;
 import Compiler.IRVisitor.IRVisitor;
 
 import java.util.List;
@@ -78,9 +79,26 @@ public abstract class IRIns {
 		}
 	}
 
-	public abstract List<Operand> fetchOpr();
+	public IRIns replaceSelfWithCopy(List<Operand> opr, List<BasicBlock> BB){
+		IRIns newIns = copySelf(opr, BB);
+		replaceSelfWithAnotherIns(newIns);
+		return newIns;
+	}
 
-	public abstract List<BasicBlock> fetchBB();
+	public void replaceSelfWithAnotherIns(IRIns newIns){
+		appendIns(newIns);
+		removeFromList();
+	}
+
+	public abstract List<Register> getUseRegister();
+
+	public abstract Register getDefRegister();
+
+	public abstract void setDefRegister(Register newDefRegister);
+
+	public abstract List<Operand> getOperands();
+
+	public abstract List<BasicBlock> getBBs();
 
 	public abstract IRIns copySelf(List<Operand> opr, List<BasicBlock> BB);
 

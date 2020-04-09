@@ -72,7 +72,7 @@ public class Main {
 
             // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
-            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
+            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), true);
 
         }
         catch (Exception e){

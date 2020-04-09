@@ -100,7 +100,7 @@ public class IRInterpreter {
 		//    System.out.println("running without SSA mode");
 		//vm.setInstructionLimit(1 << 26);
 		vm.run();
-		System.exit((int) vm.getExitcode());
+//		System.exit((int) vm.getExitcode());
 		//System.out.println("exitcode:  " + vm.getExitcode());
 		//System.out.println("exception: " + vm.exitException());
 	}
@@ -191,7 +191,7 @@ public class IRInterpreter {
 					if (!label.endsWith(":")) throw new SemanticError("label should end with `:`");
 					if (!reg.startsWith("%") && !reg.startsWith("@") && !reg.equals("undef"))
 						throw new SemanticError("source of a phi node should be a register or `undef`");
-					phi.paths.put(label, reg);
+					phi.paths.put(label.substring(0, label.length() - 1), reg);
 				}
 				curBB.phi.add(phi);
 				return;

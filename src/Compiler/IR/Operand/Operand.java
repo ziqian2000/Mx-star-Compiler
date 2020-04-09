@@ -2,9 +2,13 @@ package Compiler.IR.Operand;
 
 public abstract class Operand {
 
-	private String identifier; // may be null
+	private static int unnamedCnt = 0;
+	private String identifier; // cannot be null
 
-	public Operand(){}
+	public Operand(){
+		this.identifier = "unnamed_" + unnamedCnt;
+		unnamedCnt += 1;
+	}
 
 	public Operand(String identifier){
 		this.identifier = identifier;

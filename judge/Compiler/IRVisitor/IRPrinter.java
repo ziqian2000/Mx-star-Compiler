@@ -46,18 +46,18 @@ public class IRPrinter implements IRVisitor{
 		if(!(opr instanceof Storage)) throw new FuckingException("how can opr be not of Storage type");
 
 		// if no name, assign one
-		if(oprNameMap.get(opr) == null) oprNameMap.put(opr, (opr.getIdentifier() == null ? "t" : opr.getIdentifier()) + "_" + nameCnt++);
+		if(oprNameMap.get(opr) == null) oprNameMap.put(opr, (opr.getIdentifier() == null ? "t" : opr.getIdentifier()) + "(" + nameCnt++ + ")");
 
 		// return the name
 		if(opr instanceof Register){
-			if(((Register) opr).getGlobal()) return "@" + oprNameMap.get(opr);
+			if(((Register) opr).isGlobal()) return "@" + oprNameMap.get(opr);
 			else return "%" + oprNameMap.get(opr);
 		}
 		else return "@" + oprNameMap.get(opr); // string
 	}
 
 	public String BB2Str(BasicBlock BB){
-		if(BBNameMap.get(BB) == null) BBNameMap.put(BB, (BB.getIdentifier() == null ? "b" : BB.getIdentifier()) + "_" + nameCnt++);
+		if(BBNameMap.get(BB) == null) BBNameMap.put(BB, (BB.getIdentifier() == null ? "b" : BB.getIdentifier()) + "(" + nameCnt++ + ")");
 		return BBNameMap.get(BB);
 	}
 
@@ -151,5 +151,14 @@ public class IRPrinter implements IRVisitor{
 		println(opr2Str(ins.getDst()) + " = " + String.valueOf(ins.getOp()).toLowerCase() + " " + opr2Str(ins.getOpr()));
 	}
 
+	public void visit(Phi ins){
+		print(opr2Str(ins.getDst()) + " = phi");
+		ins.getPath().forEach((BB, var) -> {
+			print(" " + BB2Str(BB) + ": ");
+			if(var == null) print("undef");
+			else print(opr2Str(var));
+		});
+		println("");
+	}
 
 }

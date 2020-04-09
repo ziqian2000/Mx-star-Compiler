@@ -106,7 +106,11 @@
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:54)\n\
     [2:4][SemanticException] lvalue required as left operand of ASS\n", stdout: '',
   verdict: Accepted}
-- {case: ./basic-package/basic-60.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-60.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
 - {case: ./basic-package/basic-54.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
     \ [4:10][SemanticException] undefined class : B\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.typeNode2VarType(SymbolTableAssistant.java:31)\n\
     \tat Compiler.SemanticAnalysis.SymbolTableBuilder.visit(SymbolTableBuilder.java:212)\n\
@@ -140,7 +144,11 @@
     \tat Compiler.Parser.MxstarParser.program(MxstarParser.java:149)\n\tat Compiler.Main.main(Main.java:45)\n\
     [2:8][SyntaxException] mismatched input 'void' expecting {'int', 'bool', 'string',\
     \ Identifier}\n", stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-71.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-71.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
 - {case: ./basic-package/basic-20.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
     \ [5:4][SemanticException] redeclaration of variable : c\n\tat Compiler.SemanticAnalysis.SymbolTableBuilder.visit(SymbolTableBuilder.java:47)\n\
     \tat Compiler.AST.VarDeclNode.accept(VarDeclNode.java:46)\n\tat Compiler.SemanticAnalysis.SymbolTableBuilder.visit(SymbolTableBuilder.java:27)\n\
@@ -309,7 +317,11 @@
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:54)\n\
     [7:4][SemanticException] invalid operands of types 'int' and 'null' to binary\
     \ operator ASS\n", stdout: '', verdict: Accepted}
-- {case: ./basic-package/basic-66.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./basic-package/basic-66.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
 - {case: ./basic-package/basic-26.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
     \ [12:4][SemanticException] mismatched type of the 2(st/nd/th) argument\n\tat\
     \ Compiler.SemanticAnalysis.SemanticInfoVisitor.visit(SemanticInfoVisitor.java:155)\n\
@@ -679,9 +691,20 @@
   verdict: Accepted}
 - {case: ./expression-package/expression-3.mx, stage: semantic, stderr: '', stdout: '',
   verdict: Accepted}
-- {case: ./expression-package/expression-2.mx, stage: semantic, stderr: '', stdout: '',
-  verdict: Accepted}
-- {case: ./array-package/array-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./expression-package/expression-2.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./array-package/array-7.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat java.base/java.util.ArrayList.forEach(ArrayList.java:1540)\n\tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:78)\n\
+    \tat java.base/java.util.ArrayList.forEach(ArrayList.java:1540)\n\tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:78)\n\
+    \tat java.base/java.util.ArrayList.forEach(ArrayList.java:1540)\n\tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:78)\n\
+    \tat java.base/java.util.ArrayList.forEach(ArrayList.java:1540)\n\tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:78)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
 - {case: ./array-package/array-3.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
     \ [10:3][SemanticException] not array type : int\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.arrayTypeDimDecrease(SymbolTableAssistant.java:61)\n\
     \tat Compiler.SemanticAnalysis.SymbolTableBuilder.visit(SymbolTableBuilder.java:194)\n\
@@ -1034,14 +1057,28 @@
     \tat Compiler.AST.ClassDeclNode.accept(ClassDeclNode.java:44)\n\tat Compiler.SemanticAnalysis.SemanticInfoVisitor.visit(SemanticInfoVisitor.java:42)\n\
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:55)\n\
     [2:2][SemanticException] mismatched constructor name : B\n", stdout: '', verdict: Accepted}
-- {case: ./class-package/class-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./class-package/class-3.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
 - {case: ./class-package/class-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./class-package/class-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./class-package/class-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-3.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-29.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-7.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-19.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-7.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
+- {case: ./misc-package/misc-19.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat java.base/java.util.ArrayList.forEach(ArrayList.java:1540)\n\tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:78)\n\
+    \tat java.base/java.util.ArrayList.forEach(ArrayList.java:1540)\n\tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:78)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
 - {case: ./misc-package/misc-6.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-18.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-2.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
@@ -1055,10 +1092,19 @@
 - {case: ./misc-package/misc-37.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-12.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-26.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-36.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-36.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat java.base/java.util.ArrayList.forEach(ArrayList.java:1540)\n\tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:78)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
 - {case: ./misc-package/misc-22.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-16.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-8.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-8.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
 - {case: ./misc-package/misc-32.mx, stage: semantic, stderr: "Compiler.Utils.SyntaxException:\
     \ [52:24][SyntaxException] extraneous input '>' expecting {'(', '++', '--', '+',\
     \ '-', '!', '~', 'new', 'this', IntegerConstant, StringConstant, NullConstant,\
@@ -1076,7 +1122,11 @@
     \ BoolConstant, Identifier}\n", stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-11.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-25.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
-- {case: ./misc-package/misc-35.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./misc-package/misc-35.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
 - {case: ./misc-package/misc-21.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
 - {case: ./misc-package/misc-15.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
     \ [28:31][SemanticException] not array type : int\n\tat Compiler.SemanticAnalysis.SymbolTableAssistant.arrayTypeDimDecrease(SymbolTableAssistant.java:61)\n\
@@ -1128,7 +1178,11 @@
     \tat Compiler.AST.ProgramNode.accept(ProgramNode.java:22)\n\tat Compiler.Main.main(Main.java:54)\n\
     [12:0][SemanticException] invalid operands of types 'int' and 'string' to binary\
     \ operator ASS\n", stdout: '', verdict: Accepted}
-- {case: ./scope-package/scope-1.mx, stage: semantic, stderr: '', stdout: '', verdict: Accepted}
+- {case: ./scope-package/scope-1.mx, stage: semantic, stderr: "java.lang.NullPointerException\n\
+    \tat Compiler.IRVisitor.SSAConstructor.recursiveRenaming(SSAConstructor.java:46)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.renameVariables(SSAConstructor.java:112)\n\
+    \tat Compiler.IRVisitor.SSAConstructor.run(SSAConstructor.java:27)\n\tat Compiler.Main.main(Main.java:75)\n\
+    null\n", stdout: '', verdict: Wrong Answer}
 - {case: ./scope-package/scope-4.mx, stage: semantic, stderr: "Compiler.Utils.SemanticException:\
     \ [3:8][SemanticException] undeclared symbol : c\n\tat Compiler.SemanticAnalysis.SymbolTableBuilder.visit(SymbolTableBuilder.java:119)\n\
     \tat Compiler.AST.IdExprNode.accept(IdExprNode.java:22)\n\tat Compiler.SemanticAnalysis.SymbolTableBuilder.visit(SymbolTableBuilder.java:255)\n\

@@ -14,5 +14,5 @@ public interface IRVisitor {
 	void visit(Return instr);
 	void visit(Store instr);
 	void visit(Unary instr);
-
+	void visit(Phi phi);
 }

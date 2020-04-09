@@ -3,7 +3,6 @@ package Compiler.IRVisitor;
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IR;
-import Compiler.IR.Instr.IRIns;
 import Compiler.IR.Instr.Load;
 import Compiler.IR.Instr.Return;
 import Compiler.IR.Operand.I32Value;
@@ -82,8 +81,8 @@ public class IRAssistant {
 		I32Value obj = new I32Value(), ret = new I32Value();
 		builtinArraySize.setObj(obj);
 		BasicBlock BB = new BasicBlock();
-		BB.addInst(new Load(ret, obj));
-		BB.addLastInst(new Return(ret));
+		BB.appendInst(new Load(ret, obj));
+		BB.appendLastInst(new Return(ret));
 		builtinArraySize.setEntryBB(BB);
 		builtinArraySize.setExitBB(BB);
 		builtinArraySize.setIsMemberFunc(true);

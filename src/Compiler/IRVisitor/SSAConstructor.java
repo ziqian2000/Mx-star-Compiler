@@ -3,6 +3,10 @@ package Compiler.IRVisitor;
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IR;
+import Compiler.IR.Instr.IRIns;
+import Compiler.IR.Instr.Phi;
+import Compiler.IR.Operand.Operand;
+import Compiler.IR.Operand.Register;
 
 import java.util.*;
 
@@ -18,6 +22,140 @@ public class SSAConstructor {
 		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
 			makeDominatorTree(func);
 			makeDominanceFrontier(func);
+			traverseGlobals(func);
+			insertPhi(func);
+			renameVariables(func);
+		}
+	}
+
+	// rename variables
+	Map<Register, Stack<Integer>> stack;
+	Map<Register, Integer> count;
+
+	public void recursiveRenaming(BasicBlock n){
+		for(IRIns S = n.getHeadIns(), nextIns; S != null; S = nextIns){
+			nextIns = S.getNextIns();
+
+			// use
+			if(!(S instanceof Phi)){
+				List<Operand> oprList = S.getOperands();
+				List<Operand> newOprList = new ArrayList<>();
+				List<Register> useRegisterList = S.getUseRegister();
+				for(Operand opr : oprList){
+					if(opr instanceof Register && !((Register) opr).isGlobal() && useRegisterList.contains(opr)){
+						// renaming global variable forbidden
+						int i = stack.get(opr).peek();
+						newOprList.add(((Register) opr).getSSARenamedRegister(i));
+					}
+					else newOprList.add(opr);
+				}
+				S = S.replaceSelfWithCopy(newOprList, S.getBBs());
+			}
+			// define
+			if(S.getDefRegister() != null){
+				Register defRegister = S.getDefRegister().getOriginVar();
+				if(defRegister.isGlobal()) continue; // renaming global variable forbidden
+				if(stack.get(defRegister) == null) {
+					count.put(defRegister, -1);
+					stack.put(defRegister, new Stack<>());
+				}
+				int i = count.get(defRegister) + 1;
+				count.put(defRegister, i);
+				stack.get(defRegister).push(i);
+				S.setDefRegister(defRegister.getSSARenamedRegister(i));
+			}
+		}
+		for(BasicBlock y : n.getSucBBList()){
+			for(IRIns ins = y.getHeadIns(); ins != null; ins = ins.getNextIns()){
+				if(ins instanceof Phi){
+					Register origin = ((Phi) ins).getDst().getOriginVar();
+					Register renamedRegister = stack.containsKey(origin) && !stack.get(origin).isEmpty()
+											? origin.getSSARenamedRegister(stack.get(origin).peek())
+											: null;
+					((Phi) ins).getPath().put(n, renamedRegister);
+				}
+			}
+		}
+
+		iDomChildren.get(n).forEach(this::recursiveRenaming);
+
+		for(IRIns S = n.getHeadIns(); S != null; S = S.getNextIns()){
+			// define
+			if(S.getDefRegister() != null){
+				Register defRegister = S.getDefRegister().getOriginVar();
+				if(defRegister.isGlobal()) continue; // renaming global variable forbidden
+				stack.get(defRegister).pop();
+			}
+		}
+
+	}
+	public void renameVariables(Function function){
+		// todo : eliminate useless arguments
+		stack = new HashMap<>();
+		count = new HashMap<>();
+
+		// obj
+		if(function.getObj() != null){
+			Register obj = function.getObj();
+			count.put(obj, 0);
+			stack.put(obj, new Stack<>());
+			stack.get(obj).push(count.get(obj));
+			function.setObj(obj.getSSARenamedRegister(count.get(obj)));
+		}
+
+		// parameter
+		for(int i = 0, _i = function.getParaList().size(); i < _i; i++){
+			Register para = function.getParaList().get(i);
+			count.put(para, 0);
+			stack.put(para, new Stack<>());
+			stack.get(para).push(count.get(para));
+			function.getParaList().set(i, para.getSSARenamedRegister(count.get(para)));
+		}
+
+		recursiveRenaming(function.getEntryBB());
+	}
+
+	// insert phi
+	public void insertPhi(Function func){
+		Queue<BasicBlock> queue = new LinkedList<>();
+		Set<BasicBlock> inserted = new HashSet<>();
+		for(Register var : func.getGlobals()){
+			inserted.clear();
+			queue.addAll(defBBs.getOrDefault(var, Collections.emptyList()));
+			while(!queue.isEmpty()){
+				BasicBlock BB = queue.remove();
+				for(BasicBlock BB2 : domFront.get(BB)){
+					if(!inserted.contains(BB2)){
+						inserted.add(BB2);
+						BB2.sudoPrependInst(new Phi(var));
+						queue.add(BB2);
+					}
+				}
+			}
+		}
+	}
+
+	// traverse all globals
+	Map<Register, List<BasicBlock>> defBBs = new HashMap<>();
+	public void traverseGlobals(Function func){
+		Set<Register> defined = new HashSet<>();
+		for(BasicBlock BB : func.getBBList()){
+			defined.clear();
+			for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+
+				List<Register> useRegisters = ins.getUseRegister();
+				Register defRegister = ins.getDefRegister();
+
+				for(Register useRegister : useRegisters){
+					if(!useRegister.isGlobal() && !defined.contains(useRegister))
+						func.addGlobals(useRegister);
+				}
+				if(defRegister != null) {
+					defined.add(defRegister);
+					if(!defBBs.containsKey(defRegister)) defBBs.put(defRegister, new ArrayList<>());
+					defBBs.get(defRegister).add(BB);
+				}
+			}
 		}
 	}
 
@@ -51,6 +189,8 @@ public class SSAConstructor {
 	Map<BasicBlock, BasicBlock>	semiDom = new HashMap<>();
 	Map<BasicBlock, BasicBlock> iDom = new HashMap<>();
 	Map<BasicBlock, BasicBlock> sameDom = new HashMap<>();
+
+	Map<BasicBlock, List<BasicBlock>> iDomChildren = new HashMap<>();
 
 	private BasicBlock ancestorWithLowestSemi(BasicBlock v){
 		BasicBlock a = ancestor.get(v);
@@ -117,6 +257,10 @@ public class SSAConstructor {
 				iDom.put(n, iDom.get(sameDom.get(n)));
 		}
 
+		for(BasicBlock BB : preOrderBBList) iDomChildren.put(BB, new ArrayList<>());
+		for(BasicBlock BB : preOrderBBList) if(iDom.get(BB) != null){
+			iDomChildren.get(iDom.get(BB)).add(BB);
+		}
 	}
 
 }

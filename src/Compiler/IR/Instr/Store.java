@@ -2,8 +2,11 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
+import Compiler.IR.Operand.Register;
 import Compiler.IRVisitor.IRVisitor;
+import Compiler.Utils.FuckingException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -29,12 +32,30 @@ public class Store extends IRIns {
 	}
 
 	@Override
-	public List<Operand> fetchOpr() {
+	public List<Register> getUseRegister() {
+		List<Register> registerList = new ArrayList<>();
+		if(src instanceof Register) registerList.add((Register)src);
+		if(ptr instanceof Register) registerList.add((Register)ptr);
+		return registerList;
+	}
+
+	@Override
+	public Register getDefRegister() {
+		return null;
+	}
+
+	@Override
+	public void setDefRegister(Register newDefRegister) {
+		throw new FuckingException("no def register in this instruction");
+
+	}
+	@Override
+	public List<Operand> getOperands() {
 		return Arrays.asList(src, ptr);
 	}
 
 	@Override
-	public List<BasicBlock> fetchBB() {
+	public List<BasicBlock> getBBs() {
 		return Collections.emptyList();
 	}
 

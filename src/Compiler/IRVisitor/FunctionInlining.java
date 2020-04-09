@@ -101,7 +101,7 @@ public class FunctionInlining {
 		for(IRIns tmpIns = ins.getNextIns(), nextIns; tmpIns != null; tmpIns = nextIns){
 			nextIns = tmpIns.getNextIns(); // as it will be changed
 			tmpIns.removeFromList();
-			secondHalfBB.addInst(tmpIns);
+			secondHalfBB.appendInst(tmpIns);
 		}
 		secondHalfBB.setTerminated(true);
 		ins.setNextIns(null);
@@ -118,7 +118,7 @@ public class FunctionInlining {
 			// copy basic block
 			tempBBMap.put(BB, new BasicBlock(BB.getIdentifier()));
 			for(IRIns originIns = BB.getHeadIns(); originIns != null; originIns = originIns.getNextIns()){
-				List<Operand> originOpr = originIns.fetchOpr();
+				List<Operand> originOpr = originIns.getOperands();
 				// copy register
 				originOpr.forEach(opr -> makeTmpOprCopy(tempStorageMap, opr));
 			}
@@ -128,9 +128,9 @@ public class FunctionInlining {
 		for(int i = 0; i < ins.getParaList().size(); i++){
 			Operand from = ins.getParaList().get(i);
 			Operand to = tempStorageMap.get(callee.getParaList().get(i));
-			firstHalfBB.sudoAddInst(new Move(from, to));
+			firstHalfBB.sudoAppendInst(new Move(from, to));
 		}
-		if(ins.getObj() != null) firstHalfBB.sudoAddInst(new Move(ins.getObj(), tempStorageMap.get(callee.getObj())));
+		if(ins.getObj() != null) firstHalfBB.sudoAppendInst(new Move(ins.getObj(), tempStorageMap.get(callee.getObj())));
 
 		// copy the whole function
 		for(BasicBlock BB : callee.getBBList()){
@@ -139,17 +139,17 @@ public class FunctionInlining {
 			for(IRIns originIns = BB.getHeadIns(); originIns != null; originIns = originIns.getNextIns()){
 
 				// replacement
-				List<Operand> tmpOprList = new ArrayList<>(), originOprList = originIns.fetchOpr();
+				List<Operand> tmpOprList = new ArrayList<>(), originOprList = originIns.getOperands();
 				for (Operand operand : originOprList) {
 					tmpOprList.add(tempStorageMap.get(operand));
 				}
-				List<BasicBlock> tmpBBList = new ArrayList<>(), originBBList = originIns.fetchBB();
+				List<BasicBlock> tmpBBList = new ArrayList<>(), originBBList = originIns.getBBs();
 				for (BasicBlock basicBlock : originBBList) {
 					tmpBBList.add(tempBBMap.get(basicBlock));
 				}
 
 				IRIns tmpIns = originIns.copySelf(tmpOprList, tmpBBList);
-				tmpBB.addInst(tmpIns);
+				tmpBB.appendInst(tmpIns);
 			}
 			tmpBB.setTerminated(true);
 		}
@@ -159,12 +159,12 @@ public class FunctionInlining {
 		Return retIns = (Return)exitBB.getTailIns();
 		retIns.removeFromList();
 		if(retIns.getRetValue() != null && ins.getDst() != null){
-			exitBB.sudoAddInst(new Move(retIns.getRetValue(), ins.getDst()));
+			exitBB.sudoAppendInst(new Move(retIns.getRetValue(), ins.getDst()));
 		}
 
 		// insert those basic blocks, both first/second half basic block are terminated
-		firstHalfBB.sudoAddInst(new Jump(entryBB));
-		exitBB.sudoAddInst(new Jump(secondHalfBB));
+		firstHalfBB.sudoAppendInst(new Jump(entryBB));
+		exitBB.sudoAppendInst(new Jump(secondHalfBB));
 
 	}
 
@@ -201,7 +201,7 @@ public class FunctionInlining {
 	private void makeTmpOprCopy(Map<Operand, Operand> tempStorageMap, Operand opr){
 		if(!tempStorageMap.containsKey(opr)){
 			if(opr instanceof Register){
-				if(((Register) opr).getGlobal() || ((Register) opr).getAssocGlobal() != null)
+				if(((Register) opr).isGlobal() || ((Register) opr).getAssocGlobal() != null)
 					tempStorageMap.put(opr, opr); // global shouldn't be copied
 				else if(opr instanceof I32Value) tempStorageMap.put(opr, new I32Value(opr.getIdentifier()));
 				else if(opr instanceof I32Pointer) tempStorageMap.put(opr, new I32Pointer(opr.getIdentifier()));

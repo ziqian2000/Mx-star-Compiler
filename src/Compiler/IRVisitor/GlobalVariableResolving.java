@@ -43,7 +43,7 @@ public class GlobalVariableResolving {
 			globalVarInFunc.put(function, globalVarList);
 			for(BasicBlock BB : function.getBBList()){
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
-					List<Operand> oprList = ins.fetchOpr();
+					List<Operand> oprList = ins.getOperands();
 					for(Operand opr : oprList)
 						if(opr instanceof I32Value && ((I32Value) opr).getAssocGlobal() != null){
 							if(!globalVarList.contains(opr)) globalVarList.add((I32Value)opr);
@@ -98,7 +98,7 @@ public class GlobalVariableResolving {
 			Map<Operand, Operand> tempGlobalVarMap = new HashMap<>();
 			for(BasicBlock BB : function.getBBList()){
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
-					List<Operand> oprList = ins.fetchOpr();
+					List<Operand> oprList = ins.getOperands();
 					List<Operand> newOprList = new ArrayList<>();
 					for(Operand opr : oprList){
 						if(opr instanceof Register && ((Register) opr).getAssocGlobal() != null) {
@@ -112,7 +112,7 @@ public class GlobalVariableResolving {
 						}
 						else newOprList.add(opr);
 					}
-					IRIns newIns = ins.copySelf(newOprList, ins.fetchBB());
+					IRIns newIns = ins.copySelf(newOprList, ins.getBBs());
 					ins.prependIns(newIns);
 					ins.removeFromList();
 				}

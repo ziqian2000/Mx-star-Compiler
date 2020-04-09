@@ -12,6 +12,7 @@ import java.util.List;
 
 public class BasicBlock {
 
+	private static int unnamedCnt = 0;
 	private String identifier;
 	private IRIns headIns, tailIns;
 	private boolean terminated;
@@ -22,22 +23,23 @@ public class BasicBlock {
 	private List<BasicBlock> sucBBList; // implemented in basic block (here)
 
 	public BasicBlock(){
-
+		this.identifier = "unnamed_" + unnamedCnt;
+		unnamedCnt += 1;
 	}
 	public BasicBlock(String identifier){
 		this.identifier = identifier;
 	}
 
-	public void addInst(IRIns inst){
-		if(!terminated)	sudoAddInst(inst);
+	public void appendInst(IRIns inst){
+		if(!terminated)	sudoAppendInst(inst);
 	}
 
-	public void addLastInst(IRIns inst){
-		addInst(inst);
+	public void appendLastInst(IRIns inst){
+		appendInst(inst);
 		setTerminated(true);
 	}
 
-	public void sudoAddInst(IRIns inst){
+	public void sudoAppendInst(IRIns inst){
 		if(isEmpty()){
 			headIns = tailIns = inst;
 			inst.setPrevIns(null);
@@ -48,6 +50,21 @@ public class BasicBlock {
 			inst.setPrevIns(tailIns);
 			inst.setNextIns(null);
 			tailIns = inst;
+		}
+		inst.setBelongBB(this);
+	}
+
+	public void sudoPrependInst(IRIns inst){
+		if(isEmpty()){
+			headIns = tailIns = inst;
+			inst.setPrevIns(null);
+			inst.setNextIns(null);
+		}
+		else {
+			headIns.setPrevIns(inst);
+			inst.setNextIns(headIns);
+			inst.setPrevIns(null);
+			headIns = inst;
 		}
 		inst.setBelongBB(this);
 	}

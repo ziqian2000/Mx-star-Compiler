@@ -16,10 +16,12 @@ public class Function {
 	private Register obj;
 
 	private List<BasicBlock> BBList; // in pre-order DFS
+	private Set<Register> globals;
 
 	public Function(String identifier){
 		this.identifier = identifier;
 		paraList = new ArrayList<>();
+		globals = new HashSet<>();
 	}
 
 	public void addParameter(Register register){
@@ -68,6 +70,14 @@ public class Function {
 
 	public String getIdentifier() {
 		return identifier;
+	}
+
+	public void addGlobals(Register global){
+		globals.add(global);
+	}
+
+	public Set<Register> getGlobals() {
+		return globals;
 	}
 
 	// BB list

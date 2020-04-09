@@ -2,9 +2,12 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
+import Compiler.IR.Operand.Register;
 import Compiler.IRVisitor.IRVisitor;
+import Compiler.Utils.FuckingException;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -34,12 +37,27 @@ public class Branch extends IRIns {
 	}
 
 	@Override
-	public List<Operand> fetchOpr() {
+	public List<Register> getUseRegister() {
+		return cond instanceof Register ? Collections.singletonList((Register)cond) : Collections.emptyList();
+	}
+
+	@Override
+	public Register getDefRegister() {
+		return null;
+	}
+
+	@Override
+	public void setDefRegister(Register newDefRegister) {
+		throw new FuckingException("no def register in this instruction");
+	}
+
+	@Override
+	public List<Operand> getOperands() {
 		return Collections.singletonList(cond);
 	}
 
 	@Override
-	public List<BasicBlock> fetchBB() {
+	public List<BasicBlock> getBBs() {
 		return Arrays.asList(thenBB, elseBB);
 	}
 

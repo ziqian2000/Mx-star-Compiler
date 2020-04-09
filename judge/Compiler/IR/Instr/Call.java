@@ -7,6 +7,7 @@ import Compiler.IR.Operand.I32Value;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.Register;
 import Compiler.IRVisitor.IRVisitor;
+import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,14 +48,33 @@ public class Call extends IRIns {
 	}
 
 	@Override
-	public List<Operand> fetchOpr() {
+	public List<Register> getUseRegister() {
+		List<Register> registerList = new ArrayList<>();
+		if(obj instanceof Register) registerList.add((Register)obj);
+		paraList.forEach(opr -> {
+			if(opr instanceof Register) registerList.add((Register) opr);
+		});
+		return registerList;
+	}
+
+	@Override
+	public Register getDefRegister() {
+		return dst instanceof Register ? (Register) dst : null;
+	}@Override
+
+	public void setDefRegister(Register newDefRegister) {
+		dst = newDefRegister;
+	}
+
+	@Override
+	public List<Operand> getOperands() {
 		List<Operand> oprList = new ArrayList<>(Arrays.asList(obj, dst));
 		oprList.addAll(paraList);
 		return oprList;
 	}
 
 	@Override
-	public List<BasicBlock> fetchBB() {
+	public List<BasicBlock> getBBs() {
 		return Collections.emptyList();
 	}
 

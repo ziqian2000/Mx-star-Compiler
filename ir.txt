@@ -1,202 +1,60 @@
-@t_0 = ""
 func __init {
-b_1:
-	@a_2 = alloc 4
-	%t_3 = mul 4 4
-	%t_4 = add %t_3 4
-	%t_5 = alloc %t_4
-	store 4 %t_5
-	store %t_5 @a_2
+unnamed_1(0):
+	@n(1) = alloc 4
+	@r(2) = alloc 4
+	@c(3) = alloc 4
+	@i(4) = alloc 4
+	@j(5) = alloc 4
 	call main
 	ret
 }
 
 func main {
-entry_6:
-	%a_tmp_7 = load @a_2
-	%t_8 = mul 4 4
-	%t_9 = add %t_8 4
-	%t_10 = alloc %t_9
-	store 4 %t_10
-	%b_11 = move %t_10
-	%t_12 = add 0 1
-	%t_13 = mul %t_12 4
-	%t_14 = add %b_11 %t_13
-	%t_15 = load %t_14
-	store %a_tmp_7 %t_14
-	%t_16 = add 1 1
-	%t_17 = mul %t_16 4
-	%t_18 = add %b_11 %t_17
-	%t_19 = load %t_18
-	store %a_tmp_7 %t_18
-	%t_20 = add 2 1
-	%t_21 = mul %t_20 4
-	%t_22 = add %b_11 %t_21
-	%t_23 = load %t_22
-	store %a_tmp_7 %t_22
-	%t_24 = add 3 1
-	%t_25 = mul %t_24 4
-	%t_26 = add %b_11 %t_25
-	%t_27 = load %t_26
-	store %a_tmp_7 %t_26
-	%t_28 = move %b_11
-	jump b_29
-b_29:
-	%t_30 = load %t_28
-	%t_31 = move %t_30
-	jump second_half_32
-second_half_32:
-	store %a_tmp_7 @a_2
-	%t_33 = call toString %t_31
-	%a_tmp_7 = load @a_2
-	store %a_tmp_7 @a_2
-	call println %t_33
-	%a_tmp_7 = load @a_2
-	%i_34 = move 0
-	jump b_35
-b_35:
-	%t_36 = add 0 1
-	%t_37 = mul %t_36 4
-	%t_38 = add %b_11 %t_37
-	%t_39 = load %t_38
-	%t_40 = move %t_39
-	jump b_41
-b_41:
-	%t_42 = load %t_40
-	%t_43 = move %t_42
-	jump second_half_44
-second_half_44:
-	%t_45 = lt %i_34 %t_43
-	br %t_45 b_46 b_47
-b_46:
-	%t_48 = add 0 1
-	%t_49 = mul %t_48 4
-	%t_50 = add %b_11 %t_49
-	%t_51 = load %t_50
-	%t_52 = add %i_34 1
-	%t_53 = mul %t_52 4
-	%t_54 = add %t_51 %t_53
-	store %a_tmp_7 @a_2
-	%t_55 = call getInt
-	%a_tmp_7 = load @a_2
-	%t_56 = load %t_54
-	store %t_55 %t_54
-	jump b_57
-b_57:
-	%t_58 = move %i_34
-	%i_34 = add %i_34 1
-	jump b_35
-b_47:
-	%i_34 = move 0
-	jump b_59
-b_59:
-	%t_60 = add 1 1
-	%t_61 = mul %t_60 4
-	%t_62 = add %b_11 %t_61
-	%t_63 = load %t_62
-	%t_64 = move %t_63
-	jump b_65
-b_65:
-	%t_66 = load %t_64
-	%t_67 = move %t_66
-	jump second_half_68
-second_half_68:
-	%t_69 = lt %i_34 %t_67
-	br %t_69 b_70 b_71
-b_70:
-	%t_72 = add 1 1
-	%t_73 = mul %t_72 4
-	%t_74 = add %b_11 %t_73
-	%t_75 = load %t_74
-	%t_76 = add %i_34 1
-	%t_77 = mul %t_76 4
-	%t_78 = add %t_75 %t_77
-	%t_79 = load %t_78
-	store %a_tmp_7 @a_2
-	%t_80 = call toString %t_79
-	%a_tmp_7 = load @a_2
-	store %a_tmp_7 @a_2
-	call print %t_80
-	%a_tmp_7 = load @a_2
-	jump b_81
-b_81:
-	%t_82 = move %i_34
-	%i_34 = add %i_34 1
-	jump b_59
-b_71:
-	store %a_tmp_7 @a_2
-	call println @t_0
-	%a_tmp_7 = load @a_2
-	%i_34 = move 0
-	jump b_83
-b_83:
-	%t_84 = add 2 1
-	%t_85 = mul %t_84 4
-	%t_86 = add %b_11 %t_85
-	%t_87 = load %t_86
-	%t_88 = move %t_87
-	jump b_89
-b_89:
-	%t_90 = load %t_88
-	%t_91 = move %t_90
-	jump second_half_92
-second_half_92:
-	%t_93 = lt %i_34 %t_91
-	br %t_93 b_94 b_95
-b_94:
-	%t_96 = add 2 1
-	%t_97 = mul %t_96 4
-	%t_98 = add %b_11 %t_97
-	%t_99 = load %t_98
-	%t_100 = add %i_34 1
-	%t_101 = mul %t_100 4
-	%t_102 = add %t_99 %t_101
-	%t_103 = load %t_102
-	store 0 %t_102
-	jump b_104
-b_104:
-	%t_105 = move %i_34
-	%i_34 = add %i_34 1
-	jump b_83
-b_95:
-	%i_34 = move 0
-	jump b_106
-b_106:
-	%t_107 = add 3 1
-	%t_108 = mul %t_107 4
-	%t_109 = add %b_11 %t_108
-	%t_110 = load %t_109
-	%t_111 = move %t_110
-	jump b_112
-b_112:
-	%t_113 = load %t_111
-	%t_114 = move %t_113
-	jump second_half_115
-second_half_115:
-	%t_116 = lt %i_34 %t_114
-	br %t_116 b_117 b_118
-b_117:
-	%t_119 = add 3 1
-	%t_120 = mul %t_119 4
-	%t_121 = add %b_11 %t_120
-	%t_122 = load %t_121
-	%t_123 = add %i_34 1
-	%t_124 = mul %t_123 4
-	%t_125 = add %t_122 %t_124
-	%t_126 = load %t_125
-	store %a_tmp_7 @a_2
-	%t_127 = call toString %t_126
-	%a_tmp_7 = load @a_2
-	store %a_tmp_7 @a_2
-	call print %t_127
-	%a_tmp_7 = load @a_2
-	jump b_128
-b_128:
-	%t_129 = move %i_34
-	%i_34 = add %i_34 1
-	jump b_106
-b_118:
-	store %a_tmp_7 @a_2
+entry(6):
+	%i_tmp.0(7) = load @i(4)
+	%j_tmp.0(8) = load @j(5)
+	%n_tmp.0(9) = load @n(1)
+	%i_tmp.1(10) = move 0
+	jump unnamed_2(11)
+unnamed_2(11):
+	%n_tmp.1(12) = phi entry(6): %n_tmp.0(9) unnamed_5(13): %n_tmp.2(14)
+	%j_tmp.1(15) = phi entry(6): %j_tmp.0(8) unnamed_5(13): %j_tmp.3(16)
+	%i_tmp.2(17) = phi entry(6): %i_tmp.1(10) unnamed_5(13): %i_tmp.5(18)
+	%unnamed_2.0(19) = lt %i_tmp.2(17) 5
+	br %unnamed_2.0(19) unnamed_3(20) unnamed_4(21)
+unnamed_3(20):
+	%j_tmp.2(22) = move 0
+	jump unnamed_6(23)
+unnamed_6(23):
+	%n_tmp.2(14) = phi unnamed_9(24): %n_tmp.4(25) unnamed_3(20): %n_tmp.1(12)
+	%j_tmp.3(16) = phi unnamed_9(24): %j_tmp.5(26) unnamed_3(20): %j_tmp.2(22)
+	%i_tmp.3(27) = phi unnamed_9(24): %i_tmp.4(28) unnamed_3(20): %i_tmp.2(17)
+	%unnamed_4.0(29) = lt %j_tmp.3(16) 5
+	br %unnamed_4.0(29) unnamed_7(30) unnamed_8(31)
+unnamed_7(30):
+	store %i_tmp.3(27) @i(4)
+	store %j_tmp.3(16) @j(5)
+	store %n_tmp.2(14) @n(1)
+	%unnamed_6.0(32) = call getInt
+	%n_tmp.3(33) = load @n(1)
+	%j_tmp.4(34) = load @j(5)
+	%i_tmp.4(28) = load @i(4)
+	%n_tmp.4(25) = move %unnamed_6.0(32)
+	jump unnamed_9(24)
+unnamed_9(24):
+	%unnamed_5.0(35) = move %j_tmp.4(34)
+	%j_tmp.5(26) = add %j_tmp.4(34) 1
+	jump unnamed_6(23)
+unnamed_8(31):
+	jump unnamed_5(13)
+unnamed_5(13):
+	%unnamed_3.0(36) = move %i_tmp.3(27)
+	%i_tmp.5(18) = add %i_tmp.3(27) 1
+	jump unnamed_2(11)
+unnamed_4(21):
+	store %i_tmp.2(17) @i(4)
+	store %j_tmp.1(15) @j(5)
+	store %n_tmp.1(12) @n(1)
 	ret 0
 }
 
