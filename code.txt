@@ -1,15 +1,7 @@
-int n;
-int r;
-int c;
-int i;
-int j;
-
 int main()
 {
-	for (i=0;i<5;i++)
-		for (j=0;j<5;j++)
-		{
-            n = getInt();
-		}
-	return 0;
+	int a = 1;
+	if(true) a = 2;
+	else a = 3;
+	printlnInt(a);
 }

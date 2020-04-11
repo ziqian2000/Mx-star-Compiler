@@ -10,6 +10,12 @@ import Compiler.IR.Operand.Register;
 
 import java.util.*;
 
+/**
+ * If encounter TLE:
+ * 	Optimize the Map defined here (e.g. dfn, vertex, iDom...) as it takes an extra O(log n) time to calculate.
+ * 	Store them in BB class if necessary.
+ */
+
 public class SSAConstructor {
 
 	IR ir;
@@ -20,17 +26,19 @@ public class SSAConstructor {
 
 	public void run(){
 		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
-			makeDominatorTree(func);
-			makeDominanceFrontier(func);
+			constructDominatorTree(func);
+			constructDominanceFrontier(func);
 			traverseGlobals(func);
 			insertPhi(func);
 			renameVariables(func);
 		}
 	}
 
-	// rename variables
-	Map<Register, Stack<Integer>> stack;
-	Map<Register, Integer> count;
+	/**
+	 * rename variables
+	 */
+	Map<Register, Stack<Integer>> stack = new HashMap<>();;
+	Map<Register, Integer> count = new HashMap<>();;
 
 	public void recursiveRenaming(BasicBlock n){
 		for(IRIns S = n.getHeadIns(), nextIns; S != null; S = nextIns){
@@ -91,8 +99,6 @@ public class SSAConstructor {
 	}
 	public void renameVariables(Function function){
 		// todo : eliminate useless arguments
-		stack = new HashMap<>();
-		count = new HashMap<>();
 
 		// obj
 		if(function.getObj() != null){
@@ -114,8 +120,9 @@ public class SSAConstructor {
 
 		recursiveRenaming(function.getEntryBB());
 	}
-
-	// insert phi
+	/**
+	 * insert phi
+	 */
 	public void insertPhi(Function func){
 		Queue<BasicBlock> queue = new LinkedList<>();
 		Set<BasicBlock> inserted = new HashSet<>();
@@ -134,8 +141,9 @@ public class SSAConstructor {
 			}
 		}
 	}
-
-	// traverse all globals
+	/**
+	 * traverse all globals
+	 */
 	Map<Register, List<BasicBlock>> defBBs = new HashMap<>();
 	public void traverseGlobals(Function func){
 		Set<Register> defined = new HashSet<>();
@@ -158,11 +166,11 @@ public class SSAConstructor {
 			}
 		}
 	}
-
-	// dominance frontier computation
+	/**
+	 * dominance frontier computation
+	 */
 	Map<BasicBlock, Set<BasicBlock>> domFront = new HashMap<>();
-	// todo : can be optimized, it take log time to calculate, store them in BB class
-	public void makeDominanceFrontier(Function func){
+	public void constructDominanceFrontier(Function func){
 		List<BasicBlock> BBList = func.getBBList();
 		BBList.forEach(BB -> domFront.put(BB, new HashSet<>()));
 		for(BasicBlock BB : BBList){
@@ -176,9 +184,9 @@ public class SSAConstructor {
 			}
 		}
 	}
-
-	// dominator tree construction
-	// todo : can be optimized, it take log time to calculate, store them in BB class
+	/**
+	 * Dominator tree
+	 */
 	Map<BasicBlock, Integer> 	dfn = new HashMap<>();
 	Map<Integer, BasicBlock>	vertex = new HashMap<>();
 	Map<BasicBlock, List<BasicBlock>> bucket = new HashMap<>();
@@ -187,9 +195,8 @@ public class SSAConstructor {
 	Map<BasicBlock, BasicBlock> best = new HashMap<>();
 
 	Map<BasicBlock, BasicBlock>	semiDom = new HashMap<>();
-	Map<BasicBlock, BasicBlock> iDom = new HashMap<>();
 	Map<BasicBlock, BasicBlock> sameDom = new HashMap<>();
-
+	Map<BasicBlock, BasicBlock> iDom = new HashMap<>(); // i.e. parent in dominator tree
 	Map<BasicBlock, List<BasicBlock>> iDomChildren = new HashMap<>();
 
 	private BasicBlock ancestorWithLowestSemi(BasicBlock v){
@@ -208,7 +215,7 @@ public class SSAConstructor {
 		best.put(n, n);
 	}
 
-	private void makeDominatorTree(Function function)
+	private void constructDominatorTree(Function function)
 	{
 		// fake dfs
 		function.makeBBList();

@@ -12,6 +12,8 @@ import java.util.*;
  * Modified for adaption for My IR
  * Support global variables, static strings and builtin function call
  * Special thanks to Lequn Chen for his fundamental work
+ * <p>
+ * Modified by WRZ on 2020
  */
 
 public class IRInterpreter {

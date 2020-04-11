@@ -69,10 +69,12 @@ public class Main {
 
             // Basic Optimization on IR
             new SSAConstructor(ir).run();
+            new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
+                                                                    // need to eliminate useless variable like "extra" in sequentialization
 
             // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
-            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), true);
+            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), false);
 
         }
         catch (Exception e){

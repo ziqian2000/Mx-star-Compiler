@@ -69,6 +69,7 @@ public class Main {
 
             // Basic Optimization on IR
             new SSAConstructor(ir).run();
+            new SSADestructor(ir).run();
 
             // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));

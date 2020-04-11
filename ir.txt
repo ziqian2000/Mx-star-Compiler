@@ -1,60 +1,29 @@
 func __init {
 unnamed_1(0):
-	@n(1) = alloc 4
-	@r(2) = alloc 4
-	@c(3) = alloc 4
-	@i(4) = alloc 4
-	@j(5) = alloc 4
 	call main
 	ret
 }
 
 func main {
-entry(6):
-	%i_tmp.0(7) = load @i(4)
-	%j_tmp.0(8) = load @j(5)
-	%n_tmp.0(9) = load @n(1)
-	%i_tmp.1(10) = move 0
-	jump unnamed_2(11)
-unnamed_2(11):
-	%n_tmp.1(12) = phi entry(6): %n_tmp.0(9) unnamed_5(13): %n_tmp.2(14)
-	%j_tmp.1(15) = phi entry(6): %j_tmp.0(8) unnamed_5(13): %j_tmp.3(16)
-	%i_tmp.2(17) = phi entry(6): %i_tmp.1(10) unnamed_5(13): %i_tmp.5(18)
-	%unnamed_2.0(19) = lt %i_tmp.2(17) 5
-	br %unnamed_2.0(19) unnamed_3(20) unnamed_4(21)
-unnamed_3(20):
-	%j_tmp.2(22) = move 0
-	jump unnamed_6(23)
-unnamed_6(23):
-	%n_tmp.2(14) = phi unnamed_9(24): %n_tmp.4(25) unnamed_3(20): %n_tmp.1(12)
-	%j_tmp.3(16) = phi unnamed_9(24): %j_tmp.5(26) unnamed_3(20): %j_tmp.2(22)
-	%i_tmp.3(27) = phi unnamed_9(24): %i_tmp.4(28) unnamed_3(20): %i_tmp.2(17)
-	%unnamed_4.0(29) = lt %j_tmp.3(16) 5
-	br %unnamed_4.0(29) unnamed_7(30) unnamed_8(31)
-unnamed_7(30):
-	store %i_tmp.3(27) @i(4)
-	store %j_tmp.3(16) @j(5)
-	store %n_tmp.2(14) @n(1)
-	%unnamed_6.0(32) = call getInt
-	%n_tmp.3(33) = load @n(1)
-	%j_tmp.4(34) = load @j(5)
-	%i_tmp.4(28) = load @i(4)
-	%n_tmp.4(25) = move %unnamed_6.0(32)
-	jump unnamed_9(24)
-unnamed_9(24):
-	%unnamed_5.0(35) = move %j_tmp.4(34)
-	%j_tmp.5(26) = add %j_tmp.4(34) 1
-	jump unnamed_6(23)
-unnamed_8(31):
-	jump unnamed_5(13)
-unnamed_5(13):
-	%unnamed_3.0(36) = move %i_tmp.3(27)
-	%i_tmp.5(18) = add %i_tmp.3(27) 1
-	jump unnamed_2(11)
-unnamed_4(21):
-	store %i_tmp.2(17) @i(4)
-	store %j_tmp.1(15) @j(5)
-	store %n_tmp.1(12) @n(1)
+entry(1):
+	%a.0(2) = move 1
+	br 1 splitting(3) splitting(4)
+splitting(3):
+	jump if_then(5)
+if_then(5):
+	%a.1(6) = move 2
+	%a.2(7) = move %a.1(6)
+	%extra(8) = move %a.2(7)
+	jump if_exit(9)
+if_exit(9):
+	call printlnInt %a.2(7)
 	ret 0
+splitting(4):
+	jump if_else(10)
+if_else(10):
+	%a.3(11) = move 3
+	%a.2(7) = move %a.3(11)
+	%extra(12) = move %a.2(7)
+	jump if_exit(9)
 }
 

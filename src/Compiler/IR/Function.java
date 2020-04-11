@@ -97,7 +97,8 @@ public class Function {
 				basicBlock.getPreBBList().add(parBB);
 			return;
 		}
-		basicBlock.setPreBBList(new ArrayList<>(Collections.singleton(parBB)));
+		if(parBB != null) basicBlock.setPreBBList(new ArrayList<>(Collections.singleton(parBB)));
+		else basicBlock.setPreBBList(new ArrayList<>());
 		basicBlock.setParent(parBB);
 		visited.add(basicBlock);
 		BBList.add(basicBlock);
