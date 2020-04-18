@@ -9,7 +9,7 @@ import Compiler.IR.Instr.Load;
 import Compiler.IR.Instr.Store;
 import Compiler.IR.Operand.I32Value;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -101,11 +101,11 @@ public class GlobalVariableResolving {
 					List<Operand> oprList = ins.getOperands();
 					List<Operand> newOprList = new ArrayList<>();
 					for(Operand opr : oprList){
-						if(opr instanceof Register && ((Register) opr).getAssocGlobal() != null) {
+						if(opr instanceof VirtualRegister && ((VirtualRegister) opr).getAssocGlobal() != null) {
 							if(tempGlobalVarMap.containsKey(opr)) newOprList.add(tempGlobalVarMap.get(opr));
 							else{
 								I32Value newOpr = new I32Value(opr.getIdentifier());
-								newOpr.setAssocGlobal(((Register) opr).getAssocGlobal());
+								newOpr.setAssocGlobal(((VirtualRegister) opr).getAssocGlobal());
 								newOprList.add(newOpr);
 								tempGlobalVarMap.put(opr,newOpr);
 							}

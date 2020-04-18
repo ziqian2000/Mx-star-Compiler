@@ -2,12 +2,10 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
 import Compiler.Utils.FuckingException;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -37,17 +35,17 @@ public class Branch extends IRIns {
 	}
 
 	@Override
-	public List<Register> getUseRegister() {
-		return cond instanceof Register ? Collections.singletonList((Register)cond) : Collections.emptyList();
+	public List<VirtualRegister> getUseRegister() {
+		return cond instanceof VirtualRegister ? Collections.singletonList((VirtualRegister)cond) : Collections.emptyList();
 	}
 
 	@Override
-	public Register getDefRegister() {
+	public VirtualRegister getDefRegister() {
 		return null;
 	}
 
 	@Override
-	public void setDefRegister(Register newDefRegister) {
+	public void setDefRegister(VirtualRegister newDefRegister) {
 		throw new FuckingException("no def register in this instruction");
 	}
 

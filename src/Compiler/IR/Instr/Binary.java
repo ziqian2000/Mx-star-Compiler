@@ -2,9 +2,8 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
-import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -49,20 +48,20 @@ public class Binary extends IRIns {
 	}
 
 	@Override
-	public List<Register> getUseRegister() {
-		List<Register> registerList = new ArrayList<>();
-		if(lhs instanceof Register) registerList.add((Register)lhs);
-		if(rhs instanceof Register) registerList.add((Register)rhs);
+	public List<VirtualRegister> getUseRegister() {
+		List<VirtualRegister> registerList = new ArrayList<>();
+		if(lhs instanceof VirtualRegister) registerList.add((VirtualRegister)lhs);
+		if(rhs instanceof VirtualRegister) registerList.add((VirtualRegister)rhs);
 		return registerList;
 	}
 
 	@Override
-	public Register getDefRegister() {
-		return dst instanceof Register ? (Register) dst : null;
+	public VirtualRegister getDefRegister() {
+		return dst instanceof VirtualRegister ? (VirtualRegister) dst : null;
 	}
 
 	@Override
-	public void setDefRegister(Register newDefRegister) {
+	public void setDefRegister(VirtualRegister newDefRegister) {
 		dst = newDefRegister;
 	}
 

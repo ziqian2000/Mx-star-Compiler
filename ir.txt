@@ -6,24 +6,11 @@ unnamed_1(0):
 
 func main {
 entry(1):
-	%a.0(2) = move 1
-	br 1 splitting(3) splitting(4)
-splitting(3):
-	jump if_then(5)
-if_then(5):
-	%a.1(6) = move 2
-	%a.2(7) = move %a.1(6)
-	%extra(8) = move %a.2(7)
-	jump if_exit(9)
-if_exit(9):
-	call printlnInt %a.2(7)
+	%a.0(2) = move 233
+	%unnamed_2.0(3) = neg %a.0(2)
+	%a.1(4) = move %unnamed_2.0(3)
+	%unnamed_3.0(5) = move %a.1(4)
+	%a.2(6) = add %a.1(4) 1
 	ret 0
-splitting(4):
-	jump if_else(10)
-if_else(10):
-	%a.3(11) = move 3
-	%a.2(7) = move %a.3(11)
-	%extra(12) = move %a.2(7)
-	jump if_exit(9)
 }
 

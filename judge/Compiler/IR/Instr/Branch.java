@@ -66,6 +66,11 @@ public class Branch extends IRIns {
 		return new Branch(opr.get(0), BB.get(0), BB.get(1));
 	}
 
+	public void replaceTargetBB(BasicBlock oldBB, BasicBlock newBB){
+		if(thenBB == oldBB) thenBB = newBB;
+		if(elseBB == oldBB) elseBB = newBB;
+	}
+
 	public void accept(IRVisitor irVisitor){
 		irVisitor.visit(this);
 	}

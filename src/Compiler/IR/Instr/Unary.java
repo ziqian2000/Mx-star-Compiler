@@ -2,11 +2,9 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
-import Compiler.Utils.FuckingException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -14,10 +12,7 @@ import java.util.List;
 public class Unary extends IRIns {
 
 	public enum Op{
-		POS_INC, POS_SUB,
-		PRE_INC, PRE_SUB,
-		PLU, NEG,
-		NOT, COM
+		NEG, COM
 	}
 
 	// to perform unary operation [op] on operand [opr], and store the result in [dst]
@@ -44,17 +39,17 @@ public class Unary extends IRIns {
 	}
 
 	@Override
-	public List<Register> getUseRegister() {
-		return opr instanceof Register ? Collections.singletonList((Register) opr) : Collections.emptyList();
+	public List<VirtualRegister> getUseRegister() {
+		return opr instanceof VirtualRegister ? Collections.singletonList((VirtualRegister) opr) : Collections.emptyList();
 	}
 
 	@Override
-	public Register getDefRegister() {
-		return dst instanceof Register ? (Register) dst : null;
+	public VirtualRegister getDefRegister() {
+		return dst instanceof VirtualRegister ? (VirtualRegister) dst : null;
 	}
 
 	@Override
-	public void setDefRegister(Register newDefRegister) {
+	public void setDefRegister(VirtualRegister newDefRegister) {
 		dst = newDefRegister;
 	}
 

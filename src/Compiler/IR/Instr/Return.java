@@ -2,11 +2,10 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
 import Compiler.Utils.FuckingException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -26,23 +25,23 @@ public class Return extends IRIns {
 	}
 
 	@Override
-	public List<Register> getUseRegister() {
-		return retValue instanceof Register ? Collections.singletonList((Register)retValue) : Collections.emptyList();
+	public List<VirtualRegister> getUseRegister() {
+		return retValue instanceof VirtualRegister ? Collections.singletonList((VirtualRegister)retValue) : Collections.emptyList();
 	}
 
 	@Override
-	public Register getDefRegister() {
+	public VirtualRegister getDefRegister() {
 		return null;
 	}
 
 	@Override
-	public void setDefRegister(Register newDefRegister) {
+	public void setDefRegister(VirtualRegister newDefRegister) {
 		throw new FuckingException("no def register in this instruction");
 	}
 
 	@Override
 	public List<Operand> getOperands() {
-		return Arrays.asList(retValue);
+		return Collections.singletonList(retValue);
 	}
 
 	@Override

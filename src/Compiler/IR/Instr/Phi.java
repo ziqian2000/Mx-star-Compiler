@@ -2,7 +2,7 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
 import Compiler.Utils.FuckingException;
 
@@ -12,29 +12,43 @@ import java.util.Map;
 
 public class Phi extends IRIns {
 
-	private Register dst;
-	private Map<BasicBlock, Register> path;
+	private VirtualRegister dst;
+	private Map<BasicBlock, VirtualRegister> path;
 
-	public Phi(Register dst){
+	public Phi(VirtualRegister dst){
 		this.dst = dst;
 		path = new HashMap<>();
 	}
 
-	public Register getDst() {
+	public VirtualRegister getDst() {
 		return dst;
 	}
 
-	public Map<BasicBlock, Register> getPath() {
+	public Map<BasicBlock, VirtualRegister> getPath() {
 		return path;
 	}
 
+	public void removePath(BasicBlock BB){
+		path.remove(BB);
+		if(path.size() == 1){
+			replaceSelfWithAnotherIns(new Move(path.values().iterator().next(), dst));
+		}
+	}
+
+	public void replacePath(BasicBlock oldBB, BasicBlock newBB){
+		if(oldBB == newBB) return;
+		assert !path.containsKey(newBB);
+		path.put(newBB, path.get(oldBB));
+		path.remove(oldBB);
+	}
+
 	@Override
-	public List<Register> getUseRegister() {
+	public List<VirtualRegister> getUseRegister() {
 		throw new FuckingException("Don't call me");
 	}
 
 	@Override
-	public Register getDefRegister() {
+	public VirtualRegister getDefRegister() {
 		return dst;
 	}
 
@@ -54,7 +68,7 @@ public class Phi extends IRIns {
 	}
 
 	@Override
-	public void setDefRegister(Register newDefRegister) {
+	public void setDefRegister(VirtualRegister newDefRegister) {
 		dst = newDefRegister;
 	}
 

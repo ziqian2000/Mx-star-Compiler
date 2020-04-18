@@ -1,6 +1,6 @@
 package Compiler.IR.Operand;
 
-public class I32Value extends Register {
+public class I32Value extends VirtualRegister {
 
 	public I32Value(){super();}
 
@@ -9,5 +9,5 @@ public class I32Value extends Register {
 	}
 
 	@Override
-	public Register getSSACopyWithID(int id){return new I32Value(this.getIdentifier());}
+	public VirtualRegister getSSACopyWithID(int id){return new I32Value(this.getIdentifier());}
 }

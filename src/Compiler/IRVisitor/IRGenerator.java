@@ -60,7 +60,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 				I32Pointer ptr = new I32Pointer(varDeclNode.getIdentifier());
 				ptr.setGlobal(true);
-				curBB.appendInst(new Alloc(new Immediate(IRAssistant.isReferenceType(((VarDeclNode) decl).getType().getTypeInfo()) ? Config.POINTER_SIZE : Config.BASIC_TYPE_SIZE), ptr));
+				curBB.appendInst(new Alloc(new Immediate(IRAssistant.isReferenceType(((VarDeclNode) decl).getType().getTypeInfo()) ? Config.SIZE : Config.SIZE), ptr));
 				if(varDeclNode.getExpr() != null){
 					varDeclNode.getExpr().accept(this);
 					curBB.appendInst(new Store(convertPtr2Val(varDeclNode.getExpr().getResultOpr()), ptr));
@@ -514,7 +514,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 				Operand lhs = node.getLhs().getResultOpr(), rhs = node.getRhs().getResultOpr();
 				Operand lhsVar = convertPtr2Val(lhs), rhsVar = convertPtr2Val(rhs);
 
-				assign(rhs, (Register)lhs);
+				assign(rhs, (VirtualRegister)lhs);
 				break;
 			}
 			default:
@@ -551,7 +551,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		int dim = arrayType.getDim();
 
 		curBB.appendInst(new Binary(Binary.Op.ADD, index, new Immediate(1), index_plus1));
-		curBB.appendInst(new Binary(Binary.Op.MUL, index_plus1, new Immediate(dim == 1 ? arrayType.getType().getSize() : Config.POINTER_SIZE), offset));
+		curBB.appendInst(new Binary(Binary.Op.MUL, index_plus1, new Immediate(dim == 1 ? arrayType.getType().getSize() : Config.SIZE), offset));
 		curBB.appendInst(new Binary(Binary.Op.ADD, base_addr, offset, target_addr));
 
 		node.setResultOpr(target_addr);
@@ -699,7 +699,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		else return src;
 	}
 
-	public void assign(Operand src, Register dst){
+	public void assign(Operand src, VirtualRegister dst){
 		Operand src_tmp = convertPtr2Val(src);
 
 		if(dst instanceof I32Value) curBB.appendInst(new Move(src_tmp, dst));
@@ -714,12 +714,12 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 		// calculate current dim size
 		if(totDim - 1 != curDim)
-			curBB.appendInst(new Binary(Binary.Op.MUL, siz, new Immediate(Config.POINTER_SIZE), mem_siz));
+			curBB.appendInst(new Binary(Binary.Op.MUL, siz, new Immediate(Config.SIZE), mem_siz));
 		else // the last dim
 			curBB.appendInst(new Binary(Binary.Op.MUL, siz, new Immediate(type.getSize()), mem_siz));
 
 		// 4 byte for size
-		curBB.appendInst(new Binary(Binary.Op.ADD, mem_siz, new Immediate(Config.BASIC_TYPE_SIZE), mem_siz_plus1));
+		curBB.appendInst(new Binary(Binary.Op.ADD, mem_siz, new Immediate(Config.SIZE), mem_siz_plus1));
 
 		// alloc
 		if(result instanceof I32Value) {
@@ -745,7 +745,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 			// init
 			curBB.appendInst(new Move(new Immediate(0), curIdx));
-			curBB.appendInst(new Binary(Binary.Op.ADD, result, new Immediate(Config.BASIC_TYPE_SIZE), curPtr));
+			curBB.appendInst(new Binary(Binary.Op.ADD, result, new Immediate(Config.SIZE), curPtr));
 			curBB.appendLastInst(new Jump(condBB));
 
 			// cond
@@ -757,7 +757,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 			curBB = loopBB;
 			newArray(exprNodeList, totDim, curDim + 1, type, curPtr);
 			curBB.appendInst(new Binary(Binary.Op.ADD, curIdx, new Immediate(1), curIdx));
-			curBB.appendInst(new Binary(Binary.Op.ADD, curPtr, new Immediate(Config.POINTER_SIZE), curPtr));
+			curBB.appendInst(new Binary(Binary.Op.ADD, curPtr, new Immediate(Config.SIZE), curPtr));
 			curBB.appendLastInst(new Jump(condBB));
 
 			curBB = exitBB;

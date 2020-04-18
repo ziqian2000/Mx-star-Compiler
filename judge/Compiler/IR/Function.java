@@ -80,6 +80,10 @@ public class Function {
 		return globals;
 	}
 
+	public boolean reachable(BasicBlock BB) {
+		return BBList.contains(BB);
+	}
+
 	// BB list
 
 	public List<BasicBlock> getBBList() {
@@ -93,11 +97,12 @@ public class Function {
 
 	public void dfsBB(BasicBlock basicBlock, BasicBlock parBB, Set<BasicBlock> visited){
 		if(basicBlock == null || visited.contains(basicBlock)) {
-			if(basicBlock != null)
+			if(basicBlock != null && !basicBlock.getPreBBList().contains(parBB))
 				basicBlock.getPreBBList().add(parBB);
 			return;
 		}
-		basicBlock.setPreBBList(new ArrayList<>(Collections.singleton(parBB)));
+		if(parBB != null) basicBlock.setPreBBList(new ArrayList<>(Collections.singleton(parBB)));
+		else basicBlock.setPreBBList(new ArrayList<>());
 		basicBlock.setParent(parBB);
 		visited.add(basicBlock);
 		BBList.add(basicBlock);

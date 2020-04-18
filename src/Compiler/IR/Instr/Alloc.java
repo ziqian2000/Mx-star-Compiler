@@ -2,11 +2,9 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
-import Compiler.Utils.FuckingException;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -32,17 +30,17 @@ public class Alloc extends IRIns {
 	}
 
 	@Override
-	public List<Register> getUseRegister() {
-		return size instanceof Register ? Collections.singletonList((Register)size) : Collections.emptyList();
+	public List<VirtualRegister> getUseRegister() {
+		return size instanceof VirtualRegister ? Collections.singletonList((VirtualRegister)size) : Collections.emptyList();
 	}
 
 	@Override
-	public Register getDefRegister() {
-		return (Register) ptr;
+	public VirtualRegister getDefRegister() {
+		return (VirtualRegister) ptr;
 	}
 
 	@Override
-	public void setDefRegister(Register newDefRegister) {
+	public void setDefRegister(VirtualRegister newDefRegister) {
 		ptr = newDefRegister;
 	}
 

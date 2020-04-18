@@ -12,6 +12,10 @@ public class IR {
 	private List<Function> functionList = new ArrayList<>();
 	private List<StaticStrConst> staticStrConstList = new ArrayList<>();
 
+	private boolean SSAForm;
+
+	public IR(){ SSAForm = false; }
+
 	public void addGlobalVar(Register globalVar){
 		globalVarList.add(globalVar);
 	}
@@ -26,5 +30,12 @@ public class IR {
 	}
 	public List<StaticStrConst> getStaticStrConstList() {
 		return staticStrConstList;
+	}
+
+	public boolean getSSAForm() {
+		return SSAForm;
+	}
+	public void setSSAForm(boolean SSAForm) {
+		this.SSAForm = SSAForm;
 	}
 }

@@ -9,4 +9,7 @@ public class Immediate extends Operand {
 		this.value = value;
 	}
 
+	public int getValue() {
+		return value;
+	}
 }

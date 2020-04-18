@@ -23,6 +23,6 @@ public class ArrayType extends Type {
 
 	@Override
 	public int getSize() {
-		return Config.POINTER_SIZE;
+		return Config.SIZE;
 	}
 }

@@ -1,7 +1,9 @@
 int main()
 {
-	int a = 1;
-	if(true) a = 2;
-	else a = 3;
-	printlnInt(a);
+	int a = 233;
+	a = -a;
+	a++;
+	return 0;
 }
+
+

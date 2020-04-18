@@ -2,7 +2,7 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
 
 import java.util.List;
@@ -90,11 +90,11 @@ public abstract class IRIns {
 		removeFromList();
 	}
 
-	public abstract List<Register> getUseRegister();
+	public abstract List<VirtualRegister> getUseRegister();
 
-	public abstract Register getDefRegister();
+	public abstract VirtualRegister getDefRegister();
 
-	public abstract void setDefRegister(Register newDefRegister);
+	public abstract void setDefRegister(VirtualRegister newDefRegister);
 
 	public abstract List<Operand> getOperands();
 

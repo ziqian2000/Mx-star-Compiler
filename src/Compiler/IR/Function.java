@@ -1,22 +1,21 @@
 package Compiler.IR;
 
-import Compiler.IR.Operand.I32Value;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.*;
 
 public class Function {
 
 	private String identifier;
-	private List<Register> paraList;
+	private List<VirtualRegister> paraList;
 	private BasicBlock entryBB;
 	private BasicBlock exitBB;
 	private boolean isMemberFunc;
 	private boolean isBuiltin = false;
-	private Register obj;
+	private VirtualRegister obj;
 
 	private List<BasicBlock> BBList; // in pre-order DFS
-	private Set<Register> globals;
+	private Set<VirtualRegister> globals;
 
 	public Function(String identifier){
 		this.identifier = identifier;
@@ -24,7 +23,7 @@ public class Function {
 		globals = new HashSet<>();
 	}
 
-	public void addParameter(Register register){
+	public void addParameter(VirtualRegister register){
 		paraList.add(register);
 	}
 
@@ -44,7 +43,7 @@ public class Function {
 		return exitBB;
 	}
 
-	public List<Register> getParaList() {
+	public List<VirtualRegister> getParaList() {
 		return paraList;
 	}
 
@@ -56,11 +55,11 @@ public class Function {
 
 	public boolean getIsBuiltin(){return isBuiltin;}
 
-	public void setObj(Register obj) {
+	public void setObj(VirtualRegister obj) {
 		this.obj = obj;
 	}
 
-	public Register getObj() {
+	public VirtualRegister getObj() {
 		return obj;
 	}
 
@@ -72,12 +71,16 @@ public class Function {
 		return identifier;
 	}
 
-	public void addGlobals(Register global){
+	public void addGlobals(VirtualRegister global){
 		globals.add(global);
 	}
 
-	public Set<Register> getGlobals() {
+	public Set<VirtualRegister> getGlobals() {
 		return globals;
+	}
+
+	public boolean reachable(BasicBlock BB) {
+		return BBList.contains(BB);
 	}
 
 	// BB list
@@ -93,7 +96,7 @@ public class Function {
 
 	public void dfsBB(BasicBlock basicBlock, BasicBlock parBB, Set<BasicBlock> visited){
 		if(basicBlock == null || visited.contains(basicBlock)) {
-			if(basicBlock != null)
+			if(basicBlock != null && !basicBlock.getPreBBList().contains(parBB))
 				basicBlock.getPreBBList().add(parBB);
 			return;
 		}

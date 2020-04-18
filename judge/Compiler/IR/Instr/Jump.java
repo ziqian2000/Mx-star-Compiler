@@ -52,6 +52,10 @@ public class Jump extends IRIns {
 		return new Jump(BB.get(0));
 	}
 
+	public void replaceTargetBB(BasicBlock newBB){
+		BB = newBB;
+	}
+
 	public void accept(IRVisitor irVisitor){
 		irVisitor.visit(this);
 	}

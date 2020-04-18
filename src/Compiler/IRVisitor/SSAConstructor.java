@@ -6,7 +6,7 @@ import Compiler.IR.IR;
 import Compiler.IR.Instr.IRIns;
 import Compiler.IR.Instr.Phi;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.*;
 
@@ -32,13 +32,14 @@ public class SSAConstructor {
 			insertPhi(func);
 			renameVariables(func);
 		}
+		ir.setSSAForm(true);
 	}
 
 	/**
 	 * rename variables
 	 */
-	Map<Register, Stack<Integer>> stack = new HashMap<>();;
-	Map<Register, Integer> count = new HashMap<>();;
+	Map<VirtualRegister, Stack<Integer>> stack = new HashMap<>();
+	Map<VirtualRegister, Integer> count = new HashMap<>();
 
 	public void recursiveRenaming(BasicBlock n){
 		for(IRIns S = n.getHeadIns(), nextIns; S != null; S = nextIns){
@@ -48,12 +49,12 @@ public class SSAConstructor {
 			if(!(S instanceof Phi)){
 				List<Operand> oprList = S.getOperands();
 				List<Operand> newOprList = new ArrayList<>();
-				List<Register> useRegisterList = S.getUseRegister();
+				List<VirtualRegister> useRegisterList = S.getUseRegister();
 				for(Operand opr : oprList){
-					if(opr instanceof Register && !((Register) opr).isGlobal() && useRegisterList.contains(opr)){
+					if(opr instanceof VirtualRegister && !((VirtualRegister) opr).isGlobal() && useRegisterList.contains(opr)){
 						// renaming global variable forbidden
 						int i = stack.get(opr).peek();
-						newOprList.add(((Register) opr).getSSARenamedRegister(i));
+						newOprList.add(((VirtualRegister) opr).getSSARenamedRegister(i));
 					}
 					else newOprList.add(opr);
 				}
@@ -61,7 +62,7 @@ public class SSAConstructor {
 			}
 			// define
 			if(S.getDefRegister() != null){
-				Register defRegister = S.getDefRegister().getOriginVar();
+				VirtualRegister defRegister = S.getDefRegister().getOriginVar();
 				if(defRegister.isGlobal()) continue; // renaming global variable forbidden
 				if(stack.get(defRegister) == null) {
 					count.put(defRegister, -1);
@@ -76,8 +77,8 @@ public class SSAConstructor {
 		for(BasicBlock y : n.getSucBBList()){
 			for(IRIns ins = y.getHeadIns(); ins != null; ins = ins.getNextIns()){
 				if(ins instanceof Phi){
-					Register origin = ((Phi) ins).getDst().getOriginVar();
-					Register renamedRegister = stack.containsKey(origin) && !stack.get(origin).isEmpty()
+					VirtualRegister origin = ((Phi) ins).getDst().getOriginVar();
+					VirtualRegister renamedRegister = stack.containsKey(origin) && !stack.get(origin).isEmpty()
 											? origin.getSSARenamedRegister(stack.get(origin).peek())
 											: null;
 					((Phi) ins).getPath().put(n, renamedRegister);
@@ -90,7 +91,7 @@ public class SSAConstructor {
 		for(IRIns S = n.getHeadIns(); S != null; S = S.getNextIns()){
 			// define
 			if(S.getDefRegister() != null){
-				Register defRegister = S.getDefRegister().getOriginVar();
+				VirtualRegister defRegister = S.getDefRegister().getOriginVar();
 				if(defRegister.isGlobal()) continue; // renaming global variable forbidden
 				stack.get(defRegister).pop();
 			}
@@ -102,7 +103,7 @@ public class SSAConstructor {
 
 		// obj
 		if(function.getObj() != null){
-			Register obj = function.getObj();
+			VirtualRegister obj = function.getObj();
 			count.put(obj, 0);
 			stack.put(obj, new Stack<>());
 			stack.get(obj).push(count.get(obj));
@@ -111,7 +112,7 @@ public class SSAConstructor {
 
 		// parameter
 		for(int i = 0, _i = function.getParaList().size(); i < _i; i++){
-			Register para = function.getParaList().get(i);
+			VirtualRegister para = function.getParaList().get(i);
 			count.put(para, 0);
 			stack.put(para, new Stack<>());
 			stack.get(para).push(count.get(para));
@@ -126,7 +127,7 @@ public class SSAConstructor {
 	public void insertPhi(Function func){
 		Queue<BasicBlock> queue = new LinkedList<>();
 		Set<BasicBlock> inserted = new HashSet<>();
-		for(Register var : func.getGlobals()){
+		for(VirtualRegister var : func.getGlobals()){
 			inserted.clear();
 			queue.addAll(defBBs.getOrDefault(var, Collections.emptyList()));
 			while(!queue.isEmpty()){
@@ -144,17 +145,17 @@ public class SSAConstructor {
 	/**
 	 * traverse all globals
 	 */
-	Map<Register, List<BasicBlock>> defBBs = new HashMap<>();
+	Map<VirtualRegister, List<BasicBlock>> defBBs = new HashMap<>();
 	public void traverseGlobals(Function func){
-		Set<Register> defined = new HashSet<>();
+		Set<VirtualRegister> defined = new HashSet<>();
 		for(BasicBlock BB : func.getBBList()){
 			defined.clear();
 			for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 
-				List<Register> useRegisters = ins.getUseRegister();
-				Register defRegister = ins.getDefRegister();
+				List<VirtualRegister> useRegisters = ins.getUseRegister();
+				VirtualRegister defRegister = ins.getDefRegister();
 
-				for(Register useRegister : useRegisters){
+				for(VirtualRegister useRegister : useRegisters){
 					if(!useRegister.isGlobal() && !defined.contains(useRegister))
 						func.addGlobals(useRegister);
 				}

@@ -1,13 +1,11 @@
 package Compiler.IR;
 
-import Compiler.IR.Instr.Branch;
-import Compiler.IR.Instr.IRIns;
-import Compiler.IR.Instr.Jump;
-import Compiler.IR.Instr.Return;
+import Compiler.IR.Instr.*;
 import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class BasicBlock {
@@ -111,6 +109,41 @@ public class BasicBlock {
 		return parent;
 	}
 
+	// SSA opt
+	public void removeBBInPhi(BasicBlock BB){
+		for(IRIns ins = getHeadIns(), nextIns; ins instanceof Phi; ins = nextIns){
+			nextIns = ins.getNextIns();
+			((Phi) ins).removePath(BB);
+		}
+	}
+
+	public void mergeBB(BasicBlock BB){ // (this -> BB) => (this)
+		// deal with PHI
+		for(BasicBlock sucBB : BB.getSucBBList()){
+			for(IRIns ins = sucBB.getHeadIns(); ins instanceof Phi; ins = ins.getNextIns()){
+				((Phi) ins).replacePath(BB, this);
+			}
+		}
+		// deal with predecessor, successor relation
+		sucBBList = BB.getSucBBList();
+		for(BasicBlock sucBB : BB.getSucBBList()){
+			sucBB.getPreBBList().remove(BB);
+			sucBB.getPreBBList().add(BB);
+		}
+		// merge two blocks
+		if(getHeadIns() == getTailIns()){ // only one instruction
+			setHeadIns(BB.getHeadIns());
+		}
+		else{
+			getTailIns().removeFromList();
+			getTailIns().setNextIns(BB.getHeadIns());
+			BB.getHeadIns().setPrevIns(getTailIns());
+		}
+		setTailIns(BB.getTailIns());
+		for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns())
+			ins.setBelongBB(this);
+	}
+
 	// pre & suc BB list
 	// compute in order : suc BB -> dfs -> pre BB
 
@@ -124,7 +157,12 @@ public class BasicBlock {
 
 	public void makeSucBBList(){
 		sucBBList = new ArrayList<>();
-		if(tailIns instanceof Branch) sucBBList.addAll(Arrays.asList(((Branch)tailIns).getThenBB(), ((Branch) tailIns).getElseBB()));
+		if(tailIns instanceof Branch) {
+			if(((Branch) tailIns).getThenBB() != ((Branch) tailIns).getElseBB())
+				sucBBList.addAll(Arrays.asList(((Branch)tailIns).getThenBB(), ((Branch) tailIns).getElseBB()));
+			else
+				sucBBList.add(((Branch) tailIns).getThenBB());
+		}
 		else if(tailIns instanceof Jump) sucBBList.add(((Jump) tailIns).getBB());
 		else if(!(tailIns instanceof Return)) throw new FuckingException("basic block terminated by something strange");
 	}
