@@ -1,9 +1,12 @@
-int main()
+void f(int x)
 {
-	int a = 233;
-	a = -a;
-	a++;
-	return 0;
+	if(x == 0) return;
+	f(x-1);
 }
 
-
+int main(){
+	int a = 1;
+	int b = 2;
+	int c = a + b;
+	f(5);
+}

@@ -49,8 +49,8 @@ public class IRPrinter implements IRVisitor{
 		if(oprNameMap.get(opr) == null) oprNameMap.put(opr, (opr.getIdentifier() == null ? "t" : opr.getIdentifier()) + "(" + nameCnt++ + ")");
 
 		// return the name
-		if(opr instanceof Register){
-			if(((Register) opr).isGlobal()) return "@" + oprNameMap.get(opr);
+		if(opr instanceof VirtualRegister){
+			if(((VirtualRegister) opr).isGlobal()) return "@" + oprNameMap.get(opr);
 			else return "%" + oprNameMap.get(opr);
 		}
 		else return "@" + oprNameMap.get(opr); // string
@@ -73,7 +73,7 @@ public class IRPrinter implements IRVisitor{
 		print("func " + function.getIdentifier() + " ");
 		if(function.getObj() != null)
 			print(opr2Str(function.getObj()) + " ");
-		for (Register opr : function.getParaList()){
+		for (VirtualRegister opr : function.getParaList()){
 			print(opr2Str(opr) + " ");
 		}
 		println("{");

@@ -3,7 +3,9 @@ package Compiler.Assembly;
 import Compiler.Assembly.Operand.PhysicalRegister;
 import Compiler.Utils.FuckingException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Assembly {
 
@@ -18,20 +20,25 @@ public class Assembly {
 											"a6", "a7", "s2", "s3", "s4", "s5", "s6", "s7",
 											"s8", "s9", "s10", "s11", "t3", "t4", "t5", "t6" };
 
-	public String[] calleeSaveRegister = {				"sp",
+	public String[] calleeSaveRegisterName =
+										{
 											"s0", "s1",
 														"s2", "s3", "s4", "s5", "s6", "s7",
 											"s8", "s9", "s10", "s11"};
 
-	public String[] callerSaveRegister = {		  "ra", 				  "t0", "t1", "t2",
+	public String[] callerSaveRegisterName =
+										{	  	  "ra", 				  "t0", "t1", "t2",
 												  		"a0", "a1", "a2", "a3", "a4", "a5",
 											"a6", "a7",
 																	"t3", "t4", "t5", "t6" };
 
 	public HashMap<String, PhysicalRegister> phyReg = new HashMap<>();
 
+	// functions
+	private List<AsmFunction> functionList = new ArrayList<>();
+
 	// lib function
-	public AsmFunction mallocAsmFunc = new AsmFunction("malloc");
+	public AsmFunction mallocAsmFunc = new AsmFunction("malloc", true);
 
 
 
@@ -49,11 +56,17 @@ public class Assembly {
 		return allocatableRegName;
 	}
 
-	public String[] getCalleeSaveRegister() {
-		return calleeSaveRegister;
+	public String[] getCalleeSaveRegisterName() {
+		return calleeSaveRegisterName;
 	}
 
-	public String[] getCallerSaveRegister() {
-		return callerSaveRegister;
+	public String[] getCallerSaveRegisterName() {
+		return callerSaveRegisterName;
+	}
+
+	public void addFunction(AsmFunction function){functionList.add(function);}
+
+	public List<AsmFunction> getFunctionList() {
+		return functionList;
 	}
 }

@@ -3,6 +3,10 @@ package Compiler.Assembly.Instr;
 import Compiler.Assembly.AsmFunction;
 import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
+
+import java.util.Collections;
+import java.util.List;
 
 public class AsmITypeIns extends AsmIns {
 
@@ -23,4 +27,23 @@ public class AsmITypeIns extends AsmIns {
 		this.op = op;
 	}
 
+	@Override
+	public Register getDefRegister() {
+		return rd;
+	}
+
+	@Override
+	public List<Register> getUseRegister() {
+		return Collections.singletonList(rs1);
+	}
+
+	@Override
+	public void replaceUseRegister(Register oldReg, Register newReg){
+		if(rs1 == oldReg) rs1 = newReg;
+	}
+
+	@Override
+	public void replaceDefRegister(Register newReg){
+		rd = newReg;
+	}
 }

@@ -1,19 +1,19 @@
 package Compiler.Assembly.Instr;
 
-import Compiler.Assembly.AsmBasicBlock;
 import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.StaticStrConst;
 
 import java.util.Collections;
 import java.util.List;
 
-public class AsmLI extends AsmIns {
+public class AsmLA extends AsmIns {
 
-	private Immediate imm;
 	private Register rd;
+	private StaticStrConst symbol; // for string only
 
-	public AsmLI(Register rd, Immediate imm){
-		this.imm = imm;
+	public AsmLA(Register rd, StaticStrConst symbol){
+		this.symbol = symbol;
 		this.rd = rd;
 	}
 

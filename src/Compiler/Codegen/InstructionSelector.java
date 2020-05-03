@@ -26,7 +26,7 @@ import java.util.Map;
  * 	What to do:
  * 		[x] Save callee-save registers on entry of a function.
  * 		[x] Save ra on entry of a function.
- * 		[x] Pass arguments in a0 ~ a7 as well as stack, and save them on entry of callee
+ * 		[x] Pass arguments in a0 ~ a7 as well as in stack, and save them on entry of callee
  * 		[x] Store return address in ra beforehand
  *		[x] Implement memory allocation by calling "malloc" lib function.
  */
@@ -58,7 +58,7 @@ public class InstructionSelector implements IRVisitor {
 	public void run(){
 		// function mapping
 		for(Function func : ir.getFunctionList()) {
-			AsmFunction asmFunc = new AsmFunction(func.getIdentifier());
+			AsmFunction asmFunc = new AsmFunction(func);
 			func2AsmFunc.put(func, asmFunc);
 		}
 		// basic blocks mapping
@@ -75,11 +75,12 @@ public class InstructionSelector implements IRVisitor {
 		AsmFunction asmFunc = func2AsmFunc.get(func);
 		curFunc = asmFunc;
 		asmFunc.setEntryBB(curBB);
+		asm.addFunction(asmFunc);
 
 		// save callee-save registers
-		// todo: need not to save registers not used
+		// todo: need not to save registers not used in callee
 		saveMap.clear();
-		for(String calleeSaveRegName : asm.getCalleeSaveRegister()){
+		for(String calleeSaveRegName : asm.getCalleeSaveRegisterName()){
 			I32Value backup = new I32Value("backup_" + calleeSaveRegName);
 			curBB.appendInst(new AsmMove(r(calleeSaveRegName), backup));
 			saveMap.put(calleeSaveRegName, backup);
@@ -95,10 +96,9 @@ public class InstructionSelector implements IRVisitor {
 		for(int i = 0; i < Integer.min(8, paraList.size()); i++)
 			curBB.appendInst(new AsmMove(r("a" + i), (Register) paraList.get(i)));
 		for(int i = 8; i < paraList.size(); i++)
-			curBB.appendInst(new AsmLoad(new StackPointerOffset(Config.SIZE * (i - 8), true, asmFunc),
+			curBB.appendInst(new AsmLoad(new StackPointerOffset(Config.SIZE * (i - 8), true, asmFunc, r("sp")),
 										(Register) paraList.get(i), Config.SIZE));
 
-		// process all blocks
 		func.getBBList().forEach(this::visit);
 	}
 
@@ -110,7 +110,7 @@ public class InstructionSelector implements IRVisitor {
 	}
 
 	public void visit(Move instr){
-		curBB.appendInst(new AsmMove(imm2Reg(instr.getSrc()), (Register) instr.getDst()));
+		curBB.appendInst(new AsmMove(immAndStr2Reg(instr.getSrc()), (Register) instr.getDst()));
 	}
 
 	public void visit(Binary instr){
@@ -121,8 +121,8 @@ public class InstructionSelector implements IRVisitor {
 					|| (instr.getLhs() instanceof Register && instr.getRhs() instanceof Register);
 			// todo : SUB can be optimized in IR processing by replacing it with ADD ....
 			if(RType){
-				Register rs1 = imm2Reg(instr.getLhs());
-				Register rs2 = imm2Reg(instr.getRhs());
+				Register rs1 = immAndStr2Reg(instr.getLhs());
+				Register rs2 = immAndStr2Reg(instr.getRhs());
 				Register rd = (Register) instr.getDst();
 				switch (instr.getOp()){
 					case ADD: curBB.appendInst(new AsmRTypeIns(rs1, rs2, rd, AsmRTypeIns.Op.ADD));
@@ -190,21 +190,21 @@ public class InstructionSelector implements IRVisitor {
 					case LT: curBB.appendInst(new AsmITypeIns(rs1, imm, rd, AsmITypeIns.Op.SLTI));
 						break;
 					case LE: I32Value tmpLE = new I32Value("tmpOfLE"); // todo: may be optimized, processed in IR? so that it can be optimized!
-						curBB.appendInst(new AsmRTypeIns(imm2Reg(imm), rs1, tmpLE, AsmRTypeIns.Op.SLT));
+						curBB.appendInst(new AsmRTypeIns(immAndStr2Reg(imm), rs1, tmpLE, AsmRTypeIns.Op.SLT));
 						curBB.appendInst(new AsmITypeIns(tmpLE, new Immediate(1), rd, AsmITypeIns.Op.XORI));
 						break;
-					case GT: curBB.appendInst(new AsmRTypeIns(imm2Reg(imm), rs1, rd, AsmRTypeIns.Op.SLT));
+					case GT: curBB.appendInst(new AsmRTypeIns(immAndStr2Reg(imm), rs1, rd, AsmRTypeIns.Op.SLT));
 						break;
 					case GE: I32Value tmpGE = new I32Value("tmpOfGE"); // todo: may be optimized
 						curBB.appendInst(new AsmITypeIns(rs1, imm, tmpGE, AsmITypeIns.Op.SLTI));
 						curBB.appendInst(new AsmITypeIns(tmpGE, new Immediate(1), rd, AsmITypeIns.Op.XORI));
 						break;
 					case EQ: I32Value tmpEQ = new I32Value("tmpOfEQ"); // todo: may be optimized
-						curBB.appendInst(new AsmRTypeIns(rs1, imm2Reg(imm), tmpEQ, AsmRTypeIns.Op.SUB));
+						curBB.appendInst(new AsmRTypeIns(rs1, immAndStr2Reg(imm), tmpEQ, AsmRTypeIns.Op.SUB));
 						curBB.appendInst(new AsmITypeIns(tmpEQ, new Immediate(1), rd, AsmITypeIns.Op.SLTIU));
 						break;
 					case NEQ: I32Value tmpNEQ = new I32Value("tmpOfNEQ"); // todo: may be optimized
-						curBB.appendInst(new AsmRTypeIns(rs1, imm2Reg(imm), tmpNEQ, AsmRTypeIns.Op.SUB));
+						curBB.appendInst(new AsmRTypeIns(rs1, immAndStr2Reg(imm), tmpNEQ, AsmRTypeIns.Op.SUB));
 						curBB.appendInst(new AsmRTypeIns(r("zero"), tmpNEQ, rd, AsmRTypeIns.Op.SLTU));
 						break;
 					case AND: curBB.appendInst(new AsmITypeIns(rs1, imm, rd, AsmITypeIns.Op.ANDI));
@@ -222,7 +222,7 @@ public class InstructionSelector implements IRVisitor {
 
 	public void visit(Alloc instr){
 		// call "malloc"
-		curBB.appendInst(new AsmMove(imm2Reg(instr.getSize()), r("a0")));
+		curBB.appendInst(new AsmMove(immAndStr2Reg(instr.getSize()), r("a0")));
 		curBB.appendInst(new AsmCall(asm.mallocAsmFunc));
 		if(instr.getPtr() != null)
 			curBB.appendInst(new AsmMove(r("a0"), (Register) instr.getPtr()));
@@ -234,13 +234,13 @@ public class InstructionSelector implements IRVisitor {
 		paraList.addAll(instr.getParaList());
 
 		for(int i = 0; i < Integer.min(8, paraList.size()); i++){
-			Register para = imm2Reg(instr.getParaList().get(i));
+			Register para = immAndStr2Reg(paraList.get(i));
 			curBB.appendInst(new AsmMove(para, r("a" + i)));
 		}
 		for(int i = 8; i < paraList.size(); i++){
-			Register para = imm2Reg(instr.getParaList().get(i));
-			curBB.appendInst(new AsmStore(new StackPointerOffset(Config.SIZE * (i - 8), false, curFunc),
-											para, Config.SIZE));
+			Register para = immAndStr2Reg(paraList.get(i));
+			curBB.appendInst(new AsmStore(new StackPointerOffset(Config.SIZE * (i - 8), false, curFunc, r("sp")),
+											para, null, Config.SIZE));
 		}
 
 		curBB.appendInst(new AsmCall(func2AsmFunc.get(instr.getFunction())));
@@ -251,7 +251,7 @@ public class InstructionSelector implements IRVisitor {
 	
 	public void visit(Branch instr){
 		// todo: merge cmp into branch
-		curBB.appendInst(new AsmBranch((Register) instr.getCond(), r("zero"), AsmBranch.Op.BNE, BB2AsmBB.get(instr.getThenBB())));
+		curBB.appendInst(new AsmBranch(immAndStr2Reg(instr.getCond()), r("zero"), AsmBranch.Op.BNE, BB2AsmBB.get(instr.getThenBB())));
 		curBB.appendInst(new AsmJump(BB2AsmBB.get(instr.getElseBB()))); // todo : this jump can be eliminated
 	}
 	
@@ -260,14 +260,13 @@ public class InstructionSelector implements IRVisitor {
 	}
 	
 	public void visit(Load instr){
-		// todo: src may be StaticStrConst ?
 		assert !(instr.getPtr() instanceof StaticStrConst);
 		curBB.appendInst(new AsmLoad((Register) instr.getPtr(), (Register) instr.getDst(), Config.SIZE));
 	}
 	
 	public void visit(Return instr){
 		if(instr.getRetValue() != null){
-			curBB.appendInst(new AsmMove(imm2Reg(instr.getRetValue()), r("a0")));
+			curBB.appendInst(new AsmMove(immAndStr2Reg(instr.getRetValue()), r("a0")));
 		}
 		for(var entry : saveMap.entrySet()){
 			curBB.appendInst(new AsmMove(entry.getValue(), r(entry.getKey()))); // including ra
@@ -276,12 +275,16 @@ public class InstructionSelector implements IRVisitor {
 	}
 	
 	public void visit(Store instr){
-		// todo : bad thing happens if store to global variables?
-		curBB.appendInst(new AsmStore((Register)instr.getPtr(), (Register)instr.getSrc(), Config.SIZE));
+		assert !(instr.getPtr() instanceof StaticStrConst);
+
+		if(((VirtualRegister) instr.getPtr()).isGlobal())
+			curBB.appendInst(new AsmStore((Register)instr.getPtr(), immAndStr2Reg(instr.getSrc()), new I32Value("store_tmp"), Config.SIZE));
+		else
+			curBB.appendInst(new AsmStore((Register)instr.getPtr(), immAndStr2Reg(instr.getSrc()), null, Config.SIZE));
 	}
 	
 	public void visit(Unary instr){
-		Register rs1 = imm2Reg(instr.getOpr());
+		Register rs1 = immAndStr2Reg(instr.getOpr());
 		Register rd = (Register)instr.getDst();
 		switch (instr.getOp()) {
 			case NEG: curBB.appendInst(new AsmRTypeIns(r("zero"), rs1, rd, AsmRTypeIns.Op.SUB));
@@ -292,19 +295,25 @@ public class InstructionSelector implements IRVisitor {
 	}
 	
 	public void visit(Phi phi) {
-		throw new FuckingException("Are you forget to destruct SSA form, idiot?");
+		throw new FuckingException("Do you forget to destruct SSA form, idiot?");
 	}
 
 	// utility method
 
-	public Register imm2Reg(Operand opr){
+	public Register immAndStr2Reg(Operand opr){
 		if(opr instanceof Register) return (Register)opr;
 		else if(opr instanceof Immediate){
 			I32Value tmp = new I32Value("imm" + ((Immediate) opr).getValue());
 			curBB.appendInst(new AsmLI(tmp, (Immediate) opr));
 			return tmp;
 		}
-		else throw new FuckingException("Unexpected type in imm2Reg.");
+		else if(opr instanceof StaticStrConst){
+			I32Value tmp = new I32Value("str");
+			curBB.appendInst(new AsmLA(tmp, (StaticStrConst) opr));
+			return tmp;
+
+		}
+		throw new FuckingException("Unexpected type in imm2Reg.");
 	}
 
 }

@@ -4,6 +4,7 @@
       <w>liveness</w>
       <w>risc</w>
       <w>sequentialization</w>
+      <w>worklist</w>
     </words>
   </dictionary>
 </component>

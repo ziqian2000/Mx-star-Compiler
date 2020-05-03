@@ -10,6 +10,6 @@ public class StringType extends BasicType {
 
 	@Override
 	public int getSize() {
-		return Config.POINTER_SIZE;
+		return Config.SIZE;
 	}
 }

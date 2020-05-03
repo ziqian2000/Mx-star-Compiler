@@ -3,6 +3,7 @@ package Compiler.IRVisitor;
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IR;
+import Compiler.IR.Instr.Binary;
 import Compiler.IR.Instr.Load;
 import Compiler.IR.Instr.Return;
 import Compiler.IR.Operand.I32Value;
@@ -87,6 +88,46 @@ public class IRAssistant {
 		builtinArraySize.setExitBB(BB);
 		builtinArraySize.setIsMemberFunc(true);
 
+	}
+
+	public static int calculation(Binary.Op op, int a, int b){
+		int c = -2333;
+		switch (op){
+
+			case ADD: c = a + b;
+				break;
+			case SUB: c = a - b;
+				break;
+			case MUL: c = a * b;
+				break;
+			case DIV: c = a / b;
+				break;
+			case MOD: c = a % b;
+				break;
+			case SHL: c = a << b;
+				break;
+			case SHR: c = a >> b;
+				break;
+			case LT: c = a < b ? 1 : 0;
+				break;
+			case LE: c = a <= b ? 1 : 0;
+				break;
+			case GT: c = a > b ? 1 : 0;
+				break;
+			case GE: c = a >= b ? 1 : 0;
+				break;
+			case EQ: c = a == b ? 1 : 0;
+				break;
+			case NEQ: c = a != b ? 1 : 0;
+				break;
+			case AND: c = a & b;
+				break;
+			case OR: c = a | b;
+				break;
+			case XOR: c = a ^ b;
+				break;
+		}
+		return c;
 	}
 
 }

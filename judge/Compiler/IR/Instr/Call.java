@@ -2,12 +2,9 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
-import Compiler.IR.Operand.I32Pointer;
-import Compiler.IR.Operand.I32Value;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
-import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,21 +45,21 @@ public class Call extends IRIns {
 	}
 
 	@Override
-	public List<Register> getUseRegister() {
-		List<Register> registerList = new ArrayList<>();
-		if(obj instanceof Register) registerList.add((Register)obj);
+	public List<VirtualRegister> getUseRegister() {
+		List<VirtualRegister> registerList = new ArrayList<>();
+		if(obj instanceof VirtualRegister) registerList.add((VirtualRegister)obj);
 		paraList.forEach(opr -> {
-			if(opr instanceof Register) registerList.add((Register) opr);
+			if(opr instanceof VirtualRegister) registerList.add((VirtualRegister) opr);
 		});
 		return registerList;
 	}
 
 	@Override
-	public Register getDefRegister() {
-		return dst instanceof Register ? (Register) dst : null;
+	public VirtualRegister getDefRegister() {
+		return dst instanceof VirtualRegister ? (VirtualRegister) dst : null;
 	}@Override
 
-	public void setDefRegister(Register newDefRegister) {
+	public void setDefRegister(VirtualRegister newDefRegister) {
 		dst = newDefRegister;
 	}
 

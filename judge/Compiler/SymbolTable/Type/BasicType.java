@@ -9,6 +9,6 @@ public abstract class BasicType extends Type {
 
 	@Override
 	public int getSize() {
-		return Config.BASIC_TYPE_SIZE;
+		return Config.SIZE;
 	}
 }

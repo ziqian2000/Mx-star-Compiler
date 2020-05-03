@@ -2,8 +2,8 @@ package Compiler.IR.Operand;
 
 import Compiler.IR.StackLocation;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Register extends Storage implements StackLocation {
 

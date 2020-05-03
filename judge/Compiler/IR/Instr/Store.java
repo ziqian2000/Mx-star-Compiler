@@ -2,7 +2,7 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
 import Compiler.Utils.FuckingException;
 
@@ -32,20 +32,20 @@ public class Store extends IRIns {
 	}
 
 	@Override
-	public List<Register> getUseRegister() {
-		List<Register> registerList = new ArrayList<>();
-		if(src instanceof Register) registerList.add((Register)src);
-		if(ptr instanceof Register) registerList.add((Register)ptr);
+	public List<VirtualRegister> getUseRegister() {
+		List<VirtualRegister> registerList = new ArrayList<>();
+		if(src instanceof VirtualRegister) registerList.add((VirtualRegister)src);
+		if(ptr instanceof VirtualRegister) registerList.add((VirtualRegister)ptr);
 		return registerList;
 	}
 
 	@Override
-	public Register getDefRegister() {
+	public VirtualRegister getDefRegister() {
 		return null;
 	}
 
 	@Override
-	public void setDefRegister(Register newDefRegister) {
+	public void setDefRegister(VirtualRegister newDefRegister) {
 		throw new FuckingException("no def register in this instruction");
 
 	}

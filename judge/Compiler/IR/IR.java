@@ -1,6 +1,6 @@
 package Compiler.IR;
 
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IR.Operand.StaticStrConst;
 
 import java.util.ArrayList;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class IR {
 
-	private List<Register> globalVarList = new ArrayList<>();
+	private List<VirtualRegister> globalVarList = new ArrayList<>();
 	private List<Function> functionList = new ArrayList<>();
 	private List<StaticStrConst> staticStrConstList = new ArrayList<>();
 
@@ -16,13 +16,13 @@ public class IR {
 
 	public IR(){ SSAForm = false; }
 
-	public void addGlobalVar(Register globalVar){
+	public void addGlobalVar(VirtualRegister globalVar){
 		globalVarList.add(globalVar);
 	}
 	public void addFunction(Function function){functionList.add(function);}
 	public void addStaticStrConst(StaticStrConst s){staticStrConstList.add(s);}
 
-	public List<Register> getGlobalVarList() {
+	public List<VirtualRegister> getGlobalVarList() {
 		return globalVarList;
 	}
 	public List<Function> getFunctionList() {

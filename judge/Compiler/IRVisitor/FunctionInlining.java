@@ -7,7 +7,7 @@ import Compiler.IR.Instr.*;
 import Compiler.IR.Operand.I32Pointer;
 import Compiler.IR.Operand.I32Value;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.Utils.FuckingException;
 
 import java.util.*;
@@ -200,8 +200,8 @@ public class FunctionInlining {
 
 	private void makeTmpOprCopy(Map<Operand, Operand> tempStorageMap, Operand opr){
 		if(!tempStorageMap.containsKey(opr)){
-			if(opr instanceof Register){
-				if(((Register) opr).isGlobal() || ((Register) opr).getAssocGlobal() != null)
+			if(opr instanceof VirtualRegister){
+				if(((VirtualRegister) opr).isGlobal() || ((VirtualRegister) opr).getAssocGlobal() != null)
 					tempStorageMap.put(opr, opr); // global shouldn't be copied
 				else if(opr instanceof I32Value) tempStorageMap.put(opr, new I32Value(opr.getIdentifier()));
 				else if(opr instanceof I32Pointer) tempStorageMap.put(opr, new I32Pointer(opr.getIdentifier()));

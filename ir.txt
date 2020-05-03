@@ -4,13 +4,27 @@ unnamed_1(0):
 	ret
 }
 
+func f %x(1) {
+entry(2):
+	%unnamed_2(3) = eq %x(1) 0
+	br %unnamed_2(3) if_then(4) if_exit(5)
+if_then(4):
+	jump func_exit(6)
+func_exit(6):
+	ret
+if_exit(5):
+	%unnamed_3(7) = sub %x(1) 1
+	call f %unnamed_3(7)
+	jump func_exit(6)
+}
+
 func main {
-entry(1):
-	%a.0(2) = move 233
-	%unnamed_2.0(3) = neg %a.0(2)
-	%a.1(4) = move %unnamed_2.0(3)
-	%unnamed_3.0(5) = move %a.1(4)
-	%a.2(6) = add %a.1(4) 1
+entry(8):
+	%a(9) = move 1
+	%b(10) = move 2
+	%unnamed_4(11) = add %a(9) %b(10)
+	%c(12) = move %unnamed_4(11)
+	call f 5
 	ret 0
 }
 

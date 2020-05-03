@@ -3,7 +3,6 @@ package Compiler;
 import Compiler.AST.BaseNode;
 import Compiler.Assembly.Assembly;
 import Compiler.Codegen.InstructionSelector;
-import Compiler.Codegen.LivenessAnalysis;
 import Compiler.Codegen.RegisterAllocator;
 import Compiler.IR.IR;
 import Compiler.IRInterpreter.IRInterpreter;
@@ -72,22 +71,21 @@ public class Main {
             new GlobalVariableResolving(ir).run();                  // a must-do, otherwise modify irGenerator
 
             // Basic Optimization on IR
-            new SSAConstructor(ir).run();
-            new CFGSimplifier(ir).run();
-            new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
-                                                                    // need to eliminate useless variable like "extra" in sequentialization
-            new CFGSimplifier(ir).run();
+//            new SSAConstructor(ir).run();
+//            new CFGSimplifier(ir).run();
+//            new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
+//                                                                    // need to eliminate useless variable like "extra" in sequentialization
+//            new CFGSimplifier(ir).run();
+
+            // print and test
+            new IRPrinter().run(ir, new PrintStream("ir.txt"));
 
             // codegen
             InstructionSelector instructionSelector = new InstructionSelector(ir);
             instructionSelector.run();
             Assembly asm = instructionSelector.getAsm();
-            new LivenessAnalysis(asm).run();
             new RegisterAllocator(asm).run();
 
-
-            // print and test
-            new IRPrinter().run(ir, new PrintStream("ir.txt"));
             if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), ir.getSSAForm());
 
         }

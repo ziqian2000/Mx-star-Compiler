@@ -22,8 +22,8 @@ public class MemberOffsetCalculator extends ASTBaseVisitor{
 			VarSymbol varSymbol = (VarSymbol) varDeclNode.getSymbol();
 			varSymbol.setOffset(curOffset);
 			curOffset += IRAssistant.isReferenceType(varSymbol.getVarType())
-					? Config.POINTER_SIZE
-					: Config.BASIC_TYPE_SIZE;
+					? Config.SIZE
+					: Config.SIZE;
 		}
 		node.getClassSymbol().getSelfType().setSize(curOffset);
 	}
