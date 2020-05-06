@@ -47,6 +47,10 @@ public class Binary extends IRIns {
 		return dst;
 	}
 
+	public void setOp(Op op) {
+		this.op = op;
+	}
+
 	@Override
 	public List<VirtualRegister> getUseRegister() {
 		List<VirtualRegister> registerList = new ArrayList<>();

@@ -1,0 +1,44 @@
+func __init {
+unnamed_1(0):
+	call main
+	ret
+}
+
+func main {
+entry(1):
+	%a(2) = move 2
+	%p(3) = move 10
+	%mod(4) = move 10000
+	jump entry(5)
+entry(5):
+	%t(6) = move 1
+	%y(7) = move %a(2)
+	jump unnamed_2(8)
+unnamed_2(8):
+	%unnamed_2(9) = gt %p(3) 0
+	br %unnamed_2(9) unnamed_3(10) unnamed_4(11)
+unnamed_3(10):
+	%unnamed_3(12) = and %p(3) 1
+	%unnamed_4(13) = eq %unnamed_3(12) 1
+	br %unnamed_4(13) if_then(14) if_exit(15)
+if_then(14):
+	%unnamed_5(16) = mul %t(6) %y(7)
+	%unnamed_6(17) = mod %unnamed_5(16) %mod(4)
+	%t(6) = move %unnamed_6(17)
+	jump if_exit(15)
+if_exit(15):
+	%unnamed_7(18) = mul %y(7) %y(7)
+	%unnamed_8(19) = mod %unnamed_7(18) %mod(4)
+	%y(7) = move %unnamed_8(19)
+	%unnamed_9(20) = div %p(3) 2
+	%p(3) = move %unnamed_9(20)
+	jump unnamed_2(8)
+unnamed_4(11):
+	%unnamed_10(21) = move %t(6)
+	jump second_half(22)
+second_half(22):
+	%unnamed_11(23) = call toString %unnamed_10(21)
+	call println %unnamed_11(23)
+	ret 0
+}
+

@@ -2,8 +2,7 @@ package Compiler;
 
 import Compiler.AST.BaseNode;
 import Compiler.Assembly.Assembly;
-import Compiler.Codegen.InstructionSelector;
-import Compiler.Codegen.RegisterAllocator;
+import Compiler.Codegen.*;
 import Compiler.IR.IR;
 import Compiler.IRInterpreter.IRInterpreter;
 import Compiler.IRVisitor.*;
@@ -31,7 +30,7 @@ public class Main {
                 switch (arg){
                     case "-semantic": ifInterpret = false; break;
                     case "-codegen" : break;
-                    default: throw new FuckingException("unrecognizable argument : " + arg);
+                    default: throw new FuckingException("Unrecognizable argument : " + arg);
                 }
             }
 
@@ -85,8 +84,11 @@ public class Main {
             instructionSelector.run();
             Assembly asm = instructionSelector.getAsm();
             new RegisterAllocator(asm).run();
+			new FinalProcessing(asm).run();
+			new PeepholeOptimization(asm).run();
+			new AsmPrinter(asm).run(new PrintStream("test.s"));
 
-            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("in.txt"), ir.getSSAForm());
+//            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
 
         }
         catch (Exception e){
