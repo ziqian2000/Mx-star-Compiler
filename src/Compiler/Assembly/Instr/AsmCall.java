@@ -1,6 +1,7 @@
 package Compiler.Assembly.Instr;
 
 import Compiler.Assembly.AsmFunction;
+import Compiler.Codegen.AsmVisitor;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;
 
@@ -14,6 +15,10 @@ public class AsmCall extends AsmIns {
 
 	public AsmCall(AsmFunction func){
 		this.func = func;
+	}
+
+	public AsmFunction getFunc() {
+		return func;
 	}
 
 	@Override
@@ -33,5 +38,10 @@ public class AsmCall extends AsmIns {
 	@Override
 	public void replaceDefRegister(Register newReg){
 		assert false;
+	}
+
+	@Override
+	public void accept(AsmVisitor asmVisitor) {
+		asmVisitor.visit(this);
 	}
 }

@@ -1,6 +1,5 @@
 package Compiler.Assembly;
 
-import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 
 import java.util.*;
@@ -8,8 +7,10 @@ import java.util.*;
 public class AsmFunction {
 
 	private String identifier;
-	private int stackSize = 0;
+	private int stackSizeFromTop = 0;
+	private int stackSizeFromBot = 0;
 	private AsmBasicBlock entryBB;
+	private AsmBasicBlock exitBB;
 	private boolean isBuiltin;
 
 	private List<AsmBasicBlock> BBList; // in pre-order DFS
@@ -28,7 +29,31 @@ public class AsmFunction {
 		this.entryBB = entryBB;
 	}
 
+	public void setExitBB(AsmBasicBlock exitBB) {
+		this.exitBB = exitBB;
+	}
+
 	public boolean getIsBuiltin(){return isBuiltin;}
+
+	public String getIdentifier() {
+		return identifier;
+	}
+
+	public void setIdentifier(String identifier) {
+		this.identifier = identifier;
+	}
+
+	public int getAlignedStackSize(){
+		return (stackSizeFromTop + stackSizeFromBot + 15) / 16 * 16;
+	}
+
+	public AsmBasicBlock getEntryBB() {
+		return entryBB;
+	}
+
+	public AsmBasicBlock getExitBB() {
+		return exitBB;
+	}
 
 	// BB list
 
@@ -56,10 +81,14 @@ public class AsmFunction {
 		basicBlock.getSucBBList().forEach(BB -> dfsBB(BB, basicBlock, visited));
 	}
 
-	public int allocStack(int size){
+	public int stackAllocFromBot(int size){
 		// from top (sp)
-		stackSize += size;
-		return -stackSize;
+		stackSizeFromBot += size;
+		return -stackSizeFromBot;
 	}
 
+	public void setStackSizeFromTopMax(int stackSizeFromTop) {
+		if(this.stackSizeFromTop < stackSizeFromTop)
+			this.stackSizeFromTop = stackSizeFromTop;
+	}
 }

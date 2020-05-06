@@ -1,6 +1,7 @@
 package Compiler.Assembly.Instr;
 
 import Compiler.Assembly.AsmFunction;
+import Compiler.Codegen.AsmVisitor;
 import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;
@@ -27,6 +28,26 @@ public class AsmITypeIns extends AsmIns {
 		this.op = op;
 	}
 
+	public Op getOp() {
+		return op;
+	}
+
+	public String getOpStr(){
+		return op.toString().toLowerCase();
+	}
+
+	public Register getRs1() {
+		return rs1;
+	}
+
+	public Register getRd() {
+		return rd;
+	}
+
+	public Immediate getImm() {
+		return imm;
+	}
+
 	@Override
 	public Register getDefRegister() {
 		return rd;
@@ -45,5 +66,10 @@ public class AsmITypeIns extends AsmIns {
 	@Override
 	public void replaceDefRegister(Register newReg){
 		rd = newReg;
+	}
+
+	@Override
+	public void accept(AsmVisitor asmVisitor) {
+		asmVisitor.visit(this);
 	}
 }

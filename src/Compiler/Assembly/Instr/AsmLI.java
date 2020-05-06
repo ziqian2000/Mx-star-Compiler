@@ -1,6 +1,7 @@
 package Compiler.Assembly.Instr;
 
 import Compiler.Assembly.AsmBasicBlock;
+import Compiler.Codegen.AsmVisitor;
 import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Register;
 
@@ -17,6 +18,13 @@ public class AsmLI extends AsmIns {
 		this.rd = rd;
 	}
 
+	public Register getRd() {
+		return rd;
+	}
+
+	public Immediate getImm() {
+		return imm;
+	}
 
 	@Override
 	public Register getDefRegister() {
@@ -35,6 +43,11 @@ public class AsmLI extends AsmIns {
 	@Override
 	public void replaceDefRegister(Register newReg){
 		rd = newReg;
+	}
+
+	@Override
+	public void accept(AsmVisitor asmVisitor) {
+		asmVisitor.visit(this);
 	}
 
 }

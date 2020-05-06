@@ -1,5 +1,6 @@
 package Compiler.Assembly.Instr;
 
+import Compiler.Codegen.AsmVisitor;
 import Compiler.IR.Operand.Register;
 
 import java.util.Collections;
@@ -28,6 +29,11 @@ public class AsmReturn extends AsmIns {
 	@Override
 	public void replaceDefRegister(Register newReg){
 		assert false;
+	}
+
+	@Override
+	public void accept(AsmVisitor asmVisitor) {
+		asmVisitor.visit(this);
 	}
 
 }

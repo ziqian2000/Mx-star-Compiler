@@ -56,6 +56,10 @@ public class InstructionSelector implements IRVisitor {
 	}
 
 	public void run(){
+		// global variables & string
+		asm.globalVarList = new ArrayList<>(ir.getGlobalVarList());
+		asm.stringList = new ArrayList<>(ir.getStaticStrConstList());
+
 		// function mapping
 		for(Function func : ir.getFunctionList()) {
 			AsmFunction asmFunc = new AsmFunction(func);
@@ -67,7 +71,9 @@ public class InstructionSelector implements IRVisitor {
 			func.getBBList().forEach(BB -> BB2AsmBB.put(BB, new AsmBasicBlock(BB.getIdentifier())));
 		}
 
-		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) visit(func);
+		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
+			visit(func);
+		}
 	}
 
 	public void visit(Function func){
@@ -99,7 +105,10 @@ public class InstructionSelector implements IRVisitor {
 			curBB.appendInst(new AsmLoad(new StackPointerOffset(Config.SIZE * (i - 8), true, asmFunc, r("sp")),
 										(Register) paraList.get(i), Config.SIZE));
 
+		// ending
 		func.getBBList().forEach(this::visit);
+		asmFunc.setExitBB(BB2AsmBB.get(func.getExitBB()));
+		asmFunc.makeBBList();
 	}
 
 	public void visit(BasicBlock BB){
@@ -118,7 +127,8 @@ public class InstructionSelector implements IRVisitor {
 			curBB.appendInst(new AsmLI((Register)instr.getDst(), new Immediate(IRAssistant.calculation(instr.getOp(), ((Immediate) instr.getLhs()).getValue(), ((Immediate) instr.getRhs()).getValue()))));
 		else{
 			boolean RType = instr.getOp() == Binary.Op.MUL || instr.getOp() == Binary.Op.DIV || instr.getOp() == Binary.Op.MOD || instr.getOp() == Binary.Op.SUB
-					|| (instr.getLhs() instanceof Register && instr.getRhs() instanceof Register);
+					|| (instr.getLhs() instanceof Register && instr.getRhs() instanceof Register
+					|| (instr.getLhs() instanceof Immediate && (instr.getOp() == Binary.Op.SHL || instr.getOp() == Binary.Op.SHR)));
 			// todo : SUB can be optimized in IR processing by replacing it with ADD ....
 			if(RType){
 				Register rs1 = immAndStr2Reg(instr.getLhs());
@@ -171,8 +181,16 @@ public class InstructionSelector implements IRVisitor {
 			}
 			else { // IType
 				Register rd = (Register) instr.getDst();
-				Register rs1 = instr.getLhs() instanceof Immediate ? (Register)instr.getRhs() : (Register)instr.getLhs();
-				Immediate imm = instr.getLhs() instanceof Immediate ? (Immediate)instr.getLhs() : (Immediate)instr.getRhs();
+				boolean swapped = instr.getLhs() instanceof Immediate; // if LHS and RHS has been swapped
+				Register rs1 = swapped ? (Register)instr.getRhs() : (Register)instr.getLhs();
+				Immediate imm = swapped ? (Immediate)instr.getLhs() : (Immediate)instr.getRhs();
+				if(swapped){
+					if(instr.getOp() == Binary.Op.LT) instr.setOp(Binary.Op.GT);
+					else if(instr.getOp() == Binary.Op.GT) instr.setOp(Binary.Op.LT);
+					else if(instr.getOp() == Binary.Op.LE) instr.setOp(Binary.Op.GE);
+					else if(instr.getOp() == Binary.Op.GE) instr.setOp(Binary.Op.LE);
+				}
+
 				switch (instr.getOp()) {
 
 					case ADD: curBB.appendInst(new AsmITypeIns(rs1, imm, rd, AsmITypeIns.Op.ADDI));
@@ -242,6 +260,8 @@ public class InstructionSelector implements IRVisitor {
 			curBB.appendInst(new AsmStore(new StackPointerOffset(Config.SIZE * (i - 8), false, curFunc, r("sp")),
 											para, null, Config.SIZE));
 		}
+
+		curFunc.setStackSizeFromTopMax(Config.SIZE * Integer.max(0, paraList.size() - 8));
 
 		curBB.appendInst(new AsmCall(func2AsmFunc.get(instr.getFunction())));
 

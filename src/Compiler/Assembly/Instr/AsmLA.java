@@ -1,5 +1,6 @@
 package Compiler.Assembly.Instr;
 
+import Compiler.Codegen.AsmVisitor;
 import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.StaticStrConst;
@@ -17,6 +18,13 @@ public class AsmLA extends AsmIns {
 		this.rd = rd;
 	}
 
+	public Register getRd() {
+		return rd;
+	}
+
+	public StaticStrConst getSymbol() {
+		return symbol;
+	}
 
 	@Override
 	public Register getDefRegister() {
@@ -35,6 +43,11 @@ public class AsmLA extends AsmIns {
 	@Override
 	public void replaceDefRegister(Register newReg){
 		rd = newReg;
+	}
+
+	@Override
+	public void accept(AsmVisitor asmVisitor) {
+		asmVisitor.visit(this);
 	}
 
 }

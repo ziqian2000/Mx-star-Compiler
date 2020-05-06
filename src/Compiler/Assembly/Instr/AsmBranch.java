@@ -1,6 +1,7 @@
 package Compiler.Assembly.Instr;
 
 import Compiler.Assembly.AsmBasicBlock;
+import Compiler.Codegen.AsmVisitor;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;
 
@@ -22,6 +23,22 @@ public class AsmBranch extends AsmIns {
 		this.rs2 = rs2;
 		this.BB = BB;
 		this.op = op;
+	}
+
+	public Register getRs1() {
+		return rs1;
+	}
+
+	public Register getRs2() {
+		return rs2;
+	}
+
+	public Op getOp() {
+		return op;
+	}
+
+	public String getOpStr(){
+		return op.toString().toLowerCase();
 	}
 
 	public AsmBasicBlock getBB() {
@@ -48,5 +65,10 @@ public class AsmBranch extends AsmIns {
 	@Override
 	public void replaceDefRegister(Register newReg){
 		assert false;
+	}
+
+	@Override
+	public void accept(AsmVisitor asmVisitor) {
+		asmVisitor.visit(this);
 	}
 }

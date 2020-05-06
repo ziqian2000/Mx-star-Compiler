@@ -1,6 +1,8 @@
 package Compiler.Assembly;
 
 import Compiler.Assembly.Operand.PhysicalRegister;
+import Compiler.IR.Operand.StaticStrConst;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
@@ -40,6 +42,9 @@ public class Assembly {
 	// lib function
 	public AsmFunction mallocAsmFunc = new AsmFunction("malloc", true);
 
+	// global variables & string
+	public List<VirtualRegister> globalVarList = new ArrayList<>(); // todo : global var init can be done in pre-processing
+	public List<StaticStrConst> stringList = new ArrayList<>();
 
 
 	public Assembly(){

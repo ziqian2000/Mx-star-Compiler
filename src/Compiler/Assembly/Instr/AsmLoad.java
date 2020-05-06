@@ -1,6 +1,7 @@
 package Compiler.Assembly.Instr;
 
 import Compiler.Assembly.Operand.PhysicalRegister;
+import Compiler.Codegen.AsmVisitor;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IR.StackLocation;
@@ -22,6 +23,17 @@ public class AsmLoad extends AsmIns {
 		this.size = size;
 	}
 
+	public int getSize() {
+		return size;
+	}
+
+	public StackLocation getLoc() {
+		return loc;
+	}
+
+	public Register getRd() {
+		return rd;
+	}
 
 	@Override
 	public Register getDefRegister() {
@@ -47,6 +59,11 @@ public class AsmLoad extends AsmIns {
 	@Override
 	public void replaceDefRegister(Register newReg){
 		rd = newReg;
+	}
+
+	@Override
+	public void accept(AsmVisitor asmVisitor) {
+		asmVisitor.visit(this);
 	}
 
 }

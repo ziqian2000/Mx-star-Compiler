@@ -19,6 +19,10 @@ public class AsmBasicBlock {
 	private String identifier;
 	private AsmIns headIns, tailIns;
 
+	public String getIdentifier() {
+		return identifier;
+	}
+
 	// DFS
 	private AsmBasicBlock parent;
 	private List<AsmBasicBlock> preBBList; // implemented in function

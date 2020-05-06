@@ -20,4 +20,10 @@ public class StackPointerOffset implements StackLocation {
 	public PhysicalRegister getSp() {
 		return sp;
 	}
+
+	@Override
+	public String toString() {
+		int spOffset = offset + (fromBottom ? function.getAlignedStackSize() : 0);
+		return spOffset + "(sp)";
+	}
 }

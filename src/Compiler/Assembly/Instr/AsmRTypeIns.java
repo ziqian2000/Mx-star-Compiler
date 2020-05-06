@@ -1,5 +1,6 @@
 package Compiler.Assembly.Instr;
 
+import Compiler.Codegen.AsmVisitor;
 import Compiler.IR.Operand.Register;
 
 import java.util.Arrays;
@@ -16,6 +17,26 @@ public class AsmRTypeIns extends AsmIns {
 	}
 	private Register rs1, rs2, rd;
 	private AsmRTypeIns.Op op;
+
+	public Op getOp() {
+		return op;
+	}
+
+	public String getOpStr(){
+		return op.toString().toLowerCase();
+	}
+
+	public Register getRs1() {
+		return rs1;
+	}
+
+	public Register getRs2() {
+		return rs2;
+	}
+
+	public Register getRd() {
+		return rd;
+	}
 
 	public AsmRTypeIns(Register rs1, Register rs2, Register rd, AsmRTypeIns.Op op){
 		this.rs1 = rs1;
@@ -43,6 +64,11 @@ public class AsmRTypeIns extends AsmIns {
 	@Override
 	public void replaceDefRegister(Register newReg){
 		rd = newReg;
+	}
+
+	@Override
+	public void accept(AsmVisitor asmVisitor) {
+		asmVisitor.visit(this);
 	}
 
 }
