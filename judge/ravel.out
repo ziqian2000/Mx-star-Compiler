@@ -1,0 +1,13 @@
+
+exit code: 0
+memory leak: 1
+time: 1563
+# instructions:
+# simple  = 147 (including unconditional jump)
+# mul     = 16
+# cache   = 0
+# br      = 23
+# div     = 18
+# mem     = 13 (a.k.a cache miss)
+# libcIO  = 1
+# libcMem = 1
