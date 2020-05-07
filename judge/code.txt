@@ -1,158 +1,47 @@
-class Array_Node {
-  Array_Node() {
-    sz = 0;
-    storage = new Node[100000];
-  }
+/*
+Test Package: Sema_Local_Preview
+Test Target: Classes
+Author: 15' Bowen Tan
+Time: 2019-10-20
+Verdict: Success
+Origin Package: Semantic Extended
+*/
+class AAA {
+    string str;
 
-  void push_back(Node v) {
-    storage[sz++] = v;
-  }
-
-  Node pop_back() {
-    --sz;
-    return storage[sz];
-  }
-
-  Node back() {
-    return storage[sz - 1];
-  }
-
-  Node front() {
-    return storage[0];
-  }
-
-  int size() {
-    return sz;
-  }
-
-  void resize(int newSize) {
-    while (storage.size() < newSize)
-      doubleStorage();
-    sz = newSize;
-  }
-
-  Node get(int i) {
-    return storage[i];
-  }
-
-  void set(int i, Node v) {
-    storage[i] = v;
-  }
-
-  void swap(int i, int j) {
-    Node t = storage[i];
-    storage[i] = storage[j];
-    storage[j] = t;
-  }
-
-
-  void doubleStorage() {
-    Node[] copy = storage;
-    int szCopy = sz;
-
-    storage = new Node[copy.size() * 2];
-    sz = 0;
-
-    for (; sz != szCopy; ++sz) {
-      storage[sz] = copy[sz];
+    AAA() {
+        str = "abcde";
     }
-  }
 
-
-  Node[] storage;
-  int sz;
+    void AAAprint() {
+        print(str);
+        print(toString(str.length()));
+    }
 };
 
+class BBB {
+    AAA a;
 
-class Heap_Node {
-
-  Heap_Node() {
-    storage = new Array_Node();
-  }
-
-  void push(Node v) {
-
-
-    storage.push_back(v);
-    int x = size() - 1;
-
-
-    printlnInt(v.dist);
-    printlnInt(storage.get(x).key_());
-
-  }
-
-  Node pop() {
-    Node res = storage.front();
-    storage.swap(0, size() - 1);
-    storage.pop_back();
-    maxHeapify(0);
-    return res;
-  }
-
-  Node top() {
-    return storage.front();
-  }
-
-  int size() {
-    return storage.size();
-  }
-
-  int lchild(int x) {
-    return x * 2 + 1;
-  }
-
-  int rchild(int x) {
-    return x * 2 + 2;
-  }
-
-  int pnt(int x) {
-    return (x - 1) / 2;
-  }
-
-  void maxHeapify(int x) {
-    int l = lchild(x);
-    int r = rchild(x);
-    int largest = x;
-
-    if (l < size()) if(storage.get(l).key_() > storage.get(largest).key_())
-      largest = l;
-    if (r < size()) if(storage.get(r).key_() > storage.get(largest).key_())
-      largest = r;
-
-    if (largest == x)
-      return;
-
-    storage.swap(x, largest);
-    maxHeapify(largest);
-  }
-
-  Array_Node storage;
-};
-
-class Node {
-  int key_() {
-    return +dist;
-  }
-
-  int node;
-  int dist;
+    BBB() {
+        a.str = a.str + "1234567890";
+    }
 };
 
 int main() {
-        Node node;
+    int a;
+    int b = a + a * a % a;
 
-  Heap_Node q = new Heap_Node();
+    BBB[][] bb = new BBB[10][10];
 
-	      node = new Node();
-	      node.node = 1;
-	      node.dist = 3;
-	      q.push(node);
+    int i;
+    for (i = 1; i <= 10; i++) {
+        bool i = false;
+        if (i) {
+            print("a");
+        } else {
+            println("b");
+        }
+    }
 
-	      node = new Node();
-	      node.node = 2;
-	      node.dist = 4;
-	      q.push(node);
-
-  return 0;
+    bb[5][5].a.AAAprint();
 }

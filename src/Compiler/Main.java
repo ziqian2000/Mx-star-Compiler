@@ -24,6 +24,8 @@ public class Main {
 
         long startTime = System.currentTimeMillis();
 
+        System.out.println(args[0]);
+
         try {
 
             // arguments
@@ -35,6 +37,8 @@ public class Main {
                     default: throw new FuckingException("Unrecognizable argument : " + arg);
                 }
             }
+
+            // ==================== Semantic Analysis ====================
 
             // parse
             InputStream inputStream = new FileInputStream("code.txt");
@@ -60,6 +64,8 @@ public class Main {
 
             if(semanticOnly) return;
 
+            // ==================== IR Generation ====================
+
             // IR generation
             astRoot.accept(new FunctionVisitor());                  // declare function
             astRoot.accept(new MemberOffsetCalculator());           // calculate offset & class size
@@ -82,10 +88,12 @@ public class Main {
 
             // print and test
 //            new IRPrinter().run(ir, new PrintStream("ir.txt"));
+//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
 
             System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");
 
-            // codegen
+            // ==================== Codegen ====================
+
             InstructionSelector instructionSelector = new InstructionSelector(ir);
             instructionSelector.run();
             Assembly asm = instructionSelector.getAsm();
@@ -96,7 +104,6 @@ public class Main {
 			new PeepholeOptimization(asm).run();
 			new AsmPrinter(asm).run(new PrintStream("test.s"));
 
-//            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
 
         }
         catch (Exception e){
@@ -105,7 +112,7 @@ public class Main {
             System.exit(1);
         }
 
-        System.err.println("Codegen done: "+(System.currentTimeMillis() - startTime)+"ms");
+        System.err.println("All done: "+(System.currentTimeMillis() - startTime)+"ms");
 
 
     }

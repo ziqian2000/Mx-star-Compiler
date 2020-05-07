@@ -22,17 +22,23 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
+        long startTime = System.currentTimeMillis();
+
+        System.out.println(args[0]);
+
         try {
 
             // arguments
-            boolean ifInterpret = true;
+            boolean semanticOnly = false;
             for(String arg : args){
                 switch (arg){
-                    case "-semantic": ifInterpret = false; break;
-                    case "-codegen" : break;
+                    case "-semantic": semanticOnly = true; break;
+                    case "-codegen" : semanticOnly = false; break;
                     default: throw new FuckingException("Unrecognizable argument : " + arg);
                 }
             }
+
+            // ==================== Semantic Analysis ====================
 
             // parse
             InputStream inputStream = new FileInputStream("code.txt");
@@ -56,6 +62,10 @@ public class Main {
             astRoot.accept(new SymbolTableBuilder(topScope));       // build symbol table, assign symbol, calculate type and determine value category
             astRoot.accept(new SemanticInfoVisitor(topScope));      // some other semantic exceptions
 
+            if(semanticOnly) return;
+
+            // ==================== IR Generation ====================
+
             // IR generation
             astRoot.accept(new FunctionVisitor());                  // declare function
             astRoot.accept(new MemberOffsetCalculator());           // calculate offset & class size
@@ -77,18 +87,23 @@ public class Main {
             new CFGSimplifier(ir).run();
 
             // print and test
-            new IRPrinter().run(ir, new PrintStream("ir.txt"));
+//            new IRPrinter().run(ir, new PrintStream("ir.txt"));
+//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
 
-            // codegen
+            System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");
+
+            // ==================== Codegen ====================
+
             InstructionSelector instructionSelector = new InstructionSelector(ir);
             instructionSelector.run();
             Assembly asm = instructionSelector.getAsm();
+            System.err.println("Instruction selection done: "+(System.currentTimeMillis() - startTime)+"ms");
             new RegisterAllocator(asm).run();
+            System.err.println("Register allocation done: "+(System.currentTimeMillis() - startTime)+"ms");
 			new FinalProcessing(asm).run();
 			new PeepholeOptimization(asm).run();
 			new AsmPrinter(asm).run(new PrintStream("test.s"));
 
-//            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
 
         }
         catch (Exception e){
@@ -96,6 +111,8 @@ public class Main {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+
+        System.err.println("All done: "+(System.currentTimeMillis() - startTime)+"ms");
 
 
     }
