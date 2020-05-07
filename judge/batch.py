@@ -3,9 +3,9 @@
 import os
 
 
-# test_cases_dir = './testcase/codegen/'
+test_cases_dir = './testcase/codegen/'
 # test_cases_dir = './testcase/codegen/shortest_path/'
-test_cases_dir = './testcase/codegen/sorting/'
+# test_cases_dir = './testcase/codegen/sorting/'
 
 compile_cmd = "bash ./build.sh"
 execute_cmd = "bash ./codegen.sh"

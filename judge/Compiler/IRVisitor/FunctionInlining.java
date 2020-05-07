@@ -14,11 +14,14 @@ import java.util.*;
 
 public class FunctionInlining {
 
-	IR ir;
+	final private int CODE_LEN_LIMIT = 200;
+
+	private IR ir;
 
 	private List<Function> irFuncExceptBuiltin = new ArrayList<>();
 	private Set<Function> changedFunc = new LinkedHashSet<>();
 	private Map<Function, List<Call>> funcCallInstList = new HashMap<>();
+	private Map<Function, Integer> funcLength = new HashMap<>();
 
 	public FunctionInlining(IR ir){
 		this.ir = ir;
@@ -29,29 +32,31 @@ public class FunctionInlining {
 		changedFunc.addAll(irFuncExceptBuiltin);
 
 		removeUselessFunc();
-		NonRecursiveFuncInlining(); // todo : consider to add a limitation on the length of function to avoid huge code
+		NonRecursiveFuncInlining();
 		RecursiveFuncInlining();
-
-
 	}
 
 	private void removeUselessFunc(){
 		for(Function func : irFuncExceptBuiltin)
-			if(noAccess(func))
+			if(noCall(func))
 				ir.getFunctionList().remove(func);
 	}
 
-	private void findCallInsInsideChangedFunc(){
+	private void processChangedFunction(){
+		// find CALL ins & compute the length
 		for(Function function : changedFunc){
 			function.makeBBList();
 			funcCallInstList.put(function, new ArrayList<>());
+			int len = 0;
 			for(BasicBlock BB : function.getBBList()){
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+					len += 1;
 					if(ins instanceof Call){
 						funcCallInstList.get(function).add((Call)ins);
 					}
 				}
 			}
+			funcLength.put(function, len);
 		}
 		changedFunc.clear();
 	}
@@ -65,18 +70,22 @@ public class FunctionInlining {
 			for(Function function : irFuncExceptBuiltin) {
 				if(!ir.getFunctionList().contains(function)) continue; // has been removed
 
-				findCallInsInsideChangedFunc();
+				processChangedFunction();
 
 				for(Call callInst : funcCallInstList.get(function)){
 					Function callee = callInst.getFunction();
 					if(callee.getIsBuiltin()) continue;
 
-					if(isNonRecursive(callee) && !function.getIdentifier().equals("__init")) {
+					if(isNonRecursive(callee) && !function.getIdentifier().equals("__init")
+					&& funcLength.get(function) + funcLength.get(callee) < CODE_LEN_LIMIT) {
+
+						funcLength.put(function, funcLength.get(function) + funcLength.get(callee));
+
 						inline(callInst, function);
 						inlined = true;
 						changedFunc.add(function);
 
-						if(noAccess(callee)) {
+						if(noCall(callee)) {
 							ir.getFunctionList().remove(callee);
 							changedFunc.remove(callee);
 						}
@@ -89,7 +98,7 @@ public class FunctionInlining {
 	}
 
 	private	void RecursiveFuncInlining(){
-		// todo, consider to inline each function 5 times
+		// todo, consider to inline each function at most 5 times
 	}
 
 	private void inline(Call ins, Function caller){
@@ -170,7 +179,8 @@ public class FunctionInlining {
 
 	// utility method
 
-	boolean noAccess(Function function){
+	boolean noCall(Function function){
+		// if there aren't any call to this function
 		if(function.getIdentifier().equals("__init")) return false;
 		for(Function func : irFuncExceptBuiltin) {
 			if (!ir.getFunctionList().contains(func)) continue; // has been removed
@@ -178,7 +188,7 @@ public class FunctionInlining {
 			if (func != function) {
 
 				if (changedFunc.contains(func)) {
-					findCallInsInsideChangedFunc();
+					processChangedFunction();
 				}
 
 				for (Call callIns : funcCallInstList.get(func)) {

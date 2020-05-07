@@ -24,8 +24,6 @@ public class Main {
 
         long startTime = System.currentTimeMillis();
 
-        System.out.println(args[0]);
-
         try {
 
             // arguments

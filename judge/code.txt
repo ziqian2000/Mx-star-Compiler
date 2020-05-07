@@ -1,47 +1,19 @@
-/*
-Test Package: Sema_Local_Preview
-Test Target: Classes
-Author: 15' Bowen Tan
-Time: 2019-10-20
-Verdict: Success
-Origin Package: Semantic Extended
-*/
-class AAA {
-    string str;
-
-    AAA() {
-        str = "abcde";
+int qpow(int a,int p,int mod) {
+    int t = 1;
+    int y = a;
+    while(p>0){
+        if((p&1) == 1)t=t*y % mod;
+        y=y*y % mod;
+        p=p / 2;
     }
+    return t;
+}
 
-    void AAAprint() {
-        print(str);
-        print(toString(str.length()));
-    }
-};
 
-class BBB {
-    AAA a;
 
-    BBB() {
-        a.str = a.str + "1234567890";
-    }
-};
+
 
 int main() {
-    int a;
-    int b = a + a * a % a;
-
-    BBB[][] bb = new BBB[10][10];
-
-    int i;
-    for (i = 1; i <= 10; i++) {
-        bool i = false;
-        if (i) {
-            print("a");
-        } else {
-            println("b");
-        }
-    }
-
-    bb[5][5].a.AAAprint();
+    println(toString(qpow(2,10,10000)));
+    return 0;
 }
