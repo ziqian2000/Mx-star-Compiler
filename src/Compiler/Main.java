@@ -70,11 +70,11 @@ public class Main {
             new GlobalVariableResolving(ir).run();                  // a must-do, otherwise modify irGenerator
 
             // Basic Optimization on IR
-//            new SSAConstructor(ir).run();
-//            new CFGSimplifier(ir).run();
-//            new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
-//                                                                    // need to eliminate useless variable like "extra" in sequentialization
-//            new CFGSimplifier(ir).run();
+            new SSAConstructor(ir).run();
+            new CFGSimplifier(ir).run();
+            new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
+                                                                    // need to eliminate useless variable like "extra" in sequentialization
+            new CFGSimplifier(ir).run();
 
             // print and test
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
@@ -86,7 +86,7 @@ public class Main {
             new RegisterAllocator(asm).run();
 			new FinalProcessing(asm).run();
 			new PeepholeOptimization(asm).run();
-			new AsmPrinter(asm).run(new PrintStream("output.s"));
+			new AsmPrinter(asm).run(new PrintStream("test.s"));
 
 //            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
 

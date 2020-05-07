@@ -1,5 +1,158 @@
-int main()
-{
-	print("FUCK");
-	return 0;
+class Array_Node {
+  Array_Node() {
+    sz = 0;
+    storage = new Node[100000];
+  }
+
+  void push_back(Node v) {
+    storage[sz++] = v;
+  }
+
+  Node pop_back() {
+    --sz;
+    return storage[sz];
+  }
+
+  Node back() {
+    return storage[sz - 1];
+  }
+
+  Node front() {
+    return storage[0];
+  }
+
+  int size() {
+    return sz;
+  }
+
+  void resize(int newSize) {
+    while (storage.size() < newSize)
+      doubleStorage();
+    sz = newSize;
+  }
+
+  Node get(int i) {
+    return storage[i];
+  }
+
+  void set(int i, Node v) {
+    storage[i] = v;
+  }
+
+  void swap(int i, int j) {
+    Node t = storage[i];
+    storage[i] = storage[j];
+    storage[j] = t;
+  }
+
+
+  void doubleStorage() {
+    Node[] copy = storage;
+    int szCopy = sz;
+
+    storage = new Node[copy.size() * 2];
+    sz = 0;
+
+    for (; sz != szCopy; ++sz) {
+      storage[sz] = copy[sz];
+    }
+  }
+
+
+  Node[] storage;
+  int sz;
+};
+
+
+class Heap_Node {
+
+  Heap_Node() {
+    storage = new Array_Node();
+  }
+
+  void push(Node v) {
+
+
+    storage.push_back(v);
+    int x = size() - 1;
+
+
+    printlnInt(v.dist);
+    printlnInt(storage.get(x).key_());
+
+  }
+
+  Node pop() {
+    Node res = storage.front();
+    storage.swap(0, size() - 1);
+    storage.pop_back();
+    maxHeapify(0);
+    return res;
+  }
+
+  Node top() {
+    return storage.front();
+  }
+
+  int size() {
+    return storage.size();
+  }
+
+  int lchild(int x) {
+    return x * 2 + 1;
+  }
+
+  int rchild(int x) {
+    return x * 2 + 2;
+  }
+
+  int pnt(int x) {
+    return (x - 1) / 2;
+  }
+
+  void maxHeapify(int x) {
+    int l = lchild(x);
+    int r = rchild(x);
+    int largest = x;
+
+    if (l < size()) if(storage.get(l).key_() > storage.get(largest).key_())
+      largest = l;
+    if (r < size()) if(storage.get(r).key_() > storage.get(largest).key_())
+      largest = r;
+
+    if (largest == x)
+      return;
+
+    storage.swap(x, largest);
+    maxHeapify(largest);
+  }
+
+  Array_Node storage;
+};
+
+class Node {
+  int key_() {
+    return +dist;
+  }
+
+  int node;
+  int dist;
+};
+
+int main() {
+        Node node;
+
+  Heap_Node q = new Heap_Node();
+
+	      node = new Node();
+	      node.node = 1;
+	      node.dist = 3;
+	      q.push(node);
+
+	      node = new Node();
+	      node.node = 2;
+	      node.dist = 4;
+	      q.push(node);
+
+  return 0;
 }

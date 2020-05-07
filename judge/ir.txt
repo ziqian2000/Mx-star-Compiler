@@ -1,13 +1,148 @@
-@unnamed_2(0) = "FUCK"
+@unnamed_49(0) = " "
+@unnamed_51(1) = ""
 func __init {
-unnamed_1(1):
+unnamed_1(2):
 	call main
 	ret
 }
 
 func main {
-entry(2):
-	call print @unnamed_2(0)
+entry(3):
+	%unnamed_33.0(4) = call getInt
+	%n.0(5) = move %unnamed_33.0(4)
+	%unnamed_35.0(6) = mul %n.0(5) 4
+	%unnamed_36.0(7) = add %unnamed_35.0(6) 4
+	%unnamed_34.0(8) = alloc %unnamed_36.0(7)
+	store %n.0(5) %unnamed_34.0(8)
+	%a.0(9) = move %unnamed_34.0(8)
+	%i.0(10) = move 0
+	%i.1(11) = move %i.0(10)
+	%extra(12) = move %i.1(11)
+	jump unnamed_10(13)
+unnamed_10(13):
+	%unnamed_37.0(14) = lt %i.1(11) %n.0(5)
+	br %unnamed_37.0(14) splitting(15) splitting(16)
+splitting(15):
+	%unnamed_38.0(17) = add %i.1(11) 1
+	%unnamed_39.0(18) = mul %unnamed_38.0(17) 4
+	%unnamed_40.0(19) = add %a.0(9) %unnamed_39.0(18)
+	%unnamed_41.0(20) = call getInt
+	%unnamed_42.0(21) = load %unnamed_40.0(19)
+	store %unnamed_41.0(20) %unnamed_40.0(19)
+	%i.2(22) = add %i.1(11) 1
+	%i.1(11) = move %i.2(22)
+	%extra(23) = move %i.1(11)
+	jump unnamed_10(13)
+splitting(16):
+	%a.0(24) = move %a.0(9)
+	%unnamed_0.0(25) = move %a.0(24)
+	%unnamed_1.0(26) = load %unnamed_0.0(25)
+	%unnamed_2.0(27) = move %unnamed_1.0(26)
+	%n.0(28) = move %unnamed_2.0(27)
+	%i.0(29) = move 0
+	%i.1(30) = move %i.0(29)
+	%extra(31) = move %i.1(30)
+	%j.0(32) = move 0
+	%min_pos.0(33) = move 0
+	jump unnamed_2(34)
+unnamed_2(34):
+	%unnamed_3.0(35) = sub %n.0(28) 1
+	%unnamed_4.0(36) = lt %i.1(30) %unnamed_3.0(35)
+	br %unnamed_4.0(36) splitting(37) splitting(38)
+splitting(37):
+	%min_pos.1(39) = move %i.1(30)
+	%unnamed_5.0(40) = add %i.1(30) 1
+	%j.1(41) = move %unnamed_5.0(40)
+	%j.2(42) = move %j.1(41)
+	%min_pos.2(43) = move %min_pos.1(39)
+	%extra(44) = move %j.2(42)
+	%j.2(42) = move %j.2(42)
+	%extra(44) = move %min_pos.2(43)
+	jump unnamed_6(45)
+unnamed_6(45):
+	%unnamed_6.0(46) = lt %j.2(42) %n.0(28)
+	br %unnamed_6.0(46) splitting(47) splitting(48)
+splitting(47):
+	%unnamed_7.0(49) = add %j.2(42) 1
+	%unnamed_8.0(50) = mul %unnamed_7.0(49) 4
+	%unnamed_9.0(51) = add %a.0(24) %unnamed_8.0(50)
+	%unnamed_10.0(52) = add %min_pos.2(43) 1
+	%unnamed_11.0(53) = mul %unnamed_10.0(52) 4
+	%unnamed_12.0(54) = add %a.0(24) %unnamed_11.0(53)
+	%unnamed_13.0(55) = load %unnamed_9.0(51)
+	%unnamed_14.0(56) = load %unnamed_12.0(54)
+	%unnamed_15.0(57) = lt %unnamed_13.0(55) %unnamed_14.0(56)
+	br %unnamed_15.0(57) splitting(58) splitting(59)
+splitting(58):
+	%min_pos.3(60) = move %j.2(42)
+	%min_pos.4(61) = move %min_pos.3(60)
+	%extra(62) = move %min_pos.4(61)
+	jump if_exit(63)
+if_exit(63):
+	%j.3(64) = add %j.2(42) 1
+	%j.2(42) = move %j.3(64)
+	%min_pos.2(43) = move %min_pos.4(61)
+	%extra(65) = move %j.2(42)
+	%j.2(42) = move %j.2(42)
+	%extra(65) = move %min_pos.2(43)
+	jump unnamed_6(45)
+splitting(59):
+	%min_pos.4(61) = move %min_pos.2(43)
+	%extra(66) = move %min_pos.4(61)
+	jump if_exit(63)
+splitting(48):
+	%unnamed_16.0(67) = add %i.1(30) 1
+	%unnamed_17.0(68) = mul %unnamed_16.0(67) 4
+	%unnamed_18.0(69) = add %a.0(24) %unnamed_17.0(68)
+	%unnamed_19.0(70) = load %unnamed_18.0(69)
+	%t.0(71) = move %unnamed_19.0(70)
+	%unnamed_20.0(72) = add %i.1(30) 1
+	%unnamed_21.0(73) = mul %unnamed_20.0(72) 4
+	%unnamed_22.0(74) = add %a.0(24) %unnamed_21.0(73)
+	%unnamed_23.0(75) = add %min_pos.2(43) 1
+	%unnamed_24.0(76) = mul %unnamed_23.0(75) 4
+	%unnamed_25.0(77) = add %a.0(24) %unnamed_24.0(76)
+	%unnamed_26.0(78) = load %unnamed_22.0(74)
+	%unnamed_27.0(79) = load %unnamed_25.0(77)
+	%unnamed_28.0(80) = load %unnamed_25.0(77)
+	store %unnamed_28.0(80) %unnamed_22.0(74)
+	%unnamed_29.0(81) = add %min_pos.2(43) 1
+	%unnamed_30.0(82) = mul %unnamed_29.0(81) 4
+	%unnamed_31.0(83) = add %a.0(24) %unnamed_30.0(82)
+	%unnamed_32.0(84) = load %unnamed_31.0(83)
+	store %t.0(71) %unnamed_31.0(83)
+	%i.2(85) = add %i.1(30) 1
+	%j.0(32) = move %j.2(42)
+	%i.1(30) = move %i.2(85)
+	%min_pos.0(33) = move %min_pos.2(43)
+	%extra(86) = move %j.0(32)
+	%j.0(32) = move %j.0(32)
+	%extra(86) = move %i.1(30)
+	%i.1(30) = move %i.1(30)
+	%extra(86) = move %min_pos.0(33)
+	jump unnamed_2(34)
+splitting(38):
+	%i.3(87) = move 0
+	%i.4(88) = move %i.3(87)
+	%extra(89) = move %i.4(88)
+	jump unnamed_14(90)
+unnamed_14(90):
+	%unnamed_43.0(91) = lt %i.4(88) %n.0(5)
+	br %unnamed_43.0(91) splitting(92) splitting(93)
+splitting(92):
+	%unnamed_44.0(94) = add %i.4(88) 1
+	%unnamed_45.0(95) = mul %unnamed_44.0(94) 4
+	%unnamed_46.0(96) = add %a.0(9) %unnamed_45.0(95)
+	%unnamed_47.0(97) = load %unnamed_46.0(96)
+	%unnamed_48.0(98) = call toString %unnamed_47.0(97)
+	%unnamed_50.0(99) = call string.add %unnamed_48.0(98) @unnamed_49(0)
+	call print %unnamed_50.0(99)
+	%i.5(100) = add %i.4(88) 1
+	%i.4(88) = move %i.5(100)
+	%extra(101) = move %i.4(88)
+	jump unnamed_14(90)
+splitting(93):
+	call println @unnamed_51(1)
 	ret 0
 }
 

@@ -96,6 +96,7 @@ public class GlobalVariableResolving {
 	public void copyGlobalTmpVar(){
 		for(Function function : irFuncExceptBuiltin){
 			Map<Operand, Operand> tempGlobalVarMap = new HashMap<>();
+			function.makeBBList();
 			for(BasicBlock BB : function.getBBList()){
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 					List<Operand> oprList = ins.getOperands();

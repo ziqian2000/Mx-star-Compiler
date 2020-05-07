@@ -327,19 +327,19 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 				break;
 			}
 			case PLU : { // +
-				node.setResultOpr(src);
+				node.setResultOpr(convertPtr2Val(src));
 				break;
 			}
 			case NEG : { // -
 				Operand dst = new I32Value();
 				node.setResultOpr(dst);
-				curBB.appendInst(new Unary(Unary.Op.NEG, src, dst));
+				curBB.appendInst(new Unary(Unary.Op.NEG, convertPtr2Val(src), dst));
 				break;
 			}
 			case COM : { // ~
 				Operand dst = new I32Value();
 				node.setResultOpr(dst);
-				curBB.appendInst(new Unary(Unary.Op.COM, src, dst));
+				curBB.appendInst(new Unary(Unary.Op.COM, convertPtr2Val(src), dst));
 				break;
 			}
 			case NOT : { // !
@@ -348,7 +348,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 				BasicBlock trueBB = new BasicBlock();
 				BasicBlock falseBB = new BasicBlock();
 				BasicBlock exitBB = new BasicBlock();
-				curBB.appendLastInst(new Branch(src, trueBB, falseBB));
+				curBB.appendLastInst(new Branch(convertPtr2Val(src), trueBB, falseBB));
 				trueBB.appendInst(new Move(new Immediate(0), dst));
 				falseBB.appendInst(new Move(new Immediate(1), dst));
 				trueBB.appendLastInst(new Jump(exitBB));

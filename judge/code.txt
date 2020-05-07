@@ -1,5 +1,33 @@
-int main()
-{
-	print("FUCK");
-	return 0;
+
+void selection_sort(int[] a) {
+  int i;
+  int n = a.size();
+  for (i = 0; i < n - 1; ++i) {
+    int min_pos = i;
+    int j;
+    for (j = i + 1; j < n; ++j) {
+      if (a[j] < a[min_pos])
+        min_pos = j;
+    }
+    int t = a[i];
+    a[i] = a[min_pos];
+    a[min_pos] = t;
+  }
+}
+
+int main() {
+  int n = getInt();
+  int[] a = new int[n];
+
+  int i;
+  for (i = 0; i < n; ++i)
+    a[i] = getInt();
+
+  selection_sort(a);
+
+  for (i = 0; i < n; ++i)
+    print(toString(a[i]) + " ");
+  println("");
+
+  return 0;
 }
