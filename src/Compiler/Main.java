@@ -22,6 +22,8 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
+        long startTime = System.currentTimeMillis();
+
         try {
 
             // arguments
@@ -77,13 +79,17 @@ public class Main {
             new CFGSimplifier(ir).run();
 
             // print and test
-            new IRPrinter().run(ir, new PrintStream("ir.txt"));
+//            new IRPrinter().run(ir, new PrintStream("ir.txt"));
+
+            System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");
 
             // codegen
             InstructionSelector instructionSelector = new InstructionSelector(ir);
             instructionSelector.run();
             Assembly asm = instructionSelector.getAsm();
+            System.err.println("Instruction selection done: "+(System.currentTimeMillis() - startTime)+"ms");
             new RegisterAllocator(asm).run();
+            System.err.println("Register allocation done: "+(System.currentTimeMillis() - startTime)+"ms");
 			new FinalProcessing(asm).run();
 			new PeepholeOptimization(asm).run();
 			new AsmPrinter(asm).run(new PrintStream("test.s"));
@@ -96,6 +102,8 @@ public class Main {
             System.err.println(e.getMessage());
             System.exit(1);
         }
+
+        System.err.println("Codegen done: "+(System.currentTimeMillis() - startTime)+"ms");
 
 
     }
