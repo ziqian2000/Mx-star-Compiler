@@ -1,8 +1,5 @@
-int n,m,a;
-int main(){
-    n = getInt();
-    m = getInt();
-    a = getInt();
-    print(toString((m+a-1)/a*((n+a-1)/a)));
-    return 0;
+int main()
+{
+	print("FUCK");
+	return 0;
 }

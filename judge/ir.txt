@@ -1,65 +1,13 @@
+@unnamed_2(0) = "FUCK"
 func __init {
-unnamed_1(0):
-	@n(1) = alloc 4
-	@m(2) = alloc 4
-	@a(3) = alloc 4
+unnamed_1(1):
 	call main
 	ret
 }
 
 func main {
-entry(4):
-	%n_tmp(5) = load @n(1)
-	%m_tmp(6) = load @m(2)
-	%a_tmp(7) = load @a(3)
-	store %n_tmp(5) @n(1)
-	store %m_tmp(6) @m(2)
-	store %a_tmp(7) @a(3)
-	%unnamed_2(8) = call getInt
-	%a_tmp(7) = load @a(3)
-	%m_tmp(6) = load @m(2)
-	%n_tmp(5) = load @n(1)
-	%n_tmp(5) = move %unnamed_2(8)
-	store %n_tmp(5) @n(1)
-	store %m_tmp(6) @m(2)
-	store %a_tmp(7) @a(3)
-	%unnamed_3(9) = call getInt
-	%a_tmp(7) = load @a(3)
-	%m_tmp(6) = load @m(2)
-	%n_tmp(5) = load @n(1)
-	%m_tmp(6) = move %unnamed_3(9)
-	store %n_tmp(5) @n(1)
-	store %m_tmp(6) @m(2)
-	store %a_tmp(7) @a(3)
-	%unnamed_4(10) = call getInt
-	%a_tmp(7) = load @a(3)
-	%m_tmp(6) = load @m(2)
-	%n_tmp(5) = load @n(1)
-	%a_tmp(7) = move %unnamed_4(10)
-	%unnamed_5(11) = add %m_tmp(6) %a_tmp(7)
-	%unnamed_6(12) = sub %unnamed_5(11) 1
-	%unnamed_7(13) = div %unnamed_6(12) %a_tmp(7)
-	%unnamed_8(14) = add %n_tmp(5) %a_tmp(7)
-	%unnamed_9(15) = sub %unnamed_8(14) 1
-	%unnamed_10(16) = div %unnamed_9(15) %a_tmp(7)
-	%unnamed_11(17) = mul %unnamed_7(13) %unnamed_10(16)
-	store %n_tmp(5) @n(1)
-	store %m_tmp(6) @m(2)
-	store %a_tmp(7) @a(3)
-	%unnamed_12(18) = call toString %unnamed_11(17)
-	%a_tmp(7) = load @a(3)
-	%m_tmp(6) = load @m(2)
-	%n_tmp(5) = load @n(1)
-	store %n_tmp(5) @n(1)
-	store %m_tmp(6) @m(2)
-	store %a_tmp(7) @a(3)
-	call print %unnamed_12(18)
-	%a_tmp(7) = load @a(3)
-	%m_tmp(6) = load @m(2)
-	%n_tmp(5) = load @n(1)
-	store %n_tmp(5) @n(1)
-	store %m_tmp(6) @m(2)
-	store %a_tmp(7) @a(3)
+entry(2):
+	call print @unnamed_2(0)
 	ret 0
 }
 
