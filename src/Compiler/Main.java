@@ -27,11 +27,11 @@ public class Main {
         try {
 
             // arguments
-            boolean ifInterpret = true;
+            boolean semanticOnly = false;
             for(String arg : args){
                 switch (arg){
-                    case "-semantic": ifInterpret = false; break;
-                    case "-codegen" : break;
+                    case "-semantic": semanticOnly = true; break;
+                    case "-codegen" : semanticOnly = false; break;
                     default: throw new FuckingException("Unrecognizable argument : " + arg);
                 }
             }
@@ -57,6 +57,8 @@ public class Main {
             astRoot.accept(new ClassMemberVisitor(topScope));       // add all class members into symbol table
             astRoot.accept(new SymbolTableBuilder(topScope));       // build symbol table, assign symbol, calculate type and determine value category
             astRoot.accept(new SemanticInfoVisitor(topScope));      // some other semantic exceptions
+
+            if(semanticOnly) return;
 
             // IR generation
             astRoot.accept(new FunctionVisitor());                  // declare function
