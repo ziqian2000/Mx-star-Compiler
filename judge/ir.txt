@@ -1,120 +1,65 @@
 func __init {
 unnamed_1(0):
 	@n(1) = alloc 4
-	@x(2) = alloc 4
-	@y(3) = alloc 4
-	@z(4) = alloc 4
-	@c(5) = alloc 4
-	store 0 @c(5)
-	@k(6) = alloc 4
+	@m(2) = alloc 4
+	@a(3) = alloc 4
 	call main
 	ret
 }
 
 func main {
-entry(7):
-	%n_tmp(8) = load @n(1)
-	%k_tmp(9) = load @k(6)
-	%x_tmp(10) = load @x(2)
-	%y_tmp(11) = load @y(3)
-	%z_tmp(12) = load @z(4)
-	%c_tmp(13) = load @c(5)
-	store %n_tmp(8) @n(1)
-	store %k_tmp(9) @k(6)
-	store %x_tmp(10) @x(2)
-	store %y_tmp(11) @y(3)
-	store %z_tmp(12) @z(4)
-	store %c_tmp(13) @c(5)
-	%unnamed_2(14) = call getInt
-	%c_tmp(13) = load @c(5)
-	%z_tmp(12) = load @z(4)
-	%y_tmp(11) = load @y(3)
-	%x_tmp(10) = load @x(2)
-	%k_tmp(9) = load @k(6)
-	%n_tmp(8) = load @n(1)
-	%n_tmp(8) = move %unnamed_2(14)
-	%k_tmp(9) = move 0
-	jump unnamed_2(15)
-unnamed_2(15):
-	%unnamed_3(16) = lt %k_tmp(9) %n_tmp(8)
-	br %unnamed_3(16) unnamed_3(17) unnamed_4(18)
-unnamed_3(17):
-	store %n_tmp(8) @n(1)
-	store %k_tmp(9) @k(6)
-	store %x_tmp(10) @x(2)
-	store %y_tmp(11) @y(3)
-	store %z_tmp(12) @z(4)
-	store %c_tmp(13) @c(5)
-	%unnamed_5(19) = call getInt
-	%c_tmp(13) = load @c(5)
-	%z_tmp(12) = load @z(4)
-	%y_tmp(11) = load @y(3)
-	%x_tmp(10) = load @x(2)
-	%k_tmp(9) = load @k(6)
-	%n_tmp(8) = load @n(1)
-	%x_tmp(10) = move %unnamed_5(19)
-	store %n_tmp(8) @n(1)
-	store %k_tmp(9) @k(6)
-	store %x_tmp(10) @x(2)
-	store %y_tmp(11) @y(3)
-	store %z_tmp(12) @z(4)
-	store %c_tmp(13) @c(5)
-	%unnamed_6(20) = call getInt
-	%c_tmp(13) = load @c(5)
-	%z_tmp(12) = load @z(4)
-	%y_tmp(11) = load @y(3)
-	%x_tmp(10) = load @x(2)
-	%k_tmp(9) = load @k(6)
-	%n_tmp(8) = load @n(1)
-	%y_tmp(11) = move %unnamed_6(20)
-	store %n_tmp(8) @n(1)
-	store %k_tmp(9) @k(6)
-	store %x_tmp(10) @x(2)
-	store %y_tmp(11) @y(3)
-	store %z_tmp(12) @z(4)
-	store %c_tmp(13) @c(5)
-	%unnamed_7(21) = call getInt
-	%c_tmp(13) = load @c(5)
-	%z_tmp(12) = load @z(4)
-	%y_tmp(11) = load @y(3)
-	%x_tmp(10) = load @x(2)
-	%k_tmp(9) = load @k(6)
-	%n_tmp(8) = load @n(1)
-	%z_tmp(12) = move %unnamed_7(21)
-	%unnamed_8(22) = add %x_tmp(10) %y_tmp(11)
-	%unnamed_9(23) = add %unnamed_8(22) %z_tmp(12)
-	%unnamed_10(24) = gt %unnamed_9(23) 1
-	br %unnamed_10(24) if_then(25) if_exit(26)
-if_then(25):
-	%unnamed_11(27) = move %c_tmp(13)
-	%c_tmp(13) = add %c_tmp(13) 1
-	jump if_exit(26)
-if_exit(26):
-	jump unnamed_5(28)
-unnamed_5(28):
-	%unnamed_4(29) = move %k_tmp(9)
-	%k_tmp(9) = add %k_tmp(9) 1
-	jump unnamed_2(15)
-unnamed_4(18):
-	store %n_tmp(8) @n(1)
-	store %k_tmp(9) @k(6)
-	store %x_tmp(10) @x(2)
-	store %y_tmp(11) @y(3)
-	store %z_tmp(12) @z(4)
-	store %c_tmp(13) @c(5)
-	call printlnInt %c_tmp(13)
-	%c_tmp(13) = load @c(5)
-	%z_tmp(12) = load @z(4)
-	%y_tmp(11) = load @y(3)
-	%x_tmp(10) = load @x(2)
-	%k_tmp(9) = load @k(6)
-	%n_tmp(8) = load @n(1)
-	store %n_tmp(8) @n(1)
-	store %k_tmp(9) @k(6)
-	store %x_tmp(10) @x(2)
-	store %y_tmp(11) @y(3)
-	store %z_tmp(12) @z(4)
-	store %c_tmp(13) @c(5)
+entry(4):
+	%n_tmp(5) = load @n(1)
+	%m_tmp(6) = load @m(2)
+	%a_tmp(7) = load @a(3)
+	store %n_tmp(5) @n(1)
+	store %m_tmp(6) @m(2)
+	store %a_tmp(7) @a(3)
+	%unnamed_2(8) = call getInt
+	%a_tmp(7) = load @a(3)
+	%m_tmp(6) = load @m(2)
+	%n_tmp(5) = load @n(1)
+	%n_tmp(5) = move %unnamed_2(8)
+	store %n_tmp(5) @n(1)
+	store %m_tmp(6) @m(2)
+	store %a_tmp(7) @a(3)
+	%unnamed_3(9) = call getInt
+	%a_tmp(7) = load @a(3)
+	%m_tmp(6) = load @m(2)
+	%n_tmp(5) = load @n(1)
+	%m_tmp(6) = move %unnamed_3(9)
+	store %n_tmp(5) @n(1)
+	store %m_tmp(6) @m(2)
+	store %a_tmp(7) @a(3)
+	%unnamed_4(10) = call getInt
+	%a_tmp(7) = load @a(3)
+	%m_tmp(6) = load @m(2)
+	%n_tmp(5) = load @n(1)
+	%a_tmp(7) = move %unnamed_4(10)
+	%unnamed_5(11) = add %m_tmp(6) %a_tmp(7)
+	%unnamed_6(12) = sub %unnamed_5(11) 1
+	%unnamed_7(13) = div %unnamed_6(12) %a_tmp(7)
+	%unnamed_8(14) = add %n_tmp(5) %a_tmp(7)
+	%unnamed_9(15) = sub %unnamed_8(14) 1
+	%unnamed_10(16) = div %unnamed_9(15) %a_tmp(7)
+	%unnamed_11(17) = mul %unnamed_7(13) %unnamed_10(16)
+	store %n_tmp(5) @n(1)
+	store %m_tmp(6) @m(2)
+	store %a_tmp(7) @a(3)
+	%unnamed_12(18) = call toString %unnamed_11(17)
+	%a_tmp(7) = load @a(3)
+	%m_tmp(6) = load @m(2)
+	%n_tmp(5) = load @n(1)
+	store %n_tmp(5) @n(1)
+	store %m_tmp(6) @m(2)
+	store %a_tmp(7) @a(3)
+	call print %unnamed_12(18)
+	%a_tmp(7) = load @a(3)
+	%m_tmp(6) = load @m(2)
+	%n_tmp(5) = load @n(1)
+	store %n_tmp(5) @n(1)
+	store %m_tmp(6) @m(2)
+	store %a_tmp(7) @a(3)
 	ret 0
 }
 

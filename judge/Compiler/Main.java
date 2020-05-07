@@ -86,7 +86,7 @@ public class Main {
             new RegisterAllocator(asm).run();
 			new FinalProcessing(asm).run();
 			new PeepholeOptimization(asm).run();
-			new AsmPrinter(asm).run(new PrintStream("test.s"));
+			new AsmPrinter(asm).run(new PrintStream("output.s"));
 
 //            if(ifInterpret) IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
 

@@ -71,7 +71,7 @@ def main():
         if use_llvm:
             os.system('mv ./output.s ./test.ll')
             os.system(llc_cmd + ' --march=riscv32 -mattr=+m -o output.s test.ll')
-        if os.system('%s --oj-mode < test.in > ravel.out 2>/dev/null'
+        if os.system('%s --oj-mode output.s < test.in > ravel.out 2>/dev/null'
                      % ravel_path):
             print(color_red + "Runtime error" + color_none)
             continue

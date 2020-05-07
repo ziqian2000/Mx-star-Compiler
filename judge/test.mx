@@ -1,24 +1,8 @@
-int n;
-int r;
-int c;
-int i;
-int j;
-int abs(int c){
-    if(c>0) return c;
-    return -c;
-}
-
-int main()
-{
-	// int n,r,c,i,j;
-	for (i=0;i<5;i++)
-		for (j=0;j<5;j++)
-		{
-            n = getInt();
-		//scanf("%d", &n);
-		if (n==1)
-		{r=i;c=j;}}
-    printInt(abs(2-r) + abs(2-c));
-	// printf("%d",abs(2-r)+abs(2-c));
-	return 0;
+int n,m,a;
+int main(){
+    n = getInt();
+    m = getInt();
+    a = getInt();
+    print(toString((m+a-1)/a*((n+a-1)/a)));
+    return 0;
 }
