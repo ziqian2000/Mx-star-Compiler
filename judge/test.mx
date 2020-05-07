@@ -1,19 +1,24 @@
-int qpow(int a,int p,int mod) {
-    int t = 1;
-    int y = a;
-    while(p>0){
-        if((p&1) == 1)t=t*y % mod;
-        y=y*y % mod;
-        p=p / 2;
-    }
-    return t;
+int n;
+int r;
+int c;
+int i;
+int j;
+int abs(int c){
+    if(c>0) return c;
+    return -c;
 }
 
-
-
-
-
-int main() {
-    println(toString(qpow(2,10,10000)));
-    return 0;
+int main()
+{
+	// int n,r,c,i,j;
+	for (i=0;i<5;i++)
+		for (j=0;j<5;j++)
+		{
+            n = getInt();
+		//scanf("%d", &n);
+		if (n==1)
+		{r=i;c=j;}}
+    printInt(abs(2-r) + abs(2-c));
+	// printf("%d",abs(2-r)+abs(2-c));
+	return 0;
 }

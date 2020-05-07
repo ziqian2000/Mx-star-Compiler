@@ -65,12 +65,12 @@ def main():
             f.write(output_text)
 
         print(t + ':', end = " ")
-        if os.system('%s < ./test.mx > test.s' % execute_cmd):
+        if os.system('%s < ./test.mx > output.s' % execute_cmd):
             print(color_red + "Compilation failed" + color_none)
             continue
         if use_llvm:
-            os.system('mv ./test.s ./test.ll')
-            os.system(llc_cmd + ' --march=riscv32 -mattr=+m -o test.s test.ll')
+            os.system('mv ./output.s ./test.ll')
+            os.system(llc_cmd + ' --march=riscv32 -mattr=+m -o output.s test.ll')
         if os.system('%s --oj-mode < test.in > ravel.out 2>/dev/null'
                      % ravel_path):
             print(color_red + "Runtime error" + color_none)
