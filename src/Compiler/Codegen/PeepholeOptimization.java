@@ -15,6 +15,7 @@ public class PeepholeOptimization {
 	public void run(){
 		eliminateUselessMove();
 	}
+
 	private void eliminateUselessMove(){
 		for(var func : asm.getFunctionList()) if(!func.getIsBuiltin()){
 			for(var BB : func.getBBList()){
