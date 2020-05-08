@@ -75,8 +75,9 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		}
 
 		// __init func ends here
-		curBB.appendInst(new Call(((FuncSymbol)scope.findSymbol("main")).getFunction(), null, new ArrayList<>(), null));
-		curBB.appendLastInst(new Return(null));
+		var retVar = new I32Value("__init_ret");
+		curBB.appendInst(new Call(((FuncSymbol)scope.findSymbol("main")).getFunction(), null, new ArrayList<>(), retVar));
+		curBB.appendLastInst(new Return(retVar));
 		initFunc.setExitBB(curBB);
 
 		// function & class

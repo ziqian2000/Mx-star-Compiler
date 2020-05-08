@@ -7,6 +7,6 @@ path:
   simulator: /mnt/c/Users/runzhe/IdeaProjects/Compiler/judge
   simulator-executable: ravel
   built-in: /mnt/c/Users/runzhe/IdeaProjects/Compiler/builtin.s
-stage: semantic
-# stage: codegen
+# stage: semantic
+stage: codegen
 timelimit: 100

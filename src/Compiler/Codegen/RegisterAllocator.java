@@ -34,13 +34,6 @@ public class RegisterAllocator {
 	private Set<AsmMove> activeMoves = new LinkedHashSet<>();
 
 	private Set<Edge> adjSet = new LinkedHashSet<>();
-	private Map<Register, Set<Register>> adjList = new HashMap<>();
-	private Map<Register, Integer> degree = new HashMap<>();
-	private Map<Register, Set<AsmMove>> moveList = new HashMap<>();
-	private Map<Register, Register> alias = new HashMap<>();
-	private Map<Register, String> color = new HashMap<>();
-
-	private Map<Register, StackPointerOffset> spillAddr = new HashMap<>();
 
 	public RegisterAllocator(Assembly asm){
 		this.asm = asm;
@@ -89,13 +82,6 @@ public class RegisterAllocator {
 		activeMoves.clear();
 
 		adjSet.clear();
-		adjList.clear();
-		degree.clear();
-		moveList.clear();
-		alias.clear();
-		color.clear();
-
-		spillAddr.clear();
 	}
 
 	private void livenessAnalysis(AsmFunction func){
@@ -149,9 +135,9 @@ public class RegisterAllocator {
 		for(var name : asm.phyRegName){
 			var reg = asm.getPhyReg(name);
 
-			color.put(reg, name);
+			reg.color = name;
 			preColored.add(reg);
-			degree.put(reg, Integer.MAX_VALUE);
+			reg.degree = Integer.MAX_VALUE;
 		}
 
 		// fake initial, consist of all registers, including physical (pre-colored) registers
@@ -164,16 +150,14 @@ public class RegisterAllocator {
 		}
 
 		// new set
-		for(var reg : initial){
-			adjList.put(reg, new LinkedHashSet<>());
-			moveList.put(reg, new LinkedHashSet<>());
-		}
+		initial.forEach(Register::clean);
 
 		// real initial, remove physical (pre-colored) registers
 		initial.removeAll(preColored);
 
 		for(var reg : initial){
-			degree.put(reg, 0);
+			reg.degree = 0;
+			reg.color = null;
 		}
 	}
 
@@ -186,8 +170,8 @@ public class RegisterAllocator {
 				if(ins instanceof AsmMove){
 					live.removeAll(ins.getUseRegister());
 
-					moveList.get(ins.getDefRegister()).add((AsmMove)ins);
-					for(var reg : ins.getUseRegister()) moveList.get(reg).add((AsmMove)ins);
+					ins.getDefRegister().moveList.add((AsmMove)ins);
+					for(var reg : ins.getUseRegister()) reg.moveList.add((AsmMove)ins);
 
 					worklistMoves.add((AsmMove)ins);
 				}
@@ -219,7 +203,7 @@ public class RegisterAllocator {
 
 	private void makeWorklist(){
 		for(var reg : initial) {
-			if(degree.get(reg) >= K) spillWorklist.add(reg);
+			if(reg.degree >= K) spillWorklist.add(reg);
 			else if(moveRelated(reg)) freezeWorklist.add(reg);
 			else{
 				assert !(reg instanceof PhysicalRegister);
@@ -230,14 +214,14 @@ public class RegisterAllocator {
 	}
 
 	private Set<Register> adjacent(Register reg){
-		Set<Register> ret = new LinkedHashSet<>(adjList.get(reg));
+		Set<Register> ret = new LinkedHashSet<>(reg.adjList);
 		ret.removeAll(selectStack);
 		ret.removeAll(coalescedNodes);
 		return ret;
 	}
 
 	private Set<AsmMove> nodeMoves(Register reg){
-		Set<AsmMove> ret = new LinkedHashSet<>(moveList.get(reg));
+		Set<AsmMove> ret = new LinkedHashSet<>(reg.moveList);
 		Set<AsmMove> tmp = new LinkedHashSet<>(activeMoves);
 		tmp.addAll(worklistMoves);
 		ret.retainAll(tmp);
@@ -257,8 +241,8 @@ public class RegisterAllocator {
 	}
 
 	private void decrementDegree(Register reg){
-		int d = degree.get(reg);
-		degree.put(reg, d - 1);
+		int d = reg.degree;
+		reg.degree = d-1;
 		if(d == K){
 			var regs = adjacent(reg);
 			regs.add(reg);
@@ -285,7 +269,7 @@ public class RegisterAllocator {
 	}
 
 	private void addWorklist(Register reg){
-		if(!preColored.contains(reg) && !moveRelated(reg) && degree.get(reg) < K){
+		if(!preColored.contains(reg) && !moveRelated(reg) && reg.degree < K){
 			freezeWorklist.remove(reg);
 			assert !(reg instanceof PhysicalRegister);
 			simplifyWorklist.add(reg);
@@ -293,13 +277,13 @@ public class RegisterAllocator {
 	}
 
 	private boolean OK(Register t, Register r){
-		return degree.get(t) < K || preColored.contains(t) || adjSet.contains(new Edge(t, r));
+		return t.degree < K || preColored.contains(t) || adjSet.contains(new Edge(t, r));
 	}
 
 	private boolean conservative(Set<Register> neighbors){
 		int cnt = 0;
 		for(var reg : neighbors){
-			if(degree.get(reg) >= K) cnt += 1;
+			if(reg.degree >= K) cnt += 1;
 		}
 		return cnt < K;
 	}
@@ -347,21 +331,21 @@ public class RegisterAllocator {
 		freezeWorklist.remove(v);
 		spillWorklist.remove(v);
 		coalescedNodes.add(v);
-		alias.put(v, u);
-		moveList.get(u).addAll(moveList.get(v));
+		v.alias = u;
+		u.moveList.addAll(v.moveList);
 		enableMoves(Collections.singleton(v));
 		for(var nei : adjacent(v)){
 			addEdge(nei, u);
 			decrementDegree(nei);
 		}
-		if(degree.get(u) >= K && freezeWorklist.contains(u)){
+		if(u.degree >= K && freezeWorklist.contains(u)){
 			freezeWorklist.remove(u);
 			spillWorklist.add(u);
 		}
 	}
 
 	private Register getAlias(Register reg){
-		if(coalescedNodes.contains(reg)) return getAlias(alias.get(reg));
+		if(coalescedNodes.contains(reg)) return getAlias(reg.alias);
 		else return reg;
 	}
 
@@ -406,10 +390,10 @@ public class RegisterAllocator {
 
 			Set<String> okColors = new LinkedHashSet<>(Arrays.asList(asm.getAllocatableRegName()));
 
-			for(var nei : adjList.get(reg)){
+			for(var nei : reg.adjList){
 				var trueNei = getAlias(nei);
 				if(coloredNodes.contains(trueNei) || preColored.contains(trueNei)) {
-					okColors.remove(color.get(trueNei));
+					okColors.remove(trueNei.color);
 				}
 			}
 
@@ -435,20 +419,20 @@ public class RegisterAllocator {
 				}
 
 				assert c != null;
-				color.put(reg, c);
+				reg.color = c;
 			}
 		}
 		for (Register reg : coalescedNodes) {
 			assert !(reg instanceof PhysicalRegister);
-			assert color.containsKey(getAlias(reg));
-			color.put(reg, color.get(getAlias(reg)));
+			assert getAlias(reg).color != null;
+			reg.color = getAlias(reg).color;
 		}
 	}
 
 	void rewriteProgram(AsmFunction func){
 
 		for(var spilledReg : spilledNodes){
-			spillAddr.put(spilledReg, new StackPointerOffset(func.stackAllocFromBot(Config.SIZE), true, func, asm.getPhyReg("sp")));
+			spilledReg.spillAddr = new StackPointerOffset(func.stackAllocFromBot(Config.SIZE), true, func, asm.getPhyReg("sp"));
 		}
 
 		for(var BB : func.getBBList()){
@@ -457,21 +441,21 @@ public class RegisterAllocator {
 				nextIns = ins.getNextIns();
 
 				for(var useReg : ins.getUseRegister()){
-					if(spillAddr.containsKey(useReg)){
+					if(useReg.spillAddr != null){
 						// todo : peephole optimization if def == useReg
 						// todo : change MOVE to LOAD in some case
 						assert !(useReg instanceof PhysicalRegister);
 						var tmp = new I32Value("spillUse_" + useReg.getIdentifier());
-						ins.prependIns(new AsmLoad(spillAddr.get(useReg), tmp, Config.SIZE));
+						ins.prependIns(new AsmLoad(useReg.spillAddr, tmp, Config.SIZE));
 						ins.replaceUseRegister(useReg, tmp);
 					}
 				}
-				if(spillAddr.containsKey(ins.getDefRegister())){
+				if(ins.getDefRegister() != null && ins.getDefRegister().spillAddr != null){
 					var defReg = ins.getDefRegister();
 					assert !(defReg instanceof PhysicalRegister);
 					var tmp = new I32Value("spillDef_" + defReg.getIdentifier());
 					ins.replaceDefRegister(tmp);
-					ins.appendIns(new AsmStore(spillAddr.get(defReg), tmp, null, Config.SIZE));
+					ins.appendIns(new AsmStore(defReg.spillAddr, tmp, null, Config.SIZE));
 				}
 			}
 		}
@@ -483,12 +467,12 @@ public class RegisterAllocator {
 		adjSet.add(new Edge(u, v));
 		adjSet.add(new Edge(v, u));
 		if(!preColored.contains(u)){
-			adjList.get(u).add(v);
-			degree.put(u, degree.get(u) + 1);
+			u.adjList.add(v);
+			u.degree += 1;
 		}
 		if(!preColored.contains(v)){
-			adjList.get(v).add(u);
-			degree.put(v, degree.get(v) + 1);
+			v.adjList.add(u);
+			v.degree += 1;
 		}
 	}
 
@@ -498,17 +482,17 @@ public class RegisterAllocator {
 			for(AsmIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 
 				for(var useReg : ins.getUseRegister()){
-					if(!(useReg instanceof PhysicalRegister) && color.containsKey(useReg)){
+					if(!(useReg instanceof PhysicalRegister) && useReg.color != null){
 						assert !useReg.getIdentifier().equals("ra");
-						var tmp = asm.getPhyReg(color.get(useReg));
+						var tmp = asm.getPhyReg(useReg.color);
 						ins.replaceUseRegister(useReg, tmp);
 					}
 				}
 
 				var defReg = ins.getDefRegister();
-				if(defReg != null && !(defReg instanceof PhysicalRegister) && color.containsKey(defReg)){
+				if(defReg != null && !(defReg instanceof PhysicalRegister) && defReg.color != null){
 					assert !defReg.getIdentifier().equals("ra");
-					var tmp = asm.getPhyReg(color.get(defReg));
+					var tmp = asm.getPhyReg(defReg.color);
 					ins.replaceDefRegister(tmp);
 				}
 			}
