@@ -58,7 +58,12 @@ public class GlobalVariableResolving {
 			IRIns targetPosIns = function.getEntryBB().getHeadIns();
 			List<I32Value> globalVarList = globalVarInFunc.get(function);
 			for(I32Value globalVar : globalVarList){
-				targetPosIns.prependIns(new Load(globalVar, globalVar.getAssocGlobal()));
+				if(function.getIdentifier().equals("__init")){
+					var tmp = targetPosIns;
+					while(!(tmp instanceof Store) || ((Store) tmp).getPtr() != globalVar.getAssocGlobal()) tmp = tmp.getNextIns();
+					tmp.appendIns(new Load(globalVar, globalVar.getAssocGlobal()));
+				}
+				else targetPosIns.prependIns(new Load(globalVar, globalVar.getAssocGlobal()));
 			}
 		}
 	}
