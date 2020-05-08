@@ -1,59 +1,33 @@
 func __init {
 unnamed_1(0):
-	call main
-	ret
+	@c(1) = alloc 4
+	store 123 @c(1)
+	%c_tmp.0(2) = load @c(1)
+	@x(3) = alloc 4
+	store %c_tmp.0(2) @c(1)
+	%unnamed_2.0(4) = call lol %c_tmp.0(2)
+	%c_tmp.1(5) = load @c(1)
+	store %unnamed_2.0(4) @x(3)
+	store %c_tmp.1(5) @c(1)
+	%__init_ret.0(6) = call main
+	%c_tmp.2(7) = load @c(1)
+	store %c_tmp.2(7) @c(1)
+	ret %__init_ret.0(6)
+}
+
+func lol %x.0(8) {
+entry(9):
+	%unnamed_3.0(10) = add %x.0(8) 1
+	ret %unnamed_3.0(10)
 }
 
 func main {
-entry(1):
-	%n.0(2) = move 5
-	%sum.0(3) = move 0
-	%i.0(4) = move 1
-	%sum.1(5) = move %sum.0(3)
-	%i.1(6) = move %i.0(4)
-	%extra(7) = move %sum.1(5)
-	%sum.1(5) = move %sum.1(5)
-	%extra(7) = move %i.1(6)
-	%j.0(8) = move 0
-	jump unnamed_2(9)
-unnamed_2(9):
-	%unnamed_2.0(10) = le %i.1(6) %n.0(2)
-	br %unnamed_2.0(10) splitting(11) splitting(12)
-splitting(11):
-	%j.1(13) = move 1
-	%sum.2(14) = move %sum.1(5)
-	%j.2(15) = move %j.1(13)
-	%extra(16) = move %sum.2(14)
-	%sum.2(14) = move %sum.2(14)
-	%extra(16) = move %j.2(15)
-	jump unnamed_6(17)
-unnamed_6(17):
-	%unnamed_3.0(18) = le %j.2(15) %n.0(2)
-	br %unnamed_3.0(18) splitting(19) splitting(20)
-splitting(19):
-	%unnamed_4.0(21) = add %sum.2(14) %i.1(6)
-	%sum.3(22) = move %unnamed_4.0(21)
-	%j.3(23) = add %j.2(15) 1
-	%sum.2(14) = move %sum.3(22)
-	%j.2(15) = move %j.3(23)
-	%extra(24) = move %sum.2(14)
-	%sum.2(14) = move %sum.2(14)
-	%extra(24) = move %j.2(15)
-	jump unnamed_6(17)
-splitting(20):
-	%unnamed_5.0(25) = add %sum.2(14) 1
-	%sum.4(26) = move %unnamed_5.0(25)
-	%i.2(27) = add %i.1(6) 1
-	%sum.1(5) = move %sum.4(26)
-	%j.0(8) = move %j.2(15)
-	%i.1(6) = move %i.2(27)
-	%extra(28) = move %sum.1(5)
-	%sum.1(5) = move %sum.1(5)
-	%extra(28) = move %j.0(8)
-	%j.0(8) = move %j.0(8)
-	%extra(28) = move %i.1(6)
-	jump unnamed_2(9)
-splitting(12):
-	ret %sum.1(5)
+entry(11):
+	%x_tmp.0(12) = load @x(3)
+	store %x_tmp.0(12) @x(3)
+	call printInt %x_tmp.0(12)
+	%x_tmp.1(13) = load @x(3)
+	store %x_tmp.1(13) @x(3)
+	ret %x_tmp.1(13)
 }
 

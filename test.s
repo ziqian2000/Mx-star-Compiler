@@ -1,57 +1,54 @@
 	.section	.data
 
+	.globl	c
+c:
+	.zero	4
+
+	.globl	x
+x:
+	.zero	4
+
 	.text
 
 	.globl	main
 main:
 .unnamed_1_0:
 	addi	sp, sp, -16
-	sw	s0, 12(sp)
+	sw	s0, 8(sp)
+	sw	s1, 12(sp)
 	mv	s0, ra
+	li	a0, 4
+	call	malloc
+	li	t0, 123
+	sw	t0, c, ra
+	lw	s1, c
+	li	a0, 4
+	call	malloc
+	sw	s1, c, ra
+	mv	a0, s1
+	call	lol
+	lw	t0, c
+	sw	a0, x, ra
+	sw	t0, c, ra
 	call	_main
+	lw	t0, c
+	sw	t0, c, ra
 	mv	ra, s0
-	lw	s0, 12(sp)
+	lw	s0, 8(sp)
+	lw	s1, 12(sp)
 	addi	sp, sp, 16
+	ret
+
+	.globl	lol
+lol:
+.entry_1:
+	addi	a0, a0, 1
 	ret
 
 	.globl	_main
 _main:
-.entry_1:
-	li	a1, 5
-	li	a0, 0
-	li	t1, 1
-	mv	t0, a0
-	mv	t0, t1
-	li	t0, 0
-	j	.unnamed_2_2
-.unnamed_2_2:
-	slt	t0, a1, t1
-	xori	t0, t0, 1
-	bne	t0, zero, .splitting_3
-	j	.splitting_4
-.splitting_4:
+.entry_2:
+	lw	a0, x
+	sw	a0, x, t0
 	ret
-.splitting_3:
-	li	t0, 1
-	mv	t2, a0
-	mv	t2, t0
-	j	.unnamed_6_5
-.unnamed_6_5:
-	slt	t2, a1, t0
-	xori	t2, t2, 1
-	bne	t2, zero, .splitting_6
-	j	.splitting_7
-.splitting_6:
-	add	a0, a0, t1
-	addi	t0, t0, 1
-	mv	t2, a0
-	mv	t2, t0
-	j	.unnamed_6_5
-.splitting_7:
-	addi	a0, a0, 1
-	addi	t1, t1, 1
-	mv	t2, a0
-	mv	t2, t0
-	mv	t2, t1
-	j	.unnamed_2_2
 
