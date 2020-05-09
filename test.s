@@ -2062,9 +2062,15 @@ unnamed_1807:
 
 	.text
 
+	.globl	array.size
+array.size:
+.unnamed_0_0:
+	lw	a0, 0(a0)
+	ret
+
 	.globl	main
 main:
-.unnamed_1_0:
+.unnamed_1_1:
 	addi	sp, sp, -16
 	sw	s0, 12(sp)
 	mv	s0, ra
@@ -2078,7 +2084,7 @@ main:
 
 	.globl	getcount
 getcount:
-.entry_1:
+.entry_2:
 	li	t1, 1
 	li	t0, 4
 	mul	t0, t1, t0
@@ -2091,6968 +2097,3384 @@ getcount:
 
 	.globl	_main
 _main:
-.entry_2:
+.entry_3:
 	addi	sp, sp, -1040
-	sw	s0, 12(sp)
-	sw	s1, 16(sp)
-	sw	s2, 20(sp)
-	sw	s3, 24(sp)
-	sw	s4, 28(sp)
-	sw	s5, 32(sp)
-	sw	s6, 36(sp)
-	sw	s7, 40(sp)
-	sw	s8, 44(sp)
-	sw	s9, 48(sp)
-	sw	s10, 52(sp)
-	sw	s11, 56(sp)
-	sw	ra, 60(sp)
+	sw	s0, 8(sp)
+	sw	s1, 12(sp)
+	sw	s2, 16(sp)
+	sw	s3, 20(sp)
+	sw	s4, 24(sp)
+	sw	s5, 28(sp)
+	sw	s6, 32(sp)
+	sw	s7, 36(sp)
+	sw	s8, 40(sp)
+	sw	s9, 44(sp)
+	sw	s10, 48(sp)
+	sw	s11, 52(sp)
+	sw	ra, 56(sp)
 	lw	ra, count
 	li	ra, 4
 	addi	a0, ra, 4
 	call	malloc
 	li	ra, 1
 	sw	ra, 0(a0)
+	sw	a0, 60(sp)
 	li	t0, 1
 	li	ra, 4
-	mul	ra, t0, ra
-	add	t0, a0, ra
+	mul	t0, t0, ra
+	lw	ra, 60(sp)
+	add	t0, ra, t0
 	lw	ra, 0(t0)
 	li	ra, 0
 	sw	ra, 0(t0)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 64(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 68(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 72(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 76(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 80(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 84(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 88(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 92(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 96(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 100(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 104(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 108(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 112(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 116(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 120(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 124(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 128(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 132(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 136(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 140(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 144(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 148(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 152(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 156(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 160(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 164(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 168(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 172(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 176(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 180(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 184(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 188(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 192(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 196(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 200(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 204(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 208(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 212(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 216(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 220(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 224(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 228(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 232(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 236(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 240(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 244(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 248(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 252(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 256(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 260(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 264(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 268(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 272(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 276(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 280(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 284(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 288(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 292(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 296(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 300(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 304(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 308(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 312(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 316(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 320(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 324(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 328(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 332(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 336(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 340(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 344(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 348(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 352(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 356(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 360(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 364(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 368(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 372(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 376(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 380(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 384(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 388(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 392(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 396(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 400(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 404(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 408(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 412(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 416(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 420(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 424(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 428(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 432(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 436(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 440(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 444(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 448(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 452(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 456(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 460(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 464(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 468(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 472(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 476(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 480(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 484(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 488(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 492(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 496(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 500(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 504(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 508(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 512(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 516(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 520(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 524(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 528(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 532(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 536(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 540(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 544(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 548(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 552(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 556(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 560(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 564(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 568(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 572(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 576(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 580(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 584(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 588(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 592(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 596(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 600(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 604(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 608(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 612(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 616(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 620(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 624(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 628(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 632(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 636(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 640(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 644(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 648(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 652(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 656(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 660(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 664(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 668(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 672(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 676(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 680(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 684(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 688(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 692(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 696(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 700(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 704(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 708(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 712(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 716(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 720(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 724(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 728(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 732(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 736(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 740(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 744(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 748(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 752(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 756(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 760(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 764(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 768(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 772(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 776(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 780(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 784(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 788(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 792(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 796(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 800(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 804(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 808(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 812(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 816(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 820(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 824(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 828(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 832(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 836(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 840(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 844(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 848(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 852(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 856(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 860(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 864(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 868(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 872(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 876(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 880(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 884(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 888(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 892(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 896(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 900(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 904(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 908(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 912(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 916(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 920(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 924(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 928(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 932(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 936(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 940(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 944(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 948(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 952(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 956(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 960(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 964(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 968(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 972(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 976(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 980(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 984(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 988(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 992(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 996(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 1000(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 1004(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 1008(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 1012(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 1016(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 1020(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 1024(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 1028(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 1032(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	sw	ra, 1036(sp)
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s11, ra
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s6, ra
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s9, ra
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s1, ra
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s2, ra
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s8, ra
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s0, ra
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s7, ra
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s3, ra
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s10, ra
-	sw	a0, count, ra
-	call	getcount
-	mv	ra, a0
-	lw	a0, count
-	mv	s4, ra
-	sw	a0, count, ra
-	call	getcount
-	lw	t0, count
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 64(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 68(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 72(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 76(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 80(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 84(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 88(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 92(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 96(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 100(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 104(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 108(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 112(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 116(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 120(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 124(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 128(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 132(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 136(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 140(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 144(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 148(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 152(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 156(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 160(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 164(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 168(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 172(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 176(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 180(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 184(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 188(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 192(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 196(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 200(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 204(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 208(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 212(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 216(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 220(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 224(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 228(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 232(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 236(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 240(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 244(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 248(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 252(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 256(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 260(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 264(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 268(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 272(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 276(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 280(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 284(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 288(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 292(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 296(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 300(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 304(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 308(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 312(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 316(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 320(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 324(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 328(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 332(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 336(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 340(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 344(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 348(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 352(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 356(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 360(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 364(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 368(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 372(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 376(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 380(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 384(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 388(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 392(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 396(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 400(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 404(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 408(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 412(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 416(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 420(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 424(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 428(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 432(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 436(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 440(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 444(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 448(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 452(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 456(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 460(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 464(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 468(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 472(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 476(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 480(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 484(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 488(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 492(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 496(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 500(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 504(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 508(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 512(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 516(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 520(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 524(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 528(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 532(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 536(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 540(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 544(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 548(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 552(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 556(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 560(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 564(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 568(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 572(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 576(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 580(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 584(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 588(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 592(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 596(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 600(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 604(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 608(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 612(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 616(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 620(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 624(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 628(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 632(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 636(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 640(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 644(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 648(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 652(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 656(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 660(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 664(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 668(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 672(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 676(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 680(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 684(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 688(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 692(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 696(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 700(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 704(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 708(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 712(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 716(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 720(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 724(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 728(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 732(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 736(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 740(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 744(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 748(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 752(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 756(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 760(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 764(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 768(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 772(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 776(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 780(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 784(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 788(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 792(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 796(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 800(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 804(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 808(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 812(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 816(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 820(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 824(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 828(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 832(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 836(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 840(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 844(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 848(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 852(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 856(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 860(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 864(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 868(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 872(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 876(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 880(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 884(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 888(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 892(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 896(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 900(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 904(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 908(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 912(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 916(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 920(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 924(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 928(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 932(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 936(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 940(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 944(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 948(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 952(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 956(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 960(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 964(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 968(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 972(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 976(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 980(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 984(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 988(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 992(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 996(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 1000(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 1004(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 1008(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 1012(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 1016(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 1020(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 1024(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 1028(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 1032(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	sw	a0, 1036(sp)
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s11, a0
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s9, a0
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s3, a0
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s1, a0
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s7, a0
+	lw	a0, 60(sp)
+	call	getcount
 	mv	s5, a0
-	sw	t0, count, ra
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s2, a0
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s10, a0
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s0, a0
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s4, a0
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s6, a0
+	lw	a0, 60(sp)
+	call	getcount
+	mv	s8, a0
 	lw	a0, 64(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_271
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 68(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_274
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 72(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_277
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 76(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_280
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 80(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_283
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 84(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_286
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 88(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_289
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 92(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_292
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 96(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_295
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 100(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_298
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 104(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_301
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 108(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_304
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 112(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_307
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 116(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_310
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 120(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_313
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 124(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_316
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 128(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_319
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 132(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_322
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 136(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_325
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 140(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_328
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 144(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_331
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 148(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_334
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 152(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_337
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 156(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_340
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 160(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_343
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 164(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_346
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 168(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_349
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 172(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_352
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 176(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_355
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 180(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_358
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 184(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_361
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 188(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_364
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 192(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_367
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 196(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_370
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 200(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_373
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 204(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_376
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 208(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_379
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 212(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_382
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 216(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_385
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 220(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_388
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 224(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_391
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 228(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_394
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 232(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_397
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 236(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_400
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 240(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_403
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 244(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_406
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 248(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_409
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 252(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_412
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 256(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_415
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 260(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_418
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 264(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_421
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 268(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_424
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 272(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_427
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 276(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_430
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 280(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_433
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 284(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_436
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 288(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_439
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 292(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_442
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 296(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_445
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 300(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_448
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 304(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_451
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 308(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_454
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 312(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_457
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 316(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_460
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 320(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_463
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 324(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_466
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 328(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_469
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 332(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_472
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 336(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_475
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 340(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_478
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 344(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_481
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 348(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_484
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 352(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_487
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 356(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_490
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 360(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_493
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 364(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_496
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 368(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_499
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 372(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_502
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 376(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_505
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 380(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_508
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 384(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_511
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 388(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_514
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 392(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_517
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 396(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_520
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 400(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_523
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 404(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_526
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 408(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_529
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 412(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_532
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 416(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_535
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 420(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_538
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 424(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_541
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 428(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_544
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 432(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_547
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 436(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_550
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 440(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_553
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 444(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_556
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 448(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_559
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 452(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_562
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 456(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_565
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 460(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_568
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 464(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_571
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 468(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_574
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 472(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_577
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 476(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_580
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 480(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_583
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 484(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_586
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 488(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_589
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 492(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_592
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 496(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_595
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 500(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_598
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 504(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_601
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 508(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_604
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 512(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_607
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 516(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_610
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 520(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_613
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 524(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_616
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 528(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_619
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 532(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_622
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 536(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_625
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 540(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_628
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 544(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_631
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 548(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_634
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 552(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_637
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 556(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_640
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 560(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_643
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 564(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_646
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 568(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_649
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 572(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_652
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 576(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_655
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 580(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_658
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 584(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_661
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 588(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_664
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 592(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_667
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 596(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_670
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 600(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_673
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 604(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_676
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 608(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_679
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 612(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_682
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 616(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_685
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 620(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_688
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 624(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_691
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 628(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_694
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 632(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_697
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 636(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_700
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 640(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_703
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 644(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_706
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 648(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_709
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 652(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_712
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 656(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_715
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 660(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_718
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 664(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_721
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 668(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_724
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 672(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_727
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 676(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_730
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 680(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_733
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 684(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_736
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 688(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_739
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 692(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_742
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 696(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_745
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 700(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_748
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 704(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_751
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 708(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_754
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 712(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_757
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 716(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_760
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 720(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_763
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 724(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_766
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 728(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_769
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 732(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_772
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 736(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_775
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 740(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_778
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 744(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_781
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 748(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_784
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 752(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_787
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 756(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_790
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 760(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_793
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 764(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_796
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 768(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_799
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 772(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_802
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 776(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_805
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 780(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_808
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 784(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_811
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 788(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_814
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 792(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_817
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 796(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_820
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 800(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_823
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 804(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_826
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 808(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_829
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 812(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_832
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 816(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_835
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 820(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_838
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 824(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_841
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 828(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_844
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 832(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_847
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 836(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_850
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 840(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_853
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 844(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_856
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 848(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_859
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 852(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_862
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 856(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_865
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 860(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_868
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 864(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_871
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 868(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_874
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 872(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_877
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 876(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_880
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 880(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_883
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 884(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_886
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 888(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_889
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 892(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_892
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 896(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_895
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 900(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_898
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 904(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_901
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 908(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_904
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 912(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_907
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 916(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_910
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 920(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_913
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 924(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_916
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 928(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_919
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 932(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_922
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 936(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_925
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 940(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_928
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 944(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_931
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 948(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_934
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 952(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_937
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 956(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_940
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 960(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_943
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 964(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_946
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 968(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_949
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 972(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_952
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 976(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_955
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 980(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_958
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 984(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_961
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 988(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_964
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 992(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_967
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 996(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_970
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 1000(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_973
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 1004(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_976
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 1008(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_979
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 1012(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_982
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 1016(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_985
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 1020(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_988
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 1024(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_991
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 1028(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_994
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 1032(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_997
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	lw	a0, 1036(sp)
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_1000
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	mv	a0, s11
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_1003
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s6
+	mv	a0, s9
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_1006
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s9
+	mv	a0, s3
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_1009
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	mv	a0, s1
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_1012
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s2
+	mv	a0, s7
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_1015
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s8
+	mv	a0, s5
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
 	la	a1, unnamed_1018
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s0
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1021
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s7
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1024
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s3
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1027
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s10
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1030
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s4
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1033
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s5
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1036
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	la	a0, unnamed_1038
-	call	println
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 64(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1040
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 68(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1043
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 72(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1046
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 76(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1049
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 80(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1052
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 84(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1055
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 88(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1058
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 92(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1061
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 96(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1064
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 100(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1067
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 104(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1070
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 108(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1073
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 112(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1076
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 116(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1079
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 120(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1082
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 124(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1085
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 128(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1088
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 132(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1091
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 136(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1094
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 140(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1097
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 144(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1100
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 148(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1103
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 152(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1106
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 156(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1109
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 160(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1112
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 164(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1115
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 168(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1118
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 172(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1121
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 176(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1124
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 180(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1127
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 184(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1130
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 188(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1133
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 192(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1136
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 196(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1139
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 200(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1142
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 204(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1145
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 208(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1148
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 212(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1151
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 216(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1154
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 220(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1157
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 224(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1160
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 228(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1163
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 232(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1166
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 236(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1169
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 240(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1172
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 244(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1175
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 248(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1178
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 252(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1181
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 256(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1184
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 260(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1187
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 264(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1190
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 268(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1193
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 272(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1196
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 276(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1199
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 280(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1202
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 284(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1205
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 288(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1208
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 292(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1211
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 296(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1214
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 300(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1217
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 304(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1220
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 308(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1223
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 312(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1226
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 316(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1229
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 320(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1232
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 324(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1235
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 328(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1238
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 332(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1241
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 336(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1244
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 340(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1247
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 344(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1250
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 348(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1253
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 352(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1256
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 356(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1259
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 360(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1262
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 364(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1265
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 368(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1268
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 372(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1271
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 376(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1274
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 380(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1277
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 384(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1280
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 388(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1283
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 392(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1286
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 396(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1289
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 400(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1292
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 404(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1295
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 408(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1298
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 412(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1301
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 416(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1304
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 420(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1307
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 424(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1310
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 428(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1313
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 432(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1316
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 436(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1319
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 440(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1322
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 444(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1325
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 448(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1328
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 452(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1331
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 456(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1334
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 460(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1337
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 464(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1340
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 468(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1343
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 472(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1346
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 476(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1349
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 480(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1352
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 484(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1355
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 488(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1358
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 492(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1361
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 496(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1364
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 500(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1367
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 504(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1370
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 508(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1373
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 512(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1376
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 516(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1379
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 520(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1382
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 524(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1385
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 528(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1388
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 532(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1391
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 536(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1394
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 540(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1397
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 544(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1400
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 548(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1403
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 552(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1406
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 556(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1409
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 560(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1412
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 564(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1415
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 568(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1418
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 572(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1421
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 576(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1424
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 580(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1427
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 584(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1430
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 588(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1433
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 592(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1436
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 596(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1439
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 600(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1442
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 604(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1445
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 608(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1448
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 612(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1451
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 616(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1454
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 620(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1457
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 624(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1460
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 628(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1463
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 632(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1466
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 636(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1469
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 640(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1472
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 644(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1475
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 648(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1478
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 652(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1481
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 656(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1484
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 660(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1487
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 664(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1490
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 668(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1493
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 672(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1496
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 676(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1499
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 680(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1502
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 684(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1505
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 688(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1508
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 692(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1511
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 696(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1514
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 700(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1517
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 704(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1520
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 708(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1523
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 712(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1526
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 716(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1529
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 720(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1532
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 724(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1535
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 728(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1538
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 732(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1541
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 736(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1544
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 740(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1547
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 744(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1550
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 748(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1553
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 752(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1556
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 756(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1559
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 760(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1562
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 764(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1565
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 768(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1568
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 772(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1571
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 776(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1574
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 780(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1577
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 784(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1580
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 788(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1583
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 792(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1586
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 796(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1589
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 800(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1592
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 804(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1595
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 808(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1598
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 812(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1601
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 816(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1604
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 820(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1607
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 824(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1610
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 828(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1613
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 832(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1616
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 836(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1619
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 840(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1622
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 844(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1625
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 848(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1628
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 852(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1631
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 856(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1634
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 860(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1637
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 864(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1640
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 868(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1643
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 872(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1646
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 876(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1649
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 880(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1652
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 884(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1655
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 888(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1658
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 892(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1661
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 896(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1664
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 900(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1667
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 904(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1670
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 908(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1673
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 912(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1676
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 916(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1679
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 920(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1682
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 924(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1685
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 928(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1688
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 932(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1691
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 936(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1694
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 940(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1697
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 944(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1700
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 948(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1703
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 952(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1706
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 956(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1709
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 960(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1712
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 964(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1715
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 968(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1718
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 972(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1721
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 976(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1724
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 980(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1727
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 984(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1730
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 988(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1733
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 992(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1736
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 996(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1739
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 1000(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1742
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 1004(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1745
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 1008(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1748
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 1012(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1751
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 1016(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1754
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 1020(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1757
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 1024(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1760
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 1028(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1763
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 1032(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1766
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	lw	a0, 1036(sp)
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1769
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s11
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1772
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s6
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1775
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s9
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1778
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s1
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1781
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	mv	a0, s2
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1784
+	la	a1, unnamed_1021
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s8
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1787
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s0
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1790
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s7
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1793
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
-	mv	a0, s3
-	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1796
-	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
-	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	mv	a0, s10
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1799
+	la	a1, unnamed_1024
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
+	mv	a0, s0
+	call	toString
+	la	a1, unnamed_1027
+	call	string_add
+	call	print
 	mv	a0, s4
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
-	la	a1, unnamed_1802
+	la	a1, unnamed_1030
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
+	mv	a0, s6
+	call	toString
+	la	a1, unnamed_1033
+	call	string_add
+	call	print
+	mv	a0, s8
+	call	toString
+	la	a1, unnamed_1036
+	call	string_add
+	call	print
+	la	a0, unnamed_1038
+	call	println
+	lw	a0, 64(sp)
+	call	toString
+	la	a1, unnamed_1040
+	call	string_add
+	call	print
+	lw	a0, 68(sp)
+	call	toString
+	la	a1, unnamed_1043
+	call	string_add
+	call	print
+	lw	a0, 72(sp)
+	call	toString
+	la	a1, unnamed_1046
+	call	string_add
+	call	print
+	lw	a0, 76(sp)
+	call	toString
+	la	a1, unnamed_1049
+	call	string_add
+	call	print
+	lw	a0, 80(sp)
+	call	toString
+	la	a1, unnamed_1052
+	call	string_add
+	call	print
+	lw	a0, 84(sp)
+	call	toString
+	la	a1, unnamed_1055
+	call	string_add
+	call	print
+	lw	a0, 88(sp)
+	call	toString
+	la	a1, unnamed_1058
+	call	string_add
+	call	print
+	lw	a0, 92(sp)
+	call	toString
+	la	a1, unnamed_1061
+	call	string_add
+	call	print
+	lw	a0, 96(sp)
+	call	toString
+	la	a1, unnamed_1064
+	call	string_add
+	call	print
+	lw	a0, 100(sp)
+	call	toString
+	la	a1, unnamed_1067
+	call	string_add
+	call	print
+	lw	a0, 104(sp)
+	call	toString
+	la	a1, unnamed_1070
+	call	string_add
+	call	print
+	lw	a0, 108(sp)
+	call	toString
+	la	a1, unnamed_1073
+	call	string_add
+	call	print
+	lw	a0, 112(sp)
+	call	toString
+	la	a1, unnamed_1076
+	call	string_add
+	call	print
+	lw	a0, 116(sp)
+	call	toString
+	la	a1, unnamed_1079
+	call	string_add
+	call	print
+	lw	a0, 120(sp)
+	call	toString
+	la	a1, unnamed_1082
+	call	string_add
+	call	print
+	lw	a0, 124(sp)
+	call	toString
+	la	a1, unnamed_1085
+	call	string_add
+	call	print
+	lw	a0, 128(sp)
+	call	toString
+	la	a1, unnamed_1088
+	call	string_add
+	call	print
+	lw	a0, 132(sp)
+	call	toString
+	la	a1, unnamed_1091
+	call	string_add
+	call	print
+	lw	a0, 136(sp)
+	call	toString
+	la	a1, unnamed_1094
+	call	string_add
+	call	print
+	lw	a0, 140(sp)
+	call	toString
+	la	a1, unnamed_1097
+	call	string_add
+	call	print
+	lw	a0, 144(sp)
+	call	toString
+	la	a1, unnamed_1100
+	call	string_add
+	call	print
+	lw	a0, 148(sp)
+	call	toString
+	la	a1, unnamed_1103
+	call	string_add
+	call	print
+	lw	a0, 152(sp)
+	call	toString
+	la	a1, unnamed_1106
+	call	string_add
+	call	print
+	lw	a0, 156(sp)
+	call	toString
+	la	a1, unnamed_1109
+	call	string_add
+	call	print
+	lw	a0, 160(sp)
+	call	toString
+	la	a1, unnamed_1112
+	call	string_add
+	call	print
+	lw	a0, 164(sp)
+	call	toString
+	la	a1, unnamed_1115
+	call	string_add
+	call	print
+	lw	a0, 168(sp)
+	call	toString
+	la	a1, unnamed_1118
+	call	string_add
+	call	print
+	lw	a0, 172(sp)
+	call	toString
+	la	a1, unnamed_1121
+	call	string_add
+	call	print
+	lw	a0, 176(sp)
+	call	toString
+	la	a1, unnamed_1124
+	call	string_add
+	call	print
+	lw	a0, 180(sp)
+	call	toString
+	la	a1, unnamed_1127
+	call	string_add
+	call	print
+	lw	a0, 184(sp)
+	call	toString
+	la	a1, unnamed_1130
+	call	string_add
+	call	print
+	lw	a0, 188(sp)
+	call	toString
+	la	a1, unnamed_1133
+	call	string_add
+	call	print
+	lw	a0, 192(sp)
+	call	toString
+	la	a1, unnamed_1136
+	call	string_add
+	call	print
+	lw	a0, 196(sp)
+	call	toString
+	la	a1, unnamed_1139
+	call	string_add
+	call	print
+	lw	a0, 200(sp)
+	call	toString
+	la	a1, unnamed_1142
+	call	string_add
+	call	print
+	lw	a0, 204(sp)
+	call	toString
+	la	a1, unnamed_1145
+	call	string_add
+	call	print
+	lw	a0, 208(sp)
+	call	toString
+	la	a1, unnamed_1148
+	call	string_add
+	call	print
+	lw	a0, 212(sp)
+	call	toString
+	la	a1, unnamed_1151
+	call	string_add
+	call	print
+	lw	a0, 216(sp)
+	call	toString
+	la	a1, unnamed_1154
+	call	string_add
+	call	print
+	lw	a0, 220(sp)
+	call	toString
+	la	a1, unnamed_1157
+	call	string_add
+	call	print
+	lw	a0, 224(sp)
+	call	toString
+	la	a1, unnamed_1160
+	call	string_add
+	call	print
+	lw	a0, 228(sp)
+	call	toString
+	la	a1, unnamed_1163
+	call	string_add
+	call	print
+	lw	a0, 232(sp)
+	call	toString
+	la	a1, unnamed_1166
+	call	string_add
+	call	print
+	lw	a0, 236(sp)
+	call	toString
+	la	a1, unnamed_1169
+	call	string_add
+	call	print
+	lw	a0, 240(sp)
+	call	toString
+	la	a1, unnamed_1172
+	call	string_add
+	call	print
+	lw	a0, 244(sp)
+	call	toString
+	la	a1, unnamed_1175
+	call	string_add
+	call	print
+	lw	a0, 248(sp)
+	call	toString
+	la	a1, unnamed_1178
+	call	string_add
+	call	print
+	lw	a0, 252(sp)
+	call	toString
+	la	a1, unnamed_1181
+	call	string_add
+	call	print
+	lw	a0, 256(sp)
+	call	toString
+	la	a1, unnamed_1184
+	call	string_add
+	call	print
+	lw	a0, 260(sp)
+	call	toString
+	la	a1, unnamed_1187
+	call	string_add
+	call	print
+	lw	a0, 264(sp)
+	call	toString
+	la	a1, unnamed_1190
+	call	string_add
+	call	print
+	lw	a0, 268(sp)
+	call	toString
+	la	a1, unnamed_1193
+	call	string_add
+	call	print
+	lw	a0, 272(sp)
+	call	toString
+	la	a1, unnamed_1196
+	call	string_add
+	call	print
+	lw	a0, 276(sp)
+	call	toString
+	la	a1, unnamed_1199
+	call	string_add
+	call	print
+	lw	a0, 280(sp)
+	call	toString
+	la	a1, unnamed_1202
+	call	string_add
+	call	print
+	lw	a0, 284(sp)
+	call	toString
+	la	a1, unnamed_1205
+	call	string_add
+	call	print
+	lw	a0, 288(sp)
+	call	toString
+	la	a1, unnamed_1208
+	call	string_add
+	call	print
+	lw	a0, 292(sp)
+	call	toString
+	la	a1, unnamed_1211
+	call	string_add
+	call	print
+	lw	a0, 296(sp)
+	call	toString
+	la	a1, unnamed_1214
+	call	string_add
+	call	print
+	lw	a0, 300(sp)
+	call	toString
+	la	a1, unnamed_1217
+	call	string_add
+	call	print
+	lw	a0, 304(sp)
+	call	toString
+	la	a1, unnamed_1220
+	call	string_add
+	call	print
+	lw	a0, 308(sp)
+	call	toString
+	la	a1, unnamed_1223
+	call	string_add
+	call	print
+	lw	a0, 312(sp)
+	call	toString
+	la	a1, unnamed_1226
+	call	string_add
+	call	print
+	lw	a0, 316(sp)
+	call	toString
+	la	a1, unnamed_1229
+	call	string_add
+	call	print
+	lw	a0, 320(sp)
+	call	toString
+	la	a1, unnamed_1232
+	call	string_add
+	call	print
+	lw	a0, 324(sp)
+	call	toString
+	la	a1, unnamed_1235
+	call	string_add
+	call	print
+	lw	a0, 328(sp)
+	call	toString
+	la	a1, unnamed_1238
+	call	string_add
+	call	print
+	lw	a0, 332(sp)
+	call	toString
+	la	a1, unnamed_1241
+	call	string_add
+	call	print
+	lw	a0, 336(sp)
+	call	toString
+	la	a1, unnamed_1244
+	call	string_add
+	call	print
+	lw	a0, 340(sp)
+	call	toString
+	la	a1, unnamed_1247
+	call	string_add
+	call	print
+	lw	a0, 344(sp)
+	call	toString
+	la	a1, unnamed_1250
+	call	string_add
+	call	print
+	lw	a0, 348(sp)
+	call	toString
+	la	a1, unnamed_1253
+	call	string_add
+	call	print
+	lw	a0, 352(sp)
+	call	toString
+	la	a1, unnamed_1256
+	call	string_add
+	call	print
+	lw	a0, 356(sp)
+	call	toString
+	la	a1, unnamed_1259
+	call	string_add
+	call	print
+	lw	a0, 360(sp)
+	call	toString
+	la	a1, unnamed_1262
+	call	string_add
+	call	print
+	lw	a0, 364(sp)
+	call	toString
+	la	a1, unnamed_1265
+	call	string_add
+	call	print
+	lw	a0, 368(sp)
+	call	toString
+	la	a1, unnamed_1268
+	call	string_add
+	call	print
+	lw	a0, 372(sp)
+	call	toString
+	la	a1, unnamed_1271
+	call	string_add
+	call	print
+	lw	a0, 376(sp)
+	call	toString
+	la	a1, unnamed_1274
+	call	string_add
+	call	print
+	lw	a0, 380(sp)
+	call	toString
+	la	a1, unnamed_1277
+	call	string_add
+	call	print
+	lw	a0, 384(sp)
+	call	toString
+	la	a1, unnamed_1280
+	call	string_add
+	call	print
+	lw	a0, 388(sp)
+	call	toString
+	la	a1, unnamed_1283
+	call	string_add
+	call	print
+	lw	a0, 392(sp)
+	call	toString
+	la	a1, unnamed_1286
+	call	string_add
+	call	print
+	lw	a0, 396(sp)
+	call	toString
+	la	a1, unnamed_1289
+	call	string_add
+	call	print
+	lw	a0, 400(sp)
+	call	toString
+	la	a1, unnamed_1292
+	call	string_add
+	call	print
+	lw	a0, 404(sp)
+	call	toString
+	la	a1, unnamed_1295
+	call	string_add
+	call	print
+	lw	a0, 408(sp)
+	call	toString
+	la	a1, unnamed_1298
+	call	string_add
+	call	print
+	lw	a0, 412(sp)
+	call	toString
+	la	a1, unnamed_1301
+	call	string_add
+	call	print
+	lw	a0, 416(sp)
+	call	toString
+	la	a1, unnamed_1304
+	call	string_add
+	call	print
+	lw	a0, 420(sp)
+	call	toString
+	la	a1, unnamed_1307
+	call	string_add
+	call	print
+	lw	a0, 424(sp)
+	call	toString
+	la	a1, unnamed_1310
+	call	string_add
+	call	print
+	lw	a0, 428(sp)
+	call	toString
+	la	a1, unnamed_1313
+	call	string_add
+	call	print
+	lw	a0, 432(sp)
+	call	toString
+	la	a1, unnamed_1316
+	call	string_add
+	call	print
+	lw	a0, 436(sp)
+	call	toString
+	la	a1, unnamed_1319
+	call	string_add
+	call	print
+	lw	a0, 440(sp)
+	call	toString
+	la	a1, unnamed_1322
+	call	string_add
+	call	print
+	lw	a0, 444(sp)
+	call	toString
+	la	a1, unnamed_1325
+	call	string_add
+	call	print
+	lw	a0, 448(sp)
+	call	toString
+	la	a1, unnamed_1328
+	call	string_add
+	call	print
+	lw	a0, 452(sp)
+	call	toString
+	la	a1, unnamed_1331
+	call	string_add
+	call	print
+	lw	a0, 456(sp)
+	call	toString
+	la	a1, unnamed_1334
+	call	string_add
+	call	print
+	lw	a0, 460(sp)
+	call	toString
+	la	a1, unnamed_1337
+	call	string_add
+	call	print
+	lw	a0, 464(sp)
+	call	toString
+	la	a1, unnamed_1340
+	call	string_add
+	call	print
+	lw	a0, 468(sp)
+	call	toString
+	la	a1, unnamed_1343
+	call	string_add
+	call	print
+	lw	a0, 472(sp)
+	call	toString
+	la	a1, unnamed_1346
+	call	string_add
+	call	print
+	lw	a0, 476(sp)
+	call	toString
+	la	a1, unnamed_1349
+	call	string_add
+	call	print
+	lw	a0, 480(sp)
+	call	toString
+	la	a1, unnamed_1352
+	call	string_add
+	call	print
+	lw	a0, 484(sp)
+	call	toString
+	la	a1, unnamed_1355
+	call	string_add
+	call	print
+	lw	a0, 488(sp)
+	call	toString
+	la	a1, unnamed_1358
+	call	string_add
+	call	print
+	lw	a0, 492(sp)
+	call	toString
+	la	a1, unnamed_1361
+	call	string_add
+	call	print
+	lw	a0, 496(sp)
+	call	toString
+	la	a1, unnamed_1364
+	call	string_add
+	call	print
+	lw	a0, 500(sp)
+	call	toString
+	la	a1, unnamed_1367
+	call	string_add
+	call	print
+	lw	a0, 504(sp)
+	call	toString
+	la	a1, unnamed_1370
+	call	string_add
+	call	print
+	lw	a0, 508(sp)
+	call	toString
+	la	a1, unnamed_1373
+	call	string_add
+	call	print
+	lw	a0, 512(sp)
+	call	toString
+	la	a1, unnamed_1376
+	call	string_add
+	call	print
+	lw	a0, 516(sp)
+	call	toString
+	la	a1, unnamed_1379
+	call	string_add
+	call	print
+	lw	a0, 520(sp)
+	call	toString
+	la	a1, unnamed_1382
+	call	string_add
+	call	print
+	lw	a0, 524(sp)
+	call	toString
+	la	a1, unnamed_1385
+	call	string_add
+	call	print
+	lw	a0, 528(sp)
+	call	toString
+	la	a1, unnamed_1388
+	call	string_add
+	call	print
+	lw	a0, 532(sp)
+	call	toString
+	la	a1, unnamed_1391
+	call	string_add
+	call	print
+	lw	a0, 536(sp)
+	call	toString
+	la	a1, unnamed_1394
+	call	string_add
+	call	print
+	lw	a0, 540(sp)
+	call	toString
+	la	a1, unnamed_1397
+	call	string_add
+	call	print
+	lw	a0, 544(sp)
+	call	toString
+	la	a1, unnamed_1400
+	call	string_add
+	call	print
+	lw	a0, 548(sp)
+	call	toString
+	la	a1, unnamed_1403
+	call	string_add
+	call	print
+	lw	a0, 552(sp)
+	call	toString
+	la	a1, unnamed_1406
+	call	string_add
+	call	print
+	lw	a0, 556(sp)
+	call	toString
+	la	a1, unnamed_1409
+	call	string_add
+	call	print
+	lw	a0, 560(sp)
+	call	toString
+	la	a1, unnamed_1412
+	call	string_add
+	call	print
+	lw	a0, 564(sp)
+	call	toString
+	la	a1, unnamed_1415
+	call	string_add
+	call	print
+	lw	a0, 568(sp)
+	call	toString
+	la	a1, unnamed_1418
+	call	string_add
+	call	print
+	lw	a0, 572(sp)
+	call	toString
+	la	a1, unnamed_1421
+	call	string_add
+	call	print
+	lw	a0, 576(sp)
+	call	toString
+	la	a1, unnamed_1424
+	call	string_add
+	call	print
+	lw	a0, 580(sp)
+	call	toString
+	la	a1, unnamed_1427
+	call	string_add
+	call	print
+	lw	a0, 584(sp)
+	call	toString
+	la	a1, unnamed_1430
+	call	string_add
+	call	print
+	lw	a0, 588(sp)
+	call	toString
+	la	a1, unnamed_1433
+	call	string_add
+	call	print
+	lw	a0, 592(sp)
+	call	toString
+	la	a1, unnamed_1436
+	call	string_add
+	call	print
+	lw	a0, 596(sp)
+	call	toString
+	la	a1, unnamed_1439
+	call	string_add
+	call	print
+	lw	a0, 600(sp)
+	call	toString
+	la	a1, unnamed_1442
+	call	string_add
+	call	print
+	lw	a0, 604(sp)
+	call	toString
+	la	a1, unnamed_1445
+	call	string_add
+	call	print
+	lw	a0, 608(sp)
+	call	toString
+	la	a1, unnamed_1448
+	call	string_add
+	call	print
+	lw	a0, 612(sp)
+	call	toString
+	la	a1, unnamed_1451
+	call	string_add
+	call	print
+	lw	a0, 616(sp)
+	call	toString
+	la	a1, unnamed_1454
+	call	string_add
+	call	print
+	lw	a0, 620(sp)
+	call	toString
+	la	a1, unnamed_1457
+	call	string_add
+	call	print
+	lw	a0, 624(sp)
+	call	toString
+	la	a1, unnamed_1460
+	call	string_add
+	call	print
+	lw	a0, 628(sp)
+	call	toString
+	la	a1, unnamed_1463
+	call	string_add
+	call	print
+	lw	a0, 632(sp)
+	call	toString
+	la	a1, unnamed_1466
+	call	string_add
+	call	print
+	lw	a0, 636(sp)
+	call	toString
+	la	a1, unnamed_1469
+	call	string_add
+	call	print
+	lw	a0, 640(sp)
+	call	toString
+	la	a1, unnamed_1472
+	call	string_add
+	call	print
+	lw	a0, 644(sp)
+	call	toString
+	la	a1, unnamed_1475
+	call	string_add
+	call	print
+	lw	a0, 648(sp)
+	call	toString
+	la	a1, unnamed_1478
+	call	string_add
+	call	print
+	lw	a0, 652(sp)
+	call	toString
+	la	a1, unnamed_1481
+	call	string_add
+	call	print
+	lw	a0, 656(sp)
+	call	toString
+	la	a1, unnamed_1484
+	call	string_add
+	call	print
+	lw	a0, 660(sp)
+	call	toString
+	la	a1, unnamed_1487
+	call	string_add
+	call	print
+	lw	a0, 664(sp)
+	call	toString
+	la	a1, unnamed_1490
+	call	string_add
+	call	print
+	lw	a0, 668(sp)
+	call	toString
+	la	a1, unnamed_1493
+	call	string_add
+	call	print
+	lw	a0, 672(sp)
+	call	toString
+	la	a1, unnamed_1496
+	call	string_add
+	call	print
+	lw	a0, 676(sp)
+	call	toString
+	la	a1, unnamed_1499
+	call	string_add
+	call	print
+	lw	a0, 680(sp)
+	call	toString
+	la	a1, unnamed_1502
+	call	string_add
+	call	print
+	lw	a0, 684(sp)
+	call	toString
+	la	a1, unnamed_1505
+	call	string_add
+	call	print
+	lw	a0, 688(sp)
+	call	toString
+	la	a1, unnamed_1508
+	call	string_add
+	call	print
+	lw	a0, 692(sp)
+	call	toString
+	la	a1, unnamed_1511
+	call	string_add
+	call	print
+	lw	a0, 696(sp)
+	call	toString
+	la	a1, unnamed_1514
+	call	string_add
+	call	print
+	lw	a0, 700(sp)
+	call	toString
+	la	a1, unnamed_1517
+	call	string_add
+	call	print
+	lw	a0, 704(sp)
+	call	toString
+	la	a1, unnamed_1520
+	call	string_add
+	call	print
+	lw	a0, 708(sp)
+	call	toString
+	la	a1, unnamed_1523
+	call	string_add
+	call	print
+	lw	a0, 712(sp)
+	call	toString
+	la	a1, unnamed_1526
+	call	string_add
+	call	print
+	lw	a0, 716(sp)
+	call	toString
+	la	a1, unnamed_1529
+	call	string_add
+	call	print
+	lw	a0, 720(sp)
+	call	toString
+	la	a1, unnamed_1532
+	call	string_add
+	call	print
+	lw	a0, 724(sp)
+	call	toString
+	la	a1, unnamed_1535
+	call	string_add
+	call	print
+	lw	a0, 728(sp)
+	call	toString
+	la	a1, unnamed_1538
+	call	string_add
+	call	print
+	lw	a0, 732(sp)
+	call	toString
+	la	a1, unnamed_1541
+	call	string_add
+	call	print
+	lw	a0, 736(sp)
+	call	toString
+	la	a1, unnamed_1544
+	call	string_add
+	call	print
+	lw	a0, 740(sp)
+	call	toString
+	la	a1, unnamed_1547
+	call	string_add
+	call	print
+	lw	a0, 744(sp)
+	call	toString
+	la	a1, unnamed_1550
+	call	string_add
+	call	print
+	lw	a0, 748(sp)
+	call	toString
+	la	a1, unnamed_1553
+	call	string_add
+	call	print
+	lw	a0, 752(sp)
+	call	toString
+	la	a1, unnamed_1556
+	call	string_add
+	call	print
+	lw	a0, 756(sp)
+	call	toString
+	la	a1, unnamed_1559
+	call	string_add
+	call	print
+	lw	a0, 760(sp)
+	call	toString
+	la	a1, unnamed_1562
+	call	string_add
+	call	print
+	lw	a0, 764(sp)
+	call	toString
+	la	a1, unnamed_1565
+	call	string_add
+	call	print
+	lw	a0, 768(sp)
+	call	toString
+	la	a1, unnamed_1568
+	call	string_add
+	call	print
+	lw	a0, 772(sp)
+	call	toString
+	la	a1, unnamed_1571
+	call	string_add
+	call	print
+	lw	a0, 776(sp)
+	call	toString
+	la	a1, unnamed_1574
+	call	string_add
+	call	print
+	lw	a0, 780(sp)
+	call	toString
+	la	a1, unnamed_1577
+	call	string_add
+	call	print
+	lw	a0, 784(sp)
+	call	toString
+	la	a1, unnamed_1580
+	call	string_add
+	call	print
+	lw	a0, 788(sp)
+	call	toString
+	la	a1, unnamed_1583
+	call	string_add
+	call	print
+	lw	a0, 792(sp)
+	call	toString
+	la	a1, unnamed_1586
+	call	string_add
+	call	print
+	lw	a0, 796(sp)
+	call	toString
+	la	a1, unnamed_1589
+	call	string_add
+	call	print
+	lw	a0, 800(sp)
+	call	toString
+	la	a1, unnamed_1592
+	call	string_add
+	call	print
+	lw	a0, 804(sp)
+	call	toString
+	la	a1, unnamed_1595
+	call	string_add
+	call	print
+	lw	a0, 808(sp)
+	call	toString
+	la	a1, unnamed_1598
+	call	string_add
+	call	print
+	lw	a0, 812(sp)
+	call	toString
+	la	a1, unnamed_1601
+	call	string_add
+	call	print
+	lw	a0, 816(sp)
+	call	toString
+	la	a1, unnamed_1604
+	call	string_add
+	call	print
+	lw	a0, 820(sp)
+	call	toString
+	la	a1, unnamed_1607
+	call	string_add
+	call	print
+	lw	a0, 824(sp)
+	call	toString
+	la	a1, unnamed_1610
+	call	string_add
+	call	print
+	lw	a0, 828(sp)
+	call	toString
+	la	a1, unnamed_1613
+	call	string_add
+	call	print
+	lw	a0, 832(sp)
+	call	toString
+	la	a1, unnamed_1616
+	call	string_add
+	call	print
+	lw	a0, 836(sp)
+	call	toString
+	la	a1, unnamed_1619
+	call	string_add
+	call	print
+	lw	a0, 840(sp)
+	call	toString
+	la	a1, unnamed_1622
+	call	string_add
+	call	print
+	lw	a0, 844(sp)
+	call	toString
+	la	a1, unnamed_1625
+	call	string_add
+	call	print
+	lw	a0, 848(sp)
+	call	toString
+	la	a1, unnamed_1628
+	call	string_add
+	call	print
+	lw	a0, 852(sp)
+	call	toString
+	la	a1, unnamed_1631
+	call	string_add
+	call	print
+	lw	a0, 856(sp)
+	call	toString
+	la	a1, unnamed_1634
+	call	string_add
+	call	print
+	lw	a0, 860(sp)
+	call	toString
+	la	a1, unnamed_1637
+	call	string_add
+	call	print
+	lw	a0, 864(sp)
+	call	toString
+	la	a1, unnamed_1640
+	call	string_add
+	call	print
+	lw	a0, 868(sp)
+	call	toString
+	la	a1, unnamed_1643
+	call	string_add
+	call	print
+	lw	a0, 872(sp)
+	call	toString
+	la	a1, unnamed_1646
+	call	string_add
+	call	print
+	lw	a0, 876(sp)
+	call	toString
+	la	a1, unnamed_1649
+	call	string_add
+	call	print
+	lw	a0, 880(sp)
+	call	toString
+	la	a1, unnamed_1652
+	call	string_add
+	call	print
+	lw	a0, 884(sp)
+	call	toString
+	la	a1, unnamed_1655
+	call	string_add
+	call	print
+	lw	a0, 888(sp)
+	call	toString
+	la	a1, unnamed_1658
+	call	string_add
+	call	print
+	lw	a0, 892(sp)
+	call	toString
+	la	a1, unnamed_1661
+	call	string_add
+	call	print
+	lw	a0, 896(sp)
+	call	toString
+	la	a1, unnamed_1664
+	call	string_add
+	call	print
+	lw	a0, 900(sp)
+	call	toString
+	la	a1, unnamed_1667
+	call	string_add
+	call	print
+	lw	a0, 904(sp)
+	call	toString
+	la	a1, unnamed_1670
+	call	string_add
+	call	print
+	lw	a0, 908(sp)
+	call	toString
+	la	a1, unnamed_1673
+	call	string_add
+	call	print
+	lw	a0, 912(sp)
+	call	toString
+	la	a1, unnamed_1676
+	call	string_add
+	call	print
+	lw	a0, 916(sp)
+	call	toString
+	la	a1, unnamed_1679
+	call	string_add
+	call	print
+	lw	a0, 920(sp)
+	call	toString
+	la	a1, unnamed_1682
+	call	string_add
+	call	print
+	lw	a0, 924(sp)
+	call	toString
+	la	a1, unnamed_1685
+	call	string_add
+	call	print
+	lw	a0, 928(sp)
+	call	toString
+	la	a1, unnamed_1688
+	call	string_add
+	call	print
+	lw	a0, 932(sp)
+	call	toString
+	la	a1, unnamed_1691
+	call	string_add
+	call	print
+	lw	a0, 936(sp)
+	call	toString
+	la	a1, unnamed_1694
+	call	string_add
+	call	print
+	lw	a0, 940(sp)
+	call	toString
+	la	a1, unnamed_1697
+	call	string_add
+	call	print
+	lw	a0, 944(sp)
+	call	toString
+	la	a1, unnamed_1700
+	call	string_add
+	call	print
+	lw	a0, 948(sp)
+	call	toString
+	la	a1, unnamed_1703
+	call	string_add
+	call	print
+	lw	a0, 952(sp)
+	call	toString
+	la	a1, unnamed_1706
+	call	string_add
+	call	print
+	lw	a0, 956(sp)
+	call	toString
+	la	a1, unnamed_1709
+	call	string_add
+	call	print
+	lw	a0, 960(sp)
+	call	toString
+	la	a1, unnamed_1712
+	call	string_add
+	call	print
+	lw	a0, 964(sp)
+	call	toString
+	la	a1, unnamed_1715
+	call	string_add
+	call	print
+	lw	a0, 968(sp)
+	call	toString
+	la	a1, unnamed_1718
+	call	string_add
+	call	print
+	lw	a0, 972(sp)
+	call	toString
+	la	a1, unnamed_1721
+	call	string_add
+	call	print
+	lw	a0, 976(sp)
+	call	toString
+	la	a1, unnamed_1724
+	call	string_add
+	call	print
+	lw	a0, 980(sp)
+	call	toString
+	la	a1, unnamed_1727
+	call	string_add
+	call	print
+	lw	a0, 984(sp)
+	call	toString
+	la	a1, unnamed_1730
+	call	string_add
+	call	print
+	lw	a0, 988(sp)
+	call	toString
+	la	a1, unnamed_1733
+	call	string_add
+	call	print
+	lw	a0, 992(sp)
+	call	toString
+	la	a1, unnamed_1736
+	call	string_add
+	call	print
+	lw	a0, 996(sp)
+	call	toString
+	la	a1, unnamed_1739
+	call	string_add
+	call	print
+	lw	a0, 1000(sp)
+	call	toString
+	la	a1, unnamed_1742
+	call	string_add
+	call	print
+	lw	a0, 1004(sp)
+	call	toString
+	la	a1, unnamed_1745
+	call	string_add
+	call	print
+	lw	a0, 1008(sp)
+	call	toString
+	la	a1, unnamed_1748
+	call	string_add
+	call	print
+	lw	a0, 1012(sp)
+	call	toString
+	la	a1, unnamed_1751
+	call	string_add
+	call	print
+	lw	a0, 1016(sp)
+	call	toString
+	la	a1, unnamed_1754
+	call	string_add
+	call	print
+	lw	a0, 1020(sp)
+	call	toString
+	la	a1, unnamed_1757
+	call	string_add
+	call	print
+	lw	a0, 1024(sp)
+	call	toString
+	la	a1, unnamed_1760
+	call	string_add
+	call	print
+	lw	a0, 1028(sp)
+	call	toString
+	la	a1, unnamed_1763
+	call	string_add
+	call	print
+	lw	a0, 1032(sp)
+	call	toString
+	la	a1, unnamed_1766
+	call	string_add
+	call	print
+	lw	a0, 1036(sp)
+	call	toString
+	la	a1, unnamed_1769
+	call	string_add
+	call	print
+	mv	a0, s11
+	call	toString
+	la	a1, unnamed_1772
+	call	string_add
+	call	print
+	mv	a0, s9
+	call	toString
+	la	a1, unnamed_1775
+	call	string_add
+	call	print
+	mv	a0, s3
+	call	toString
+	la	a1, unnamed_1778
+	call	string_add
+	call	print
+	mv	a0, s1
+	call	toString
+	la	a1, unnamed_1781
+	call	string_add
+	call	print
+	mv	a0, s7
+	call	toString
+	la	a1, unnamed_1784
+	call	string_add
+	call	print
 	mv	a0, s5
 	call	toString
-	lw	t0, count
-	sw	t0, count, ra
+	la	a1, unnamed_1787
+	call	string_add
+	call	print
+	mv	a0, s2
+	call	toString
+	la	a1, unnamed_1790
+	call	string_add
+	call	print
+	mv	a0, s10
+	call	toString
+	la	a1, unnamed_1793
+	call	string_add
+	call	print
+	mv	a0, s0
+	call	toString
+	la	a1, unnamed_1796
+	call	string_add
+	call	print
+	mv	a0, s4
+	call	toString
+	la	a1, unnamed_1799
+	call	string_add
+	call	print
+	mv	a0, s6
+	call	toString
+	la	a1, unnamed_1802
+	call	string_add
+	call	print
+	mv	a0, s8
+	call	toString
 	la	a1, unnamed_1805
 	call	string_add
-	lw	t0, count
-	sw	t0, count, ra
 	call	print
-	lw	t0, count
-	sw	t0, count, ra
 	la	a0, unnamed_1807
 	call	println
-	lw	t0, count
+	lw	t0, 60(sp)
 	sw	t0, count, ra
 	li	a0, 0
-	lw	s3, 24(sp)
-	lw	s4, 28(sp)
-	lw	s5, 32(sp)
-	lw	s6, 36(sp)
-	lw	s7, 40(sp)
-	lw	s8, 44(sp)
-	lw	s9, 48(sp)
-	lw	ra, 60(sp)
-	lw	s11, 56(sp)
-	lw	s10, 52(sp)
-	lw	s0, 12(sp)
-	lw	s1, 16(sp)
-	lw	s2, 20(sp)
+	lw	s3, 20(sp)
+	lw	s4, 24(sp)
+	lw	s5, 28(sp)
+	lw	s6, 32(sp)
+	lw	s7, 36(sp)
+	lw	s8, 40(sp)
+	lw	s9, 44(sp)
+	lw	ra, 56(sp)
+	lw	s11, 52(sp)
+	lw	s10, 48(sp)
+	lw	s0, 8(sp)
+	lw	s1, 12(sp)
+	lw	s2, 16(sp)
 	addi	sp, sp, 1040
 	ret
 

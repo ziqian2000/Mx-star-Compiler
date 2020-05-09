@@ -1,9 +1,9 @@
 
 exit code: 0
 memory leak: 1
-time: 1578
+time: 1582
 # instructions:
-# simple  = 162 (including unconditional jump)
+# simple  = 166 (including unconditional jump)
 # mul     = 16
 # cache   = 0
 # br      = 23

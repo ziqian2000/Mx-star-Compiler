@@ -22,12 +22,15 @@ import java.io.*;
 public class Main {
     public static void main(String[] args) {
 
-        long startTime = System.currentTimeMillis();
-
         try {
 
-            // arguments
+            // ==================== parameters ====================
+
+            long startTime = System.currentTimeMillis();
+
             boolean semanticOnly = false;
+            boolean showRunningTime = false;
+
             for(String arg : args){
                 switch (arg){
                     case "-semantic": semanticOnly = true; break;
@@ -74,7 +77,7 @@ public class Main {
             IR ir = irGenerator.getIR();
 
             // Naive optimization on IR
-            new FunctionInlining(ir).run();
+//            new FunctionInlining(ir).run();
             new GlobalVariableResolving(ir).run();                  // a must-do, otherwise modify irGenerator
 
             // Basic Optimization on IR
@@ -88,20 +91,21 @@ public class Main {
 //            new IRPrinter().run(ir, new PrintStream("ir.txt"));
 //            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
 
-            System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");
+            if(showRunningTime) System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");
 
             // ==================== Codegen ====================
 
             InstructionSelector instructionSelector = new InstructionSelector(ir);
             instructionSelector.run();
             Assembly asm = instructionSelector.getAsm();
-            System.err.println("Instruction selection done: "+(System.currentTimeMillis() - startTime)+"ms");
+            if(showRunningTime) System.err.println("Instruction selection done: "+(System.currentTimeMillis() - startTime)+"ms");
             new RegisterAllocator(asm).run();
-            System.err.println("Register allocation done: "+(System.currentTimeMillis() - startTime)+"ms");
+            if(showRunningTime) System.err.println("Register allocation done: "+(System.currentTimeMillis() - startTime)+"ms");
 			new FinalProcessing(asm).run();
 			new PeepholeOptimization(asm).run();
 			new AsmPrinter(asm).run(new PrintStream("test.s"));
 
+            if(showRunningTime) System.err.println("All done: "+(System.currentTimeMillis() - startTime)+"ms");
 
         }
         catch (Exception e){
@@ -110,7 +114,6 @@ public class Main {
             System.exit(1);
         }
 
-        System.err.println("All done: "+(System.currentTimeMillis() - startTime)+"ms");
 
 
     }

@@ -14,7 +14,7 @@ import java.util.*;
 
 public class FunctionInlining {
 
-	final private int CODE_LEN_LIMIT = 200;
+	final private int CODE_LEN_LIMIT = 10000;
 
 	private IR ir;
 

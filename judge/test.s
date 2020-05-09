@@ -2,9 +2,15 @@
 
 	.text
 
+	.globl	array.size
+array.size:
+.unnamed_0_0:
+	lw	a0, 0(a0)
+	ret
+
 	.globl	main
 main:
-.unnamed_1_0:
+.unnamed_1_1:
 	addi	sp, sp, -16
 	sw	s0, 12(sp)
 	mv	s0, ra
@@ -14,48 +20,55 @@ main:
 	addi	sp, sp, 16
 	ret
 
+	.globl	qpow
+qpow:
+.entry_2:
+	li	t0, 1
+	mv	t1, t0
+	mv	t1, a0
+	mv	t1, a1
+	j	.unnamed_2_3
+.unnamed_2_3:
+	li	t1, 0
+	slt	t1, t1, a1
+	bne	t1, zero, .splitting_4
+	j	.splitting_5
+.splitting_5:
+	mv	a0, t0
+	ret
+.splitting_4:
+	andi	t2, a1, 1
+	li	t1, 1
+	sub	t1, t2, t1
+	sltiu	t1, t1, 1
+	bne	t1, zero, .splitting_6
+	j	.splitting_7
+.splitting_6:
+	mul	t0, t0, a0
+	rem	t0, t0, a2
+	j	.if_exit_8
+.if_exit_8:
+	mul	t1, a0, a0
+	rem	a0, t1, a2
+	li	t1, 2
+	div	a1, a1, t1
+	mv	t1, t0
+	mv	t1, a0
+	mv	t1, a1
+	j	.unnamed_2_3
+.splitting_7:
+	j	.if_exit_8
+
 	.globl	_main
 _main:
-.entry_1:
+.entry_9:
 	addi	sp, sp, -16
 	sw	s0, 12(sp)
 	mv	s0, ra
-	li	ra, 2
-	li	t0, 10
-	li	t2, 10000
-	li	a0, 1
-	mv	t1, ra
-	mv	t1, t0
-	mv	t1, a0
-	j	.unnamed_2_2
-.unnamed_2_2:
-	li	t1, 0
-	slt	t1, t1, t0
-	bne	t1, zero, .splitting_3
-	j	.splitting_4
-.splitting_3:
-	andi	a1, t0, 1
-	li	t1, 1
-	sub	t1, a1, t1
-	sltiu	t1, t1, 1
-	bne	t1, zero, .splitting_5
-	j	.splitting_6
-.splitting_6:
-	j	.if_exit_7
-.if_exit_7:
-	mul	ra, ra, ra
-	rem	ra, ra, t2
-	li	t1, 2
-	div	t0, t0, t1
-	mv	t1, ra
-	mv	t1, t0
-	mv	t1, a0
-	j	.unnamed_2_2
-.splitting_5:
-	mul	t1, a0, ra
-	rem	a0, t1, t2
-	j	.if_exit_7
-.splitting_4:
+	li	a0, 2
+	li	a1, 10
+	li	a2, 10000
+	call	qpow
 	call	toString
 	call	println
 	li	a0, 0
