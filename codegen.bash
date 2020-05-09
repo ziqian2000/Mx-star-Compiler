@@ -1,8 +1,5 @@
 set -e
 cd "$(dirname "$0")"
-cd judge/
 cat > code.txt
-java -cp .:antlr-4.8-complete.jar:commons-lang3-3.8.1.jar:commons-text-1.6.jar Compiler.Main -codegen
-cp test.s ../output.s
-cd ..
-
+java -cp "./bin:./lib/commons-text-1.6.jar:./lib/commons-lang3-3.8.1.jar:./lib/antlr-4.8-complete.jar" Compiler.Main -codegen
+cp ./test.s output.s
