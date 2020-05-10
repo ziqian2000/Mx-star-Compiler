@@ -2,10 +2,12 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
+import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
 import Compiler.Utils.FuckingException;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,7 +46,12 @@ public class Phi extends IRIns {
 
 	@Override
 	public List<VirtualRegister> getUseRegister() {
-		throw new FuckingException("Don't call me");
+		List<VirtualRegister> registerList = new ArrayList<>();
+		for (Map.Entry<BasicBlock, VirtualRegister> entry : path.entrySet()) {
+			VirtualRegister reg = entry.getValue();
+			registerList.add(reg);
+		}
+		return registerList;
 	}
 
 	@Override

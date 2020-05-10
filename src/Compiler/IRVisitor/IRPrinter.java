@@ -69,6 +69,7 @@ public class IRPrinter implements IRVisitor{
 	}
 
 	public void visit(Function function){
+		function.makePreOrderBBList();
 		if(function.getEntryBB() == null) return; // builtin function
 
 		print("func " + function.getIdentifier() + " ");

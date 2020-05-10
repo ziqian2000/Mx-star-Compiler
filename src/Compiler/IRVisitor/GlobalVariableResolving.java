@@ -40,12 +40,12 @@ public class GlobalVariableResolving {
 
 	public void computeGlobalVarUsed(){
 		for(var function : irFuncExceptBuiltin){
-			function.makeBBList();
+			function.makePreOrderBBList();
 
 			Set<VirtualRegister> globalVarUsed = new HashSet<>();
 			Set<Function> calleeFunction = new HashSet<>();
 
-			for(BasicBlock BB : function.getBBList()){
+			for(BasicBlock BB : function.getPreOrderBBList()){
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 
 					if(ins instanceof Call && !((Call) ins).getFunction().getIsBuiltin())
@@ -119,7 +119,7 @@ public class GlobalVariableResolving {
 		for(Function function : irFuncExceptBuiltin) if(!function.getIdentifier().equals("__init")) {
 //			function.makeBBList();
 			var globalVarUsed = varUsedInFunc.get(function);
-			for(BasicBlock BB : function.getBBList()){
+			for(BasicBlock BB : function.getPreOrderBBList()){
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 					if(ins instanceof Call && !((Call) ins).getFunction().getIsBuiltin()){
 
@@ -148,8 +148,8 @@ public class GlobalVariableResolving {
 			Map<Operand, Operand> tempVarMap = new HashMap<>();
 			tempGlobalVarMap.put(function, tempVarMap);
 
-			function.makeBBList();
-			for(BasicBlock BB : function.getBBList()){
+			function.makePreOrderBBList();
+			for(BasicBlock BB : function.getPreOrderBBList()){
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 					List<Operand> oprList = ins.getOperands();
 					List<Operand> newOprList = new ArrayList<>();

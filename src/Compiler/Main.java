@@ -82,14 +82,17 @@ public class Main {
 
             // Basic Optimization on IR
             new SSAConstructor(ir).run();
-            new CFGSimplifier(ir).run();
-            new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
-                                                                    // need to eliminate useless variable like "extra" in sequentialization
-            new CFGSimplifier(ir).run();
+			for(boolean changed = true; changed; ){
+				changed = new DeadCodeElimination(ir).run();
+				changed |= new CFGSimplifier(ir).run();
+			}
+			new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
+			// need to eliminate useless variable like "extra" in sequentialization
+			new CFGSimplifier(ir).run();
 
-            // print and test
-//            new IRPrinter().run(ir, new PrintStream("ir.txt"));
-//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
+			// print and test
+			new IRPrinter().run(ir, new PrintStream("ir.txt"));
+//			IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
 
             if(showRunningTime) System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");
 

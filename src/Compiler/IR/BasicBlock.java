@@ -3,10 +3,7 @@ package Compiler.IR;
 import Compiler.IR.Instr.*;
 import Compiler.Utils.FuckingException;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class BasicBlock {
 
@@ -17,8 +14,25 @@ public class BasicBlock {
 
 	// DFS
 	private BasicBlock parent;
-	private List<BasicBlock> preBBList; // implemented in function
-	private List<BasicBlock> sucBBList; // implemented in basic block (here)
+	public List<BasicBlock> preBBList; // implemented in function
+	public List<BasicBlock> sucBBList; // implemented in basic block (here)
+
+	// dominator tree, dominance frontier
+	public int dfn;
+	public List<BasicBlock> bucket = new ArrayList<>();
+	public BasicBlock ancestor;
+	public BasicBlock best;
+
+	public BasicBlock semiDom;
+	public BasicBlock sameDom;
+	public BasicBlock iDom; 		// i.e. parent in dominator tree
+	public List<BasicBlock> iDomChildren = new ArrayList<>();
+	public Set<BasicBlock> domFront = new HashSet<>();
+	// reverse version
+	public BasicBlock postIDom;
+	public Set<BasicBlock> postDomFront;
+
+
 
 	public BasicBlock(){
 		this.identifier = "unnamed_" + unnamedCnt;
@@ -156,6 +170,7 @@ public class BasicBlock {
 	}
 
 	public void makeSucBBList(){
+		assert tailIns != null;
 		sucBBList = new ArrayList<>();
 		if(tailIns instanceof Branch) {
 			if(((Branch) tailIns).getThenBB() != ((Branch) tailIns).getElseBB())

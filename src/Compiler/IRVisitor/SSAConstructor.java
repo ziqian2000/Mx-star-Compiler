@@ -16,7 +16,7 @@ import java.util.*;
  * 	Store them in BB class if necessary.
  */
 
-public class SSAConstructor {
+public class SSAConstructor extends Pass {
 
 	IR ir;
 
@@ -26,7 +26,7 @@ public class SSAConstructor {
 
 	public void run(){
 		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
-			constructDominatorTree(func);
+			constructDominatorTree(func, false);
 			constructDominanceFrontier(func);
 			traverseGlobals(func);
 			insertPhi(func);
@@ -86,7 +86,7 @@ public class SSAConstructor {
 			}
 		}
 
-		iDomChildren.get(n).forEach(this::recursiveRenaming);
+		n.iDomChildren.forEach(this::recursiveRenaming);
 
 		for(IRIns S = n.getHeadIns(); S != null; S = S.getNextIns()){
 			// define
@@ -121,9 +121,11 @@ public class SSAConstructor {
 
 		recursiveRenaming(function.getEntryBB());
 	}
+
 	/**
 	 * insert phi
 	 */
+
 	public void insertPhi(Function func){
 		Queue<BasicBlock> queue = new LinkedList<>();
 		Set<BasicBlock> inserted = new HashSet<>();
@@ -132,7 +134,7 @@ public class SSAConstructor {
 			queue.addAll(defBBs.getOrDefault(var, Collections.emptyList()));
 			while(!queue.isEmpty()){
 				BasicBlock BB = queue.remove();
-				for(BasicBlock BB2 : domFront.get(BB)){
+				for(BasicBlock BB2 : BB.domFront){
 					if(!inserted.contains(BB2)){
 						inserted.add(BB2);
 						BB2.sudoPrependInst(new Phi(var));
@@ -142,13 +144,15 @@ public class SSAConstructor {
 			}
 		}
 	}
+
 	/**
 	 * traverse all globals
 	 */
+
 	Map<VirtualRegister, List<BasicBlock>> defBBs = new HashMap<>();
 	public void traverseGlobals(Function func){
 		Set<VirtualRegister> defined = new HashSet<>();
-		for(BasicBlock BB : func.getBBList()){
+		for(BasicBlock BB : func.getPreOrderBBList()){
 			defined.clear();
 			for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 
@@ -167,108 +171,7 @@ public class SSAConstructor {
 			}
 		}
 	}
-	/**
-	 * dominance frontier computation
-	 */
-	Map<BasicBlock, Set<BasicBlock>> domFront = new HashMap<>();
-	public void constructDominanceFrontier(Function func){
-		List<BasicBlock> BBList = func.getBBList();
-		BBList.forEach(BB -> domFront.put(BB, new HashSet<>()));
-		for(BasicBlock BB : BBList){
-			// todo : why to check predecessor >= 2?
-			for(BasicBlock predecessor : BB.getPreBBList()){
-				BasicBlock x = predecessor;
-				while(x != iDom.get(BB)){
-					domFront.get(x).add(BB);
-					x = iDom.get(x);
-				}
-			}
-		}
-	}
-	/**
-	 * Dominator tree
-	 */
-	Map<BasicBlock, Integer> 	dfn = new HashMap<>();
-	Map<Integer, BasicBlock>	vertex = new HashMap<>();
-	Map<BasicBlock, List<BasicBlock>> bucket = new HashMap<>();
 
-	Map<BasicBlock, BasicBlock> ancestor = new HashMap<>();
-	Map<BasicBlock, BasicBlock> best = new HashMap<>();
 
-	Map<BasicBlock, BasicBlock>	semiDom = new HashMap<>();
-	Map<BasicBlock, BasicBlock> sameDom = new HashMap<>();
-	Map<BasicBlock, BasicBlock> iDom = new HashMap<>(); // i.e. parent in dominator tree
-	Map<BasicBlock, List<BasicBlock>> iDomChildren = new HashMap<>();
-
-	private BasicBlock ancestorWithLowestSemi(BasicBlock v){
-		BasicBlock a = ancestor.get(v);
-		if(ancestor.get(a) != null){
-			BasicBlock b = ancestorWithLowestSemi(a);
-			ancestor.put(v, ancestor.get(a));
-			if(dfn.get(semiDom.get(b)) < dfn.get(semiDom.get(best.get(v))))
-				best.put(v, b);
-		}
-		return best.get(v);
-	}
-
-	private void link(BasicBlock p, BasicBlock n){
-		ancestor.put(n, p);
-		best.put(n, n);
-	}
-
-	private void constructDominatorTree(Function function)
-	{
-		// fake dfs
-		function.makeBBList();
-		List<BasicBlock> preOrderBBList = function.getBBList();
-
-		dfn.clear();
-		vertex.clear();
-		for(int i = 0; i < preOrderBBList.size(); i++) {
-			BasicBlock n = preOrderBBList.get(i);
-			dfn.put(n, i + 1);
-			vertex.put(i + 1, n);
-		}
-
-		// init
-		preOrderBBList.forEach(BB -> {
-			bucket.put(BB, new ArrayList<>());
-			semiDom.put(BB, null);
-			ancestor.put(BB, null);
-			iDom.put(BB, null);
-			sameDom.put(BB, null);
-		});
-		for(int i = preOrderBBList.size() - 1; i >= 1; i--){
-			BasicBlock n = preOrderBBList.get(i);
-			BasicBlock p = n.getParent();
-			BasicBlock s = p;
-			for(BasicBlock v : n.getPreBBList()){
-				BasicBlock ss = dfn.get(v) <= dfn.get(n)
-						? v
-						: semiDom.get(ancestorWithLowestSemi(v));
-				if(dfn.get(ss) < dfn.get(s))
-					s = ss;
-			}
-			semiDom.put(n, s);
-			bucket.get(s).add(n);
-			link(p, n);
-			for(BasicBlock v : bucket.get(p)){
-				BasicBlock y = ancestorWithLowestSemi(v);
-				if(semiDom.get(y) == semiDom.get(v)) iDom.put(v, p);
-				else sameDom.put(v, y);
-			}
-			bucket.get(p).clear();
-		}
-		for(int i = 1; i < preOrderBBList.size(); i++){
-			BasicBlock n = preOrderBBList.get(i);
-			if(sameDom.get(n) != null)
-				iDom.put(n, iDom.get(sameDom.get(n)));
-		}
-
-		for(BasicBlock BB : preOrderBBList) iDomChildren.put(BB, new ArrayList<>());
-		for(BasicBlock BB : preOrderBBList) if(iDom.get(BB) != null){
-			iDomChildren.get(iDom.get(BB)).add(BB);
-		}
-	}
 
 }

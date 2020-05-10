@@ -2,6 +2,7 @@ package Compiler.IR;
 
 import Compiler.IR.Operand.VirtualRegister;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Function {
@@ -14,7 +15,7 @@ public class Function {
 	private boolean isBuiltin = false;
 	private VirtualRegister obj;
 
-	private List<BasicBlock> BBList; // in pre-order DFS
+	private List<BasicBlock> preOrderBBList; // in pre-order DFS
 	private Set<VirtualRegister> globals;
 
 	public Function(String identifier){
@@ -80,17 +81,17 @@ public class Function {
 	}
 
 	public boolean reachable(BasicBlock BB) {
-		return BBList.contains(BB);
+		return preOrderBBList.contains(BB);
 	}
 
 	// BB list
 
-	public List<BasicBlock> getBBList() {
-		return BBList;
+	public List<BasicBlock> getPreOrderBBList() {
+		return preOrderBBList;
 	}
 
-	public void makeBBList(){
-		BBList = new ArrayList<>();
+	public void makePreOrderBBList(){
+		preOrderBBList = new ArrayList<>();
 		dfsBB(entryBB, null, new HashSet<>());
 	}
 
@@ -104,9 +105,45 @@ public class Function {
 		else basicBlock.setPreBBList(new ArrayList<>());
 		basicBlock.setParent(parBB);
 		visited.add(basicBlock);
-		BBList.add(basicBlock);
+		preOrderBBList.add(basicBlock);
 		basicBlock.makeSucBBList();
 		basicBlock.getSucBBList().forEach(BB -> dfsBB(BB, basicBlock, visited));
+	}
+
+	// DCE
+	public List<Object> makeReverseCopy(){
+		// What's copied: preBBList, sucBBList, parent, entryBB, exitBB, preOrderBBList
+		Map<BasicBlock, BasicBlock> BBMap = new HashMap<>();
+		Map<BasicBlock, BasicBlock> reBBMap = new HashMap<>();
+		preOrderBBList.forEach(BB -> {
+			BBMap.put(BB, new BasicBlock("reverse_" + BB.getIdentifier()));
+			reBBMap.put(BBMap.get(BB), BB);
+		});
+		for(var BB : getPreOrderBBList()){
+			var newBB = BBMap.get(BB);
+			newBB.preBBList = new ArrayList<>();
+			newBB.sucBBList = new ArrayList<>();
+			BB.getPreBBList().forEach(preBB -> newBB.sucBBList.add(BBMap.get(preBB)));
+			BB.getSucBBList().forEach(sucBB -> newBB.preBBList.add(BBMap.get(sucBB)));
+		}
+
+		var reverseFunc = new Function("reverse_" + getIdentifier());
+		reverseFunc.setEntryBB(BBMap.get(exitBB));
+		reverseFunc.setExitBB(BBMap.get(entryBB));
+		reverseFunc.reverseMakePreOrderBBList();
+
+		return Arrays.asList(reverseFunc, BBMap, reBBMap); // return the reverse function and the map of basic blocks
+	}
+	public void reverseMakePreOrderBBList(){
+		preOrderBBList = new ArrayList<>();
+		reverseDFSBB(entryBB, null, new HashSet<>());
+	}
+	public void reverseDFSBB(BasicBlock basicBlock, BasicBlock parBB, Set<BasicBlock> visited){
+		if(basicBlock == null || visited.contains(basicBlock)) return;
+		basicBlock.setParent(parBB);
+		visited.add(basicBlock);
+		preOrderBBList.add(basicBlock);
+		basicBlock.getSucBBList().forEach(BB -> reverseDFSBB(BB, basicBlock, visited));
 	}
 
 }

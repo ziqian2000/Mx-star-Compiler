@@ -45,10 +45,10 @@ public class FunctionInlining {
 	private void processChangedFunction(){
 		// find CALL ins & compute the length
 		for(Function function : changedFunc){
-			function.makeBBList();
+			function.makePreOrderBBList();
 			funcCallInstList.put(function, new ArrayList<>());
 			int len = 0;
-			for(BasicBlock BB : function.getBBList()){
+			for(BasicBlock BB : function.getPreOrderBBList()){
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 					len += 1;
 					if(ins instanceof Call){
@@ -123,7 +123,7 @@ public class FunctionInlining {
 		callee.getParaList().forEach(opr -> makeTmpOprCopy(tempStorageMap, opr));
 		makeTmpOprCopy(tempStorageMap, callee.getObj());
 		// opr inside instruction
-		for(BasicBlock BB : callee.getBBList()){
+		for(BasicBlock BB : callee.getPreOrderBBList()){
 			// copy basic block
 			tempBBMap.put(BB, new BasicBlock(BB.getIdentifier()));
 			for(IRIns originIns = BB.getHeadIns(); originIns != null; originIns = originIns.getNextIns()){
@@ -142,7 +142,7 @@ public class FunctionInlining {
 		if(ins.getObj() != null) firstHalfBB.sudoAppendInst(new Move(ins.getObj(), tempStorageMap.get(callee.getObj())));
 
 		// copy the whole function
-		for(BasicBlock BB : callee.getBBList()){
+		for(BasicBlock BB : callee.getPreOrderBBList()){
 			// copy the whole basic block
 			BasicBlock tmpBB = tempBBMap.get(BB);
 			for(IRIns originIns = BB.getHeadIns(); originIns != null; originIns = originIns.getNextIns()){

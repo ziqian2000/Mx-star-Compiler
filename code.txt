@@ -1,5 +1,17 @@
 int main(){
-	int a = 1, b = 2;
-	int c = a + b;
-	printlnInt(c);
+	int a = 233;
+	int a1 = 233;
+	int a2 = 233;
+	int a3 = 233;
+	int a4 = 233;
+	int a5 = 233;
+	int a6 = 233;
+	int a7 = 233;
+	int a8 = 233;
+	int a9 = 233;
+	int a0 = 233;
+	int aq = 233;
+	int aa = 233;
+	int ea = 233;
+	return 0;
 }

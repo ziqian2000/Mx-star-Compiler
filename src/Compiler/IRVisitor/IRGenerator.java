@@ -513,7 +513,6 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 				node.getLhs().accept(this);
 				node.getRhs().accept(this);
 				Operand lhs = node.getLhs().getResultOpr(), rhs = node.getRhs().getResultOpr();
-				Operand lhsVar = convertPtr2Val(lhs), rhsVar = convertPtr2Val(rhs);
 
 				assign(rhs, (VirtualRegister)lhs);
 				break;

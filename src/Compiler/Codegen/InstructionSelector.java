@@ -67,8 +67,8 @@ public class InstructionSelector implements IRVisitor {
 		}
 		// basic blocks mapping
 		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()){
-			func.makeBBList();
-			func.getBBList().forEach(BB -> BB2AsmBB.put(BB, new AsmBasicBlock(BB.getIdentifier())));
+			func.makePreOrderBBList();
+			func.getPreOrderBBList().forEach(BB -> BB2AsmBB.put(BB, new AsmBasicBlock(BB.getIdentifier())));
 		}
 
 		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
@@ -106,7 +106,7 @@ public class InstructionSelector implements IRVisitor {
 										(Register) paraList.get(i), Config.SIZE));
 
 		// ending
-		func.getBBList().forEach(this::visit);
+		func.getPreOrderBBList().forEach(this::visit);
 		asmFunc.setExitBB(BB2AsmBB.get(func.getExitBB()));
 		asmFunc.makeBBList();
 	}

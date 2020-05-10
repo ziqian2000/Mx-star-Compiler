@@ -42,11 +42,8 @@ public class CFGSimplifier {
 			for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
 				changedThisTime |= removeRedundantBranch(func);
 				changedThisTime |= removeDeadBasicBlockInPhi(func);
-//				System.out.println("==== 1"); new IRPrinter().run(ir, System.out);
 				changedThisTime |= mergeBasicBlock(func);
-//				System.out.println("==== 2"); new IRPrinter().run(ir, System.out);
 				if(!ir.getSSAForm()) changedThisTime |= removeSingleJumpBasicBlock(func);
-//				System.out.println("==== 3"); new IRPrinter().run(ir, System.out);
 			}
 			changed |= changedThisTime;
 		}
@@ -56,8 +53,8 @@ public class CFGSimplifier {
 
 	public boolean mergeBasicBlock(Function func){
 		boolean changed = false;
-		for(int i = func.getBBList().size() - 1; i >= 0; i--){
-			BasicBlock BB = func.getBBList().get(i);
+		for(int i = func.getPreOrderBBList().size() - 1; i >= 0; i--){
+			BasicBlock BB = func.getPreOrderBBList().get(i);
 			if(BB.getSucBBList().size() == 1){
 				BasicBlock sucBB = BB.getSucBBList().get(0);
 				if(sucBB != func.getEntryBB() && sucBB.getPreBBList().size() == 1){
@@ -70,13 +67,13 @@ public class CFGSimplifier {
 				}
 			}
 		}
-		if(changed) func.makeBBList();
+		if(changed) func.makePreOrderBBList();
 		return changed;
 	}
 
 	public boolean removeSingleJumpBasicBlock(Function func){
 		boolean changed = false;
-		for(BasicBlock BB : func.getBBList()){
+		for(BasicBlock BB : func.getPreOrderBBList()){
 			if(BB.getHeadIns() instanceof Jump) { // merely contain a JUMP instruction
 				changed = true;
 				Jump ins = (Jump) BB.getHeadIns();
@@ -97,14 +94,14 @@ public class CFGSimplifier {
 				}
 			}
 		}
-		if(changed) func.makeBBList();
+		if(changed) func.makePreOrderBBList();
 		return changed;
 	}
 
 	public boolean removeRedundantBranch(Function func){
 		boolean changed = false;
 		boolean needBBListMaking = false;
-		for(BasicBlock BB : func.getBBList()){
+		for(BasicBlock BB : func.getPreOrderBBList()){
 			if(BB.getTailIns() instanceof Branch){
 				Branch ins = (Branch) BB.getTailIns();
 
@@ -126,13 +123,13 @@ public class CFGSimplifier {
 
 			}
 		}
-		if(needBBListMaking) func.makeBBList();
+		if(needBBListMaking) func.makePreOrderBBList();
 		return changed;
 	}
 
 	public boolean removeDeadBasicBlockInPhi(Function func){
 		boolean changed = false;
-		for(BasicBlock BB : func.getBBList()){
+		for(BasicBlock BB : func.getPreOrderBBList()){
 			for(IRIns ins = BB.getHeadIns(), nextIns; ins instanceof Phi; ins = nextIns){
 				nextIns = ins.getNextIns();
 

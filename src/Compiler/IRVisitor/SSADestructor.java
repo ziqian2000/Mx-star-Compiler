@@ -25,16 +25,16 @@ public class SSADestructor {
 		// always assume preBBList, sucBBList, BBList have been correctly computed
 		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
 			removePhi(func);
-			func.makeBBList();
+			func.makePreOrderBBList();
 			parallelCopySequentialization(func);
 		}
 		ir.setSSAForm(false);
 	}
 
 	private void removePhi(Function func){
-		func.getBBList().forEach(BB -> parallelCopyMap.put(BB, new LinkedList<>()));
+		func.getPreOrderBBList().forEach(BB -> parallelCopyMap.put(BB, new LinkedList<>()));
 		Map<BasicBlock, List<Pair<Operand, VirtualRegister>>> pathMap = new HashMap<>();
-		for(BasicBlock BB : func.getBBList()){
+		for(BasicBlock BB : func.getPreOrderBBList()){
 			pathMap.clear();
 			for(BasicBlock preBB : BB.getPreBBList()){
 
@@ -77,7 +77,7 @@ public class SSADestructor {
 		Map<VirtualRegister, VirtualRegister> loc = new HashMap<>();
 		Queue<VirtualRegister> ready = new LinkedList<>();
 		Queue<VirtualRegister> to_do = new LinkedList<>();
-		for(BasicBlock BB : function.getBBList()){
+		for(BasicBlock BB : function.getPreOrderBBList()){
 			ready.clear();
 			to_do.clear();
 			pred.clear();

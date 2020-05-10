@@ -12,6 +12,11 @@ public abstract class IRIns {
 	private BasicBlock belongBB;
 	private IRIns prevIns, nextIns;
 
+	// DCE
+	public boolean mark;
+
+
+
 	public void setBelongBB(BasicBlock belongBB) {
 		this.belongBB = belongBB;
 	}
