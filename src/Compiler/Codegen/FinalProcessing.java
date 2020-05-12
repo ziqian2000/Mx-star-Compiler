@@ -23,6 +23,7 @@ public class FinalProcessing {
 		for(var func : asm.getFunctionList()) if(!func.getIsBuiltin()){
 			int stackSize = func.getAlignedStackSize();
 			if(stackSize > 0){
+				assert func.getEntryBB().getPreBBList().isEmpty();
 				func.getEntryBB().getHeadIns().prependIns(new AsmITypeIns(asm.getPhyReg("sp"), new Immediate(-stackSize), asm.getPhyReg("sp"), AsmITypeIns.Op.ADDI));
 				func.getExitBB().getTailIns().prependIns(new AsmITypeIns(asm.getPhyReg("sp"), new Immediate(stackSize), asm.getPhyReg("sp"), AsmITypeIns.Op.ADDI));
 			}

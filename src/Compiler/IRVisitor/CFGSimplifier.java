@@ -73,7 +73,7 @@ public class CFGSimplifier {
 
 	public boolean removeSingleJumpBasicBlock(Function func){
 		boolean changed = false;
-		for(BasicBlock BB : func.getPreOrderBBList()){
+		for(BasicBlock BB : func.getPreOrderBBList()) if(BB != func.getEntryBB()) {
 			if(BB.getHeadIns() instanceof Jump) { // merely contain a JUMP instruction
 				changed = true;
 				Jump ins = (Jump) BB.getHeadIns();

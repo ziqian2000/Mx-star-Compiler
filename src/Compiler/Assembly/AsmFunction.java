@@ -13,6 +13,9 @@ public class AsmFunction {
 	private AsmBasicBlock exitBB;
 	private boolean isBuiltin;
 
+	// debug
+	private boolean stackSizeLocked = false;
+
 	private List<AsmBasicBlock> BBList; // in pre-order DFS
 
 	public AsmFunction(Function func){
@@ -44,6 +47,7 @@ public class AsmFunction {
 	}
 
 	public int getAlignedStackSize(){
+		stackSizeLocked = true;
 		return (stackSizeFromTop + stackSizeFromBot + 15) / 16 * 16;
 	}
 
@@ -82,12 +86,14 @@ public class AsmFunction {
 	}
 
 	public int stackAllocFromBot(int size){
+		assert !stackSizeLocked;
 		// from top (sp)
 		stackSizeFromBot += size;
 		return -stackSizeFromBot;
 	}
 
 	public void setStackSizeFromTopMax(int stackSizeFromTop) {
+		assert !stackSizeLocked;
 		if(this.stackSizeFromTop < stackSizeFromTop)
 			this.stackSizeFromTop = stackSizeFromTop;
 	}

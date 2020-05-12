@@ -29,7 +29,7 @@ public class IRInterpreter {
 	));
 	// instructions that have exactly 1 operand
 	static private final Set<String> opnum1 = new HashSet<>(Arrays.asList(
-			"ret", "jump", "move", "neg", "not", "alloc"
+			"ret", "jump", "move", "neg", "com", "alloc"
 	));
 	private final Set<String> opjump = new HashSet<>(Arrays.asList(
 			"br", "jump", "ret"
