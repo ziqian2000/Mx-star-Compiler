@@ -40,7 +40,12 @@ public class Alloc extends IRIns {
 	}
 
 	@Override
-	public void setDefRegister(VirtualRegister newDefRegister) {
+	public void replaceUseOpr(Operand oldOpr, Operand newOpr) {
+		if(size == oldOpr) size = newOpr;
+	}
+
+	@Override
+	public void replaceDefRegister(VirtualRegister newDefRegister) {
 		ptr = newDefRegister;
 	}
 

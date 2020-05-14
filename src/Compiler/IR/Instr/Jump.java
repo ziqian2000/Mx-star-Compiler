@@ -32,7 +32,12 @@ public class Jump extends IRIns {
 	}
 
 	@Override
-	public void setDefRegister(VirtualRegister newDefRegister) {
+	public void replaceUseOpr(Operand oldOpr, Operand newOpr) {
+
+	}
+
+	@Override
+	public void replaceDefRegister(VirtualRegister newDefRegister) {
 		throw new FuckingException("no def register in this instruction");
 	}
 

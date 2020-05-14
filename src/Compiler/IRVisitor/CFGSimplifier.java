@@ -8,6 +8,7 @@ import Compiler.IR.Instr.IRIns;
 import Compiler.IR.Instr.Jump;
 import Compiler.IR.Instr.Phi;
 import Compiler.IR.Operand.Immediate;
+import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.VirtualRegister;
 import Compiler.Utils.FuckingException;
 
@@ -18,6 +19,7 @@ import java.util.Map;
 /**
  * 	This file implements dead code elimination and basic block merging, along
  * 	with a collection of other peephole control flow optimizations.  For example:
+ * 		[x] Remove redundant basic blocks. e.g. The conditions is an immediate.
  * 		[x] Removes basic blocks with no predecessors. --- Handled automatically when making basic block list.
  *  	[x] Merges a basic block into its predecessor if there is only one and the predecessor only has one successor.
  *  	[x] Eliminates PHI nodes for basic blocks with a single predecessor. --- implemented in Phi.java
@@ -40,6 +42,7 @@ public class CFGSimplifier {
 		for(boolean changedThisTime = true; changedThisTime; ){
 			changedThisTime = false;
 			for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
+				func.makePreOrderBBList();
 				changedThisTime |= removeRedundantBranch(func);
 				changedThisTime |= removeDeadBasicBlockInPhi(func);
 				changedThisTime |= mergeBasicBlock(func);
@@ -80,7 +83,8 @@ public class CFGSimplifier {
 				BasicBlock sucBB = ins.getBB();
 				sucBB.getPreBBList().remove(BB);
 
-				if(func.getEntryBB() == BB) func.setEntryBB(sucBB);
+				if(sucBB == BB)
+					assert sucBB != BB;
 
 				for(BasicBlock preBB : BB.getPreBBList()){
 					preBB.getSucBBList().remove(BB);
@@ -133,15 +137,16 @@ public class CFGSimplifier {
 			for(IRIns ins = BB.getHeadIns(), nextIns; ins instanceof Phi; ins = nextIns){
 				nextIns = ins.getNextIns();
 
-				Map<BasicBlock, VirtualRegister> path = ((Phi) ins).getPath();
+				Map<BasicBlock, Operand> path = ((Phi) ins).getPath();
 				List<BasicBlock> removeList = new ArrayList<>();
 
 				for(BasicBlock fromBB : path.keySet()){
-					if(!BB.getPreBBList().contains(fromBB))
+					if(!BB.getPreBBList().contains(fromBB)){
 						removeList.add(fromBB);
+						changed = true;
+					}
 				}
-				removeList.forEach(path::remove);
-
+				removeList.forEach(((Phi) ins)::removePath);
 			}
 		}
 		return changed;

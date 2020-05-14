@@ -42,8 +42,10 @@ public class IRPrinter implements IRVisitor{
 		// immediate
 		if(opr instanceof Immediate) return opr.getIdentifier();
 
+//		assert opr != null;
+		if(opr == null) return "null";
+
 		// not immediate, must be in storage : string, value, pointer
-		assert opr != null;
 		if(!(opr instanceof Storage)) throw new FuckingException("how can opr be not of Storage type");
 
 		// if no name, assign one

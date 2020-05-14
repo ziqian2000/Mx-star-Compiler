@@ -8,6 +8,7 @@ import Compiler.Assembly.Operand.PhysicalRegister;
 import Compiler.IR.Operand.I32Value;
 import Compiler.IR.Operand.Register;
 import Compiler.IR.StackPointerOffset;
+import Compiler.IRVisitor.Edge;
 import Compiler.Utils.Config;
 
 import java.util.*;
@@ -504,25 +505,4 @@ public class RegisterAllocator {
 		System.err.println(s);
 	}
 
-}
-
-class Edge{
-	Register u, v;
-	Edge(Register u, Register v){
-		this.u = u;
-		this.v = v;
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		Edge edge = (Edge) o;
-		return u == edge.u && v == edge.v;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(u, v);
-	}
 }

@@ -2,6 +2,7 @@ package Compiler.IRVisitor;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
+import Compiler.IR.Instr.Phi;
 
 import java.util.*;
 
@@ -10,6 +11,39 @@ import java.util.*;
  */
 
 public abstract class Pass {
+
+	/**
+	 * def-use chain
+	 */
+	private void cleanDefUse(Function func){
+		for(var BB : func.getPreOrderBBList()){
+			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+				if(ins.getDefRegister() != null){
+					ins.getDefRegister().cleanDefUse();
+				}
+				for(var useReg : ins.getUseRegister()){
+					assert useReg != null || ins instanceof Phi;
+					if(useReg == null) continue;
+					useReg.cleanDefUse();
+				}
+			}
+		}
+	}
+	public void computeDefUseChain(Function func){
+		cleanDefUse(func);
+		for(var BB : func.getPreOrderBBList()){
+			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+				if(ins.getDefRegister() != null){
+					ins.getDefRegister().def = ins;
+				}
+				for(var useReg : ins.getUseRegister()){
+					assert useReg != null || ins instanceof Phi;
+					if(useReg == null) continue;
+					useReg.use.add(ins);
+				}
+			}
+		}
+	}
 
 	/**
 	 * dominance frontier computation

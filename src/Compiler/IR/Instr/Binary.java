@@ -65,7 +65,13 @@ public class Binary extends IRIns {
 	}
 
 	@Override
-	public void setDefRegister(VirtualRegister newDefRegister) {
+	public void replaceUseOpr(Operand oldOpr, Operand newOpr) {
+		if(lhs == oldOpr) lhs = newOpr;
+		if(rhs == oldOpr) rhs = newOpr;
+	}
+
+	@Override
+	public void replaceDefRegister(VirtualRegister newDefRegister) {
 		dst = newDefRegister;
 	}
 

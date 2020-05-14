@@ -57,9 +57,20 @@ public class Call extends IRIns {
 	@Override
 	public VirtualRegister getDefRegister() {
 		return dst instanceof VirtualRegister ? (VirtualRegister) dst : null;
-	}@Override
+	}
 
-	public void setDefRegister(VirtualRegister newDefRegister) {
+	@Override
+	public void replaceUseOpr(Operand oldOpr, Operand newOpr) {
+		if(obj == oldOpr) obj = newOpr;
+		for(int i = 0; i < paraList.size(); i++){
+			if(paraList.get(i) == oldOpr)
+				paraList.set(i, newOpr);
+		}
+	}
+
+	@Override
+
+	public void replaceDefRegister(VirtualRegister newDefRegister) {
 		dst = newDefRegister;
 	}
 

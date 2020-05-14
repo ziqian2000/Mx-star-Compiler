@@ -2,31 +2,26 @@ package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
-import Compiler.Utils.FuckingException;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Phi extends IRIns {
 
 	private VirtualRegister dst;
-	private Map<BasicBlock, VirtualRegister> path;
+	private Map<BasicBlock, Operand> path;
 
 	public Phi(VirtualRegister dst){
 		this.dst = dst;
-		path = new HashMap<>();
+		path = new LinkedHashMap<>();
 	}
 
 	public VirtualRegister getDst() {
 		return dst;
 	}
 
-	public Map<BasicBlock, VirtualRegister> getPath() {
+	public Map<BasicBlock, Operand> getPath() {
 		return path;
 	}
 
@@ -47,9 +42,9 @@ public class Phi extends IRIns {
 	@Override
 	public List<VirtualRegister> getUseRegister() {
 		List<VirtualRegister> registerList = new ArrayList<>();
-		for (Map.Entry<BasicBlock, VirtualRegister> entry : path.entrySet()) {
-			VirtualRegister reg = entry.getValue();
-			registerList.add(reg);
+		for (var entry : path.entrySet()) {
+			Operand opr = entry.getValue();
+			if(opr instanceof VirtualRegister) registerList.add((VirtualRegister) opr);
 		}
 		return registerList;
 	}
@@ -61,21 +56,36 @@ public class Phi extends IRIns {
 
 	@Override
 	public List<Operand> getOperands() {
-		throw new FuckingException("Don't call me");
+		List<Operand> oprList = new ArrayList<>();
+		for(var entry : path.entrySet()) oprList.add(entry.getValue());
+		oprList.add(dst);
+		return oprList;
 	}
 
 	@Override
 	public List<BasicBlock> getBBs() {
-		throw new FuckingException("Don't call me");
+		List<BasicBlock> oprList = new ArrayList<>();
+		for(var entry : path.entrySet()) oprList.add(entry.getKey());
+		return oprList;
 	}
 
 	@Override
 	public IRIns copySelf(List<Operand> opr, List<BasicBlock> BB) {
-		throw new FuckingException("Don't call me");
+		var newIns = new Phi((VirtualRegister) opr.get(opr.size() - 1));
+		for(int i = 0; i < BB.size(); i++) newIns.path.put(BB.get(i), opr.get(i));
+		return newIns;
 	}
 
 	@Override
-	public void setDefRegister(VirtualRegister newDefRegister) {
+	public void replaceUseOpr(Operand oldOpr, Operand newOpr) {
+		for (var entry : path.entrySet()) {
+			Operand opr = entry.getValue();
+			if(opr == oldOpr) path.put(entry.getKey(), newOpr);
+		}
+	}
+
+	@Override
+	public void replaceDefRegister(VirtualRegister newDefRegister) {
 		dst = newDefRegister;
 	}
 

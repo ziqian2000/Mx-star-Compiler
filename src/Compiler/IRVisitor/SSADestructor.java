@@ -24,6 +24,7 @@ public class SSADestructor {
 	public void run(){
 		// always assume preBBList, sucBBList, BBList have been correctly computed
 		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
+			func.makePreOrderBBList();
 			removePhi(func);
 			func.makePreOrderBBList();
 			parallelCopySequentialization(func);
@@ -54,7 +55,7 @@ public class SSADestructor {
 			// replace phi with copy
 			IRIns ins = BB.getHeadIns();
 			for(; ins instanceof Phi; ins = ins.getNextIns()){
-				for(Map.Entry<BasicBlock, VirtualRegister> entry : ((Phi) ins).getPath().entrySet()){
+				for(Map.Entry<BasicBlock, Operand> entry : ((Phi) ins).getPath().entrySet()){
 					BasicBlock fromBB = entry.getKey();
 					Operand fromOpr = entry.getValue();
 					pathMap.get(fromBB).add(new Pair<>(fromOpr == null ? new Immediate(0) : fromOpr, ((Phi) ins).getDst()));

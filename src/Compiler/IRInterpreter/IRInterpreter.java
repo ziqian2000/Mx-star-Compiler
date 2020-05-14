@@ -191,8 +191,8 @@ public class IRInterpreter {
 					String label = words.get(i);
 					String reg = words.get(i + 1);
 					if (!label.endsWith(":")) throw new SemanticError("label should end with `:`");
-					if (!reg.startsWith("%") && !reg.startsWith("@") && !reg.equals("undef"))
-						throw new SemanticError("source of a phi node should be a register or `undef`");
+//					if (!reg.startsWith("%") && !reg.startsWith("@") && !reg.equals("undef"))
+//						throw new SemanticError("source of a phi node should be a register or `undef`");
 					phi.paths.put(label.substring(0, label.length() - 1), reg);
 				}
 				curBB.phi.add(phi);

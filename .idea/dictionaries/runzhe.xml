@@ -2,6 +2,7 @@
   <dictionary name="runzhe">
     <words>
       <w>globl</w>
+      <w>inexecutable</w>
       <w>liveness</w>
       <w>risc</w>
       <w>sequentialization</w>

@@ -29,7 +29,7 @@ public class Main {
             long startTime = System.currentTimeMillis();
 
             boolean semanticOnly = false;
-            boolean showRunningTime = true;
+            boolean showRunningTime = false;
 
             for(String arg : args){
                 switch (arg){
@@ -85,12 +85,15 @@ public class Main {
             for(boolean changed = true; changed; ) {
                 changed = new DeadCodeElimination(ir).run();
                 changed |= new CFGSimplifier(ir).run();
+                changed |= new SparseConditionalConstantPropagation(ir).run();
+                changed |= new CFGSimplifier(ir).run();
             }
+
             new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
             new CFGSimplifier(ir).run();                            // need to eliminate useless variable like "extra" in sequentialization
 
-//            new IRPrinter().run(ir, new PrintStream("ir.txt"));
-//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), ir.getSSAForm());
+            new IRPrinter().run(ir, new PrintStream("ir.txt"));
+//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), true);
 
 			// print and test
 

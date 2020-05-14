@@ -1,6 +1,7 @@
 package Compiler.IR.Operand;
 
 import Compiler.Assembly.Instr.AsmMove;
+import Compiler.IR.Instr.IRIns;
 import Compiler.IR.StackLocation;
 import Compiler.IR.StackPointerOffset;
 
@@ -11,14 +12,6 @@ import java.util.Set;
 
 public abstract class Register extends Storage implements StackLocation {
 
-	public Register(){
-
-	}
-
-	public Register(String identifier){
-		super(identifier);
-	}
-
 	// register allocation
 	public Set<Register> adjList = new HashSet<>();
 	public int degree;
@@ -26,6 +19,20 @@ public abstract class Register extends Storage implements StackLocation {
 	public Register alias;
 	public String color;
 	public StackPointerOffset spillAddr;
+
+	// SSA optimization
+	public IRIns def = null;
+	public Set<IRIns> use = new HashSet<>();
+	public void cleanDefUse(){def = null; use.clear();}
+
+
+	public Register(){
+
+	}
+
+	public Register(String identifier){
+		super(identifier);
+	}
 
 	public void clean(){
 		adjList.clear();

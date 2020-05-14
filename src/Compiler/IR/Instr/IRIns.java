@@ -95,11 +95,13 @@ public abstract class IRIns {
 		removeFromList();
 	}
 
+	public abstract void replaceUseOpr(Operand oldOpr, Operand newOpr);
+
+	public abstract void replaceDefRegister(VirtualRegister newDefRegister);
+
 	public abstract List<VirtualRegister> getUseRegister();
 
 	public abstract VirtualRegister getDefRegister();
-
-	public abstract void setDefRegister(VirtualRegister newDefRegister);
 
 	public abstract List<Operand> getOperands();
 

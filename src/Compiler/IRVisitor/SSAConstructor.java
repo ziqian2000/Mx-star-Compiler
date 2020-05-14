@@ -71,7 +71,7 @@ public class SSAConstructor extends Pass {
 				int i = count.get(defRegister) + 1;
 				count.put(defRegister, i);
 				stack.get(defRegister).push(i);
-				S.setDefRegister(defRegister.getSSARenamedRegister(i));
+				S.replaceDefRegister(defRegister.getSSARenamedRegister(i));
 			}
 		}
 		for(BasicBlock y : n.getSucBBList()){
@@ -80,7 +80,7 @@ public class SSAConstructor extends Pass {
 					VirtualRegister origin = ((Phi) ins).getDst().getOriginVar();
 					VirtualRegister renamedRegister = stack.containsKey(origin) && !stack.get(origin).isEmpty()
 											? origin.getSSARenamedRegister(stack.get(origin).peek())
-											: null;
+											: null; // means it can take an arbitrary value
 					((Phi) ins).getPath().put(n, renamedRegister);
 				}
 			}

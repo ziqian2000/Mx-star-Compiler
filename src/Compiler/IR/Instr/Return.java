@@ -6,7 +6,6 @@ import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
 import Compiler.Utils.FuckingException;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -35,7 +34,12 @@ public class Return extends IRIns {
 	}
 
 	@Override
-	public void setDefRegister(VirtualRegister newDefRegister) {
+	public void replaceUseOpr(Operand oldOpr, Operand newOpr) {
+		if(retValue == oldOpr) retValue = newOpr;
+	}
+
+	@Override
+	public void replaceDefRegister(VirtualRegister newDefRegister) {
 		throw new FuckingException("no def register in this instruction");
 	}
 

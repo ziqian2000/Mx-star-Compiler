@@ -14,8 +14,6 @@ public class DeadCodeElimination extends Pass{
 
 	boolean changed;
 	private IR ir;
-	private Map<Register, IRIns> def;
-	private Map<Register, Set<IRIns>> use;
 
 	public DeadCodeElimination(IR ir){
 		this.ir = ir;
@@ -27,28 +25,11 @@ public class DeadCodeElimination extends Pass{
 			func.makePreOrderBBList();
 			computeDefUseChain(func);
 			constructReverseDominatorTreeAndReverseDominanceFrontier(func);
-			new IRPrinter().run(ir, new PrintStream("ir.txt"));
 			mark(func);
 			sweep(func);
+			func.makePreOrderBBList();
 		}
 		return changed;
-	}
-
-	private void computeDefUseChain(Function func){
-		def = new HashMap<>();
-		use = new HashMap<>();
-		for(var BB : func.getPreOrderBBList()){
-			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
-				if(ins.getDefRegister() != null){
-					def.put(ins.getDefRegister(), ins);
-					use.computeIfAbsent(ins.getDefRegister(), k -> new HashSet<>());
-				}
-				for(var useReg : ins.getUseRegister()){
-					use.computeIfAbsent(useReg, k -> new HashSet<>());
-					use.get(useReg).add(ins);
-				}
-			}
-		}
 	}
 
 	private void mark(Function func){
@@ -67,10 +48,22 @@ public class DeadCodeElimination extends Pass{
 			worklist.remove(ins);
 
 			for(var useReg : ins.getUseRegister()){
-				var defIns = def.get(useReg);
+				assert useReg != null || ins instanceof Phi;
+				if(useReg == null) continue;
+				var defIns = useReg.def;
 				if(defIns != null && !defIns.mark){
 					defIns.mark = true;
 					worklist.add(defIns);
+				}
+			}
+
+			if(ins instanceof Phi){
+				for(var BB : ((Phi) ins).getPath().keySet()){
+					var tailIns = BB.getTailIns();
+					if(!tailIns.mark){
+						tailIns.mark = true;
+						worklist.add(tailIns);
+					}
 				}
 			}
 
@@ -93,8 +86,9 @@ public class DeadCodeElimination extends Pass{
 				if(!ins.mark){
 					if(ins instanceof Branch){
 						changed = true;
-						ins.prependIns(new Jump(getNearestMarkedPostDominator(BB)));
-						ins.removeFromList();
+						var nearestMarkedBB = getNearestMarkedPostDominator(BB);
+						ins.replaceSelfWithAnotherIns(new Jump(nearestMarkedBB));
+
 					}
 					else if(!(ins instanceof Jump)){
 						changed = true;
@@ -106,6 +100,7 @@ public class DeadCodeElimination extends Pass{
 	}
 
 	private BasicBlock getNearestMarkedPostDominator(BasicBlock BB){
+		BB = BB.postIDom;
 		while(true){
 			assert BB != null;
 			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
@@ -116,7 +111,6 @@ public class DeadCodeElimination extends Pass{
 	}
 
 	private boolean isCritical(IRIns ins){
-		// todo : add more ins type here?
 		return ins instanceof Return
 			|| ins instanceof Call
 			|| ins instanceof Alloc
@@ -138,6 +132,9 @@ public class DeadCodeElimination extends Pass{
 			var counterpartBB = BBMap.get(BB);
 
 			BB.postIDom = reBBMap.get(counterpartBB.iDom);
+
+//			if(reBBMap.containsKey(counterpartBB.iDom))
+//				System.err.println(BB.getIdentifier() + " (post dom) " + reBBMap.get(counterpartBB.iDom).getIdentifier());
 
 			BB.postDomFront = new HashSet<>();
 			for (BasicBlock b : counterpartBB.domFront) {

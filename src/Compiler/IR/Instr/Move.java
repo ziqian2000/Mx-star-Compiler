@@ -40,7 +40,12 @@ public class Move extends IRIns {
 	}
 
 	@Override
-	public void setDefRegister(VirtualRegister newDefRegister) {
+	public void replaceUseOpr(Operand oldOpr, Operand newOpr) {
+		if(src == oldOpr) src = newOpr;
+	}
+
+	@Override
+	public void replaceDefRegister(VirtualRegister newDefRegister) {
 		dst = newDefRegister;
 	}
 

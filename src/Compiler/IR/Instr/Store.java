@@ -45,7 +45,13 @@ public class Store extends IRIns {
 	}
 
 	@Override
-	public void setDefRegister(VirtualRegister newDefRegister) {
+	public void replaceUseOpr(Operand oldOpr, Operand newOpr) {
+		if(src == oldOpr) src = newOpr;
+		if(ptr == oldOpr) ptr = newOpr;
+	}
+
+	@Override
+	public void replaceDefRegister(VirtualRegister newDefRegister) {
 		throw new FuckingException("no def register in this instruction");
 
 	}
