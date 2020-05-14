@@ -205,8 +205,8 @@ public class SparseConditionalConstantPropagation extends Pass implements IRVisi
 				break;
 			}
 		}
-		if(overDefined) makeOverDefined(instr.getDst());
-		else if(constValue != null) makeConst(instr.getDst(), constValue);
+		if(!overDefined && constValue != null) makeConst(instr.getDst(), constValue);
+		else makeOverDefined(instr.getDst());
 	}
 
 	// utility method

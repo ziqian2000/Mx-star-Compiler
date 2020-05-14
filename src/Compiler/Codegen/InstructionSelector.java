@@ -33,6 +33,9 @@ import java.util.Map;
 
 public class InstructionSelector implements IRVisitor {
 
+	final int MAX_IMM = (1 << 11) - 1;
+	final int MIN_IMM = -(1 << 11);
+
 	private IR ir;
 	private Assembly asm = new Assembly();
 
@@ -123,12 +126,16 @@ public class InstructionSelector implements IRVisitor {
 	}
 
 	public void visit(Binary instr){
-		if(instr.getLhs() instanceof Immediate && instr.getRhs() instanceof Immediate)
-			curBB.appendInst(new AsmLI((Register)instr.getDst(), new Immediate(IRAssistant.calculation(instr.getOp(), ((Immediate) instr.getLhs()).getValue(), ((Immediate) instr.getRhs()).getValue()))));
+		if(instr.getLhs() instanceof Immediate && instr.getRhs() instanceof Immediate) {
+			assert false; // this should be done in SCCP, not here !
+//			curBB.appendInst(new AsmLI((Register) instr.getDst(), new Immediate(IRAssistant.calculation(instr.getOp(), ((Immediate) instr.getLhs()).getValue(), ((Immediate) instr.getRhs()).getValue()))));
+		}
 		else{
 			boolean RType = instr.getOp() == Binary.Op.MUL || instr.getOp() == Binary.Op.DIV || instr.getOp() == Binary.Op.MOD || instr.getOp() == Binary.Op.SUB
 					|| (instr.getLhs() instanceof Register && instr.getRhs() instanceof Register
-					|| (instr.getLhs() instanceof Immediate && (instr.getOp() == Binary.Op.SHL || instr.getOp() == Binary.Op.SHR)));
+					|| (instr.getLhs() instanceof Immediate && (instr.getOp() == Binary.Op.SHL || instr.getOp() == Binary.Op.SHR))
+					|| (instr.getLhs() instanceof Immediate && !checkBound((Immediate) instr.getLhs()))
+					|| (instr.getRhs() instanceof Immediate && !checkBound((Immediate) instr.getRhs())));
 			// todo : SUB can be optimized in IR processing by replacing it with ADD ....
 			if(RType){
 				Register rs1 = immAndStr2Reg(instr.getLhs());
@@ -319,6 +326,19 @@ public class InstructionSelector implements IRVisitor {
 	}
 
 	// utility method
+
+	public Operand boundImm(Operand opr){
+		if(!(opr instanceof Immediate)) return opr;
+		if(checkBound((Immediate) opr)) return opr;
+
+		I32Value tmp = new I32Value("imm_tmp");
+		curBB.appendInst(new AsmLI(tmp, (Immediate) opr));
+		return tmp;
+	}
+
+	public boolean checkBound(Immediate imm){
+		return MIN_IMM <= imm.getValue() && imm.getValue() <= MAX_IMM;
+	}
 
 	public Register immAndStr2Reg(Operand opr){
 		if(opr instanceof Register) return (Register)opr;

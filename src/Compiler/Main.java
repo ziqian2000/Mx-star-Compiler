@@ -83,7 +83,9 @@ public class Main {
             // Basic Optimization on IR
             new SSAConstructor(ir).run();
             for(boolean changed = true; changed; ) {
-                changed = new DeadCodeElimination(ir).run();
+                changed = false;
+                //noinspection ConstantConditions
+                changed |= new DeadCodeElimination(ir).run();
                 changed |= new CFGSimplifier(ir).run();
                 changed |= new SparseConditionalConstantPropagation(ir).run();
                 changed |= new CFGSimplifier(ir).run();
@@ -93,7 +95,7 @@ public class Main {
             new CFGSimplifier(ir).run();                            // need to eliminate useless variable like "extra" in sequentialization
 
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
-//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), true);
+//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), false);
 
 			// print and test
 
