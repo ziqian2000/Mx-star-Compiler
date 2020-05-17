@@ -127,8 +127,8 @@ public class InstructionSelector implements IRVisitor {
 
 	public void visit(Binary instr){
 		if(instr.getLhs() instanceof Immediate && instr.getRhs() instanceof Immediate) {
-			assert false; // this should be done in SCCP, not here !
-//			curBB.appendInst(new AsmLI((Register) instr.getDst(), new Immediate(IRAssistant.calculation(instr.getOp(), ((Immediate) instr.getLhs()).getValue(), ((Immediate) instr.getRhs()).getValue()))));
+//			assert false; // this should be done in SCCP, not here !
+			curBB.appendInst(new AsmLI((Register) instr.getDst(), new Immediate(IRAssistant.calculation(instr.getOp(), ((Immediate) instr.getLhs()).getValue(), ((Immediate) instr.getRhs()).getValue()))));
 		}
 		else{
 			boolean RType = instr.getOp() == Binary.Op.MUL || instr.getOp() == Binary.Op.DIV || instr.getOp() == Binary.Op.MOD || instr.getOp() == Binary.Op.SUB

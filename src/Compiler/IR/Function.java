@@ -15,7 +15,8 @@ public class Function {
 	private boolean isBuiltin = false;
 	private VirtualRegister obj;
 
-	private List<BasicBlock> preOrderBBList; // in pre-order DFS
+	private List<BasicBlock> preOrderBBList; // in pre-order
+	private List<BasicBlock> postOrderBBList; // in post-order
 	private Set<VirtualRegister> globals;
 
 	public Function(String identifier){
@@ -92,6 +93,7 @@ public class Function {
 
 	public void makePreOrderBBList(){
 		preOrderBBList = new ArrayList<>();
+		postOrderBBList = new ArrayList<>();
 		dfsBB(entryBB, null, new HashSet<>());
 	}
 
@@ -108,6 +110,12 @@ public class Function {
 		preOrderBBList.add(basicBlock);
 		basicBlock.makeSucBBList();
 		basicBlock.getSucBBList().forEach(BB -> dfsBB(BB, basicBlock, visited));
+		postOrderBBList.add(basicBlock);
+	}
+
+	public void computePostOrderIdx(){
+		for(int i = 0; i < postOrderBBList.size(); i++)
+			postOrderBBList.get(i).postOrderIdx = i;
 	}
 
 	// DCE

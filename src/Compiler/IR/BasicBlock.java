@@ -14,6 +14,7 @@ public class BasicBlock {
 
 	// DFS
 	private BasicBlock parent;
+	public int postOrderIdx;
 	public List<BasicBlock> preBBList; // implemented in function
 	public List<BasicBlock> sucBBList; // implemented in basic block (here)
 

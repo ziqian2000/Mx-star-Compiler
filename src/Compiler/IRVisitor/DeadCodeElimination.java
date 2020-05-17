@@ -19,7 +19,7 @@ public class DeadCodeElimination extends Pass{
 		this.ir = ir;
 	}
 
-	public boolean run() throws FileNotFoundException {
+	public boolean run() {
 		changed = false;
 		for(var func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
 			func.makePreOrderBBList();

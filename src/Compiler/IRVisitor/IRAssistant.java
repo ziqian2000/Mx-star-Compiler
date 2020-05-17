@@ -90,6 +90,35 @@ public class IRAssistant {
 
 	}
 
+	public static Binary.Op commute(Binary.Op op){
+		switch (op) {
+			case XOR:
+			case AND:
+			case OR:
+			case MUL:
+			case EQ:
+			case NEQ:
+			case ADD:
+				return op;
+			case SUB:
+			case DIV:
+			case MOD:
+			case SHL:
+			case SHR:
+				return null;
+			case LT:
+				return Binary.Op.GT;
+			case LE:
+				return Binary.Op.GE;
+			case GT:
+				return Binary.Op.LT;
+			case GE:
+				return Binary.Op.LE;
+		}
+		assert false;
+		return null;
+	}
+
 	public static int calculation(Binary.Op op, int a, int b){
 		int c = -2333;
 		switch (op){

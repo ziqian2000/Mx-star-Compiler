@@ -5,6 +5,7 @@
       <w>inexecutable</w>
       <w>liveness</w>
       <w>risc</w>
+      <w>sccp</w>
       <w>sequentialization</w>
       <w>worklist</w>
     </words>

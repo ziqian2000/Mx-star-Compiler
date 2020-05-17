@@ -80,13 +80,15 @@ public class Main {
             new FunctionInlining(ir).run();
             new GlobalVariableResolving(ir).run();                  // a must-do, otherwise modify irGenerator
 
+            if(showRunningTime) System.err.println("IR Gen done: "+(System.currentTimeMillis() - startTime)+"ms");
+
             // Basic Optimization on IR
             new SSAConstructor(ir).run();
             for(boolean changed = true; changed; ) {
                 changed = false;
                 //noinspection ConstantConditions
+                changed |= new CommonSubexpressionElimination(ir).run();
                 changed |= new DeadCodeElimination(ir).run();
-                changed |= new CFGSimplifier(ir).run();
                 changed |= new SparseConditionalConstantPropagation(ir).run();
                 changed |= new CFGSimplifier(ir).run();
             }
@@ -94,10 +96,10 @@ public class Main {
             new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
             new CFGSimplifier(ir).run();                            // need to eliminate useless variable like "extra" in sequentialization
 
+            if(showRunningTime) System.err.println("SSA done: "+(System.currentTimeMillis() - startTime)+"ms");
+
             new IRPrinter().run(ir, new PrintStream("ir.txt"));
 //            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), false);
-
-			// print and test
 
             if(showRunningTime) System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");
 
