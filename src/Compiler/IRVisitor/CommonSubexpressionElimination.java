@@ -153,6 +153,19 @@ public class CommonSubexpressionElimination extends Pass{
 					allocatedUnaryExpr.add(expr);
 				}
 			}
+			else if(ins instanceof Move){
+				if(((Move) ins).getSrc() instanceof VirtualRegister){
+					valueNumber.put((VirtualRegister) ((Move) ins).getDst(), (VirtualRegister) ((Move) ins).getSrc());
+					allocatedValueNumber.add((VirtualRegister) ((Move) ins).getDst());
+
+					ins.removeFromList();
+					changed = true;
+				}
+				else{
+					valueNumber.put(ins.getDefRegister(), ins.getDefRegister());
+					allocatedValueNumber.add(ins.getDefRegister());
+				}
+			}
 			else{
 				if(ins.getDefRegister() != null){
 					valueNumber.put(ins.getDefRegister(), ins.getDefRegister());
