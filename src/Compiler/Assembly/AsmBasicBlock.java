@@ -3,14 +3,7 @@ package Compiler.Assembly;
 import Compiler.Assembly.Instr.AsmBranch;
 import Compiler.Assembly.Instr.AsmIns;
 import Compiler.Assembly.Instr.AsmJump;
-import Compiler.Assembly.Instr.AsmReturn;
-import Compiler.IR.BasicBlock;
-import Compiler.IR.Instr.Branch;
-import Compiler.IR.Instr.IRIns;
-import Compiler.IR.Instr.Jump;
-import Compiler.IR.Instr.Return;
 import Compiler.IR.Operand.Register;
-import Compiler.Utils.FuckingException;
 
 import java.util.*;
 
@@ -29,10 +22,10 @@ public class AsmBasicBlock {
 	private List<AsmBasicBlock> sucBBList; // implemented in basic block (here)
 
 	//  liveness analysis
-	private Set<Register> use = new HashSet<>();
-	private Set<Register> def = new HashSet<>();
-	private Set<Register> liveIn = new HashSet<>();
-	private Set<Register> liveOut = new HashSet<>();
+	private Set<Register> use = new LinkedHashSet<>();
+	private Set<Register> def = new LinkedHashSet<>();
+	private Set<Register> liveIn = new LinkedHashSet<>();
+	private Set<Register> liveOut = new LinkedHashSet<>();
 
 	public AsmBasicBlock(String identifier){
 		this.identifier = identifier;
@@ -119,7 +112,7 @@ public class AsmBasicBlock {
 		if(tailIns != null) resolveSucBBList(tailIns);
 		if(tailIns != null && tailIns.getPrevIns() != null) resolveSucBBList(tailIns.getPrevIns());
 		// unique
-		HashSet<AsmBasicBlock> tmp = new HashSet<>(sucBBList);
+		HashSet<AsmBasicBlock> tmp = new LinkedHashSet<>(sucBBList);
 		sucBBList = new ArrayList<>(tmp);
 	}
 

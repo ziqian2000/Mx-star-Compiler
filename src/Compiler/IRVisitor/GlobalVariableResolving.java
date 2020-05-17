@@ -17,11 +17,11 @@ public class GlobalVariableResolving {
 
 	IR ir;
 	private List<Function> irFuncExceptBuiltin = new ArrayList<>();
-	private Map<Function, Set<Function>> calleeList = new HashMap<>();
+	private Map<Function, Set<Function>> calleeList = new LinkedHashMap<>();
 
-	private Map<Function, Set<VirtualRegister>> varUsedInFunc = new HashMap<>();
-	private Map<Function, Set<VirtualRegister>> varRecurUsedInFunc = new HashMap<>();
-	private Map<Function, Map<Operand, Operand>> tempGlobalVarMap = new HashMap<>(); // global variables -> local temporary variables
+	private Map<Function, Set<VirtualRegister>> varUsedInFunc = new LinkedHashMap<>();
+	private Map<Function, Set<VirtualRegister>> varRecurUsedInFunc = new LinkedHashMap<>();
+	private Map<Function, Map<Operand, Operand>> tempGlobalVarMap = new LinkedHashMap<>(); // global variables -> local temporary variables
 
 	public GlobalVariableResolving(IR ir){
 		this.ir = ir;
@@ -42,8 +42,8 @@ public class GlobalVariableResolving {
 		for(var function : irFuncExceptBuiltin){
 			function.makePreOrderBBList();
 
-			Set<VirtualRegister> globalVarUsed = new HashSet<>();
-			Set<Function> calleeFunction = new HashSet<>();
+			Set<VirtualRegister> globalVarUsed = new LinkedHashSet<>();
+			Set<Function> calleeFunction = new LinkedHashSet<>();
 
 			for(BasicBlock BB : function.getPreOrderBBList()){
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
@@ -61,7 +61,7 @@ public class GlobalVariableResolving {
 			}
 			calleeList.put(function, calleeFunction);
 			varUsedInFunc.put(function, globalVarUsed);
-			varRecurUsedInFunc.put(function, new HashSet<>(globalVarUsed));
+			varRecurUsedInFunc.put(function, new LinkedHashSet<>(globalVarUsed));
 		}
 
 		boolean changed = true;
@@ -144,8 +144,8 @@ public class GlobalVariableResolving {
 	public void copyGlobalTmpVar(){
 		for(Function function : irFuncExceptBuiltin){
 
-			Map<Operand, Operand> oprReplacement = new HashMap<>();
-			Map<Operand, Operand> tempVarMap = new HashMap<>();
+			Map<Operand, Operand> oprReplacement = new LinkedHashMap<>();
+			Map<Operand, Operand> tempVarMap = new LinkedHashMap<>();
 			tempGlobalVarMap.put(function, tempVarMap);
 
 			function.makePreOrderBBList();

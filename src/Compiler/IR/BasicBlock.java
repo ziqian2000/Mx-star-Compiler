@@ -28,7 +28,7 @@ public class BasicBlock {
 	public BasicBlock sameDom;
 	public BasicBlock iDom; 		// i.e. parent in dominator tree
 	public List<BasicBlock> iDomChildren = new ArrayList<>();
-	public Set<BasicBlock> domFront = new HashSet<>();
+	public Set<BasicBlock> domFront = new LinkedHashSet<>();
 	// reverse version
 	public BasicBlock postIDom;
 	public Set<BasicBlock> postDomFront;

@@ -13,9 +13,9 @@ import java.util.*;
 public class IRPrinter implements IRVisitor{
 
 	PrintStream output;
-	Set<BasicBlock> BBVisitMap = new HashSet<>();
-	Map<Operand, String> oprNameMap = new HashMap<>();
-	Map<BasicBlock, String> BBNameMap = new HashMap<>();
+	Set<BasicBlock> BBVisitMap = new LinkedHashSet<>();
+	Map<Operand, String> oprNameMap = new LinkedHashMap<>();
+	Map<BasicBlock, String> BBNameMap = new LinkedHashMap<>();
 	int nameCnt = 0;
 
 	public void run(IR ir, PrintStream printStream){

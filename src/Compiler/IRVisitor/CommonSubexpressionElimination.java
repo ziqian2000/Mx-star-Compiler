@@ -7,7 +7,6 @@ import Compiler.IR.Instr.*;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.VirtualRegister;
 
-import java.io.FileNotFoundException;
 import java.util.*;
 
 /**
@@ -19,10 +18,10 @@ public class CommonSubexpressionElimination extends Pass{
 	private boolean changed;
 	private IR ir;
 
-	private Map<BinaryExpr, VirtualRegister> binaryHashTable = new Hashtable<>();
-	private Map<UnaryExpr, VirtualRegister> unaryHashTable = new Hashtable<>();
-	private Map<Map<BasicBlock, Operand>, VirtualRegister> phiHashTable = new Hashtable<>();
-	private Map<VirtualRegister, VirtualRegister> valueNumber = new Hashtable<>();
+	private Map<BinaryExpr, VirtualRegister> binaryHashTable = new LinkedHashMap<>();
+	private Map<UnaryExpr, VirtualRegister> unaryHashTable = new LinkedHashMap<>();
+	private Map<Map<BasicBlock, Operand>, VirtualRegister> phiHashTable = new LinkedHashMap<>();
+	private Map<VirtualRegister, VirtualRegister> valueNumber = new LinkedHashMap<>();
 
 	public CommonSubexpressionElimination(IR ir){
 		this.ir = ir;

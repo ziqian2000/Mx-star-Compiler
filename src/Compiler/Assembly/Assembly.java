@@ -7,6 +7,7 @@ import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 public class Assembly {
@@ -34,7 +35,7 @@ public class Assembly {
 											"a6", "a7",
 																	"t3", "t4", "t5", "t6" };
 
-	public HashMap<String, PhysicalRegister> phyReg = new HashMap<>();
+	public HashMap<String, PhysicalRegister> phyReg = new LinkedHashMap<>();
 
 	// functions
 	private List<AsmFunction> functionList = new ArrayList<>();

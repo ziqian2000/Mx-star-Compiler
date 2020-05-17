@@ -38,8 +38,8 @@ public class SSAConstructor extends Pass {
 	/**
 	 * rename variables
 	 */
-	Map<VirtualRegister, Stack<Integer>> stack = new HashMap<>();
-	Map<VirtualRegister, Integer> count = new HashMap<>();
+	Map<VirtualRegister, Stack<Integer>> stack = new LinkedHashMap<>();
+	Map<VirtualRegister, Integer> count = new LinkedHashMap<>();
 
 	public void recursiveRenaming(BasicBlock n){
 		for(IRIns S = n.getHeadIns(), nextIns; S != null; S = nextIns){
@@ -128,7 +128,7 @@ public class SSAConstructor extends Pass {
 
 	public void insertPhi(Function func){
 		Queue<BasicBlock> queue = new LinkedList<>();
-		Set<BasicBlock> inserted = new HashSet<>();
+		Set<BasicBlock> inserted = new LinkedHashSet<>();
 		for(VirtualRegister var : func.getGlobals()){
 			inserted.clear();
 			queue.addAll(defBBs.getOrDefault(var, Collections.emptyList()));
@@ -149,9 +149,9 @@ public class SSAConstructor extends Pass {
 	 * traverse all globals
 	 */
 
-	Map<VirtualRegister, List<BasicBlock>> defBBs = new HashMap<>();
+	Map<VirtualRegister, List<BasicBlock>> defBBs = new LinkedHashMap<>();
 	public void traverseGlobals(Function func){
-		Set<VirtualRegister> defined = new HashSet<>();
+		Set<VirtualRegister> defined = new LinkedHashSet<>();
 		for(BasicBlock BB : func.getPreOrderBBList()){
 			defined.clear();
 			for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){

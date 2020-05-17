@@ -9,6 +9,7 @@ import Compiler.SymbolTable.Type.StringType;
 import Compiler.SymbolTable.Type.Type;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Scope {
@@ -23,8 +24,8 @@ public class Scope {
 
 	public Scope(Scope upperScope){
 		this.upperScope = upperScope;
-		this.symbolTable = new HashMap<>();
-		this.typeTable = upperScope == null ? new HashMap<>() : upperScope.getTypeTable();
+		this.symbolTable = new LinkedHashMap<>();
+		this.typeTable = upperScope == null ? new LinkedHashMap<>() : upperScope.getTypeTable();
 	}
 
 	public Scope getUpperScope() {

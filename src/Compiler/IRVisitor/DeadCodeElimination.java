@@ -33,7 +33,7 @@ public class DeadCodeElimination extends Pass{
 	}
 
 	private void mark(Function func){
-		Set<IRIns> worklist = new HashSet<>();
+		Set<IRIns> worklist = new LinkedHashSet<>();
 		for(var BB : func.getPreOrderBBList()){
 			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 				if(isCritical(ins)){
@@ -136,7 +136,7 @@ public class DeadCodeElimination extends Pass{
 //			if(reBBMap.containsKey(counterpartBB.iDom))
 //				System.err.println(BB.getIdentifier() + " (post dom) " + reBBMap.get(counterpartBB.iDom).getIdentifier());
 
-			BB.postDomFront = new HashSet<>();
+			BB.postDomFront = new LinkedHashSet<>();
 			for (BasicBlock b : counterpartBB.domFront) {
 				assert reBBMap.containsKey(b);
 				BB.postDomFront.add(reBBMap.get(b));

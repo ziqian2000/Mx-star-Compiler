@@ -20,8 +20,8 @@ public class FunctionInlining {
 
 	private List<Function> irFuncExceptBuiltin = new ArrayList<>();
 	private Set<Function> changedFunc = new LinkedHashSet<>();
-	private Map<Function, List<Call>> funcCallInstList = new HashMap<>();
-	private Map<Function, Integer> funcLength = new HashMap<>();
+	private Map<Function, List<Call>> funcCallInstList = new LinkedHashMap<>();
+	private Map<Function, Integer> funcLength = new LinkedHashMap<>();
 
 	public FunctionInlining(IR ir){
 		this.ir = ir;
@@ -117,8 +117,8 @@ public class FunctionInlining {
 		ins.removeFromList();
 
 		// make temporary opr & BB
-		Map<Operand, Operand> tempStorageMap = new HashMap<>();
-		Map<BasicBlock, BasicBlock> tempBBMap = new HashMap<>();
+		Map<Operand, Operand> tempStorageMap = new LinkedHashMap<>();
+		Map<BasicBlock, BasicBlock> tempBBMap = new LinkedHashMap<>();
 		// opr as parameter/obj
 		callee.getParaList().forEach(opr -> makeTmpOprCopy(tempStorageMap, opr));
 		makeTmpOprCopy(tempStorageMap, callee.getObj());

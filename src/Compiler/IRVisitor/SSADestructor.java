@@ -15,7 +15,7 @@ import java.util.*;
 public class SSADestructor {
 
 	IR ir;
-	Map<BasicBlock, List<Pair<Operand, VirtualRegister>>> parallelCopyMap = new HashMap<>();
+	Map<BasicBlock, List<Pair<Operand, VirtualRegister>>> parallelCopyMap = new LinkedHashMap<>();
 
 	public SSADestructor(IR ir){
 		this.ir = ir;
@@ -27,14 +27,14 @@ public class SSADestructor {
 			func.makePreOrderBBList();
 			removePhi(func);
 			func.makePreOrderBBList();
-			parallelCopySequentialization(func);
+			parallelCopySequentialization(func, true);
 		}
 		ir.setSSAForm(false);
 	}
 
 	private void removePhi(Function func){
 		func.getPreOrderBBList().forEach(BB -> parallelCopyMap.put(BB, new LinkedList<>()));
-		Map<BasicBlock, List<Pair<Operand, VirtualRegister>>> pathMap = new HashMap<>();
+		Map<BasicBlock, List<Pair<Operand, VirtualRegister>>> pathMap = new LinkedHashMap<>();
 		for(BasicBlock BB : func.getPreOrderBBList()){
 			pathMap.clear();
 			for(BasicBlock preBB : BB.getPreBBList()){
@@ -73,9 +73,9 @@ public class SSADestructor {
 	 * 	consider the graph as a ``Huan Tao Shu'' (I don't know its corresponding English name...)
 	 */
 
-	private void parallelCopySequentialization(Function function){
-		Map<VirtualRegister, VirtualRegister> pred = new HashMap<>();
-		Map<VirtualRegister, VirtualRegister> loc = new HashMap<>();
+	private void parallelCopySequentialization(Function function, boolean assertNoCycle){
+		Map<VirtualRegister, VirtualRegister> pred = new LinkedHashMap<>();
+		Map<VirtualRegister, VirtualRegister> loc = new LinkedHashMap<>();
 		Queue<VirtualRegister> ready = new LinkedList<>();
 		Queue<VirtualRegister> to_do = new LinkedList<>();
 		for(BasicBlock BB : function.getPreOrderBBList()){
@@ -116,7 +116,7 @@ public class SSADestructor {
 				}
 				VirtualRegister b = to_do.poll();
 				if(b == loc.get(pred.get(b))){
-					BB.getTailIns().prependIns(new Move(b, n));
+					if(!assertNoCycle) BB.getTailIns().prependIns(new Move(b, n));
 					loc.put(b, n);
 					ready.add(b);
 				}

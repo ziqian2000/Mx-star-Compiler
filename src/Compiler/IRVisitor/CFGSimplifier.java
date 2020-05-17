@@ -3,10 +3,7 @@ package Compiler.IRVisitor;
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IR;
-import Compiler.IR.Instr.Branch;
-import Compiler.IR.Instr.IRIns;
-import Compiler.IR.Instr.Jump;
-import Compiler.IR.Instr.Phi;
+import Compiler.IR.Instr.*;
 import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.VirtualRegister;
@@ -24,6 +21,7 @@ import java.util.Map;
  *  	[x] Merges a basic block into its predecessor if there is only one and the predecessor only has one successor.
  *  	[x] Eliminates PHI nodes for basic blocks with a single predecessor. --- implemented in Phi.java
  *  	[x] Eliminates a basic block that only contains an unconditional branch. -- only applies to non-SSA form
+ *  	[x] Eliminate MOVE nodes where src = dst
  *
  * 	It's a LLVM pass from https://github.com/llvm-mirror/llvm/blob/release_60/lib/Transforms/Scalar/SimplifyCFGPass.cpp
  */
@@ -46,7 +44,10 @@ public class CFGSimplifier {
 				changedThisTime |= removeRedundantBranch(func);
 				changedThisTime |= removeDeadBasicBlockInPhi(func);
 				changedThisTime |= mergeBasicBlock(func);
-				if(!ir.getSSAForm()) changedThisTime |= removeSingleJumpBasicBlock(func);
+				if(!ir.getSSAForm()) {
+					changedThisTime |= removeSingleJumpBasicBlock(func);
+					changedThisTime |= removeRedundantMove(func);
+				}
 			}
 			changed |= changedThisTime;
 		}
@@ -82,9 +83,6 @@ public class CFGSimplifier {
 				Jump ins = (Jump) BB.getHeadIns();
 				BasicBlock sucBB = ins.getBB();
 				sucBB.getPreBBList().remove(BB);
-
-				if(sucBB == BB)
-					assert sucBB != BB;
 
 				for(BasicBlock preBB : BB.getPreBBList()){
 					preBB.getSucBBList().remove(BB);
@@ -152,4 +150,18 @@ public class CFGSimplifier {
 		return changed;
 	}
 
+	public boolean removeRedundantMove(Function func){
+		boolean changed = false;
+		for(var BB : func.getPreOrderBBList()){
+			IRIns nextIns;
+			for(var ins = BB.getHeadIns(); ins != null; ins = nextIns) {
+				nextIns = ins.getNextIns();
+				if (ins instanceof Move && ((Move) ins).getSrc() == ins.getDefRegister()) {
+					ins.removeFromList();
+					changed = true;
+				}
+			}
+		}
+		return changed;
+	}
 }

@@ -9,8 +9,8 @@ import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;
 
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -19,8 +19,8 @@ public class AsmPrinter implements AsmVisitor{
 	PrintStream output;
 	private Assembly asm;
 
-	Set<AsmBasicBlock> BBVisitMap = new HashSet<>();
-	Map<AsmBasicBlock, String> BBNameMap = new HashMap<>();
+	Set<AsmBasicBlock> BBVisitMap = new LinkedHashSet<>();
+	Map<AsmBasicBlock, String> BBNameMap = new LinkedHashMap<>();
 	int nameCnt = 0;
 
 	public AsmPrinter(Assembly asm){

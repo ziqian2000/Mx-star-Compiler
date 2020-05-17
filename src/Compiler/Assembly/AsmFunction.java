@@ -67,7 +67,7 @@ public class AsmFunction {
 
 	public void makeBBList(){
 		BBList = new ArrayList<>();
-		dfsBB(entryBB, null, new HashSet<>());
+		dfsBB(entryBB, null, new LinkedHashSet<>());
 	}
 
 	public void dfsBB(AsmBasicBlock basicBlock, AsmBasicBlock parBB, Set<AsmBasicBlock> visited){

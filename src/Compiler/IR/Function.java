@@ -22,7 +22,7 @@ public class Function {
 	public Function(String identifier){
 		this.identifier = identifier;
 		paraList = new ArrayList<>();
-		globals = new HashSet<>();
+		globals = new LinkedHashSet<>();
 	}
 
 	public void addParameter(VirtualRegister register){
@@ -94,7 +94,7 @@ public class Function {
 	public void makePreOrderBBList(){
 		preOrderBBList = new ArrayList<>();
 		postOrderBBList = new ArrayList<>();
-		dfsBB(entryBB, null, new HashSet<>());
+		dfsBB(entryBB, null, new LinkedHashSet<>());
 	}
 
 	public void dfsBB(BasicBlock basicBlock, BasicBlock parBB, Set<BasicBlock> visited){
@@ -121,8 +121,8 @@ public class Function {
 	// DCE
 	public List<Object> makeReverseCopy(){
 		// What's copied: preBBList, sucBBList, parent, entryBB, exitBB, preOrderBBList
-		Map<BasicBlock, BasicBlock> BBMap = new HashMap<>();
-		Map<BasicBlock, BasicBlock> reBBMap = new HashMap<>();
+		Map<BasicBlock, BasicBlock> BBMap = new LinkedHashMap<>();
+		Map<BasicBlock, BasicBlock> reBBMap = new LinkedHashMap<>();
 		preOrderBBList.forEach(BB -> {
 			BBMap.put(BB, new BasicBlock("reverse_" + BB.getIdentifier()));
 			reBBMap.put(BBMap.get(BB), BB);
@@ -144,7 +144,7 @@ public class Function {
 	}
 	public void reverseMakePreOrderBBList(){
 		preOrderBBList = new ArrayList<>();
-		reverseDFSBB(entryBB, null, new HashSet<>());
+		reverseDFSBB(entryBB, null, new LinkedHashSet<>());
 	}
 	public void reverseDFSBB(BasicBlock basicBlock, BasicBlock parBB, Set<BasicBlock> visited){
 		if(basicBlock == null || visited.contains(basicBlock)) return;

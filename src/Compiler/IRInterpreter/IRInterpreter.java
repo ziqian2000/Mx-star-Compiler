@@ -18,23 +18,23 @@ import java.util.*;
 
 public class IRInterpreter {
 	// instructions that have no destination
-	static private final Set<String> opnames1 = new HashSet<>(Arrays.asList(
+	static private final Set<String> opnames1 = new LinkedHashSet<>(Arrays.asList(
 			"store", "br", "jump", "ret", "call"
 	));
 	// instructions that have destination
-	static private final Set<String> opnames2 = new HashSet<>(Arrays.asList(
+	static private final Set<String> opnames2 = new LinkedHashSet<>(Arrays.asList(
 			"load", "move", "alloc", "phi",
 			"add", "sub", "mul", "div", "mod", "shl", "shr", "and", "or", "xor", "neg", "com",
 			"lt", "gt", "le", "ge", "eq", "neq", "call"
 	));
 	// instructions that have exactly 1 operand
-	static private final Set<String> opnum1 = new HashSet<>(Arrays.asList(
+	static private final Set<String> opnum1 = new LinkedHashSet<>(Arrays.asList(
 			"ret", "jump", "move", "neg", "com", "alloc"
 	));
-	private final Set<String> opjump = new HashSet<>(Arrays.asList(
+	private final Set<String> opjump = new LinkedHashSet<>(Arrays.asList(
 			"br", "jump", "ret"
 	));
-	private Map<String, Function> functions = new HashMap<>();
+	private Map<String, Function> functions = new LinkedHashMap<>();
 	private BasicBlock curBB = null;
 	private Function curFunc = null;
 	private Instruction curInst = null;
@@ -46,10 +46,10 @@ public class IRInterpreter {
 	private BufferedReader br;
 	private boolean allowPhi;
 	private Map<String, Register> registers;
-	private Map<String, Register> globalRegisters = new HashMap<>();
-	private Map<Integer, String> stringObjects = new HashMap<>();
-	private Map<String, Integer> tmpRegister = new HashMap<>(); // for phi node
-	private Map<Integer, Byte> memory = new HashMap<>();
+	private Map<String, Register> globalRegisters = new LinkedHashMap<>();
+	private Map<Integer, String> stringObjects = new LinkedHashMap<>();
+	private Map<String, Integer> tmpRegister = new LinkedHashMap<>(); // for phi node
+	private Map<Integer, Byte> memory = new LinkedHashMap<>();
 	private int heapTop = (int) (Math.random() * 4096);
 	private int retValue;
 	private boolean ret;
@@ -250,7 +250,7 @@ public class IRInterpreter {
 	}
 
 	private void perfromSSACheck() throws SemanticError {
-		Set<String> regDef = new HashSet<>();
+		Set<String> regDef = new LinkedHashSet<>();
 		for (Function func : functions.values()) {
 			regDef.clear();
 			for (BasicBlock BB : func.blocks.values())
@@ -494,7 +494,7 @@ public class IRInterpreter {
 				if (func == null) throw new RuntimeError("cannot resolve function `" + curInst.op1 + "`");
 				if (curInst.dest != null && !func.hasReturnValue)
 					throw new RuntimeError("function `" + func.name + "` has not return value");
-				Map<String, Register> regs = new HashMap<>();
+				Map<String, Register> regs = new LinkedHashMap<>();
 				if (curInst.args.size() != func.args.size()) throw new RuntimeError("argument size cannot match");
 				//This loop passes reg values in this function to correspondent function values & build new register table
 				for (int i = 0; i < curInst.args.size(); ++i) {
@@ -640,7 +640,7 @@ public class IRInterpreter {
 			if (!isReady) throw new RuntimeException("not ready");
 			Function init = functions.get("__init");
 			if (init == null) throw new RuntimeError("cannot find `__init` function");
-			registers = new HashMap<>();
+			registers = new LinkedHashMap<>();
 			runFunction(init);
 			exitcode = retValue;
 			exception = false;
@@ -687,7 +687,7 @@ public class IRInterpreter {
 	}
 
 	private static class PhiNode extends Instruction {
-		HashMap<String, String> paths = new HashMap<>();
+		HashMap<String, String> paths = new LinkedHashMap<>();
 
 		PhiNode(Instruction inst) {
 			this.operator = inst.operator;
@@ -713,7 +713,7 @@ public class IRInterpreter {
 		String name;
 		BasicBlock entry;
 		List<String> args;
-		Map<String, BasicBlock> blocks = new HashMap<>();
+		Map<String, BasicBlock> blocks = new LinkedHashMap<>();
 	}
 
 	private static class Register {

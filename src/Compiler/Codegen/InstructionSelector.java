@@ -17,7 +17,7 @@ import Compiler.Utils.Config;
 import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 /**
@@ -42,9 +42,9 @@ public class InstructionSelector implements IRVisitor {
 	private AsmBasicBlock curBB;
 	private AsmFunction curFunc;
 
-	private Map<BasicBlock, AsmBasicBlock> BB2AsmBB = new HashMap<>();
-	private Map<Function, AsmFunction> func2AsmFunc = new HashMap<>();
-	private Map<String, VirtualRegister> saveMap = new HashMap<>();
+	private Map<BasicBlock, AsmBasicBlock> BB2AsmBB = new LinkedHashMap<>();
+	private Map<Function, AsmFunction> func2AsmFunc = new LinkedHashMap<>();
+	private Map<String, VirtualRegister> saveMap = new LinkedHashMap<>();
 
 	public InstructionSelector(IR ir){
 		this.ir = ir;
@@ -127,7 +127,7 @@ public class InstructionSelector implements IRVisitor {
 
 	public void visit(Binary instr){
 		if(instr.getLhs() instanceof Immediate && instr.getRhs() instanceof Immediate) {
-//			assert false; // this should be done in SCCP, not here !
+			// assert false; // this should be done in SCCP, not here !
 			curBB.appendInst(new AsmLI((Register) instr.getDst(), new Immediate(IRAssistant.calculation(instr.getOp(), ((Immediate) instr.getLhs()).getValue(), ((Immediate) instr.getRhs()).getValue()))));
 		}
 		else{

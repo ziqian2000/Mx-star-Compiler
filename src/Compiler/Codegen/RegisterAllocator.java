@@ -441,6 +441,7 @@ public class RegisterAllocator {
 			for(AsmIns ins = BB.getHeadIns(); ins != null; ins = nextIns){
 				nextIns = ins.getNextIns();
 
+				// spill use
 				for(var useReg : ins.getUseRegister()){
 					if(useReg.spillAddr != null){
 						// todo : peephole optimization if def == useReg
@@ -451,6 +452,7 @@ public class RegisterAllocator {
 						ins.replaceUseRegister(useReg, tmp);
 					}
 				}
+				// spill def
 				if(ins.getDefRegister() != null && ins.getDefRegister().spillAddr != null){
 					var defReg = ins.getDefRegister();
 					assert !(defReg instanceof PhysicalRegister);

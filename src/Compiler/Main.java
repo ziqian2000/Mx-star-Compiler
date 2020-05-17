@@ -4,12 +4,11 @@ import Compiler.AST.BaseNode;
 import Compiler.Assembly.Assembly;
 import Compiler.Codegen.*;
 import Compiler.IR.IR;
-import Compiler.IRInterpreter.IRInterpreter;
 import Compiler.IRVisitor.*;
 import Compiler.Parser.MxstarErrorListener;
-import Compiler.SemanticAnalysis.*;
 import Compiler.Parser.MxstarLexer;
 import Compiler.Parser.MxstarParser;
+import Compiler.SemanticAnalysis.*;
 import Compiler.SymbolTable.Scope;
 import Compiler.Utils.FuckingException;
 import org.antlr.v4.runtime.CharStream;
@@ -17,7 +16,9 @@ import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 
-import java.io.*;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.PrintStream;
 
 public class Main {
     public static void main(String[] args) {

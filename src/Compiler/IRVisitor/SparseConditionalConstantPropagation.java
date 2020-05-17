@@ -34,9 +34,9 @@ public class SparseConditionalConstantPropagation extends Pass implements IRVisi
 
 	Queue<BasicBlock> BBWorklist = new LinkedList<>();
 	Queue<VirtualRegister> virRegWorklist = new LinkedList<>();
-	Map<VirtualRegister, State> stateMap = new HashMap<>();
-	Set<BasicBlock> executableBB = new HashSet<>();
-	Set<Edge> executableEdge = new HashSet<>();
+	Map<VirtualRegister, State> stateMap = new LinkedHashMap<>();
+	Set<BasicBlock> executableBB = new LinkedHashSet<>();
+	Set<Edge> executableEdge = new LinkedHashSet<>();
 
 	public SparseConditionalConstantPropagation(IR ir){
 		this.ir = ir;

@@ -1,6 +1,7 @@
 package Compiler.IR.Operand;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public abstract class VirtualRegister extends Register {
@@ -37,7 +38,7 @@ public abstract class VirtualRegister extends Register {
 	// SSA
 	public abstract VirtualRegister getSSACopyWithID(int id);
 	public VirtualRegister getSSARenamedRegister(int id){
-		if(SSARenamedRegisters == null) SSARenamedRegisters = new HashMap<>();
+		if(SSARenamedRegisters == null) SSARenamedRegisters = new LinkedHashMap<>();
 		if(SSARenamedRegisters.containsKey(id)) return SSARenamedRegisters.get(id);
 		VirtualRegister newRegister = getSSACopyWithID(id);
 		SSARenamedRegisters.put(id, newRegister);
