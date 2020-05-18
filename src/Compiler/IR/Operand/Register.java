@@ -23,6 +23,9 @@ public abstract class Register extends Storage implements StackLocation {
 	public Set<IRIns> use = new LinkedHashSet<>();
 	public void cleanDefUse(){def = null; use.clear();}
 
+	// register allocation
+	public int spillPriority;
+	public boolean addForSpill = false;
 
 	public Register(){
 

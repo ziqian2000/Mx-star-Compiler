@@ -27,7 +27,7 @@ public class SSADestructor {
 			func.makePreOrderBBList();
 			removePhi(func);
 			func.makePreOrderBBList();
-			parallelCopySequentialization(func, true);
+			parallelCopySequentialization(func, false); // todo : assert no cycle if necessary
 		}
 		ir.setSSAForm(false);
 	}

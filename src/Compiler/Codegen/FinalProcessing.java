@@ -45,7 +45,7 @@ public class FinalProcessing {
 
 	private void builtinFunctionRenaming(){
 		for(var func : asm.getFunctionList()) if(!func.getIsBuiltin()){
-			for(var BB : func.getBBList()){
+			for(var BB : func.getPreOrderBBList()){
 				for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 					if(ins instanceof AsmCall){
 						var id = ((AsmCall) ins).getFunc().getIdentifier();

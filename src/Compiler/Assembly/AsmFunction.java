@@ -61,11 +61,11 @@ public class AsmFunction {
 
 	// BB list
 
-	public List<AsmBasicBlock> getBBList() {
+	public List<AsmBasicBlock> getPreOrderBBList() {
 		return BBList;
 	}
 
-	public void makeBBList(){
+	public void makePreOrderBBList(){
 		BBList = new ArrayList<>();
 		dfsBB(entryBB, null, new LinkedHashSet<>());
 	}

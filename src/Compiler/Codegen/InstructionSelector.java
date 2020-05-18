@@ -111,7 +111,7 @@ public class InstructionSelector implements IRVisitor {
 		// ending
 		func.getPreOrderBBList().forEach(this::visit);
 		asmFunc.setExitBB(BB2AsmBB.get(func.getExitBB()));
-		asmFunc.makeBBList();
+		asmFunc.makePreOrderBBList();
 	}
 
 	public void visit(BasicBlock BB){

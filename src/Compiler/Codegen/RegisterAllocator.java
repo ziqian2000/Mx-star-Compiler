@@ -7,13 +7,14 @@ import Compiler.Assembly.Instr.*;
 import Compiler.Assembly.Operand.PhysicalRegister;
 import Compiler.IR.Operand.I32Value;
 import Compiler.IR.Operand.Register;
+import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IR.StackPointerOffset;
 import Compiler.IRVisitor.Edge;
 import Compiler.Utils.Config;
 
 import java.util.*;
 
-public class RegisterAllocator {
+public class RegisterAllocator extends AsmPass{
 
 	private Assembly asm;
 	private int K;
@@ -43,6 +44,7 @@ public class RegisterAllocator {
 
 	public void run(){
 		for(AsmFunction func : asm.getFunctionList()) if(!func.getIsBuiltin()){
+			computeSpillPriority(func);
 			while(true){
 				clean();
 				init(func);
@@ -87,7 +89,7 @@ public class RegisterAllocator {
 
 	private void livenessAnalysis(AsmFunction func){
 		// use & def for each basic block
-		for(AsmBasicBlock BB : func.getBBList()){
+		for(AsmBasicBlock BB : func.getPreOrderBBList()){
 			BB.getDef().clear();
 			BB.getUse().clear();
 			BB.getLiveIn().clear();
@@ -111,8 +113,8 @@ public class RegisterAllocator {
 		// iterative analysis
 		for(boolean changed = true; changed; ){
 			changed = false;
-			for(int i = func.getBBList().size() - 1; i >= 0; i--){ // reversed order makes it faster
-				AsmBasicBlock BB = func.getBBList().get(i);
+			for(int i = func.getPreOrderBBList().size() - 1; i >= 0; i--){ // reversed order makes it faster
+				AsmBasicBlock BB = func.getPreOrderBBList().get(i);
 
 				Set<Register> newIn = new LinkedHashSet<>(BB.getLiveOut()), newOut = new LinkedHashSet<>();
 				newIn.removeAll(BB.getDef());
@@ -130,7 +132,7 @@ public class RegisterAllocator {
 	private void init(AsmFunction func){
 
 		// prepare
-		func.makeBBList();
+		func.makePreOrderBBList();
 
 		// pre-colored
 		for(var name : asm.phyRegName){
@@ -143,7 +145,7 @@ public class RegisterAllocator {
 
 		// fake initial, consist of all registers, including physical (pre-colored) registers
 		initial.addAll(preColored);
-		for(var BB : func.getBBList()){
+		for(var BB : func.getPreOrderBBList()){
 			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 				initial.addAll(ins.getUseRegister());
 				if(ins.getDefRegister() != null) initial.add(ins.getDefRegister());
@@ -164,7 +166,7 @@ public class RegisterAllocator {
 
 	private void build(AsmFunction func){
 
-		for(AsmBasicBlock BB : func.getBBList()){
+		for(AsmBasicBlock BB : func.getPreOrderBBList()){
 			Set<Register> live = new LinkedHashSet<>(BB.getLiveOut());
 			for(AsmIns ins = BB.getTailIns(); ins != null; ins = ins.getPrevIns()){
 
@@ -376,9 +378,16 @@ public class RegisterAllocator {
 	}
 
 	private void selectSpill(){
-		// todo : better selecting policy
-		var reg = spillWorklist.iterator().next();
-		assert !(reg instanceof PhysicalRegister);
+		// random policy
+//		var reg = spillWorklist.iterator().next();
+		// policy based on loop counting
+		VirtualRegister reg = (VirtualRegister) spillWorklist.iterator().next();
+		for(var r : spillWorklist){
+			if(reg.addForSpill || (!r.addForSpill && r.spillPriority / r.degree < reg.spillPriority / reg.degree))
+				reg = (VirtualRegister) r;
+		}
+
+		assert reg != null;
 		spillWorklist.remove(reg);
 		simplifyWorklist.add(reg);
 		freezeMoves(reg);
@@ -436,7 +445,7 @@ public class RegisterAllocator {
 			spilledReg.spillAddr = new StackPointerOffset(func.stackAllocFromBot(Config.SIZE), true, func, asm.getPhyReg("sp"));
 		}
 
-		for(var BB : func.getBBList()){
+		for(var BB : func.getPreOrderBBList()){
 			AsmIns nextIns;
 			for(AsmIns ins = BB.getHeadIns(); ins != null; ins = nextIns){
 				nextIns = ins.getNextIns();
@@ -448,6 +457,7 @@ public class RegisterAllocator {
 						// todo : change MOVE to LOAD in some case
 						assert !(useReg instanceof PhysicalRegister);
 						var tmp = new I32Value("spillUse_" + useReg.getIdentifier());
+						tmp.addForSpill = true;
 						ins.prependIns(new AsmLoad(useReg.spillAddr, tmp, Config.SIZE));
 						ins.replaceUseRegister(useReg, tmp);
 					}
@@ -457,6 +467,7 @@ public class RegisterAllocator {
 					var defReg = ins.getDefRegister();
 					assert !(defReg instanceof PhysicalRegister);
 					var tmp = new I32Value("spillDef_" + defReg.getIdentifier());
+					tmp.addForSpill = true;
 					ins.replaceDefRegister(tmp);
 					ins.appendIns(new AsmStore(defReg.spillAddr, tmp, null, Config.SIZE));
 				}
@@ -481,7 +492,7 @@ public class RegisterAllocator {
 
 	private void applyColoring(AsmFunction func){
 
-		for(var BB : func.getBBList()){
+		for(var BB : func.getPreOrderBBList()){
 			for(AsmIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 
 				for(var useReg : ins.getUseRegister()){
@@ -501,6 +512,28 @@ public class RegisterAllocator {
 			}
 		}
 
+	}
+
+	private void computeSpillPriority(AsmFunction func){
+		computeLoopInfo(func);
+		// clean
+		for(var BB : func.getPreOrderBBList()){
+			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+				ins.getUseRegister().forEach(reg -> reg.spillPriority = 0);
+				if(ins.getDefRegister() != null)
+					ins.getDefRegister().spillPriority = 0;
+			}
+		}
+		// compute
+		for(var BB : func.getPreOrderBBList()){
+			int naturalLoopCount = belongingLoopHeaders.get(BB).size();
+			int contribution = (int) Math.pow(10, naturalLoopCount);
+			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+				ins.getUseRegister().forEach(reg -> reg.spillPriority += contribution);
+				if(ins.getDefRegister() != null)
+					ins.getDefRegister().spillPriority += contribution;
+			}
+		}
 	}
 
 	void debug(String s){

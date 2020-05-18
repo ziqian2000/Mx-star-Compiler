@@ -1,7 +1,6 @@
 package Compiler.Codegen;
 
 import Compiler.Assembly.Assembly;
-import Compiler.Assembly.Instr.AsmCall;
 import Compiler.Assembly.Instr.AsmMove;
 
 public class PeepholeOptimization {
@@ -18,7 +17,7 @@ public class PeepholeOptimization {
 
 	private void eliminateUselessMove(){
 		for(var func : asm.getFunctionList()) if(!func.getIsBuiltin()){
-			for(var BB : func.getBBList()){
+			for(var BB : func.getPreOrderBBList()){
 				for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 					if(ins instanceof AsmMove && ((AsmMove) ins).getRs1() == ((AsmMove) ins).getRd()){
 						ins.removeFromList();

@@ -77,7 +77,7 @@ public class AsmPrinter implements AsmVisitor{
 	public void visit(AsmFunction func){
 		indPrLn(".globl" + "\t" + func.getIdentifier());
 		prLn(func.getIdentifier() + ":");
-		for(var BB : func.getBBList())
+		for(var BB : func.getPreOrderBBList())
 			visit(BB);
 		prLn("");
 	}

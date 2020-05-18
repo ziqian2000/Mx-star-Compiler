@@ -27,6 +27,17 @@ public class AsmBasicBlock {
 	private Set<Register> liveIn = new LinkedHashSet<>();
 	private Set<Register> liveOut = new LinkedHashSet<>();
 
+	// dominator tree, dominance frontier
+	public int dfn;
+	public List<AsmBasicBlock> bucket = new ArrayList<>();
+	public AsmBasicBlock ancestor;
+	public AsmBasicBlock best;
+
+	public AsmBasicBlock semiDom;
+	public AsmBasicBlock sameDom;
+	public AsmBasicBlock iDom; 		// i.e. parent in dominator tree
+	public List<AsmBasicBlock> iDomChildren = new ArrayList<>();
+
 	public AsmBasicBlock(String identifier){
 		this.identifier = identifier;
 	}
