@@ -28,6 +28,7 @@ public class SSADestructor {
 			removePhi(func);
 			func.makePreOrderBBList();
 			parallelCopySequentialization(func, false); // todo : assert no cycle if necessary
+//			naiveParallelCopySequentialization(func);
 		}
 		ir.setSSAForm(false);
 	}
@@ -72,6 +73,14 @@ public class SSADestructor {
 	 * 	Algorithm 17.6 Parallel copy sequentialization algorithm in SSA book
 	 * 	consider the graph as a ``Huan Tao Shu'' (I don't know its corresponding English name...)
 	 */
+
+	private void naiveParallelCopySequentialization(Function function){
+		for(BasicBlock BB : function.getPreOrderBBList()) {
+			parallelCopyMap.get(BB).forEach(pc -> {
+					BB.getTailIns().prependIns(new Move(pc.a, pc.b));
+			});
+		}
+	}
 
 	private void parallelCopySequentialization(Function function, boolean assertNoCycle){
 		Map<VirtualRegister, VirtualRegister> pred = new LinkedHashMap<>();
@@ -128,6 +137,10 @@ public class SSADestructor {
 				}
 			});
 		}
+	}
+
+	void debug(String s){
+		System.err.println(s);
 	}
 
 }

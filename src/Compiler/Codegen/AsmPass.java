@@ -10,7 +10,36 @@ import java.util.*;
  */
 
 public abstract class AsmPass {
-
+	/**
+	 * def-use chain
+	 */
+	private void cleanDefUse(AsmFunction func){
+		for(var BB : func.getPreOrderBBList()){
+			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+				if(ins.getDefRegister() != null){
+					ins.getDefRegister().asmCleanDefUse();
+				}
+				for(var useReg : ins.getUseRegister()){
+					if(useReg == null) continue;
+					useReg.asmCleanDefUse();
+				}
+			}
+		}
+	}
+	public void computeDefUseChain(AsmFunction func){
+		cleanDefUse(func);
+		for(var BB : func.getPreOrderBBList()){
+			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+				if(ins.getDefRegister() != null){
+					ins.getDefRegister().asmDefs.add(ins);
+				}
+				for(var useReg : ins.getUseRegister()){
+					if(useReg == null) continue;
+					useReg.asmUses.add(ins);
+				}
+			}
+		}
+	}
 	/**
 	 * Dominator tree
 	 */

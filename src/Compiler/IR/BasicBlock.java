@@ -143,7 +143,7 @@ public class BasicBlock {
 		sucBBList = BB.getSucBBList();
 		for(BasicBlock sucBB : BB.getSucBBList()){
 			sucBB.getPreBBList().remove(BB);
-			sucBB.getPreBBList().add(BB);
+			sucBB.getPreBBList().add(this);
 		}
 		// merge two blocks
 		if(getHeadIns() == getTailIns()){ // only one instruction

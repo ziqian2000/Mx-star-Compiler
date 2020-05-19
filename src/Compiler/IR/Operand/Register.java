@@ -1,5 +1,6 @@
 package Compiler.IR.Operand;
 
+import Compiler.Assembly.Instr.AsmIns;
 import Compiler.Assembly.Instr.AsmMove;
 import Compiler.IR.Instr.IRIns;
 import Compiler.IR.StackLocation;
@@ -20,8 +21,13 @@ public abstract class Register extends Storage implements StackLocation {
 
 	// SSA optimization
 	public IRIns def = null;
-	public Set<IRIns> use = new LinkedHashSet<>();
-	public void cleanDefUse(){def = null; use.clear();}
+	public Set<IRIns> uses = new LinkedHashSet<>();
+	public void cleanDefUse(){def = null; uses.clear();}
+
+	// codegen
+	public Set<AsmIns> asmDefs = new LinkedHashSet<>();
+	public Set<AsmIns> asmUses = new LinkedHashSet<>();
+	public void asmCleanDefUse(){asmDefs.clear(); asmUses.clear();}
 
 	// register allocation
 	public int spillPriority;

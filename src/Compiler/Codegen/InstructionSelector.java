@@ -31,7 +31,7 @@ import java.util.Map;
  *		[x] Implement memory allocation by calling "malloc" lib function.
  */
 
-public class InstructionSelector implements IRVisitor {
+public class InstructionSelector extends AsmPass implements IRVisitor {
 
 	final int MAX_IMM = (1 << 11) - 1;
 	final int MIN_IMM = -(1 << 11);
@@ -76,6 +76,7 @@ public class InstructionSelector implements IRVisitor {
 
 		for(Function func : ir.getFunctionList()) if(!func.getIsBuiltin()) {
 			visit(func);
+			eliminateRedundantCalculation(func2AsmFunc.get(func)); // peephole optimization
 		}
 	}
 
@@ -288,7 +289,7 @@ public class InstructionSelector implements IRVisitor {
 	
 	public void visit(Load instr){
 		assert !(instr.getPtr() instanceof StaticStrConst);
-		curBB.appendInst(new AsmLoad((Register) instr.getPtr(), (Register) instr.getDst(), Config.SIZE));
+		curBB.appendInst(new AsmLoad((Register) instr.getPtr(), (Register) instr.getDst(), 0, Config.SIZE));
 	}
 	
 	public void visit(Return instr){
@@ -305,9 +306,9 @@ public class InstructionSelector implements IRVisitor {
 		assert !(instr.getPtr() instanceof StaticStrConst);
 
 		if(((VirtualRegister) instr.getPtr()).isGlobal())
-			curBB.appendInst(new AsmStore((Register)instr.getPtr(), immAndStr2Reg(instr.getSrc()), new I32Value("store_tmp"), Config.SIZE));
+			curBB.appendInst(new AsmStore((Register)instr.getPtr(), immAndStr2Reg(instr.getSrc()), 0, new I32Value("store_tmp"), Config.SIZE));
 		else
-			curBB.appendInst(new AsmStore((Register)instr.getPtr(), immAndStr2Reg(instr.getSrc()), null, Config.SIZE));
+			curBB.appendInst(new AsmStore((Register)instr.getPtr(), immAndStr2Reg(instr.getSrc()), 0, null, Config.SIZE));
 	}
 	
 	public void visit(Unary instr){
@@ -354,6 +355,76 @@ public class InstructionSelector implements IRVisitor {
 
 		}
 		throw new FuckingException("Unexpected type in imm2Reg.");
+	}
+
+	// optimization
+
+	private void eliminateRedundantCalculation(AsmFunction func){
+		computeDefUseChain(func);
+		for(var BB : func.getPreOrderBBList()){
+			AsmIns nextIns;
+			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+
+				if(ins instanceof AsmLoad && ((AsmLoad) ins).getLoc() instanceof Register) {
+					Register ptr = (Register) ((AsmLoad) ins).getLoc();
+
+					assert ((AsmLoad) ins).getOffset() == 0;
+					assert ptr instanceof VirtualRegister;
+
+					if (ptr.asmDefs.size() == 1 && ptr.asmUses.size() == 1) {
+
+						var defIns = ptr.asmDefs.iterator().next();
+
+						if (defIns instanceof AsmMove) {
+							((AsmLoad) ins).setLoc(((AsmMove) defIns).getRs1());
+							((AsmLoad) ins).setOffset(0);
+							defIns.removeFromList();
+						} else if (defIns instanceof AsmITypeIns) {
+							assert ((AsmITypeIns) defIns).getOp() == AsmITypeIns.Op.ADDI;
+							assert checkBound(((AsmITypeIns) defIns).getImm());
+
+							((AsmLoad) ins).setLoc(((AsmITypeIns) defIns).getRs1());
+							((AsmLoad) ins).setOffset(((AsmITypeIns) defIns).getImm().getValue());
+							defIns.removeFromList();
+						}
+
+					}
+				}
+
+				else if(ins instanceof AsmStore && ((AsmStore) ins).getLoc() instanceof Register) {
+					Register ptr = (Register) ((AsmStore) ins).getLoc();
+
+					assert ((AsmStore) ins).getOffset() == 0;
+					assert ptr instanceof VirtualRegister;
+
+					if (ptr.asmDefs.size() == 1 && ptr.asmUses.size() == 1) {
+
+						var defIns = ptr.asmDefs.iterator().next();
+
+						if (defIns instanceof AsmMove) {
+							((AsmStore) ins).setLoc(((AsmMove) defIns).getRs1());
+							((AsmStore) ins).setOffset(0);
+							defIns.removeFromList();
+						} else if (defIns instanceof AsmITypeIns) {
+							assert ((AsmITypeIns) defIns).getOp() == AsmITypeIns.Op.ADDI;
+							assert checkBound(((AsmITypeIns) defIns).getImm());
+
+							((AsmStore) ins).setLoc(((AsmITypeIns) defIns).getRs1());
+							((AsmStore) ins).setOffset(((AsmITypeIns) defIns).getImm().getValue());
+							defIns.removeFromList();
+						}
+
+					}
+				}
+
+				// todo : else if branch
+
+			}
+		}
+	}
+
+	void debug(String s){
+		System.err.println(s);
 	}
 
 }

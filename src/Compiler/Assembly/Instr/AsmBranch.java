@@ -3,7 +3,6 @@ package Compiler.Assembly.Instr;
 import Compiler.Assembly.AsmBasicBlock;
 import Compiler.Codegen.AsmVisitor;
 import Compiler.IR.Operand.Register;
-import Compiler.IR.Operand.VirtualRegister;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,6 +42,10 @@ public class AsmBranch extends AsmIns {
 
 	public AsmBasicBlock getBB() {
 		return BB;
+	}
+
+	public void setBB(AsmBasicBlock BB) {
+		this.BB = BB;
 	}
 
 	@Override

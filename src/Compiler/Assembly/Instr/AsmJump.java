@@ -19,6 +19,10 @@ public class AsmJump extends AsmIns {
 		return BB;
 	}
 
+	public void setBB(AsmBasicBlock BB) {
+		this.BB = BB;
+	}
+
 	@Override
 	public Register getDefRegister() {
 		return null;

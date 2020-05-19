@@ -5,6 +5,10 @@ import Compiler.Assembly.Operand.PhysicalRegister;
 
 public class StackPointerOffset implements StackLocation {
 
+	/**
+	 * This class is necessary since before register allocation we cannot know the size of stack of each function.
+	 */
+
 	private int offset;
 	private AsmFunction function;
 	private boolean fromBottom;

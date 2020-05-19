@@ -6,23 +6,30 @@ import Compiler.IR.Operand.Register;
 import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IR.StackLocation;
 import Compiler.IR.StackPointerOffset;
-import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class AsmStore extends AsmIns {
 
 	// [ loc ] ← rs, rt
 	private int size;
-	private StackLocation loc;
 	private Register rs, rt;
 
-	public AsmStore(StackLocation loc, Register rs, Register rt, int size){
+	private StackLocation loc; // if loc is of StackPointerOffset, then offset is useless
+	private int offset; // available only when loc is a register
+
+	public AsmStore(StackPointerOffset loc, Register rs, Register rt, int size){
 		this.rs = rs;
 		this.loc = loc;
+		this.size = size;
+		this.rt = rt;
+	}
+
+	public AsmStore(Register loc, Register rs, int offset, Register rt, int size){
+		this.rs = rs;
+		this.loc = loc;
+		this.offset = offset;
 		this.size = size;
 		this.rt = rt;
 	}
@@ -35,12 +42,24 @@ public class AsmStore extends AsmIns {
 		return loc;
 	}
 
+	public int getOffset() {
+		return offset;
+	}
+
 	public Register getRs() {
 		return rs;
 	}
 
 	public Register getRt() {
 		return rt;
+	}
+
+	public void setLoc(StackLocation loc) {
+		this.loc = loc;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
 	}
 
 	@Override

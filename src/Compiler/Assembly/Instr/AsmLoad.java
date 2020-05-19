@@ -14,12 +14,23 @@ import java.util.List;
 public class AsmLoad extends AsmIns {
 
 	private int size;
-	private StackLocation loc;
 	private Register rd;
 
-	public AsmLoad(StackLocation loc, Register rd, int size){
+	private StackLocation loc; // if loc is of StackPointerOffset, then offset is useless
+	private int offset; // available only when loc is a register
+
+	public AsmLoad(StackPointerOffset loc, Register rd, int size){
+		// loc is of StackPointerOffset type
 		this.rd = rd;
 		this.loc = loc;
+		this.size = size;
+	}
+
+	public AsmLoad(Register loc, Register rd, int offset, int size){
+		// loc is a register
+		this.rd = rd;
+		this.loc = loc;
+		this.offset = offset;
 		this.size = size;
 	}
 
@@ -33,6 +44,22 @@ public class AsmLoad extends AsmIns {
 
 	public Register getRd() {
 		return rd;
+	}
+
+	public int getOffset() {
+		return offset;
+	}
+
+	public void setRd(Register rd) {
+		this.rd = rd;
+	}
+
+	public void setOffset(int offset) {
+		this.offset = offset;
+	}
+
+	public void setLoc(StackLocation loc) {
+		this.loc = loc;
 	}
 
 	@Override

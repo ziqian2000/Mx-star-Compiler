@@ -13,7 +13,7 @@ import java.util.*;
 public abstract class Pass {
 
 	/**
-	 * def-use chain
+	 * def-use chain, in SSA form
 	 */
 	private void cleanDefUse(Function func){
 		for(var BB : func.getPreOrderBBList()){
@@ -39,7 +39,7 @@ public abstract class Pass {
 				for(var useReg : ins.getUseRegister()){
 					assert useReg != null || ins instanceof Phi;
 					if(useReg == null) continue;
-					useReg.use.add(ins);
+					useReg.uses.add(ins);
 				}
 			}
 		}

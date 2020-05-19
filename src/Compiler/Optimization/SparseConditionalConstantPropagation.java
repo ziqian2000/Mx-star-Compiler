@@ -80,7 +80,7 @@ public class SparseConditionalConstantPropagation extends Pass implements IRVisi
 	private void work(Function func){
 		while(!BBWorklist.isEmpty() || !virRegWorklist.isEmpty()){
 			if(!BBWorklist.isEmpty()) visit(BBWorklist.poll());
-			if(!virRegWorklist.isEmpty()) virRegWorklist.poll().use.forEach(useIns -> useIns.accept(this));
+			if(!virRegWorklist.isEmpty()) virRegWorklist.poll().uses.forEach(useIns -> useIns.accept(this));
 		}
 
 		for(var BB : func.getPreOrderBBList()) if(executableBB.contains(BB)) {
@@ -94,7 +94,7 @@ public class SparseConditionalConstantPropagation extends Pass implements IRVisi
 
 				if(defState.valueState == ValueState.CONST){
 
-					for (IRIns useIns : defReg.use) {
+					for (IRIns useIns : defReg.uses) {
 						useIns.replaceUseOpr(defReg, new Immediate(defState.value));
 					}
 					ins.removeFromList();

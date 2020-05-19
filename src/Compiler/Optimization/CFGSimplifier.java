@@ -6,7 +6,6 @@ import Compiler.IR.IR;
 import Compiler.IR.Instr.*;
 import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Operand;
-import Compiler.IR.Operand.VirtualRegister;
 import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
@@ -44,6 +43,7 @@ public class CFGSimplifier {
 				changedThisTime |= removeRedundantBranch(func);
 				changedThisTime |= removeDeadBasicBlockInPhi(func);
 				changedThisTime |= mergeBasicBlock(func);
+				changedThisTime |= replaceTimeConsumingOp(func);
 				if(!ir.getSSAForm()) {
 					changedThisTime |= removeSingleJumpBasicBlock(func);
 					changedThisTime |= removeRedundantMove(func);
@@ -163,5 +163,78 @@ public class CFGSimplifier {
 			}
 		}
 		return changed;
+	}
+
+	public boolean replaceTimeConsumingOp(Function func){
+		boolean changed = false;
+		for(var BB : func.getPreOrderBBList()){
+			IRIns nextIns;
+			for(var ins = BB.getHeadIns(); ins != null; ins = nextIns){
+				nextIns = ins.getNextIns();
+
+				if(ins instanceof Binary && ((Binary) ins).getOp() == Binary.Op.MUL){
+					Operand lhs = null;
+					int rhs = -2333;
+
+					boolean hasImm = false;
+					if(((Binary) ins).getLhs() instanceof Immediate){
+						rhs = ((Immediate) ((Binary) ins).getLhs()).getValue();
+						lhs = ((Binary) ins).getRhs();
+						hasImm = true;
+					}
+					else if(((Binary) ins).getRhs() instanceof Immediate){
+						rhs = ((Immediate) ((Binary) ins).getRhs()).getValue();
+						lhs = ((Binary) ins).getLhs();
+						hasImm = true;
+					}
+
+					if (hasImm && isPowOf2(rhs)) {
+						ins.replaceSelfWithAnotherIns(new Binary(Binary.Op.SHL, lhs, new Immediate(powOf2(rhs)), ((Binary) ins).getDst()));
+						changed = true;
+					}
+				}
+				else if(ins instanceof Binary && ((Binary) ins).getOp() == Binary.Op.DIV){
+					Operand lhs = null;
+					int rhs = -2333;
+
+					boolean hasImm = false;
+					if(((Binary) ins).getRhs() instanceof Immediate){
+						rhs = ((Immediate) ((Binary) ins).getRhs()).getValue();
+						lhs = ((Binary) ins).getLhs();
+						hasImm = true;
+					}
+
+					if (hasImm && isPowOf2(rhs)) {
+						ins.replaceSelfWithAnotherIns(new Binary(Binary.Op.SHR, lhs, new Immediate(powOf2(rhs)), ((Binary) ins).getDst()));
+						changed = true;
+					}
+				}
+				else if(ins instanceof Binary && ((Binary) ins).getOp() == Binary.Op.MOD){
+					Operand lhs = null;
+					int rhs = -2333;
+
+					boolean hasImm = false;
+					if(((Binary) ins).getRhs() instanceof Immediate){
+						rhs = ((Immediate) ((Binary) ins).getRhs()).getValue();
+						lhs = ((Binary) ins).getLhs();
+						hasImm = true;
+					}
+
+					if (hasImm && isPowOf2(rhs)) {
+						ins.replaceSelfWithAnotherIns(new Binary(Binary.Op.AND, lhs, new Immediate(rhs-1), ((Binary) ins).getDst()));
+						changed = true;
+					}
+				}
+
+			}
+		}
+		return changed;
+	}
+
+	public boolean isPowOf2(int x){return (x & (x-1)) == 0 && x > 0;}
+	public int powOf2(int x){return x == 1 ? 0 : (1 + powOf2(x >> 1));}
+
+	void debug(String s){
+		System.err.println(s);
 	}
 }

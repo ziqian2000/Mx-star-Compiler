@@ -107,6 +107,29 @@ public class AsmBasicBlock {
 		return parent;
 	}
 
+
+	public void mergeBB(AsmBasicBlock BB){ // (this -> BB) => (this)
+		// deal with predecessor, successor relation
+		sucBBList = BB.getSucBBList();
+		for(AsmBasicBlock sucBB : BB.getSucBBList()){
+			sucBB.getPreBBList().remove(BB);
+			sucBB.getPreBBList().add(this);
+		}
+		// merge two blocks
+		if(getHeadIns() == getTailIns()){ // only one instruction
+			setHeadIns(BB.getHeadIns());
+		}
+		else{
+			getTailIns().removeFromList();
+			assert !(getTailIns() instanceof AsmJump) && !(getTailIns() instanceof AsmBranch);
+			getTailIns().setNextIns(BB.getHeadIns());
+			BB.getHeadIns().setPrevIns(getTailIns());
+		}
+		setTailIns(BB.getTailIns());
+		for(AsmIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns())
+			ins.setBelongBB(this);
+	}
+
 	// pre & suc BB list
 	// compute in order : suc BB -> dfs -> pre BB
 
