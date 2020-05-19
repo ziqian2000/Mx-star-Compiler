@@ -1,4 +1,4 @@
-package Compiler.IRVisitor;
+package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
@@ -8,12 +8,14 @@ import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.StaticStrConst;
 import Compiler.IR.Operand.VirtualRegister;
+import Compiler.IRVisitor.Edge;
+import Compiler.IRVisitor.IRVisitor;
 
 import java.util.*;
 
 // todo : const string propagation
 
-public class SparseConditionalConstantPropagation extends Pass implements IRVisitor{
+public class SparseConditionalConstantPropagation extends Pass implements IRVisitor {
 
 	boolean changed;
 	private IR ir;

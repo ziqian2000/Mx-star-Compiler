@@ -1,13 +1,10 @@
-package Compiler.IRVisitor;
+package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
 import Compiler.IR.IR;
 import Compiler.IR.Instr.*;
-import Compiler.IR.Operand.Register;
 
-import java.io.FileNotFoundException;
-import java.io.PrintStream;
 import java.util.*;
 
 public class DeadCodeElimination extends Pass{
@@ -113,8 +110,7 @@ public class DeadCodeElimination extends Pass{
 	private boolean isCritical(IRIns ins){
 		return ins instanceof Return
 			|| ins instanceof Call
-			|| ins instanceof Alloc
-			|| ins instanceof Load
+			|| (ins instanceof Alloc && ins.getDefRegister().isGlobal())
 			|| ins instanceof Store;
 	}
 

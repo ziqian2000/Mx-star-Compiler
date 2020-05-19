@@ -413,15 +413,15 @@ public class RegisterAllocator extends AsmPass{
 			else{
 				coloredNodes.add(reg);
 
-				// try to assign caller-save first
+				// try to assign callee-save first
 				String c = null;
-				for(var r : asm.getCallerSaveRegisterName())
+				for(var r : asm.getCalleeSaveRegisterName())
 					if(okColors.contains(r)){
 						c = r;
 						break;
 					}
 				if(c == null){
-					for(var r : asm.getCalleeSaveRegisterName())
+					for(var r : asm.getCallerSaveRegisterName())
 						if(okColors.contains(r)){
 							c = r;
 							break;
@@ -443,6 +443,7 @@ public class RegisterAllocator extends AsmPass{
 
 		for(var spilledReg : spilledNodes){
 			spilledReg.spillAddr = new StackPointerOffset(func.stackAllocFromBot(Config.SIZE), true, func, asm.getPhyReg("sp"));
+//			debug("spilled");
 		}
 
 		for(var BB : func.getPreOrderBBList()){

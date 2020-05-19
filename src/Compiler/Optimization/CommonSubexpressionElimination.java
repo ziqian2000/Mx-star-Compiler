@@ -1,4 +1,4 @@
-package Compiler.IRVisitor;
+package Compiler.Optimization;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
@@ -6,6 +6,7 @@ import Compiler.IR.IR;
 import Compiler.IR.Instr.*;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.VirtualRegister;
+import Compiler.IRVisitor.IRAssistant;
 
 import java.util.*;
 
