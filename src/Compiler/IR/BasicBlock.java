@@ -136,7 +136,7 @@ public class BasicBlock {
 		// deal with PHI
 		for(BasicBlock sucBB : BB.getSucBBList()){
 			for(IRIns ins = sucBB.getHeadIns(); ins instanceof Phi; ins = ins.getNextIns()){
-				((Phi) ins).replacePath(BB, this);
+				((Phi) ins).replaceBBInPath(BB, this);
 			}
 		}
 		// deal with predecessor, successor relation

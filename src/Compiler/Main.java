@@ -92,16 +92,18 @@ public class Main {
                 changed |= new CommonSubexpressionElimination(ir).run();
                 changed |= new DeadCodeElimination(ir).run();
                 changed |= new SparseConditionalConstantPropagation(ir).run();
+                changed |= new LoopOptimization(ir).run();
                 changed |= new CFGSimplifier(ir).run();
             }
+
+            new IRPrinter().run(ir, new PrintStream("ir.txt"));
 
             new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
             new CFGSimplifier(ir).run();                            // need to eliminate useless variable like "extra" in sequentialization
 
             if(showRunningTime) System.err.println("SSA done: "+(System.currentTimeMillis() - startTime)+"ms");
 
-            new IRPrinter().run(ir, new PrintStream("ir.txt"));
-//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), false);
+//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), true);
 
             if(showRunningTime) System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");
 
@@ -111,14 +113,13 @@ public class Main {
             instructionSelector.run();
             Assembly asm = instructionSelector.getAsm();
             new AsmSimplifier(asm).run();
-            new AsmPrinter(asm).run(new PrintStream("test_raw.s"));
+//            new AsmPrinter(asm).run(new PrintStream("test_raw.s"));
             if(showRunningTime) System.err.println("Instruction selection done: "+(System.currentTimeMillis() - startTime)+"ms");
             new RegisterAllocator(asm).run();
             if(showRunningTime) System.err.println("Register allocation done: "+(System.currentTimeMillis() - startTime)+"ms");
             new FinalProcessing(asm).run();
             new PeepholeOptimization(asm).run();
 
-			new AsmPrinter(asm).run(System.err);
 			new AsmPrinter(asm).run(new PrintStream("test.s"));
             if(showRunningTime) System.err.println("All done: "+(System.currentTimeMillis() - startTime)+"ms");
 

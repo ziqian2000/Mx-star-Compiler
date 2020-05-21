@@ -443,7 +443,6 @@ public class RegisterAllocator extends AsmPass{
 
 		for(var spilledReg : spilledNodes){
 			spilledReg.spillAddr = new StackPointerOffset(func.stackAllocFromBot(Config.SIZE), true, func, asm.getPhyReg("sp"));
-//			debug("spilled");
 		}
 
 		for(var BB : func.getPreOrderBBList()){

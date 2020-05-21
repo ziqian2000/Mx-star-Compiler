@@ -151,22 +151,20 @@ public abstract class AsmPass {
 		}
 		// find loop body / make loop group
 		Stack<AsmBasicBlock> workList = new Stack<>();
-		for(var header : func.getPreOrderBBList()){
-
+		for(var header : loopHeaders) {
 			workList.clear();
 			loopGroups.get(header).add(header);
 			belongingLoopHeaders.get(header).add(header);
-
-			for(var backer : loopBackers.get(header)){
+			for (var backer : loopBackers.get(header)) {
 
 				workList.add(backer);
 				loopGroups.get(header).add(backer);
 				belongingLoopHeaders.get(backer).add(header);
 
-				while(!workList.isEmpty()){
+				while (!workList.isEmpty()) {
 					var BB = workList.pop();
-					for(var pred : BB.getPreBBList()){
-						if(!loopGroups.get(header).contains(pred)){
+					for (var pred : BB.getPreBBList()) {
+						if (!loopGroups.get(header).contains(pred)) {
 
 							workList.add(pred);
 							loopGroups.get(header).add(pred);

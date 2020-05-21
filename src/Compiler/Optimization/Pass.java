@@ -13,6 +13,82 @@ import java.util.*;
 public abstract class Pass {
 
 	/**
+	 * loop analysis
+	 */
+	protected Set<BasicBlock> loopHeaders;
+	protected Map<BasicBlock, Set<BasicBlock>> loopBackers;
+	protected Map<BasicBlock, Set<BasicBlock>> belongingLoopHeaders;
+	protected Map<BasicBlock, Set<BasicBlock>> loopGroups;
+	protected Map<BasicBlock, Set<BasicBlock>> loopExits;
+	private boolean isDom(BasicBlock a, BasicBlock b){
+		// check if a dominates b
+		if(a == b) return true;
+		while(b.iDom != null){
+			b = b.iDom;
+			if(a == b) return true;
+		}
+		return false;
+	}
+	public void computeLoopInfo(Function func){
+		constructDominatorTree(func, false);
+		// init
+		loopHeaders = new LinkedHashSet<>();
+		loopBackers = new LinkedHashMap<>();
+		belongingLoopHeaders = new LinkedHashMap<>();
+		loopGroups = new LinkedHashMap<>();
+		loopExits = new LinkedHashMap<>();
+		for(var BB : func.getPreOrderBBList()){
+			loopBackers.put(BB, new LinkedHashSet<>());
+			belongingLoopHeaders.put(BB, new LinkedHashSet<>());
+			loopGroups.put(BB, new LinkedHashSet<>());
+			loopExits.put(BB, new LinkedHashSet<>());
+		}
+		// find all loop headers and backers
+		for(var backer : func.getPreOrderBBList()){
+			for(var header : backer.getSucBBList()){
+				if(isDom(header, backer)){
+					loopHeaders.add(header);
+					loopBackers.get(header).add(backer);
+				}
+			}
+		}
+		// find loop body / make loop group
+		Stack<BasicBlock> workList = new Stack<>();
+		for(var header : loopHeaders) {
+			workList.clear();
+			loopGroups.get(header).add(header);
+			belongingLoopHeaders.get(header).add(header);
+			for (var backer : loopBackers.get(header)) {
+
+				workList.add(backer);
+				loopGroups.get(header).add(backer);
+				belongingLoopHeaders.get(backer).add(header);
+
+				while (!workList.isEmpty()) {
+					var BB = workList.pop();
+					for (var pred : BB.getPreBBList()) {
+						if (!loopGroups.get(header).contains(pred)) {
+
+							workList.add(pred);
+							loopGroups.get(header).add(pred);
+							belongingLoopHeaders.get(pred).add(header);
+						}
+					}
+				}
+			}
+		}
+		// find loop exit
+		for(var header : loopHeaders){
+			for(var bodyBB : loopGroups.get(header)){
+				for(var sucBB : bodyBB.getSucBBList()){
+					if(!loopGroups.get(header).contains(sucBB)){
+						loopExits.get(header).add(bodyBB);
+					}
+				}
+			}
+		}
+	}
+	/**
 	 * def-use chain, in SSA form
 	 */
 	private void cleanDefUse(Function func){

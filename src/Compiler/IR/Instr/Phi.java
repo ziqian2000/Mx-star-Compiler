@@ -1,6 +1,7 @@
 package Compiler.IR.Instr;
 
 import Compiler.IR.BasicBlock;
+import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Operand;
 import Compiler.IR.Operand.VirtualRegister;
 import Compiler.IRVisitor.IRVisitor;
@@ -27,12 +28,22 @@ public class Phi extends IRIns {
 
 	public void removePath(BasicBlock BB){
 		path.remove(BB);
-		if(path.size() == 1){
-			replaceSelfWithAnotherIns(new Move(path.values().iterator().next(), dst));
+		checkPathSize();
+	}
+
+	public void checkPathSize(){
+		if(path.size() == 1) {
+			var v = path.values().iterator().next();
+			// todo : there can be some useless phi(e.g. t56), and maybe there is better implementation for it
+			replaceSelfWithAnotherIns(new Move(Objects.requireNonNullElseGet(v, () -> new Immediate(0)), dst));
 		}
 	}
 
-	public void replacePath(BasicBlock oldBB, BasicBlock newBB){
+	public void setPath(Map<BasicBlock, Operand> path) {
+		this.path = path;
+	}
+
+	public void replaceBBInPath(BasicBlock oldBB, BasicBlock newBB){
 		if(oldBB == newBB) return;
 		assert !path.containsKey(newBB);
 		path.put(newBB, path.get(oldBB));
