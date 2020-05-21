@@ -551,7 +551,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		int dim = arrayType.getDim();
 
 		curBB.appendInst(new Binary(Binary.Op.ADD, index, new Immediate(1), index_plus1));
-		curBB.appendInst(new Binary(Binary.Op.MUL, index_plus1, new Immediate(dim == 1 ? arrayType.getType().getSize() : Config.SIZE), offset));
+		curBB.appendInst(new Binary(Binary.Op.MUL, index_plus1, new Immediate(Config.SIZE), offset));
 		curBB.appendInst(new Binary(Binary.Op.ADD, base_addr, offset, target_addr));
 
 		node.setResultOpr(target_addr);
@@ -713,10 +713,7 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 		Operand mem_siz_plus1 = new I32Value();
 
 		// calculate current dim size
-		if(totDim - 1 != curDim)
-			curBB.appendInst(new Binary(Binary.Op.MUL, siz, new Immediate(Config.SIZE), mem_siz));
-		else // the last dim
-			curBB.appendInst(new Binary(Binary.Op.MUL, siz, new Immediate(type.getSize()), mem_siz));
+		curBB.appendInst(new Binary(Binary.Op.MUL, siz, new Immediate(Config.SIZE), mem_siz));
 
 		// 4 byte for size
 		curBB.appendInst(new Binary(Binary.Op.ADD, mem_siz, new Immediate(Config.SIZE), mem_siz_plus1));

@@ -110,8 +110,8 @@ public class Main {
             InstructionSelector instructionSelector = new InstructionSelector(ir);
             instructionSelector.run();
             Assembly asm = instructionSelector.getAsm();
-            new AsmPrinter(asm).run(new PrintStream("test_raw.s"));
             new AsmSimplifier(asm).run();
+            new AsmPrinter(asm).run(new PrintStream("test_raw.s"));
             if(showRunningTime) System.err.println("Instruction selection done: "+(System.currentTimeMillis() - startTime)+"ms");
             new RegisterAllocator(asm).run();
             if(showRunningTime) System.err.println("Register allocation done: "+(System.currentTimeMillis() - startTime)+"ms");
