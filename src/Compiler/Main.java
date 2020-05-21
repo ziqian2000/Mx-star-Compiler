@@ -118,7 +118,8 @@ public class Main {
             new FinalProcessing(asm).run();
             new PeepholeOptimization(asm).run();
 
-            new AsmPrinter(asm).run(new PrintStream("test.s"));
+			new AsmPrinter(asm).run(System.err);
+			new AsmPrinter(asm).run(new PrintStream("test.s"));
             if(showRunningTime) System.err.println("All done: "+(System.currentTimeMillis() - startTime)+"ms");
 
         }
