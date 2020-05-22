@@ -425,7 +425,14 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 					curBB.appendInst(new Call(callFunc, null, new ArrayList<>(Arrays.asList(lhsVar, rhsVar)), dst));
 				} else {
 					// int ~ int
-					curBB.appendInst(new Binary(Binary.Op.valueOf(String.valueOf(node.getOp())), lhsVar, rhsVar, dst));
+					if(node.getOp() == BinaryExprNode.Op.LT || node.getOp() == BinaryExprNode.Op.GT) {
+						curBB.appendInst(new Binary(Binary.Op.valueOf(String.valueOf(node.getOp())), lhsVar, rhsVar, dst));
+					} else {
+						var tmpReg = new I32Value();
+						curBB.appendInst(new Binary(node.getOp() == BinaryExprNode.Op.LE ? Binary.Op.GT : Binary.Op.LT, lhsVar, rhsVar, tmpReg));
+						curBB.appendInst(new Binary(Binary.Op.XOR, tmpReg, new Immediate(1), dst));
+					}
+
 				}
 				break;
 			}

@@ -88,7 +88,6 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 		asm.addFunction(asmFunc);
 
 		// save callee-save registers
-		// todo: need not to save registers not used in callee
 		saveMap.clear();
 		for(String calleeSaveRegName : asm.getCalleeSaveRegisterName()){
 			I32Value backup = new I32Value("backup_" + calleeSaveRegName);
@@ -137,7 +136,7 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 					|| (instr.getLhs() instanceof Immediate && (instr.getOp() == Binary.Op.SHL || instr.getOp() == Binary.Op.SHR))
 					|| (instr.getLhs() instanceof Immediate && !checkBound((Immediate) instr.getLhs()))
 					|| (instr.getRhs() instanceof Immediate && !checkBound((Immediate) instr.getRhs())));
-			// todo : SUB can be optimized in IR processing by replacing it with ADD ....
+			// todo : SUB can be optimized in IR generation by replacing it by ADD ....
 			if(RType){
 				Register rs1 = immAndStr2Reg(instr.getLhs());
 				Register rs2 = immAndStr2Reg(instr.getRhs());
@@ -159,15 +158,13 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 						break;
 					case LT: curBB.appendInst(new AsmRTypeIns(rs1, rs2, rd, AsmRTypeIns.Op.SLT));
 						break;
-					case LE: I32Value tmpLE = new I32Value("tmpOfLE"); // todo: may be optimized, processed in IR? so that it can be optimized!
-						curBB.appendInst(new AsmRTypeIns(rs2, rs1, tmpLE, AsmRTypeIns.Op.SLT));
-						curBB.appendInst(new AsmITypeIns(tmpLE, new Immediate(1), rd, AsmITypeIns.Op.XORI));
+					case LE: I32Value tmpLE = new I32Value("tmpOfLE");
+						assert false;
 						break;
 					case GT: curBB.appendInst(new AsmRTypeIns(rs2, rs1, rd, AsmRTypeIns.Op.SLT));
 						break;
-					case GE: I32Value tmpGE = new I32Value("tmpOfGE"); // todo: may be optimized
-						curBB.appendInst(new AsmRTypeIns(rs1, rs2, tmpGE, AsmRTypeIns.Op.SLT));
-						curBB.appendInst(new AsmITypeIns(tmpGE, new Immediate(1), rd, AsmITypeIns.Op.XORI));
+					case GE: I32Value tmpGE = new I32Value("tmpOfGE");
+						assert false;
 						break;
 					case EQ: I32Value tmpEQ = new I32Value("tmpOfEQ"); // todo: may be optimized
 						curBB.appendInst(new AsmRTypeIns(rs1, rs2, tmpEQ, AsmRTypeIns.Op.SUB));
@@ -215,15 +212,13 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 						break;
 					case LT: curBB.appendInst(new AsmITypeIns(rs1, imm, rd, AsmITypeIns.Op.SLTI));
 						break;
-					case LE: I32Value tmpLE = new I32Value("tmpOfLE"); // todo: may be optimized, processed in IR? so that it can be optimized!
-						curBB.appendInst(new AsmRTypeIns(immAndStr2Reg(imm), rs1, tmpLE, AsmRTypeIns.Op.SLT));
-						curBB.appendInst(new AsmITypeIns(tmpLE, new Immediate(1), rd, AsmITypeIns.Op.XORI));
+					case LE: I32Value tmpLE = new I32Value("tmpOfLE");
+						assert false;
 						break;
 					case GT: curBB.appendInst(new AsmRTypeIns(immAndStr2Reg(imm), rs1, rd, AsmRTypeIns.Op.SLT));
 						break;
-					case GE: I32Value tmpGE = new I32Value("tmpOfGE"); // todo: may be optimized
-						curBB.appendInst(new AsmITypeIns(rs1, imm, tmpGE, AsmITypeIns.Op.SLTI));
-						curBB.appendInst(new AsmITypeIns(tmpGE, new Immediate(1), rd, AsmITypeIns.Op.XORI));
+					case GE: I32Value tmpGE = new I32Value("tmpOfGE");
+						assert false;
 						break;
 					case EQ: I32Value tmpEQ = new I32Value("tmpOfEQ"); // todo: may be optimized
 						curBB.appendInst(new AsmRTypeIns(rs1, immAndStr2Reg(imm), tmpEQ, AsmRTypeIns.Op.SUB));

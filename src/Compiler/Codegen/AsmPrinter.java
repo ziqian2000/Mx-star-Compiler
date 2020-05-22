@@ -74,11 +74,34 @@ public class AsmPrinter implements AsmVisitor{
 
 	// visit
 
+	public void optimizedBBPrintingForLessJump(AsmBasicBlock BB, Set<AsmBasicBlock> visited){
+		var tailIns = BB.getTailIns();
+		if(tailIns instanceof AsmReturn) {
+			visit(BB);
+			visited.add(BB);
+			return;
+		}
+
+		assert tailIns instanceof AsmJump;
+		AsmBasicBlock firstBB = null;
+		if(!visited.contains(((AsmJump) tailIns).getBB())) {
+			tailIns.removeFromList();
+			firstBB = ((AsmJump) tailIns).getBB();
+		}
+
+		visit(BB);
+		visited.add(BB);
+
+		if(firstBB != null) optimizedBBPrintingForLessJump(firstBB, visited);
+		for(var suc : BB.getSucBBList()) if(!visited.contains(suc)) optimizedBBPrintingForLessJump(suc, visited);
+
+	}
+
 	public void visit(AsmFunction func){
 		indPrLn(".globl" + "\t" + func.getIdentifier());
 		prLn(func.getIdentifier() + ":");
-		for(var BB : func.getPreOrderBBList())
-			visit(BB);
+		func.makePreOrderBBList();
+		optimizedBBPrintingForLessJump(func.getEntryBB(), new LinkedHashSet<>());
 		prLn("");
 	}
 
