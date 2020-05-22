@@ -284,7 +284,8 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 
 	public void visit(Load instr){
 		assert !(instr.getPtr() instanceof StaticStrConst);
-		curBB.appendInst(new AsmLoad((Register) instr.getPtr(), (Register) instr.getDst(), 0, Config.SIZE));
+		curBB.appendInst(new AsmLoad(immAndStr2Reg(instr.getPtr()), (Register) instr.getDst(), 0, Config.SIZE));
+		// why immAndStr2Reg ? the ptr may be an immediate for some unreachable code (e.g. binary_tre when insert calls insertImpl)
 	}
 
 	public void visit(Return instr){

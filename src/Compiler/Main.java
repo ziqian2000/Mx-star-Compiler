@@ -96,14 +96,14 @@ public class Main {
                 changed |= new CFGSimplifier(ir).run();
             }
 
-            new IRPrinter().run(ir, new PrintStream("ir.txt"));
 
             new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
             new CFGSimplifier(ir).run();                            // need to eliminate useless variable like "extra" in sequentialization
 
             if(showRunningTime) System.err.println("SSA done: "+(System.currentTimeMillis() - startTime)+"ms");
 
-//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), true);
+            new IRPrinter().run(ir, new PrintStream("ir.txt"));
+//            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), false);
 
             if(showRunningTime) System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");
 
