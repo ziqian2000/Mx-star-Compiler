@@ -107,7 +107,7 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 			curBB.appendInst(new AsmMove(r("a" + i), (Register) paraList.get(i)));
 		for(int i = 8; i < paraList.size(); i++)
 			curBB.appendInst(new AsmLoad(new StackPointerOffset(Config.SIZE * (i - 8), true, asmFunc, r("sp")),
-										(Register) paraList.get(i), Config.SIZE));
+					(Register) paraList.get(i), Config.SIZE));
 
 		// ending
 		func.getPreOrderBBList().forEach(this::visit);
@@ -128,7 +128,7 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 
 	public void visit(Binary instr){
 		if(instr.getLhs() instanceof Immediate && instr.getRhs() instanceof Immediate) {
-			// assert false; // this should be done in SCCP, not here !
+//			assert false; // this should be done in SCCP, not here !
 			curBB.appendInst(new AsmLI((Register) instr.getDst(), new Immediate(IRAssistant.calculation(instr.getOp(), ((Immediate) instr.getLhs()).getValue(), ((Immediate) instr.getRhs()).getValue()))));
 		}
 		else{
@@ -266,7 +266,7 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 		for(int i = 8; i < paraList.size(); i++){
 			Register para = immAndStr2Reg(paraList.get(i));
 			curBB.appendInst(new AsmStore(new StackPointerOffset(Config.SIZE * (i - 8), false, curFunc, r("sp")),
-											para, null, Config.SIZE));
+					para, null, Config.SIZE));
 		}
 
 		curFunc.setStackSizeFromTopMax(Config.SIZE * Integer.max(0, paraList.size() - 8));
@@ -276,22 +276,22 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 		if(instr.getDst() != null)
 			curBB.appendInst(new AsmMove(r("a0"), (Register) instr.getDst()));
 	}
-	
+
 	public void visit(Branch instr){
 		// todo: merge cmp into branch
 		curBB.appendInst(new AsmBranch(immAndStr2Reg(instr.getCond()), r("zero"), AsmBranch.Op.BNE, BB2AsmBB.get(instr.getThenBB())));
 		curBB.appendInst(new AsmJump(BB2AsmBB.get(instr.getElseBB()))); // todo : this jump can be eliminated
 	}
-	
+
 	public void visit(Jump instr){
 		curBB.appendInst(new AsmJump(BB2AsmBB.get(instr.getBB())));
 	}
-	
+
 	public void visit(Load instr){
 		assert !(instr.getPtr() instanceof StaticStrConst);
 		curBB.appendInst(new AsmLoad((Register) instr.getPtr(), (Register) instr.getDst(), 0, Config.SIZE));
 	}
-	
+
 	public void visit(Return instr){
 		if(instr.getRetValue() != null){
 			curBB.appendInst(new AsmMove(immAndStr2Reg(instr.getRetValue()), r("a0")));
@@ -301,7 +301,7 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 		}
 		curBB.appendInst(new AsmReturn());
 	}
-	
+
 	public void visit(Store instr){
 		assert !(instr.getPtr() instanceof StaticStrConst);
 
@@ -310,7 +310,7 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 		else
 			curBB.appendInst(new AsmStore((Register)instr.getPtr(), immAndStr2Reg(instr.getSrc()), 0, null, Config.SIZE));
 	}
-	
+
 	public void visit(Unary instr){
 		Register rs1 = immAndStr2Reg(instr.getOpr());
 		Register rd = (Register)instr.getDst();
@@ -321,7 +321,7 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 				break;
 		}
 	}
-	
+
 	public void visit(Phi phi) {
 		throw new FuckingException("Do you forget to destruct SSA form, idiot?");
 	}
@@ -344,6 +344,7 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 	public Register immAndStr2Reg(Operand opr){
 		if(opr instanceof Register) return (Register)opr;
 		else if(opr instanceof Immediate){
+			if(((Immediate) opr).getValue() == 0) return r("zero");
 			I32Value tmp = new I32Value("imm" + ((Immediate) opr).getValue());
 			curBB.appendInst(new AsmLI(tmp, (Immediate) opr));
 			return tmp;
@@ -354,7 +355,7 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 			return tmp;
 
 		}
-		throw new FuckingException("Unexpected type in imm2Reg.");
+		throw new FuckingException("Unexpected type in immAndStr2Reg.");
 	}
 
 	// optimization

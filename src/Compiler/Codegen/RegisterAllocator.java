@@ -301,7 +301,8 @@ public class RegisterAllocator extends AsmPass{
 			coalescedMoves.add(moveIns);
 			addWorklist(u);
 		}
-		else if(preColored.contains(v) || adjSet.contains(new Edge(u, v))){
+		else if(preColored.contains(v) || adjSet.contains(new Edge(u, v))
+				|| u == r("zero")){ // otherwise ZERO will be assigned some non-zero value
 			constrainedMoves.add(moveIns);
 			addWorklist(u);
 			addWorklist(v);
@@ -534,6 +535,10 @@ public class RegisterAllocator extends AsmPass{
 					ins.getDefRegister().spillPriority += contribution;
 			}
 		}
+	}
+
+	public PhysicalRegister r(String name){
+		return asm.getPhyReg(name);
 	}
 
 	void debug(String s){
