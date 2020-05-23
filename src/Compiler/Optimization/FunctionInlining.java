@@ -12,9 +12,8 @@ import java.util.*;
 public class FunctionInlining {
 
 	final private int OVERALL_CODE_LEN_LIMIT = 5000; // huge code leads to TLE in register allocation; note that this is not precise, the actual overall len will be bigger than it
-	final private int FUNC_CODE_LEN_LIMIT = 3000; // however, this is precise
-	final private int FUNC_VAR_NUM_LIMIT = 1500;
-	final private int RECURSIVELY_INLINE_DEPTH = 3;
+	final private int FUNC_CODE_LEN_LIMIT = 1000; // however, this is precise
+	final private int RECURSIVELY_INLINE_DEPTH = 5;
 
 	private IR ir;
 
@@ -24,7 +23,6 @@ public class FunctionInlining {
 	private Set<Function> changedFunc = new LinkedHashSet<>();
 	private Map<Function, List<Call>> funcCallInstList = new LinkedHashMap<>();
 	private Map<Function, Integer> funcLength = new LinkedHashMap<>();
-	private Map<Function, Integer> funcVarNum = new LinkedHashMap<>();
 
 	public FunctionInlining(IR ir){
 		this.ir = ir;
@@ -60,15 +58,11 @@ public class FunctionInlining {
 		for(Function function : changedFunc){
 			function.makePreOrderBBList();
 
-			Set<Register> varVisited = new LinkedHashSet<>();
 			funcCallInstList.put(function, new ArrayList<>());
 			int len = 0;
 
 			for(BasicBlock BB : function.getPreOrderBBList()){
 				for(IRIns ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
-
-					if(ins.getDefRegister() != null)
-						varVisited.add(ins.getDefRegister());
 
 					len += 1;
 					if(ins instanceof Call){
@@ -77,7 +71,7 @@ public class FunctionInlining {
 				}
 			}
 			funcLength.put(function, len);
-			funcVarNum.put(function, varVisited.size());
+
 		}
 
 		changedFunc.clear();
@@ -100,11 +94,9 @@ public class FunctionInlining {
 
 					if(isNonRecursive(callee) && !function.getIdentifier().equals("__init")
 					&& funcLength.get(function) + funcLength.get(callee) < FUNC_CODE_LEN_LIMIT
-					&& funcLength.get(callee) + approxOverallCodeLen < OVERALL_CODE_LEN_LIMIT
-					&& funcVarNum.get(function) + funcVarNum.get(callee) < FUNC_VAR_NUM_LIMIT) {
+					&& funcLength.get(callee) + approxOverallCodeLen < OVERALL_CODE_LEN_LIMIT) {
 
 						funcLength.put(function, funcLength.get(function) + funcLength.get(callee));
-						funcVarNum.put(function, funcVarNum.get(function) + funcVarNum.get(callee));
 						approxOverallCodeLen += funcLength.get(callee);
 
 						inline(callInst, function);
@@ -139,15 +131,13 @@ public class FunctionInlining {
 					Function callee = callInst.getFunction();
 					if(callee.getIsBuiltin()) continue;
 
-					if(!function.getIdentifier().equals("__init") && function != callee // cannot inline into itself due to bad inlining implementation
+					if(!function.getIdentifier().equals("__init")
 					&& funcLength.get(function) + funcLength.get(callee) < FUNC_CODE_LEN_LIMIT
-					&& funcLength.get(callee) + approxOverallCodeLen < OVERALL_CODE_LEN_LIMIT
-					&& funcVarNum.get(function) + funcVarNum.get(callee) < FUNC_VAR_NUM_LIMIT) {
+					&& funcLength.get(callee) + approxOverallCodeLen < OVERALL_CODE_LEN_LIMIT) {
 
 						assert isRecursive(callee);
 
 						funcLength.put(function, funcLength.get(function) + funcLength.get(callee));
-						funcVarNum.put(function, funcVarNum.get(function) + funcVarNum.get(callee));
 						approxOverallCodeLen += funcLength.get(callee);
 
 						inline(callInst, function);
@@ -162,6 +152,10 @@ public class FunctionInlining {
 
 	private void inline(Call ins, Function caller){
 		Function callee = ins.getFunction();
+
+		if(callee == caller){
+			callee = makeCompleteFuncCopy(callee);
+		}
 
 		// split current BB in the middle, remove CALL ins
 		BasicBlock firstHalfBB = ins.getBelongBB(), secondHalfBB = new BasicBlock("second_half_" + ins.getFunction().getIdentifier());
@@ -279,6 +273,58 @@ public class FunctionInlining {
 			}
 			else tempStorageMap.put(opr, opr); // immediate, static string
 		}
+	}
+
+
+	public Function makeCompleteFuncCopy(Function func){
+		Map<BasicBlock, BasicBlock> tempBBMap = new LinkedHashMap<>();
+		Map<Operand, Operand> tempStorageMap = new LinkedHashMap<>();
+
+		func.makePreOrderBBList();
+		func.getPreOrderBBList().forEach(BB -> tempBBMap.put(BB, new BasicBlock("copy_" + BB.getIdentifier())));
+
+		var tmpFunc = new Function("copy_" + func.getIdentifier());
+
+		if(func.getObj() != null){
+			makeTmpOprCopy(tempStorageMap, func.getObj());
+			tmpFunc.setObj((VirtualRegister) tempStorageMap.get(func.getObj()));
+		}
+		for(var para : func.getParaList()){
+			makeTmpOprCopy(tempStorageMap, para);
+			tmpFunc.getParaList().add((VirtualRegister) tempStorageMap.get(para));
+		}
+
+		for(var BB : func.getPreOrderBBList()){
+			var newBB = tempBBMap.get(BB);
+			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
+
+				var oprList = ins.getOperands();
+				var BBList = ins.getBBs();
+
+				var newOprList = new ArrayList<Operand>();
+				var newBBList = new ArrayList<BasicBlock>();
+
+				for(var opr : oprList) {
+					makeTmpOprCopy(tempStorageMap, opr);
+					newOprList.add(tempStorageMap.get(opr));
+				}
+				for(var block : BBList){
+					newBBList.add(tempBBMap.get(block));
+				}
+
+				var newIns = ins.copySelf(newOprList, newBBList);
+				newBB.appendInst(newIns);
+			}
+			newBB.setTerminated(true);
+			assert newBB.getHeadIns() != null;
+			assert newBB.getTailIns() != null;
+		}
+
+		tmpFunc.setEntryBB(tempBBMap.get(func.getEntryBB()));
+		tmpFunc.setExitBB(tempBBMap.get(func.getExitBB()));
+		tmpFunc.makePreOrderBBList();
+
+		return tmpFunc;
 	}
 
 }

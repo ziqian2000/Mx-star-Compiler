@@ -2,7 +2,6 @@ package Compiler.IR;
 
 import Compiler.IR.Operand.VirtualRegister;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Function {

@@ -60,6 +60,7 @@ public class IRPrinter implements IRVisitor{
 	}
 
 	public String BB2Str(BasicBlock BB){
+		assert BB != null;
 		if(BBNameMap.get(BB) == null) BBNameMap.put(BB, (BB.getIdentifier() == null ? "b" : BB.getIdentifier()) + "(" + nameCnt++ + ")");
 		return BBNameMap.get(BB);
 	}

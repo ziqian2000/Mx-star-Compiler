@@ -102,7 +102,7 @@ public class Main {
 
             if(showRunningTime) System.err.println("SSA done: "+(System.currentTimeMillis() - startTime)+"ms");
 
-            new IRPrinter().run(ir, new PrintStream("ir.txt"));
+			new IRPrinter().run(ir, new PrintStream("ir.txt"));
 //            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), false);
 
             if(showRunningTime) System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");
