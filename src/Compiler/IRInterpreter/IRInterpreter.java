@@ -13,7 +13,7 @@ import java.util.*;
  * Support global variables, static strings and builtin function call
  * Special thanks to Lequn Chen for his fundamental work
  * <p>
- * Modified by WRZ on 2020
+ * Modified by WRZ in 2020
  */
 
 public class IRInterpreter {
