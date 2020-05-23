@@ -44,6 +44,10 @@ public class Call extends IRIns {
 		return dst;
 	}
 
+	public void setFunction(Function function) {
+		this.function = function;
+	}
+
 	@Override
 	public List<VirtualRegister> getUseRegister() {
 		List<VirtualRegister> registerList = new ArrayList<>();

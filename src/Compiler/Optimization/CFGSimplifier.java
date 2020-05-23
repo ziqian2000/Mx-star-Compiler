@@ -6,6 +6,8 @@ import Compiler.IR.IR;
 import Compiler.IR.Instr.*;
 import Compiler.IR.Operand.Immediate;
 import Compiler.IR.Operand.Operand;
+import Compiler.IR.Operand.Register;
+import Compiler.IRVisitor.IRAssistant;
 import Compiler.Utils.FuckingException;
 
 import java.util.ArrayList;
@@ -25,7 +27,7 @@ import java.util.Map;
  * 	It's a LLVM pass from https://github.com/llvm-mirror/llvm/blob/release_60/lib/Transforms/Scalar/SimplifyCFGPass.cpp
  */
 
-public class CFGSimplifier {
+public class CFGSimplifier extends Pass{
 
 	IR ir;
 
@@ -44,6 +46,7 @@ public class CFGSimplifier {
 				changedThisTime |= removeDeadBasicBlockInPhi(func);
 				changedThisTime |= mergeBasicBlock(func);
 				changedThisTime |= replaceTimeConsumingOp(func);
+				changedThisTime |= removeRedundantFunctionCallCombination(func);
 				if(!ir.getSSAForm()) {
 					changedThisTime |= removeSingleJumpBasicBlock(func);
 					changedThisTime |= removeRedundantMove(func);
@@ -159,6 +162,41 @@ public class CFGSimplifier {
 				if (ins instanceof Move && ((Move) ins).getSrc() == ins.getDefRegister()) {
 					ins.removeFromList();
 					changed = true;
+				}
+			}
+		}
+		return changed;
+	}
+
+	public boolean removeRedundantFunctionCallCombination(Function func){
+		computeDefUseChain(func);
+		boolean changed = false;
+		for(var BB : func.getPreOrderBBList()){
+			IRIns nextIns;
+			for(var callIns = BB.getHeadIns(); callIns != null; callIns = nextIns) {
+				nextIns = callIns.getNextIns();
+				if (callIns instanceof Call && ((Call) callIns).getFunction() == IRAssistant.builtinToString) {
+					Register dst = (Register) ((Call) callIns).getDst();
+					if(dst.uses.size() == 1){
+						var useIns = dst.uses.iterator().next();
+						if(useIns instanceof Call){
+							if(((Call) useIns).getFunction() == IRAssistant.builtinPrintln){
+
+								changed = true;
+								callIns.removeFromList();
+								((Call) useIns).setFunction(IRAssistant.builtinPrintlnInt);
+								useIns.replaceUseOpr(dst, ((Call) callIns).getParaList().iterator().next());
+
+							} else if(((Call) useIns).getFunction() == IRAssistant.builtinPrint){
+
+								changed = true;
+								callIns.removeFromList();
+								((Call) useIns).setFunction(IRAssistant.builtinPrintInt);
+								useIns.replaceUseOpr(dst, ((Call) callIns).getParaList().iterator().next());
+
+							}
+						}
+					}
 				}
 			}
 		}
