@@ -44,7 +44,7 @@ public class Assembly {
 	public AsmFunction mallocAsmFunc = new AsmFunction("malloc", true);
 
 	// global variables & string
-	public List<VirtualRegister> globalVarList = new ArrayList<>(); // todo : global var init can be done in pre-processing
+	public List<VirtualRegister> globalVarList = new ArrayList<>(); // todo : global var init can be implemented in pre-processing
 	public List<StaticStrConst> stringList = new ArrayList<>();
 
 

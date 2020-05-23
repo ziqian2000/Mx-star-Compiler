@@ -452,19 +452,23 @@ public class RegisterAllocator extends AsmPass{
 				nextIns = ins.getNextIns();
 
 				// spill use
+				Register lastUseReg = null;  // eliminate duplicates
 				for(var useReg : ins.getUseRegister()){
-					if(useReg.spillAddr != null){
-						// todo : peephole optimization if def == useReg
-						// todo : change MOVE to LOAD in some case
+					if(useReg.spillAddr != null && useReg != lastUseReg){
+						lastUseReg = useReg;
 						assert !(useReg instanceof PhysicalRegister);
 						var tmp = new I32Value("spillUse_" + useReg.getIdentifier());
 						tmp.addForSpill = true;
 						ins.prependIns(new AsmLoad(useReg.spillAddr, tmp, Config.SIZE));
 						ins.replaceUseRegister(useReg, tmp);
+						if(ins.getDefRegister() == useReg) {
+							ins.appendIns(new AsmStore(useReg.spillAddr, tmp, null, Config.SIZE));
+							ins.replaceDefRegister(tmp);
+						}
 					}
 				}
 				// spill def
-				if(ins.getDefRegister() != null && ins.getDefRegister().spillAddr != null){
+				if(ins.getDefRegister() != null && ins.getDefRegister().spillAddr != null && !ins.getUseRegister().contains(ins.getDefRegister())){
 					var defReg = ins.getDefRegister();
 					assert !(defReg instanceof PhysicalRegister);
 					var tmp = new I32Value("spillDef_" + defReg.getIdentifier());
@@ -528,7 +532,7 @@ public class RegisterAllocator extends AsmPass{
 		// compute
 		for(var BB : func.getPreOrderBBList()){
 			int naturalLoopCount = belongingLoopHeaders.get(BB).size();
-			int contribution = (int) Math.pow(10, naturalLoopCount);
+			int contribution = (int) Math.pow(9, naturalLoopCount);
 			for(var ins = BB.getHeadIns(); ins != null; ins = ins.getNextIns()){
 				ins.getUseRegister().forEach(reg -> reg.spillPriority += contribution);
 				if(ins.getDefRegister() != null)

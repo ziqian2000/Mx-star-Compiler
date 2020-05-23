@@ -136,7 +136,6 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 					|| (instr.getLhs() instanceof Immediate && (instr.getOp() == Binary.Op.SHL || instr.getOp() == Binary.Op.SHR))
 					|| (instr.getLhs() instanceof Immediate && !checkBound((Immediate) instr.getLhs()))
 					|| (instr.getRhs() instanceof Immediate && !checkBound((Immediate) instr.getRhs())));
-			// todo : SUB can be optimized in IR generation by replacing it by ADD ....
 			if(RType){
 				Register rs1 = immAndStr2Reg(instr.getLhs());
 				Register rs2 = immAndStr2Reg(instr.getRhs());
@@ -166,11 +165,11 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 					case GE: I32Value tmpGE = new I32Value("tmpOfGE");
 						assert false;
 						break;
-					case EQ: I32Value tmpEQ = new I32Value("tmpOfEQ"); // todo: may be optimized
+					case EQ: I32Value tmpEQ = new I32Value("tmpOfEQ"); // todo: optimize
 						curBB.appendInst(new AsmRTypeIns(rs1, rs2, tmpEQ, AsmRTypeIns.Op.SUB));
 						curBB.appendInst(new AsmITypeIns(tmpEQ, new Immediate(1), rd, AsmITypeIns.Op.SLTIU));
 						break;
-					case NEQ: I32Value tmpNEQ = new I32Value("tmpOfNEQ"); // todo: may be optimized
+					case NEQ: I32Value tmpNEQ = new I32Value("tmpOfNEQ"); // todo: optimize
 						curBB.appendInst(new AsmRTypeIns(rs1, rs2, tmpNEQ, AsmRTypeIns.Op.SUB));
 						curBB.appendInst(new AsmRTypeIns(r("zero"), tmpNEQ, rd, AsmRTypeIns.Op.SLTU));
 						break;
@@ -220,11 +219,11 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 					case GE: I32Value tmpGE = new I32Value("tmpOfGE");
 						assert false;
 						break;
-					case EQ: I32Value tmpEQ = new I32Value("tmpOfEQ"); // todo: may be optimized
+					case EQ: I32Value tmpEQ = new I32Value("tmpOfEQ"); // todo: optimize
 						curBB.appendInst(new AsmRTypeIns(rs1, immAndStr2Reg(imm), tmpEQ, AsmRTypeIns.Op.SUB));
 						curBB.appendInst(new AsmITypeIns(tmpEQ, new Immediate(1), rd, AsmITypeIns.Op.SLTIU));
 						break;
-					case NEQ: I32Value tmpNEQ = new I32Value("tmpOfNEQ"); // todo: may be optimized
+					case NEQ: I32Value tmpNEQ = new I32Value("tmpOfNEQ"); // todo: optimize
 						curBB.appendInst(new AsmRTypeIns(rs1, immAndStr2Reg(imm), tmpNEQ, AsmRTypeIns.Op.SUB));
 						curBB.appendInst(new AsmRTypeIns(r("zero"), tmpNEQ, rd, AsmRTypeIns.Op.SLTU));
 						break;
@@ -275,7 +274,7 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 	public void visit(Branch instr){
 		// todo: merge cmp into branch
 		curBB.appendInst(new AsmBranch(immAndStr2Reg(instr.getCond()), r("zero"), AsmBranch.Op.BNE, BB2AsmBB.get(instr.getThenBB())));
-		curBB.appendInst(new AsmJump(BB2AsmBB.get(instr.getElseBB()))); // todo : this jump can be eliminated
+		curBB.appendInst(new AsmJump(BB2AsmBB.get(instr.getElseBB()))); // this jump has been eliminated in some cases
 	}
 
 	public void visit(Jump instr){
@@ -413,8 +412,6 @@ public class InstructionSelector extends AsmPass implements IRVisitor {
 
 					}
 				}
-
-				// todo : else if branch
 
 			}
 		}

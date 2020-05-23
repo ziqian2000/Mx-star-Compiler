@@ -13,8 +13,6 @@ import Compiler.IRVisitor.IRVisitor;
 
 import java.util.*;
 
-// todo : const string propagation
-
 public class SparseConditionalConstantPropagation extends Pass implements IRVisitor {
 
 	boolean changed;
@@ -191,7 +189,7 @@ public class SparseConditionalConstantPropagation extends Pass implements IRVisi
 			BasicBlock BB = entry.getKey();
 			Operand opr = entry.getValue();
 
-			if(opr == null) continue;;
+			if(opr == null) continue;
 			if(!executableEdge.contains(new Edge(instr.getBelongBB(), BB))) continue;
 
 			State state = getState(opr);

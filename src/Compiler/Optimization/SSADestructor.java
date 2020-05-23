@@ -27,7 +27,7 @@ public class SSADestructor {
 			func.makePreOrderBBList();
 			removePhi(func);
 			func.makePreOrderBBList();
-			parallelCopySequentialization(func, false); // todo : assert no cycle if necessary
+			parallelCopySequentialization(func, false);
 //			naiveParallelCopySequentialization(func);
 		}
 		ir.setSSAForm(false);
@@ -76,9 +76,7 @@ public class SSADestructor {
 
 	private void naiveParallelCopySequentialization(Function function){
 		for(BasicBlock BB : function.getPreOrderBBList()) {
-			parallelCopyMap.get(BB).forEach(pc -> {
-					BB.getTailIns().prependIns(new Move(pc.a, pc.b));
-			});
+			parallelCopyMap.get(BB).forEach(pc -> BB.getTailIns().prependIns(new Move(pc.a, pc.b)));
 		}
 	}
 

@@ -128,7 +128,6 @@ public abstract class Pass {
 		List<BasicBlock> BBList = func.getPreOrderBBList();
 		BBList.forEach(BB -> BB.domFront.clear());
 		for(BasicBlock BB : BBList){
-			// todo : why to check predecessor >= 2?
 			for(BasicBlock predecessor : BB.getPreBBList()){
 				BasicBlock x = predecessor;
 				while(x != BB.iDom){

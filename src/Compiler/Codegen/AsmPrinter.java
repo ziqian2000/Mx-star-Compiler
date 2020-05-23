@@ -185,7 +185,7 @@ public class AsmPrinter implements AsmVisitor{
 		if(ins.getRt() == null){
 			var loc = ins.getLoc();
 			String src;
-			if(loc instanceof Register) src = ins.getOffset() + "(" +  ((Register) loc).getIdentifier() + ")"; // todo : peephole opt, add the offset here
+			if(loc instanceof Register) src = ins.getOffset() + "(" +  ((Register) loc).getIdentifier() + ")";
 			else src = loc.toString();
 
 			indPrLn(opcode + "\t" + ins.getRs().getIdentifier() + ", " + src);

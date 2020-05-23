@@ -11,9 +11,9 @@ import java.util.*;
 
 public class FunctionInlining {
 
-	final private int OVERALL_CODE_LEN_LIMIT = 5000; // huge code leads to TLE in register allocation; note that this is not precise, the actual overall len will be bigger than it
-	final private int FUNC_CODE_LEN_LIMIT = 1000; // however, this is precise
-	final private int RECURSIVELY_INLINE_DEPTH = 5;
+	final private int OVERALL_CODE_LEN_LIMIT = 4000; // huge code leads to TLE in register allocation; note that this is not precise, the actual overall len will be bigger than it
+	final private int FUNC_CODE_LEN_LIMIT = 1500; // however, this is precise
+	final private int RECURSIVELY_INLINE_DEPTH = 10;
 
 	private IR ir;
 

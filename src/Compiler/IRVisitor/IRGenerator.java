@@ -292,12 +292,12 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 				if(src instanceof I32Pointer){
 					curBB.appendInst(new Load(tmp, src));
 					I32Value tmp2 = new I32Value();
-					curBB.appendInst(new Binary(Binary.Op.SUB, tmp, new Immediate(1), tmp2));
+					curBB.appendInst(new Binary(Binary.Op.ADD, tmp, new Immediate(-1), tmp2));
 					curBB.appendInst(new Store(tmp2, src));
 				}
 				else{
 					curBB.appendInst(new Move(src, tmp));
-					curBB.appendInst(new Binary(Binary.Op.SUB, src, new Immediate(1), src));
+					curBB.appendInst(new Binary(Binary.Op.ADD, src, new Immediate(-1), src));
 				}
 				break;
 			}
@@ -319,11 +319,11 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 				if(src instanceof I32Pointer){
 					I32Value tmp = new I32Value();
 					curBB.appendInst(new Load(tmp, src));
-					curBB.appendInst(new Binary(Binary.Op.SUB, tmp, new Immediate(1), tmp));
+					curBB.appendInst(new Binary(Binary.Op.ADD, tmp, new Immediate(-1), tmp));
 					curBB.appendInst(new Store(tmp, src));
 				}
 				else{
-					curBB.appendInst(new Binary(Binary.Op.SUB, src, new Immediate(1), src));
+					curBB.appendInst(new Binary(Binary.Op.ADD, src, new Immediate(-1), src));
 				}
 				break;
 			}
@@ -379,7 +379,10 @@ public class IRGenerator extends ASTBaseVisitor implements ASTVisitor {
 
 				Operand dst = new I32Value();
 				node.setResultOpr(dst);
-				curBB.appendInst(new Binary(Binary.Op.valueOf(String.valueOf(node.getOp())), lhsVar, rhsVar, dst));
+				if(node.getOp() == BinaryExprNode.Op.SUB && rhsVar instanceof Immediate)
+					curBB.appendInst(new Binary(Binary.Op.ADD, lhsVar, new Immediate(-((Immediate) rhsVar).getValue()), dst));
+				else
+					curBB.appendInst(new Binary(Binary.Op.valueOf(String.valueOf(node.getOp())), lhsVar, rhsVar, dst));
 				break;
 			}
 

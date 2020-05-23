@@ -90,14 +90,13 @@ public class Main {
                 changed = false;
                 //noinspection ConstantConditions
                 changed |= new CommonSubexpressionElimination(ir).run();
-                changed |= new DeadCodeElimination(ir).run();
-                changed |= new SparseConditionalConstantPropagation(ir).run();
                 changed |= new LoopOptimization(ir).run();
+                changed |= new SparseConditionalConstantPropagation(ir).run();
+                changed |= new DeadCodeElimination(ir).run();
                 changed |= new CFGSimplifier(ir).run();
             }
 
-
-            new SSADestructor(ir).run();                            // seems to have problems for strange IR, but amazingly passes all tests...
+            new SSADestructor(ir).run();
             new CFGSimplifier(ir).run();                            // need to eliminate useless variable like "extra" in sequentialization
 
             if(showRunningTime) System.err.println("SSA done: "+(System.currentTimeMillis() - startTime)+"ms");

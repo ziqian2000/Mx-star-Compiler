@@ -34,7 +34,7 @@ public class Phi extends IRIns {
 	public void checkPathSize(){
 		if(path.size() == 1) {
 			var v = path.values().iterator().next();
-			// todo : there can be some useless phi(e.g. t56), and maybe there is better implementation for it
+			// there may be some useless phi (e.g. in t56.mx), and probably there is a better implementation for it
 			replaceSelfWithAnotherIns(new Move(Objects.requireNonNullElseGet(v, () -> new Immediate(0)), dst));
 		}
 	}
