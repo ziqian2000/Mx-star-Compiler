@@ -11,8 +11,8 @@ import java.util.*;
 
 public class FunctionInlining {
 
-	final private int OVERALL_CODE_LEN_LIMIT = 4000; // huge code leads to TLE in register allocation; note that this is not precise, the actual overall len will be bigger than it
-	final private int FUNC_CODE_LEN_LIMIT = 1500; // however, this is precise
+	final private int OVERALL_CODE_LEN_LIMIT = 8000; // huge code leads to TLE in register allocation; note that this is not precise, the actual overall len will be bigger than it
+	final private int FUNC_CODE_LEN_LIMIT = 1200; // however, this is precise
 	final private int RECURSIVELY_INLINE_DEPTH = 10;
 
 	private IR ir;
@@ -126,7 +126,7 @@ public class FunctionInlining {
 				if(!ir.getFunctionList().contains(function)) continue; // has been removed
 
 				processChangedFunction();
-
+				Collections.reverse(funcCallInstList.get(function));
 				for(Call callInst : funcCallInstList.get(function)){
 					Function callee = callInst.getFunction();
 					if(callee.getIsBuiltin()) continue;

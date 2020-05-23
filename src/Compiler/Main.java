@@ -89,9 +89,9 @@ public class Main {
             for(boolean changed = true; changed; ) {
                 changed = false;
                 //noinspection ConstantConditions
-                changed |= new CommonSubexpressionElimination(ir).run();
                 changed |= new LoopOptimization(ir).run();
                 changed |= new SparseConditionalConstantPropagation(ir).run();
+                changed |= new CommonSubexpressionElimination(ir).run();
                 changed |= new DeadCodeElimination(ir).run();
                 changed |= new CFGSimplifier(ir).run();
             }
