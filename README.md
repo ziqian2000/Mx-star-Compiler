@@ -10,21 +10,21 @@ It reads code from `code.txt`, prints IR in `ir.txt` and prints RISC-V assembly 
 
 ## 2.1 Architecture
 
-| Contents               | Descriptions                                                 |
-| ---------------------- | ------------------------------------------------------------ |
-| Parser                 | Using ANTLR 4.                                               |
-| AST                    | Nothing special.                                             |
-| IR                     | The quadruple IR.                                            |
-| Optimization           | Function Inlining.                                           |
-|                        | Load global  variables in advance and postpone store.        |
-|                        | Loop-invariant code  motion (on SSA).                        |
-|                        | Sparse conditional  constant propagation (on SSA).           |
-|                        | Common  subexpression elimination (on SSA).                  |
-|                        | Dead code  elimination (on SSA).                             |
-|                        | Control flow graph  simplification (on both SSA and non-SSA). |
-| Register Allocation    | Graph coloring.                                              |
-| Peephole  Optimization | Countless peephole optimizations.                            |
-| Assembly               | RISC-V.                                                      |
+| Contents            | Descriptions                                                 |
+| ------------------- | ------------------------------------------------------------ |
+| Parser              | Using ANTLR 4.                                               |
+| AST                 | Nothing special.                                             |
+| IR                  | The quadruple IR.                                            |
+| Optimization        | Function Inlining.                                           |
+|                     | Load global  variables in advance and postpone store.        |
+|                     | Loop-invariant code  motion (on SSA).                        |
+|                     | Sparse conditional  constant propagation (on SSA).           |
+|                     | Common  subexpression elimination (on SSA).                  |
+|                     | Dead code  elimination (on SSA).                             |
+|                     | Control flow graph  simplification (on both SSA and non-SSA). |
+|                     | ...... (some others)                                         |
+| Register Allocation | Graph coloring.                                                                                                         |
+| Assembly            | RISC-V.                                                      |
 
 # 3. Performance 
 
