@@ -1,4 +1,4 @@
-package Compiler.IRVisitor.Optimizations;
+package Compiler.Optimizations;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
@@ -11,9 +11,9 @@ import java.util.*;
 
 public class FunctionInlining {
 
-	final private int OVERALL_CODE_LEN_LIMIT = 8000; // this is not precise!!!
-	final private int FUNC_CODE_LEN_LIMIT = 1300; // however, this is precise
-	final private int RECURSIVELY_INLINE_DEPTH = 4;
+	final private int OVERALL_CODE_LEN_LIMIT = 8000; // huge code leads to TLE in register allocation; note that this is not precise, the actual overall len will be bigger than it
+	final private int FUNC_CODE_LEN_LIMIT = 1200; // however, this is precise
+	final private int RECURSIVELY_INLINE_DEPTH = 10;
 
 	private IR ir;
 
@@ -93,8 +93,8 @@ public class FunctionInlining {
 					if(callee.getIsBuiltin()) continue;
 
 					if(isNonRecursive(callee) && !function.getIdentifier().equals("__init")
-					&& funcLength.get(function) + funcLength.get(callee) < FUNC_CODE_LEN_LIMIT
-					&& funcLength.get(callee) + approxOverallCodeLen < OVERALL_CODE_LEN_LIMIT) {
+							&& funcLength.get(function) + funcLength.get(callee) < FUNC_CODE_LEN_LIMIT
+							&& funcLength.get(callee) + approxOverallCodeLen < OVERALL_CODE_LEN_LIMIT) {
 
 						funcLength.put(function, funcLength.get(function) + funcLength.get(callee));
 						approxOverallCodeLen += funcLength.get(callee);
@@ -132,9 +132,8 @@ public class FunctionInlining {
 					if(callee.getIsBuiltin()) continue;
 
 					if(!function.getIdentifier().equals("__init")
-					&& funcLength.get(function) + funcLength.get(callee) < FUNC_CODE_LEN_LIMIT
-					&& funcLength.get(callee) + approxOverallCodeLen < OVERALL_CODE_LEN_LIMIT
-					&& (function.getIdentifier().equals(callee.getIdentifier()))) {
+							&& funcLength.get(function) + funcLength.get(callee) < FUNC_CODE_LEN_LIMIT
+							&& funcLength.get(callee) + approxOverallCodeLen < OVERALL_CODE_LEN_LIMIT) {
 
 						assert isRecursive(callee);
 

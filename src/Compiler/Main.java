@@ -5,7 +5,7 @@ import Compiler.Assembly.Assembly;
 import Compiler.Codegen.*;
 import Compiler.IR.IR;
 import Compiler.IRVisitor.*;
-import Compiler.IRVisitor.Optimizations.*;
+import Compiler.Optimizations.*;
 import Compiler.Parser.MxstarErrorListener;
 import Compiler.Parser.MxstarLexer;
 import Compiler.Parser.MxstarParser;
