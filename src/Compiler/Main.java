@@ -5,7 +5,7 @@ import Compiler.Assembly.Assembly;
 import Compiler.Codegen.*;
 import Compiler.IR.IR;
 import Compiler.IRVisitor.*;
-import Compiler.Optimization.*;
+import Compiler.IRVisitor.Optimizations.*;
 import Compiler.Parser.MxstarErrorListener;
 import Compiler.Parser.MxstarLexer;
 import Compiler.Parser.MxstarParser;
@@ -89,11 +89,14 @@ public class Main {
             for(boolean changed = true; changed; ) {
                 changed = false;
                 //noinspection ConstantConditions
-                changed |= new LoopOptimization(ir).run();
-                changed |= new SparseConditionalConstantPropagation(ir).run();
-                changed |= new CommonSubexpressionElimination(ir).run();
                 changed |= new DeadCodeElimination(ir).run();
-                changed |= new CFGSimplifier(ir).run();
+                    changed |= new CFGSimplifier(ir).run();
+                changed |= new LoopOptimization(ir).run();
+                    changed |= new CFGSimplifier(ir).run();
+                changed |= new SparseConditionalConstantPropagation(ir).run();
+                    changed |= new CFGSimplifier(ir).run();
+                changed |= new CommonSubexpressionElimination(ir).run();
+                    changed |= new CFGSimplifier(ir).run();
             }
 
             new SSADestructor(ir).run();
@@ -101,7 +104,7 @@ public class Main {
 
             if(showRunningTime) System.err.println("SSA done: "+(System.currentTimeMillis() - startTime)+"ms");
 
-			new IRPrinter().run(ir, new PrintStream("ir.txt"));
+//            new IRPrinter().run(ir, new PrintStream("ir.txt"));
 //            IRInterpreter.main("ir.txt", System.out, new FileInputStream("test.in"), false);
 
             if(showRunningTime) System.err.println("IR done: "+(System.currentTimeMillis() - startTime)+"ms");

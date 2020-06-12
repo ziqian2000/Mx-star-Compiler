@@ -29,9 +29,9 @@ public class RegisterAllocator extends AsmPass{
 	private Set<Register> coloredNodes = new LinkedHashSet<>();
 	private Stack<Register> selectStack = new Stack<>();
 
-	private Set<AsmMove> coalescedMoves = new LinkedHashSet<>();
-	private Set<AsmMove> constrainedMoves = new LinkedHashSet<>();
-	private Set<AsmMove> frozenMoves = new LinkedHashSet<>();
+//	private Set<AsmMove> coalescedMoves = new LinkedHashSet<>();
+//	private Set<AsmMove> constrainedMoves = new LinkedHashSet<>();
+//	private Set<AsmMove> frozenMoves = new LinkedHashSet<>();
 	private Set<AsmMove> worklistMoves = new LinkedHashSet<>();
 	private Set<AsmMove> activeMoves = new LinkedHashSet<>();
 
@@ -78,9 +78,9 @@ public class RegisterAllocator extends AsmPass{
 		coloredNodes.clear();
 		selectStack.clear();
 
-		coalescedMoves.clear();
-		constrainedMoves.clear();
-		frozenMoves.clear();
+//		coalescedMoves.clear();
+//		constrainedMoves.clear();
+//		frozenMoves.clear();
 		worklistMoves.clear();
 		activeMoves.clear();
 
@@ -209,7 +209,7 @@ public class RegisterAllocator extends AsmPass{
 			if(reg.degree >= K) spillWorklist.add(reg);
 			else if(moveRelated(reg)) freezeWorklist.add(reg);
 			else{
-				assert !(reg instanceof PhysicalRegister);
+				// assert !(reg instanceof PhysicalRegister);
 				simplifyWorklist.add(reg);
 			}
 		}
@@ -237,7 +237,7 @@ public class RegisterAllocator extends AsmPass{
 
 	private void simplify(){
 		Register reg = simplifyWorklist.iterator().next();
-		assert !(reg instanceof PhysicalRegister);
+		// assert !(reg instanceof PhysicalRegister);
 		simplifyWorklist.remove(reg);
 		selectStack.push(reg);
 		for(var nei : adjacent(reg)) decrementDegree(nei);
@@ -254,7 +254,7 @@ public class RegisterAllocator extends AsmPass{
 			spillWorklist.remove(reg);
 			if(moveRelated(reg)) freezeWorklist.add(reg);
 			else {
-				assert !(reg instanceof PhysicalRegister);
+				// assert !(reg instanceof PhysicalRegister);
 				simplifyWorklist.add(reg);
 			}
 		}
@@ -274,7 +274,7 @@ public class RegisterAllocator extends AsmPass{
 	private void addWorklist(Register reg){
 		if(!preColored.contains(reg) && !moveRelated(reg) && reg.degree < K){
 			freezeWorklist.remove(reg);
-			assert !(reg instanceof PhysicalRegister);
+			// assert !(reg instanceof PhysicalRegister);
 			simplifyWorklist.add(reg);
 		}
 	}
@@ -298,12 +298,12 @@ public class RegisterAllocator extends AsmPass{
 		else {u = x; v = y;}
 		worklistMoves.remove(moveIns);
 		if(u == v){
-			coalescedMoves.add(moveIns);
+//			coalescedMoves.add(moveIns);
 			addWorklist(u);
 		}
 		else if(preColored.contains(v) || adjSet.contains(new Edge(u, v))
 				|| u == r("zero")){ // otherwise ZERO will be assigned some non-zero value
-			constrainedMoves.add(moveIns);
+//			constrainedMoves.add(moveIns);
 			addWorklist(u);
 			addWorklist(v);
 		}
@@ -320,7 +320,7 @@ public class RegisterAllocator extends AsmPass{
 			}
 
 			if(cond){
-				coalescedMoves.add(moveIns);
+//				coalescedMoves.add(moveIns);
 				combine(u, v);
 				addWorklist(u);
 			}
@@ -356,7 +356,7 @@ public class RegisterAllocator extends AsmPass{
 	private void freeze(){
 		var reg = freezeWorklist.iterator().next();
 		freezeWorklist.remove(reg);
-		assert !(reg instanceof PhysicalRegister);
+		// assert !(reg instanceof PhysicalRegister);
 		simplifyWorklist.add(reg);
 		freezeMoves(reg);
 	}
@@ -369,9 +369,9 @@ public class RegisterAllocator extends AsmPass{
 			}
 			else v = getAlias(moveIns.getRs1());
 			activeMoves.remove(moveIns);
-			frozenMoves.add(moveIns);
+//			frozenMoves.add(moveIns);
 			if(freezeWorklist.contains(v) && nodeMoves(v).isEmpty()){
-				assert !(v instanceof PhysicalRegister);
+				// assert !(v instanceof PhysicalRegister);
 				freezeWorklist.remove(v);
 				simplifyWorklist.add(v);
 			}
@@ -388,7 +388,7 @@ public class RegisterAllocator extends AsmPass{
 				reg = (VirtualRegister) r;
 		}
 
-		assert reg != null;
+		// assert reg != null;
 		spillWorklist.remove(reg);
 		simplifyWorklist.add(reg);
 		freezeMoves(reg);
@@ -397,7 +397,7 @@ public class RegisterAllocator extends AsmPass{
 	private void assignColors(){
 		while(!selectStack.isEmpty()){
 			var reg = selectStack.pop();
-			assert !(reg instanceof PhysicalRegister);
+			// assert !(reg instanceof PhysicalRegister);
 
 			Set<String> okColors = new LinkedHashSet<>(Arrays.asList(asm.getAllocatableRegName()));
 
@@ -429,13 +429,13 @@ public class RegisterAllocator extends AsmPass{
 						}
 				}
 
-				assert c != null;
+				// assert c != null;
 				reg.color = c;
 			}
 		}
 		for (Register reg : coalescedNodes) {
-			assert !(reg instanceof PhysicalRegister);
-			assert getAlias(reg).color != null;
+			// assert !(reg instanceof PhysicalRegister);
+			// assert getAlias(reg).color != null;
 			reg.color = getAlias(reg).color;
 		}
 	}
@@ -456,7 +456,7 @@ public class RegisterAllocator extends AsmPass{
 				for(var useReg : ins.getUseRegister()){
 					if(useReg.spillAddr != null && useReg != lastUseReg){
 						lastUseReg = useReg;
-						assert !(useReg instanceof PhysicalRegister);
+						// assert !(useReg instanceof PhysicalRegister);
 						var tmp = new I32Value("spillUse_" + useReg.getIdentifier());
 						tmp.addForSpill = true;
 						ins.prependIns(new AsmLoad(useReg.spillAddr, tmp, Config.SIZE));
@@ -470,7 +470,7 @@ public class RegisterAllocator extends AsmPass{
 				// spill def
 				if(ins.getDefRegister() != null && ins.getDefRegister().spillAddr != null && !ins.getUseRegister().contains(ins.getDefRegister())){
 					var defReg = ins.getDefRegister();
-					assert !(defReg instanceof PhysicalRegister);
+					// assert !(defReg instanceof PhysicalRegister);
 					var tmp = new I32Value("spillDef_" + defReg.getIdentifier());
 					tmp.addForSpill = true;
 					ins.replaceDefRegister(tmp);
@@ -502,7 +502,7 @@ public class RegisterAllocator extends AsmPass{
 
 				for(var useReg : ins.getUseRegister()){
 					if(!(useReg instanceof PhysicalRegister) && useReg.color != null){
-						assert !useReg.getIdentifier().equals("ra");
+						// assert !useReg.getIdentifier().equals("ra");
 						var tmp = asm.getPhyReg(useReg.color);
 						ins.replaceUseRegister(useReg, tmp);
 					}
@@ -510,7 +510,7 @@ public class RegisterAllocator extends AsmPass{
 
 				var defReg = ins.getDefRegister();
 				if(defReg != null && !(defReg instanceof PhysicalRegister) && defReg.color != null){
-					assert !defReg.getIdentifier().equals("ra");
+					// assert !defReg.getIdentifier().equals("ra");
 					var tmp = asm.getPhyReg(defReg.color);
 					ins.replaceDefRegister(tmp);
 				}

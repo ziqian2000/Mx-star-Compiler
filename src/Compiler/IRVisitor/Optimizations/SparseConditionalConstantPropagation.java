@@ -1,4 +1,4 @@
-package Compiler.Optimization;
+package Compiler.IRVisitor.Optimizations;
 
 import Compiler.IR.BasicBlock;
 import Compiler.IR.Function;
